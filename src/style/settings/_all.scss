@@ -1,0 +1,18 @@
+// ==========================================================================
+// SETTINGS
+// ==========================================================================
+
+//
+// CONTENTS
+//
+// Config...............Configuration and environment settings.
+// Globals..............Globally available settings for the entire project.
+// Colors...............Brand colours are centrally managed for later use.
+// Typography...........Define our typographical settings in one place.
+// Grid Settings........Hold sitewide breakpoint values.
+
+@import "config";
+@import "globals";
+@import "colors";
+@import "typography";
+@import "grid-settings";

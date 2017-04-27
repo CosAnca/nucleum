@@ -1,0 +1,25 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    meta(http-equiv="X-UA-Compatible" content="IE=edge")
+    title= siteTitle
+    meta(name="description" content=siteDescription)
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    // Favicons
+    //- include ../includes/head/_favicons
+    // Stylesheet links
+    block styles
+      link(rel="stylesheet" href="style/style.css")
+  body
+    //- To use your defined Jade mixins include the mixins file below
+    include ../mixins/_mixins
+    //- This is where you include your header
+    include _header
+    //- This is where your block content starts
+    block content
+    //- This is where you include your footer
+    include _footer
+  //- This is where you include your scripts
+  block scripts
+    include ../includes/scripts/_scripts

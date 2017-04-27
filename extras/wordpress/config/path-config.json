@@ -1,0 +1,34 @@
+{
+  "src": "./src",
+  "dest": "./public/wp-content/themes/my-theme/assets",
+
+  "static": {
+    "src": "static",
+    "dest": "../"
+  },
+
+  "javascripts": {
+    "src": "js",
+    "dest": "js"
+  },
+
+  "stylesheets": {
+    "src": "style",
+    "dest": "style"
+  },
+
+  "images": {
+    "src": "img",
+    "dest": "img"
+  },
+
+  "fonts": {
+    "src": "fonts",
+    "dest": "fonts"
+  },
+
+  "icons": {
+    "src": "icons",
+    "dest": "img"
+  }
+}

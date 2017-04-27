@@ -1,0 +1,64 @@
+// ==========================================================================
+// UTILITIES / WIDTHS
+// ==========================================================================
+
+// This fairly complex looking code will generate our entire project’s grid
+// system classes in one go. You shouldn’t need to know the full ins-and-outs of
+// what is going on below; all you really need to know is that we end up with a
+// suite of classes like:
+//
+// .u-width-2-col@medium  -- Spans the item across 2 columns on medium viewports
+// .u-width-3-col@large   -- Spans the item across 3 columns on large viewports
+// .u-push-3-col@medium   -- Push an item over to the right by 3 columns
+// .u-pull-2-col@large    -- Pull an item back to the left by 2 columns
+
+// This defines the separator for the breakpoints suffix in the class name.
+// By default, we are generating the responsive suffixes for the classes
+// with a `@` symbol so you get classes like:
+// <div class="u-width-3-col@medium">
+$breakpoint-separator: \@ !default;
+
+// Loop through all breakpoints to get their values.
+@each $breakpoint, $value in $breakpoints {
+
+  // First we transform our pixels based breakpoint values to em based ones.
+  // This helps us to achieve better and consistent behaviour across different
+  // browsers. Read more at the link below:
+  // https://zellwk.com/blog/media-query-units/
+  $value-in-em: px2em($value);
+
+  // Create a new object to hold the media breakpoint value necessary for Neat's
+  // grid-media mixin.
+  $grid-media-breakpoint: (
+    media: $value-in-em,
+  );
+
+  // Get the total number of columns defined on our $base-grid object in
+  // grid-settings file.
+  $grid-columns: map-get($neat-grid, columns);
+
+  // Loop through the number of columns in our grid
+  @for $i from 1 through $grid-columns {
+
+    // Build a class in the format `.u-width-3-col[@<breakpoint>]`.
+    .u-width-#{$i}-col#{$breakpoint-separator}#{$breakpoint} {
+      @include grid-media($grid-media-breakpoint) {
+        @include grid-column-width($i);
+      }
+    }
+
+    // Build a class in the format `.u-push-3-col[@<breakpoint>]`.
+    .u-push-#{$i}-col#{$breakpoint-separator}#{$breakpoint} {
+      @include grid-media($grid-media-breakpoint) {
+        @include grid-push($i);
+      }
+    }
+
+    // Build a class in the format `.u-pull-3-col[@<breakpoint>]`.
+    .u-pull-#{$i}-col#{$breakpoint-separator}#{$breakpoint} {
+      @include grid-media($grid-media-breakpoint) {
+        @include grid-push(-$i);
+      }
+    }
+  }
+}

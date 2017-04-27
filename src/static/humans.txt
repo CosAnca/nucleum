@@ -1,0 +1,15 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+# TEAM
+
+  Name -- Position -- Twitter handle
+
+# THANKS
+
+  Name
+
+# TECHNOLOGY COLOPHON
+
+  HTML, CSS, JAVASCRIPT
+  NGINX Server

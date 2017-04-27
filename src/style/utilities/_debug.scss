@@ -1,0 +1,35 @@
+// ==========================================================================
+// UTILITIES / DEBUG
+// ==========================================================================
+
+// Layout debugging
+// ===========================================
+
+@if (config(debug) == true) {
+
+  $debug-color: #f00;
+
+  // Warn when trying to manipulate layout items in grids that are
+  // already reversed.
+
+  .o-layout--reverse {
+
+    > [class*="u-push"],
+    > [class*="u-pull"] {
+      outline: 10px solid $debug-color;
+    }
+
+  }
+
+  // Warn when trying to use layout items outside of a layout context.
+
+  .o-layout__item {
+    outline: 10px solid $debug-color;
+
+    .o-layout > & {
+      outline: none;
+    }
+
+  }
+
+}

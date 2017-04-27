@@ -1,0 +1,54 @@
+// ==========================================================================
+// OBJECTS / MEDIA
+// ==========================================================================
+
+// The Media Object is the poster-child of the OOCSS methodology. It simply
+// places any image-like content next to any text-like content.
+//
+// For further and philosophical reading about OOCSS in general, please see:
+// http://www.stubbornella.org/content/2010/06/25/the-media-object-saves-hundreds-of-lines-of-code/
+
+.o-media {
+  @include clearfix;
+}
+
+.o-media__body {
+  overflow: hidden;
+}
+
+.o-media__img {
+  margin-right: $global-spacing;
+  float: left;
+
+  // Small Media Objects simply have smaller gaps between the image and the body.
+
+  .o-media--small > & {
+    margin-right: $global-spacing-small;
+  }
+
+  // …and larger ones are, well, larger.
+
+  .o-media--large > & {
+    margin-right: $global-spacing * 2;
+  }
+
+  // We can quite easily swap the image and body around by adding the
+  // `--reverse` Modifier to the Block.
+
+  .o-media--reverse > & {
+    margin-right: 0;
+    margin-left: $global-spacing;
+    float: right;
+  }
+
+  // …then we can have small or large versions of that.
+
+  .o-media--small.o-media--reverse > & {
+    margin-left: $global-spacing-small;
+  }
+
+  .o-media--large.o-media--reverse > & {
+    margin-left: $global-spacing * 2;
+  }
+
+}

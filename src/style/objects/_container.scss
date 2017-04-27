@@ -1,0 +1,11 @@
+// ==========================================================================
+// OBJECTS / CONTAINER
+// ==========================================================================
+
+// Sets our container max-width to match content allowing for padding.
+$container-width: 960px;
+
+.o-container {
+  @include margin(null auto);
+  max-width: $container-width;
+}

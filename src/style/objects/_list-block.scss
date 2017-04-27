@@ -1,0 +1,16 @@
+// ==========================================================================
+// OBJECTS / LIST-BLOCK
+// ==========================================================================
+
+// The list-block object displays any list of items into stacked blocks.
+
+// sass-lint:disable no-css-comments
+
+/* [ul|ol] */.o-list-block {
+  margin-left: 0;
+  list-style: none;
+}
+
+/* li */.o-list-block__item {
+  display: block;
+}

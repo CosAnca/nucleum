@@ -1,0 +1,64 @@
+// =============================================================================
+// TOOLS / FUNCTIONS
+// =============================================================================
+
+// $text map reader
+// ===========================================
+
+// sass-lint:disable no-warn
+
+// Function to get text instead of using `map-get`.
+@function text($key, $variant: large) {
+  @if map-has-key($text, $key) {
+    @if ($variant != null) {
+      @return map-get(map-get($text, $key), $variant);
+    }
+
+    @return map-get($text, $key);
+  }
+
+  @warn "Unknown `#{$key}` in $text.";
+  @return null;
+}
+
+// $colors map reader
+// ===========================================
+
+// Function to get colour values instead of using nested `map-gets`.
+//
+// Usage:
+//
+//   .foo {
+//     color: color(<key>);
+//   }
+//
+@function color($key) {
+  @if map-has-key($colors, $key) {
+    @return map-get($colors, $key);
+  }
+
+  @warn "Unknown `#{$key}` in $colors.";
+  @return null;
+}
+
+// Convert pixels to ems
+// ===========================================
+// @param {Number} $px - value to convert
+// @param {Number} $base-font-size ($global-font-size) - `<body>` font size
+//
+// @example scss
+//  $font-size-in-ems: px2em(16px);
+//  p { font-size: px2em(16px); }
+//
+// @requires $base-font-size
+// @returns {Number}
+//
+@function px2em($px, $base-font-size: $global-font-size) {
+  @if unitless($px) {
+    @warn "Assuming #{$px} to be in pixels, attempting to convert it into pixels.";
+    @return px2em($px * 1px, $base-font-size);
+  } @else if unit($px) == em {
+    @return $px;
+  }
+  @return ($px / $base-font-size) * 1em;
+}

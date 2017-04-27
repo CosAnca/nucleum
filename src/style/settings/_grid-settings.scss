@@ -1,0 +1,38 @@
+// =============================================================================
+// SETTINGS / GRID SETTINGS
+// =============================================================================
+
+// Grid debugging settings
+// =======================
+// Use the visual grid mixin to debug the layout.
+// ****************************************************** //
+// IMPORTANT! Make sure you comment out or set
+// $visual-grid to false before compiling for production.
+// ****************************************************** //
+$visual-grid: false;
+$visual-grid-color: #00d4ff;
+$visual-grid-opacity: 0.25;
+
+// If you'd like to debug the baseline as well, just set
+// the following variable to true.
+// Baseline is calculated based on your $global-font-size
+// and your $global-line-height settings.
+$visual-baseline: false;
+
+// Grid global settings
+// ====================
+// We define our grid settings by overwriting Neat's built in grid object.
+// By default our grid will have 12 columns and 0.75rem (12px) gutters width across
+// all breakpoints. Find more about Neat grid here:
+// http://neat.bourbon.io/docs/latest/#neat-grids
+$neat-grid: (
+  columns: 12,
+  gutter: $global-spacing-small,
+);
+
+// We define our breakpoints in the object below.
+$breakpoints: (
+  medium: 740px,
+  large: 980px,
+  x-large: 1300px,
+) !default;

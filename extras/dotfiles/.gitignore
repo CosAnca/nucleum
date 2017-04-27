@@ -1,0 +1,40 @@
+# WordPress
+public/cache/
+public/ai-cache/
+public/files/
+public/readme.html
+public/license.txt
+public/wp-content/cache/
+public/wp-content/backups/
+public/wp-content/uploads/
+public/wp-content/upgrade/
+public/wp-content/backup-db/
+public/wp-content/blogs.dir/
+public/wp-content/themes/twenty*
+public/wp-content/debug.log
+public/wp-content/plugins/hello.php
+
+# WP-CLI
+db-sync
+sql-dump-*.sql
+
+# Node Package Manager
+node_modules
+npm-debug.log
+
+# Vagrant
+bin
+.vagrant
+
+# Sass
+.sass-cache
+
+# Sourcemaps
+*.map
+
+# System
+Desktop.ini
+.DS_Store
+.idea
+.publish
+.vscode

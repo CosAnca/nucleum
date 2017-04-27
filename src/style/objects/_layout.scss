@@ -1,0 +1,57 @@
+// ==========================================================================
+// OBJECTS / LAYOUT
+// ==========================================================================
+
+// The Layout object provides us with a column-style layout system. This file
+// contains the basic structural elements, but classes should be complemented
+// with width Utilities, for example:
+//
+// <div class="o-layout">
+//   <div class="o-layout__item  u-width-2-col">...</div>
+//   <div class="o-layout__item  u-width-2-col">...</div>
+// </div>
+
+// Layout object creates a grid container with clearfix using Neat grid-container mixin
+//
+// @include grid-container;
+//
+// Output
+// .element::after {
+//    clear: both;
+//    content: "";
+//    display: block;
+// }
+
+.o-layout {
+  @include grid-container;
+}
+
+// For full width or nested layouts, we have to create a collapsed grid object
+// that consumes the gutters of its container. We can achieve this using Neat's
+// built in mixin @grid-collapse.
+
+.o-layout--flushed,
+.o-layout--nested {
+  @include grid-collapse;
+}
+
+// Layout item creates the basics for the grid column layout
+//
+// @include grid-column(12, $base-grid);
+//
+// Output
+// .element {
+//    width: calc(100% - 1.5rem);
+//    float: left;
+//    margin-left: 0.75rem;
+// }
+
+.o-layout__item {
+  @include grid-column(12);
+}
+
+// When a flexbox layout is required
+.o-layout--flex {
+  display: flex;
+  flex-wrap: wrap;
+}

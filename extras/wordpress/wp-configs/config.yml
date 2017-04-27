@@ -1,0 +1,85 @@
+# Configuration for your Wordpress installation
+#
+# Author: Cos Anca
+# Inspired by WPDistillery
+
+
+# INSTALLATION
+#################################################################
+
+# WordPress folder
+wpfolder: public
+
+# WordPress version
+wpversion: latest
+
+# language/timezone
+wplocale: en_GB
+timezone: "Europe/London"
+
+# admin user settings
+admin:
+  user: admin
+  password: admin
+  email: mail@service.com
+  first_name: ""
+  last_name: ""
+
+# database access (default to scotchbox)
+db:
+  name: scotchbox
+  user: root
+  pass: root
+  prefix: wp_
+
+# SETTINGS
+#################################################################
+
+wpsettings:
+  url: mywebsite.dev
+  title: My website
+  description: My new awesome website
+  permalink_structure: "/%postname%/"
+  thumbnail_width: 150
+  thumbnail_height: 150
+  medium_width: 300
+  medium_height: 300
+  large_width: 1024
+  large_height: 1024
+  # use page as frontpage
+  page_on_front: true
+    frontpage_name: My Website Front Page
+  # automatic conversion of smilies
+  convert_smilies: false
+
+# THEME
+#################################################################
+
+# theme settings
+theme:
+  name: Theme name
+  slug: theme-name
+  author: The MTM Agency
+  author_url: http://themtmagency.com
+
+# PLUGINS (TO INSTALL GO TO SETUP:PLUGINS AND CHANGE TO TRUE)
+#################################################################
+
+# plugins to install & activate
+plugins:
+  - advanced-custom-fields
+
+# WPDISTILLERY SETUP
+####################################################################
+# if you don't want the setup to run all tasks, set them to false
+
+setup:
+  wp: true
+  settings: true
+  theme: true
+  plugins: true
+  cleanup: true
+    comment: true
+    posts: true
+    files: true
+    themes: true
