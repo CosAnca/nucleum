@@ -2,8 +2,9 @@
 #
 # Wordpress setup provisioning file
 #
-# Author: Cos Anca
-# Inspired by WPDistillery
+# Author: Flurin Dürst
+# URL: https://wpdistillery.org
+# Modified by: Cos Anca
 
 # update WP-CLI
 echo "== Update WP CLI =="

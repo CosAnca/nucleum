@@ -20,7 +20,7 @@ One command will:
 - install/update requirements on the local webserver
 - download/install/configure WordPress
 - set WordPress options
-- scaffold/install/activate an _s theme
+- scaffold/install/activate an Underscores theme
 - install/activate the plugins you defined in the config
 - clean WordPress defaults (contents, plugins, themes, unused files)
 
@@ -32,5 +32,11 @@ If you want to automatically update WordPress and all Plugins on every vagrant u
 ### Windows Support
 Using Windows? No Problem! The provision script will detect if you're using Windows and if so, automatically convert all files using dos2unix.
 
-## Credits
-Thank you [Flurin Dürst](https://flurinduerst.ch/) for the amazing [WPDistillery](https://wpdistillery.org/) project.
+This setup is based on [WPDistillery](https://github.com/flurinduerst/WPDistillery)
+
+## Thank you to author and contributors of WPDistillery
+
+* Author: Flurin Dürst ([Website](https://flurinduerst.ch), [Mail](mailto:flurin@flurinduerst.ch), [Twitter](https://twitter.com/flurinduerst))
+* Contributors:
+  * [@ShaneShipston](https://github.com/ShaneShipston)
+  * [@drawcard](https://github.com/drawcard)

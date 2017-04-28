@@ -2,8 +2,9 @@
 #
 # Wordpress setup file
 #
-# Author: Cos Anca
-# Inspired by WPDistillery
+# Author: Flurin Dürst
+# URL: https://wpdistillery.org
+# Modified by: Cos Anca
 
 # ERROR Handler
 # ask user to continue on error
@@ -76,7 +77,7 @@ if $CONF_setup_wp ; then
   printf "${BLU}»»» downloading WordPress...${NC}\n"
   wp core download --locale=$CONF_wplocale --version=$CONF_wpversion
   printf "${BLU}»»» creating wp-config...${NC}\n"
-  wp core config --dbname=$CONF_db_name --dbuser=$CONF_db_user --dbpass=$CONF_db_pass --dbprefix=$CONF_db_prefix --locale=$CONF_wplocale
+  wp core config --dbname=$CONF_db_name --dbuser=$CONF_db_user --dbpass=$CONF_db_pass --dbprefix=$CONF_webdb_prefix --locale=$CONF_wplocale
   printf "${BLU}»»» installing wordpress...${NC}\n"
   wp core install --url=$CONF_wpsettings_url --title="$CONF_wpsettings_title" --admin_user=$CONF_admin_user --admin_password=$CONF_admin_password --admin_email=$CONF_admin_email --skip-email
   wp user update 1 --first_name=$CONF_admin_first_name --last_name=$CONF_admin_last_name
@@ -139,11 +140,23 @@ if $CONF_setup_cleanup ; then
   fi
   if $CONF_setup_cleanup_files ; then
     printf "${BLU}»»» removing WP readme/license files...${NC}\n"
-    # delete default files
+    # delete default WP files
     if [ -f readme.html ];    then rm readme.html;    fi
     if [ -f license.txt ];    then rm license.txt;    fi
-    # delete german files
-    if [ -f liesmich.html ];  then rm liesmich.html;  fi
+    # delete theme folder readme/license files
+    if [ -f wp-cotent/themes/${CONF_theme_slug}/readme.txt ]; then
+      rm wp-cotent/themes/${CONF_theme_slug}/readme.txt;
+    fi
+    if [ -f wp-cotent/themes/${CONF_theme_slug}/LICENSE ]; then
+      rm wp-cotent/themes/${CONF_theme_slug}/LICENSE;
+    fi
+    # delete theme folder dot files
+    if [ -f wp-cotent/themes/${CONF_theme_slug}/.jscsrc ]; then
+      rm wp-cotent/themes/${CONF_theme_slug}/.jscsrc;
+    fi
+    if [ -f wp-cotent/themes/${CONF_theme_slug}/.jshintignore ]; then
+      rm wp-cotent/themes/${CONF_theme_slug}/.jshintignore;
+    fi
   fi
   if $CONF_setup_cleanup_themes ; then
     printf "${BLU}»»» removing default themes...${NC}\n"
@@ -170,6 +183,16 @@ else
   printf "${BLU}>>> skipping Plugin installation...${NC}\n"
 fi
 
+# DATABASE EXPORT
+# Export ScotchBox database so we can later import it as a "LIVE" one
+printf "${BLU}»»» exporting scotchbox database...${NC}\n"
+wp db export
+
+# WP-CONFIG OVERWRITE
+# Overwrite wp-config.php file to hold the "LIVE" database details
+printf "${BLU}»»» overwriting wp-config...${NC}\n"
+wp core config --dbname=$CONF_webdb_name --dbuser=$CONF_webdb_user --dbpass=$CONF_webdb_pass --dbprefix=$CONF_webdb_prefix --locale=$CONF_wplocale --skip-check --force
+
 # MISC
 printf "${BLU}»»» checking wp cli version...${NC}\n"
 wp cli check-update
@@ -183,7 +206,6 @@ sed -i 's/my-theme/'"${CONF_theme_slug}"'/g' ../config/task-config.js
 
 printf "${BRN}========== FOSTERKIT WP SETUP FINISHED ==========${NC}\n"
 printf "${BLU}Start compiling with: ${PRL}yarn run fosterkit${NC}\n"
-printf "${BLU}Static files are compiled inside ${PRL}assets${BLU} folder.${NC}\n"
-printf "${BLU}So, make sure you update the ${PRL}functions.php${BLU} file${NC}\n"
-printf "${BLU}to serve these files from the ${PRL}assets${BLU} folder.${NC}\n"
+printf "${BLU}Modify ${PRL}functions.php${BLU} file to enque scripts${NC}\n"
+printf "${BLU}and styles from the ${PRL}/assets${BLU} folder.${NC}\n"
 printf "${BRN}================ HAPPY CODING!!! ================${NC}\n"
