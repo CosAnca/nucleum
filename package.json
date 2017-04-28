@@ -1,6 +1,6 @@
 {
   "name": "fosterkit",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A friendly gulp starter kit that integrates well into any environment",
   "license": "MIT",
   "engines": {

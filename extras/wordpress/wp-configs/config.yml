@@ -1,7 +1,8 @@
 # Configuration for your Wordpress installation
 #
-# Author: Cos Anca
-# Inspired by WPDistillery
+# Author: Flurin Dürst
+# URL: https://wpdistillery.org
+# Modified by: Cos Anca
 
 
 # INSTALLATION
@@ -25,12 +26,17 @@ admin:
   first_name: ""
   last_name: ""
 
-# database access (default to scotchbox)
+# scotch box db access
 db:
   name: scotchbox
   user: root
   pass: root
-  prefix: wp_
+
+webdb:
+  name: mydatabase
+  user: myusername
+  pass: mypassword
+  prefix: mywp_
 
 # SETTINGS
 #################################################################
@@ -40,12 +46,12 @@ wpsettings:
   title: My website
   description: My new awesome website
   permalink_structure: "/%postname%/"
-  thumbnail_width: 150
-  thumbnail_height: 150
-  medium_width: 300
-  medium_height: 300
-  large_width: 1024
-  large_height: 1024
+  thumbnail_width: 300
+  thumbnail_height: 300
+  medium_width: 600
+  medium_height: 600
+  large_width: 1280
+  large_height: 1280
   # use page as frontpage
   page_on_front: true
     frontpage_name: My Website Front Page

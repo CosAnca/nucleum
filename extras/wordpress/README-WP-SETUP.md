@@ -17,7 +17,8 @@ The configuration file is split into five sections:
 * With **`wplocale`** you can select what language to download and install WordPress. Use language Codes like `en_US` or `en_GB`.
 * Add your timezone as string to **`timezone`**. See [List of Supported Timezones](http://php.net/manual/en/timezones.php).
 * **`admin`** defines the default admin user. Set your preferred username, password and email.
-* **`db`** contains the access data to connect WordPress to the database on the Virtual Machine. By default (when using ScotchBox) no changes are needed here.
+* **`db`** contains the access data to connect WordPress to the database on the Virtual Machine. By default (when using ScotchBox) no changes are needed here. Although you can create multiple databases with ScotchBox the one that the machine connects to must have the details provided in this object.
+* **`webdb`** contains the access data to connect WordPress to the "LIVE" database.
 
 ```yaml
 # INSTALLATION
@@ -47,6 +48,12 @@ db:
   user: root
   pass: root
   prefix: wp_
+
+webdb:
+  name: mydatabase
+  user: myusername
+  pass: mypassword
+  prefix: mywp_
 ```
 
 ## Settings
