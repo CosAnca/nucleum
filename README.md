@@ -21,9 +21,9 @@ yarn add fosterkit
 yarn run fosterkit -- init-wp
 ```
 
-This will generate a Wordpress configuration folder (`wp-configs`) alongside the default src (`src`) and config (`config`) files for the front-end build.
+This will generate a Wordpress configuration file (`wp-setup.yml`) alongside the default src (`src`) and config (`config`) files for the front-end build.
 
-Follow the steps prompted by the command line to configure your Wordpress installation.
+Follow the steps prompted by the command line to set up your Wordpress installation.
 
 Read [Wordpress on Fosterkit](extras/wordpress/README-WP.md) documentation to find out more details.
 

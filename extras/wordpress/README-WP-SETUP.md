@@ -1,6 +1,6 @@
 # The configuration file in detail
 
-In this section, we will go through the `config.yml` step by step as I will explain the options available.
+In this section, we will go through the `wp-setup.yml` step by step as I will explain the options available.
 
 The configuration file is split into five sections:
 
@@ -87,7 +87,7 @@ wpsettings:
 ```
 
 ## Theme
-Now you can install a (starter-) theme if you want. Simply add the name yuo'd like for the theme. The script will then scaffold, install and activate a barebones _s theme.
+Now you can install a (starter-) theme if you want. Simply add the name yuo'd like for the theme. The script will then scaffold, install and activate a barebones `_s` theme.
 
 ```yaml
 # THEME
@@ -112,6 +112,8 @@ You can select what plugins you want to install.
 plugins_active:
   - active-custom-fields
 ```
+
+To list the plugins to install you can use a plugin slug, the path to a local zip file, or URL to a remote zip file.
 
 If you want to install custom or premium plugins you can simply write down the download-url instead of the name. Make sure to add quotes:
 

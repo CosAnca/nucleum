@@ -8,12 +8,12 @@ Fosterkit on Wordpress
 ## Setup
 To setup a new project running Scotch Box and WordPress, simply follow these steps:
 
-1. Customize `config.yml` to suit your project needs (see [configuration file documentation](README-WP-SETUP.md)).
-2. In `Vagrantfile` add your local development IP at `config.vm.network ip:` and the domain name at `config.vm.hostname` (This should be the same as `wpsettings:url:` in `config.yml`).
+1. Customize `wp-setup.yml` to suit your project needs (see [configuration file documentation](README-WP-SETUP.md)).
+2. In `Vagrantfile` add your local development IP at `config.vm.network ip:` and the domain name at `config.vm.hostname` (This should be the same as `wpsettings:url:` in `wp-setup.yml`).
 3. Run `vagrant up` inside your project root.
 
 ## Behind the scenes
-The shell scripts will do all the work for you when setting up a new WordPress project. Simply add your preferred theme, plugins, options etc. into `config.yml` and you're good to go. With this setup it won't take longer than 5 minutes until you can start working on a new WordPress project.
+The shell scripts will do all the work for you when setting up a new WordPress project. Simply add your preferred theme, plugins, options etc. into `wp-setup.yml` and you're good to go. With this setup it won't take longer than 5 minutes until you can start working on a new WordPress project.
 
 One command will:
 - install Scotch Box
