@@ -32,6 +32,7 @@ db:
   user: root
   pass: root
 
+# custom db details
 webdb:
   name: mydatabase
   user: myusername
@@ -65,13 +66,14 @@ wpsettings:
 theme:
   name: Theme name
   slug: theme-name
-  author: The MTM Agency
-  author_url: http://themtmagency.com
+  author: Author name
+  author_url: http://authorwebsite.com
 
 # PLUGINS (TO INSTALL GO TO SETUP:PLUGINS AND CHANGE TO TRUE)
 #################################################################
 
 # plugins to install & activate
+# you can use a slug, a path to a local zip, or URL to a remote zip
 plugins:
   - advanced-custom-fields
 

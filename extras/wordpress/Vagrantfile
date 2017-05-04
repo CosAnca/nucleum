@@ -15,12 +15,14 @@ Vagrant.configure("2") do |config|
     # Windows Support
     if Vagrant::Util::Platform.windows?
       config.vm.provision "shell",
-      inline: "echo \"Converting Files for Windows\" && sudo apt-get install -y dos2unix && cd /var/www/ && dos2unix wp-configs/config.yml && dos2unix wp-configs/provision.sh && dos2unix wp-configs/wpsetup.sh",
+      inline: "echo \"Converting Files for Windows\" && sudo apt-get install -y dos2unix && cd /var/www/ && dos2unix wp-setup.yml && dos2unix node_modules/fosterkit/extras/wordpress/wp-setup/provision.sh && dos2unix node_modules/fosterkit/extras/wordpress/wp-setup/wpsetup.sh",
       run: "always", privileged: false
     end
 
     # Run Provisioning – executed within the first `vagrant up` and every `vagrant provision`
-    config.vm.provision "shell", path: "wp-configs/provision.sh"
+    unless Dir.exist?('public')
+      config.vm.provision "shell", path: "node_modules/fosterkit/extras/wordpress/wp-setup/provision.sh"
+    end
 
     # OPTIONAL - Update WordPress and all Plugins on vagrant up – executed within every `vagrant up`
     #config.vm.provision "shell", inline: "echo \"== Update WordPress & Plugins ==\" && cd /var/www/public && wp core update && wp plugin update --all", run: "always", privileged: false

@@ -18,5 +18,5 @@ sudo service apache2 restart
 
 # run Wordpress setup
 echo "== Run Wordpress setup =="
-cd ../../var/www/wp-configs
+cd ../../var/www/node_modules/fosterkit/extras/wordpress/wp-setup
 sudo -u vagrant bash wpsetup.sh

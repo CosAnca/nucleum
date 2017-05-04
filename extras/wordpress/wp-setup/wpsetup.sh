@@ -58,10 +58,10 @@ NC='\033[0m' # no color
 printf "${BRN}========== FOSTERKIT WP SETUP START ==========${NC}\n\n"
 
 # MOVE TO ROOT
-cd ..
+cd ../../../../../
 
 # READ CONFIG
-eval $(parse_yaml wp-configs/config.yml "CONF_")
+eval $(parse_yaml wp-setup.yml "CONF_")
 
 # CHECK WP FOLDER
 if [ ! -d "$CONF_wpfolder" ]; then
@@ -118,7 +118,7 @@ fi
 
 # INSTALL THEME
 if $CONF_setup_theme ; then
-  printf "${BRN}[=== INSTALL $CONF_theme_name ===]${NC}\n"
+  printf "${BRN}[=== INSTALL $CONF_theme_name theme ===]${NC}\n"
   printf "${BLU}»»» scaffolding $CONF_theme_name _s theme...${NC}\n"
   wp scaffold _s $CONF_theme_slug --theme_name="$CONF_theme_name" --author="$CONF_theme_author" --author_uri="$CONF_theme_author_url"
   printf "${BLU}»»» activating $CONF_theme_name theme...${NC}\n"
