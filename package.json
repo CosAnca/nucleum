@@ -1,6 +1,6 @@
 {
   "name": "fosterkit",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "A friendly gulp starter kit that integrates well into any environment",
   "license": "MIT",
   "engines": {
@@ -20,7 +20,7 @@
     "start": "gulp",
     "gulp": "gulp",
     "build": "gulp build",
-    "ghPages": "gulp ghPages",
+    "gh-pages": "gulp gh-pages",
     "dev:test": "mocha ./gulpfile.js/**/*.test.js"
   },
   "dependencies": {
