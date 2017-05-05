@@ -200,7 +200,7 @@ customizeWebpackConfig: function (webpackConfig, env, webpack) {
 }
 ```
 
-**CAUTION!** Avoid overwriting `webpackConfig.entry` or `webpackConfig.plugins` via this function, and rely on the `entry` and `plugins` options above to avoid breaking Fosterkit's hot-loading and file revisioning setup ([view source](https://github.com/vigetlabs/gulp-starter/blob/master/gulpfile.js/lib/webpack-multi-config.js)).
+**CAUTION!** Avoid overwriting `webpackConfig.entry` or `webpackConfig.plugins` via this function, and rely on the `entry` and `plugins` options above to avoid breaking Fosterkit's hot-loading and file revisioning setup ([view source](gulpfile.js/lib/webpack-multi-config.js)).
 
 ### stylesheets
 
