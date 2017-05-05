@@ -15,18 +15,22 @@ Built with [Fosterkit](https://github.com/CosminAnca/fosterkit/).
 
 ### To get started:
 ```zsh
-git clone [project repo url]
+git clone [project-repo]
+vagrant up
+```
+
+Now you can view the website in your browser at: [http://localurl.dev](http://localurl.dev).
+
+To run the front-end development task, which starts compiling, watching,
+and live updating all our files as we change them, you need to:
+
+```zsh
 yarn install
 yarn run fosterkit
 ```
 
-If you don't want to use all the fancy features of Fosterkit and you just need to do some quick backend changes, then:
-
-```
-vagrant up
-```
-
-to start the PHP server and open the project in your browser at: [project-local-url.dev](project-local-url.dev).
+This will proxy the Vagrant machine through BrowserSync and also watches for any
+changes made to the PHP files as well.
 
 For more details about Fosterkit read the [documentation](https://github.com/CosminAnca/fosterkit/).
 
