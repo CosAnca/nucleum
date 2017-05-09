@@ -26,18 +26,13 @@ admin:
   first_name: ""
   last_name: ""
 
-# scotch box db access
+# database access
+# default to scotchbox but feel free to change the details below
 db:
   name: scotchbox
   user: root
   pass: root
-
-# custom db details
-webdb:
-  name: mydatabase
-  user: myusername
-  pass: mypassword
-  prefix: mywp_
+  prefix: wp_
 
 # SETTINGS
 #################################################################

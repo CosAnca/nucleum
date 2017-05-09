@@ -76,8 +76,17 @@ if $CONF_setup_wp ; then
   printf "${BRN}[=== INSTALL WORDPRESS ===]${NC}\n"
   printf "${BLU}»»» downloading WordPress...${NC}\n"
   wp core download --locale=$CONF_wplocale --version=$CONF_wpversion
+  printf "${BLU}»»» creating new database...${NC}\n"
+  mysql -uroot -proot -e "CREATE DATABASE IF NOT EXISTS \`${CONF_db_name}\` DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_unicode_ci;"
+  if [ $CONF_db_user != 'root' ]; then
+    printf "${BLU}»»» creating new database user...${NC}\n"
+    mysql -uroot -proot -e "CREATE USER '${CONF_db_user}'@localhost IDENTIFIED BY '${CONF_db_pass}';"
+    printf "${BLU}»»» granting schema privileges to the new user...${NC}\n"
+    mysql -uroot -proot -e "GRANT ALL PRIVILEGES ON \`${CONF_db_name}\`.* TO '${CONF_db_user}'@'localhost';"
+    mysql -uroot -proot -e "FLUSH PRIVILEGES;"
+  fi
   printf "${BLU}»»» creating wp-config...${NC}\n"
-  wp core config --dbname=$CONF_db_name --dbuser=$CONF_db_user --dbpass=$CONF_db_pass --dbprefix=$CONF_webdb_prefix --locale=$CONF_wplocale
+  wp core config --dbname=$CONF_db_name --dbuser=$CONF_db_user --dbpass=$CONF_db_pass --dbprefix=$CONF_db_prefix --locale=$CONF_wplocale
   printf "${BLU}»»» installing wordpress...${NC}\n"
   wp core install --url=$CONF_wpsettings_url --title="$CONF_wpsettings_title" --admin_user=$CONF_admin_user --admin_password=$CONF_admin_password --admin_email=$CONF_admin_email --skip-email
   wp user update 1 --first_name=$CONF_admin_first_name --last_name=$CONF_admin_last_name
@@ -87,15 +96,15 @@ fi
 
 if $CONF_setup_settings ; then
   printf "${BLU}»»» configure settings...${NC}\n"
-  printf "» timezone:\n"
+  printf "${BLU}» timezone:${NC}\n"
   wp option update timezone $CONF_timezone
   wp option update timezone_string $CONF_timezone
-  printf "» permalink structure:\n"
+  printf "${BLU}» permalink structure:${NC}\n"
   wp rewrite structure "$CONF_wpsettings_permalink_structure"
   wp rewrite flush
-  printf "» description:\n"
+  printf "${BLU}» description:${NC}\n"
   wp option update blogdescription "$CONF_wpsettings_description"
-  printf "» image sizes:\n"
+  printf "${BLU}» image sizes:${NC}\n"
   wp option update thumbnail_size_w $CONF_wpsettings_thumbnail_width
   wp option update thumbnail_size_h $CONF_wpsettings_thumbnail_height
   wp option update medium_size_w $CONF_wpsettings_medium_width
@@ -106,7 +115,7 @@ if $CONF_setup_settings ; then
     wp option update convert_smilies 0
   fi
   if $CONF_wpsettings_page_on_front ; then
-    printf "» front page:\n"
+    printf "${BLU}» front page:${NC}\n"
     # create and set frontpage
     wp post create --post_type=page --post_title="$CONF_wpsettings_page_on_front_frontpage_name" --post_content='Front Page created by Fosterkit' --post_status=publish
     wp option update page_on_front $(wp post list --post_type=page --post_status=publish --posts_per_page=1 --pagename="$CONF_wpsettings_page_on_front_frontpage_name" --field=ID --format=ids)
@@ -183,16 +192,6 @@ else
   printf "${BLU}>>> skipping Plugin installation...${NC}\n"
 fi
 
-# DATABASE EXPORT
-# Export ScotchBox database so we can later import it as a "LIVE" one
-printf "${BLU}»»» exporting scotchbox database...${NC}\n"
-wp db export
-
-# WP-CONFIG OVERWRITE
-# Overwrite wp-config.php file to hold the "LIVE" database details
-printf "${BLU}»»» overwriting wp-config...${NC}\n"
-wp core config --dbname=$CONF_webdb_name --dbuser=$CONF_webdb_user --dbpass=$CONF_webdb_pass --dbprefix=$CONF_webdb_prefix --locale=$CONF_wplocale --skip-check --force
-
 # MISC
 printf "${BLU}»»» checking wp cli version...${NC}\n"
 wp cli check-update
@@ -204,8 +203,8 @@ printf "${BLU}»»» setting BrowserSync server proxy...${NC}\n"
 sed -i 's/mywebsite.dev/'"${CONF_wpsettings_url}"'/g' ../config/task-config.js
 sed -i 's/my-theme/'"${CONF_theme_slug}"'/g' ../config/task-config.js
 
-printf "${BRN}========== FOSTERKIT WP SETUP FINISHED ==========${NC}\n"
-printf "${BLU}Start compiling with: ${PRL}yarn run fosterkit${NC}\n"
-printf "${BLU}Modify ${PRL}functions.php${BLU} file to enque scripts${NC}\n"
-printf "${BLU}and styles from the ${PRL}/assets${BLU} folder.${NC}\n"
-printf "${BRN}================ HAPPY CODING!!! ================${NC}\n"
+printf "${BRN}==================== FOSTERKIT WP SETUP FINISHED ====================${NC}\n"
+printf "${BLU}Your website is available at: ${PRL}http://${CONF_wpsettings_url}${NC}\n"
+printf "${BLU}Enable watch mode and/or compile assets with: ${PRL}yarn run fosterkit${NC}\n"
+printf "${BLU}Modify ${PRL}functions.php${BLU} to enque scripts/styles from the ${PRL}/assets ${BLU}folder.${NC}\n"
+printf "${BRN}========================== HAPPY CODING!!! ==========================${NC}\n"
