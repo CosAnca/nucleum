@@ -1,0 +1,26 @@
+// ==========================================================================
+// TOOLS / BREAKPOINTS
+// ==========================================================================
+
+// The following code will expose our breakpoints setting to Neat's grid-media
+// mixin so we can later use them on spcific elements style
+//
+// .foo {
+//     width: 2rem;
+//     @include grid-media($large-screen) {
+//       width: 3rem;
+//     };
+// }
+//
+
+$medium-screen: (
+  media: px2em(map-get($breakpoints, "medium")),
+);
+
+$large-screen: (
+  media: px2em(map-get($breakpoints, "large")),
+);
+
+$x-large-screen: (
+  media: px2em(map-get($breakpoints, "x-large")),
+);
