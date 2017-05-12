@@ -1,10 +1,15 @@
 const gulp = require('gulp');
 const gutil = require('gulp-util');
 const path = require('path');
+const rename = require('gulp-rename');
 const merge = require('merge-stream');
 
 gulp.task('init-wp', function() {
-  const dotfilesStream = gulp.src(['extras/dotfiles/**/*'], { dot: true })
+  const dotfilesStream = gulp.src(['extras/dotfiles/**/*', '!extras/dotfiles/*.txt'], { dot: true })
+    .pipe(gulp.dest(process.env.PWD));
+
+  const renameGitIgnore = gulp.src(['extras/dotfiles/gitignore.txt'])
+    .pipe(rename('.gitignore'))
     .pipe(gulp.dest(process.env.PWD));
 
   const configStream = gulp.src([
@@ -27,5 +32,5 @@ gulp.task('init-wp', function() {
     `
   ));
 
-  return merge(dotfilesStream, configStream, srcStream);
+  return merge(dotfilesStream, renameGitIgnore, configStream, srcStream);
 });
