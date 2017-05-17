@@ -37,6 +37,16 @@ yarn run fosterkit -- init
 
 This will create default `src` and `config` files in your directory and start compiling and live-updating files! Try editing them and watch your browser auto-update!
 
+## Adding to an existing project?
+
+You can generate basic *config* files with:
+
+```zsh
+yarn run fosterkit -- init-config
+```
+
+Then edit the configs to match the needs of your project.
+
 ## Recommended Setup
 
 #### [Node Version Manager](https://github.com/creationix/nvm)
@@ -153,7 +163,25 @@ Object to overwrite the default Babel loader config object. This defaults to `{ 
 Object to extend the default config for _entire_ Babel loader object. See [Webpack loader documentation](https://webpack.js.org/concepts/loaders/) for details.
 
 #### `provide`
-Key value list of variables that should be provided for modules to resolve dependencies on import using [ProvidePlugin](https://webpack.github.io/docs/list-of-plugins.html#provideplugin)
+Key value list of variables that should be provided for modules to resolve dependencies on import using [webpack.ProvidePlugin](https://webpack.github.io/docs/list-of-plugins.html#provideplugin). A common example is making jQuery available to all modules (jQuery plugins need this). In that scenario, with `jquery` installed via `yarn`, add this to your javascripts config:
+
+```js
+provide: {
+  $: "jquery",
+  jQuery: "jquery"
+}
+```
+
+Under the hood, this gets passed directly to [webpack.ProvidePlugin](https://webpack.github.io/docs/list-of-plugins.html#provideplugin) in the webpack config.
+
+```js
+plugins: [
+  new webpack.ProvidePlugin({
+    $: "jquery",
+    jQuery: "jquery"
+  })
+]
+```
 
 #### `plugins`
 Define additional webpack plugins that should be used in all environments.
