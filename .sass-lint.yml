@@ -18,6 +18,7 @@ rules:
     - 1
     - exclude:
       - breakpoint
+      - grid-media
       - media
       - hocus
   no-ids: 1

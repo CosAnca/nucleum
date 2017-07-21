@@ -36,6 +36,7 @@ $breakpoint-separator: \@ !default;
   // Get the total number of columns defined on our $base-grid object in
   // grid-settings file.
   $grid-columns: map-get($neat-grid, columns);
+  $grid-gutter: map-get($neat-grid, gutter);
 
   // Loop through the number of columns in our grid
   @for $i from 1 through $grid-columns {
@@ -59,6 +60,38 @@ $breakpoint-separator: \@ !default;
       @include grid-media($grid-media-breakpoint) {
         @include grid-push(-$i);
       }
+    }
+
+    // Loop throught the number of potential nested columns in our grid
+    @for $j from $i through $grid-columns {
+
+      // Build a class in the format `.u-width-2-of-4-col[@<breakpoint>]`
+      .u-width-#{$i}-of-#{$j}-col#{$breakpoint-separator}#{$breakpoint} {
+        @include grid-media($grid-media-breakpoint) {
+          @include grid-column-width($i of $j);
+        }
+      }
+
+      // Build a class in the format `.u-push-2-of-4-col[@<breakpoint>]`
+      .u-push-#{$i}-of-#{$j}-col#{$breakpoint-separator}#{$breakpoint} {
+        @include grid-media($grid-media-breakpoint) {
+          @include grid-push($i of $j);
+        }
+      }
+
+      // Build a class in the format `.u-pull-2-of-4-col[@<breakpoint>]`
+      .u-pull-#{$i}-of-#{$j}-col#{$breakpoint-separator}#{$breakpoint} {
+        @include grid-media($grid-media-breakpoint) {
+          @include grid-push(-$i of $j);
+        }
+      }
+    }
+  }
+
+  // Reset margin-left given by push and/or pull at previous breakpoints
+  .u-margin-left-reset#{$breakpoint-separator}#{$breakpoint} {
+    @include grid-media($grid-media-breakpoint) {
+      margin-left: $grid-gutter;
     }
   }
 }

@@ -1,0 +1,17 @@
+// ==========================================================================
+// UTILITIES / #FILL
+// ==========================================================================
+
+// Utility class to add negative margins to a component in order to fill the
+// layout item width plus its gutters.
+.u-fill-horizontal {
+  margin-right: -$global-spacing;
+  margin-left: -$global-spacing;
+}
+
+.u-fill-horizontal\@small {
+  @media only screen and (max-width: px2em(740px)) {
+    margin-right: -$global-spacing;
+    margin-left: -$global-spacing;
+  }
+}

@@ -13,14 +13,18 @@
 // }
 //
 
+$medium-screen-width: map-get($breakpoints, "medium");
+$large-screen-width: map-get($breakpoints, "large");
+$x-large-screen-width: map-get($breakpoints, "x-large");
+
 $medium-screen: (
-  media: px2em(map-get($breakpoints, "medium")),
+  media: px2em($medium-screen-width),
 );
 
 $large-screen: (
-  media: px2em(map-get($breakpoints, "large")),
+  media: px2em($large-screen-width),
 );
 
 $x-large-screen: (
-  media: px2em(map-get($breakpoints, "x-large")),
+  media: px2em($x-large-screen-width),
 );

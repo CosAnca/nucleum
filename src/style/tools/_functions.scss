@@ -7,8 +7,8 @@
 
 // sass-lint:disable no-warn
 
-// Function to get text instead of using `map-get`.
-@function text($key, $variant: large) {
+// Function to get font-size instead of using `map-get`.
+@function font-size($key, $variant: large) {
   @if map-has-key($text, $key) {
     @if ($variant != null) {
       @return map-get(map-get($text, $key), $variant);

@@ -29,3 +29,12 @@
     margin-right: $global-spacing-small;
   }
 }
+
+// No wrap
+// Allow horizontal scroll
+// ==========================================
+
+/* [ul] */.o-list-nowrap {
+  white-space: nowrap;
+  overflow-x: auto;
+}

@@ -2,6 +2,6 @@
 
 //- Sprite mixin to generate SVG icons
 mixin sprite(icon)
-  span.u-sprite(class="icon-#{icon}")
+  span.u-sprite(class=`icon-${icon}`)
     svg(viewBox="0 0 1 1")
-      use(xlink:href='img/icons.svg##{icon}')
+      use(xlink:href=`img/icons.svg#${icon}`)

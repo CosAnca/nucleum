@@ -2,10 +2,9 @@
 // OBJECTS / CONTAINER
 // ==========================================================================
 
-// Sets our container max-width to match content allowing for padding.
-$container-width: 960px;
+// 1. The $grid-max-width variable is defined in _grid-settings.scss file.
 
 .o-container {
   @include margin(null auto);
-  max-width: $container-width;
+  max-width: px2em($grid-max-width); // [1]
 }

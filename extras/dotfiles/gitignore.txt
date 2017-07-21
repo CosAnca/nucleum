@@ -1,3 +1,75 @@
+### Node ###
+
+# Logs
+logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Optional npm cache directory
+.npm
+
+# Dependency directories
+/node_modules
+
+# Yarn Integrity file
+.yarn-integrity
+
+# Optional eslint cache
+.eslintcache
+
+# dotenv environment variables file(s)
+.env
+.env.*
+
+
+### SublimeText ###
+# cache files for sublime text
+*.tmlanguage.cache
+*.tmPreferences.cache
+*.stTheme.cache
+
+# workspace files are user-specific
+*.sublime-workspace
+*.sublime-project
+
+
+### VisualStudioCode ###
+.vscode
+
+### WebStorm/PHPStorm ###
+/.idea
+modules.xml
+*.ipr
+
+
+### System Files ###
+.DS_Store
+.publish
+
+# Windows thumbnail cache files
+Thumbs.db
+ehthumbs.db
+ehthumbs_vista.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
 # WordPress
 public/cache/
 public/ai-cache/
@@ -18,10 +90,6 @@ public/wp-content/plugins/hello.php
 db-sync
 sql-dump-*.sql
 
-# Node Package Manager
-node_modules
-npm-debug.log
-
 # Vagrant
 bin
 .vagrant
@@ -31,10 +99,3 @@ bin
 
 # Sourcemaps
 *.map
-
-# System
-Desktop.ini
-.DS_Store
-.idea
-.publish
-.vscode

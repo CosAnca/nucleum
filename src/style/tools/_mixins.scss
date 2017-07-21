@@ -108,9 +108,8 @@
 }
 
 // Neat visual grid (better version)
-// This mixin will create a visual grid on the :before pseudo
-// element of the body tag based on our neat-grid settings.
-@mixin grid-visual-better($color: null, $grid: $neat-grid, $baseline-grid: $visual-baseline) {
+// This mixin will render a visual grid based on our grid settings.
+@mixin grid-visual-better($color: null, $grid: $neat-grid) {
   @if not $color {
     $color: _retrieve-neat-setting($grid, color);
   }
@@ -128,21 +127,29 @@
     $color calc(#{$_grid-visual-column}),
   ;
 
+  // sass-lint:enable indentation trailing-semicolon
+
+  background-image: repeating-linear-gradient(to right, $_grid-visual);
+}
+
+// Custom visual baseline
+@mixin grid-visual-baseline($color: null, $baseline-grid: $visual-baseline) {
+  @if not $color {
+    $color: _retrieve-neat-setting($grid, color);
+  }
+
   $_grid-baseline:
     transparent,
     transparent ($global-line-height * $global-font-size) - 1,
-    rgba(0, 0, 0, 0.6) ($global-line-height * $global-font-size) - 1,
-    rgba(0, 0, 0, 0.6) $global-line-height * $global-font-size,
+    $color ($global-line-height * $global-font-size) - 1,
+    $color $global-line-height * $global-font-size,
   ;
 
-  // sass-lint:enable indentation trailing-semicolon
-
-  @if $baseline-grid == true {
-    background-image: repeating-linear-gradient(to right, $_grid-visual), repeating-linear-gradient(to bottom, $_grid-baseline);
-  } @else {
-    background-image: repeating-linear-gradient(to right, $_grid-visual);
-  }
+  background-image: repeating-linear-gradient(to bottom, $_grid-baseline);
 }
+
+// Here we apply the visual grid to the before pseudo-element
+// of the body tag.
 
 // sass-lint:disable force-pseudo-nesting
 
@@ -150,21 +157,51 @@
   body::before {
     @include grid-visual-better(
       rgba($visual-grid-color, $visual-grid-opacity),
-      $neat-grid,
-      $visual-baseline
+      $neat-grid
     );
     display: inline-block;
     position: fixed;
     right: 0;
     left: 0;
     width: 100%;
-    max-width: 960px;
+    max-width: px2em($grid-max-width);
     height: 100%;
     margin: 0 auto;
     content: "";
-    opacity: .4;
+    z-index: 4;
     pointer-events: none;
   }
 }
 
+// Here we apply the visual baseline to the after pseudo-element of body
+@if variable-exists(visual-baseline) and $visual-baseline == true {
+  body {
+    position: relative;
+
+    &::after {
+      @include grid-visual-baseline(
+        rgba($visual-baseline-color, $visual-baseline-opacity),
+        $visual-baseline
+      );
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      min-height: 100vh;
+      content: "";
+      z-index: 4;
+      pointer-events: none;
+    }
+  }
+}
+
 // sass-lint:enable force-pseudo-nesting
+
+// Custom media query max-width mixin
+@mixin grid-media-max($breakpoint) {
+  @media only screen and (max-width: px2em($breakpoint)) {
+    @content;
+  }
+}

@@ -48,6 +48,10 @@
 
 .o-layout__item {
   @include grid-column(12);
+  float: none; // [1]
+  @include grid-media($medium-screen) {
+    float: left;
+  }
 }
 
 // When a flexbox layout is required

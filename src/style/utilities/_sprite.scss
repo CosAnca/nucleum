@@ -3,7 +3,13 @@
 // ==========================================================================
 
 // To be used with SVG sprites
+// 1. Align SVG icon to container baseline
 
 .u-sprite {
   fill: currentColor;
+
+  svg {
+    position: relative; // [1]
+    top: -0.125em; // [1]
+  }
 }
