@@ -8,7 +8,6 @@
 // VENDOR LIBRARIES (Imported from node_modules)
 // Bourbon..............A simple and lightweight mixin library for Sass.
 // Neat.................A lightweight semantic grid framework built with Sass.
-// Family...............A set of 26 smart Sass mixins which will help you to manage the style of :nth-child’ified elements, in an easy and classy way.
 //
 // SETTINGS
 // All..................Because our Settings layer doesn’t actually produce any
@@ -31,13 +30,13 @@
 //                      contents.
 //
 // GENERIC
+// Fonts................Our @font-face definitions for custom fonts.
 // Box-sizing...........Better default `box-sizing`.
 // Normalize.css........Normalise differences across different browsers. (imported from the *node_modules* folder)
 // Reset................Simple reset to complement Normalize.css: set everything
 //                      to zero.
 // Vertical Rhythm......Define common vertical spacing across all block-level
 //                      elements in one go.
-// Fonts................Our @font-face definitions for custom fonts.
 // Keyframes............Our @keyframe definitions for animations.
 //
 // ELEMENTS
@@ -75,6 +74,8 @@
 //                      or `.u-width-3-col@large` (make something 3 columns
 //                      width but only on large screens). Most commonly used in
 //                      conjunction with our layout system.
+// Fill.................Allow nested container to fill parent's width plus the
+//                      gutters
 // Vertical align.......A helper utility allowing an element to be vertically
 //                      aligned within its parent container.
 // Debug................Enabling debugging mode will point out various errors
@@ -84,7 +85,6 @@
 // Vendor Libraries
 @import "bourbon/app/assets/stylesheets/bourbon";
 @import "bourbon-neat/core/neat";
-@import "family.scss/source/stylesheets/vendors/family";
 
 // Settings
 @import "settings/all";
@@ -93,11 +93,11 @@
 @import "tools/all";
 
 // Generic
+@import "generic/fonts";
 @import "generic/box-sizing";
 @import "normalize.css/normalize";
 @import "generic/reset";
 @import "generic/vertical-rhythm";
-@import "generic/fonts";
 @import "generic/keyframes";
 
 // Elements
@@ -129,5 +129,6 @@
 @import "utilities/typography";
 @import "utilities/spacing";
 @import "utilities/widths";
+@import "utilities/fill";
 @import "utilities/vertical-align";
 @import "utilities/debug";

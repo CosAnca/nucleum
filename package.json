@@ -1,6 +1,6 @@
 {
   "name": "fosterkit",
-  "version": "1.1.8",
+  "version": "1.2.0",
   "description": "A friendly gulp starter kit that integrates well into any environment",
   "license": "MIT",
   "engines": {
@@ -24,18 +24,17 @@
     "dev:test": "mocha ./gulpfile.js/**/*.test.js"
   },
   "dependencies": {
-    "babel-core": "^6.24.1",
-    "babel-loader": "^7.0.0",
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.1.1",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-1": "^6.24.1",
     "bourbon": "4.3.4",
     "bourbon-neat": "2.0.0",
-    "browser-sync": "^2.18.8",
-    "del": "2.2.2",
-    "family.scss": "1.0.8",
+    "browser-sync": "^2.18.13",
+    "del": "3.0.0",
     "gulp": "3.9.1",
-    "gulp-autoprefixer": "3.1.1",
-    "gulp-changed": "^3.0.0",
+    "gulp-autoprefixer": "4.0.0",
+    "gulp-changed": "^3.1.0",
     "gulp-cssnano": "2.1.2",
     "gulp-data": "1.2.1",
     "gulp-gh-pages": "0.5.4",
@@ -57,17 +56,17 @@
     "lodash": "^4.17.4",
     "merge-stream": "^1.0.1",
     "minimist": "^1.2.0",
-    "normalize.css": "^6.0.0",
+    "normalize.css": "^7.0.0",
     "open": "0.0.5",
     "pretty-hrtime": "1.0.3",
-    "require-dir": "0.3.1",
+    "require-dir": "0.3.2",
     "webpack": "^2.4.1",
-    "webpack-dev-middleware": "^1.10.2",
-    "webpack-hot-middleware": "^2.18.0"
+    "webpack-dev-middleware": "^1.11.0",
+    "webpack-hot-middleware": "^2.18.2"
   },
   "devDependencies": {
-    "chai": "^3.5.0",
-    "mocha": "3.3.0"
+    "chai": "^4.1.0",
+    "mocha": "3.4.2"
   },
   "author": "Cos"
 }

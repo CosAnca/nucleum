@@ -20,6 +20,6 @@
 //
 
 @mixin font-size($key, $variant: small) {
-  $font-size: text($key, $variant);
+  $font-size: font-size($key, $variant);
   font-size: ($font-size / $global-font-size) * 1rem;
 }
