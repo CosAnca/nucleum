@@ -1,6 +1,6 @@
 {
   "name": "fosterkit",
-  "version": "1.2.1",
+  "version": "1.3.0",
   "description": "A friendly gulp starter kit that integrates well into any environment",
   "license": "MIT",
   "engines": {
@@ -60,12 +60,12 @@
     "open": "0.0.5",
     "pretty-hrtime": "1.0.3",
     "require-dir": "0.3.2",
-    "webpack": "^3.4.1",
+    "webpack": "^3.5.4",
     "webpack-dev-middleware": "^1.12.0",
     "webpack-hot-middleware": "^2.18.2"
   },
   "devDependencies": {
-    "chai": "^4.1.0",
+    "chai": "^4.1.1",
     "mocha": "3.5.0"
   },
   "author": "Cos"

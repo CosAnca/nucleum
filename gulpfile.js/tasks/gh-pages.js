@@ -1,7 +1,7 @@
 const ghPages = require('gulp-gh-pages');
-const gulp    = require('gulp');
-// const os      = require('os');
-const path    = require('path');
+const gulp = require('gulp');
+const os = require('os');
+const path = require('path');
 
 const ghPagesTask = function() {
   const pkg = require(path.resolve(process.env.PWD, 'package.json'));

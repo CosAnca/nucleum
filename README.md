@@ -21,11 +21,11 @@ yarn add fosterkit
 yarn run fosterkit -- init-wp
 ```
 
-This will generate a Wordpress configuration file (`wp-setup.yml`) alongside the default src (`src`) and config (`config`) files for the front-end build.
+This will generate a WordPress configuration file (`wp-setup.yml`) alongside the default src (`src`) and config (`config`) files for the front-end build.
 
-Follow the steps prompted by the command line to set up your Wordpress installation.
+Follow the steps prompted by the command line to set up your WordPress installation.
 
-Read [Wordpress on Fosterkit](extras/wordpress/README-WP.md) documentation to find out more details.
+Read [Fosterkit and WordPress](extras/wordpress/README-WP.md) documentation to find out more details.
 
 ## Building a static website?
 
@@ -53,7 +53,7 @@ Then edit the configs to match the needs of your project.
 **Fosterkit requires at least Node 6**. While you can install Node a variety of ways, we highly recommend using [nvm](https://github.com/creationix/nvm) to install and manage Node versions.
 
 #### [Yarn](https://yarnpkg.com/en/docs/install)
-We recommend `yarn` over `npm` for a few reasons: `yarn.lock` files are a lifesaver, modules install way faster, and [`yarn run`](https://yarnpkg.com/en/docs/cli/run) for running `package.json` `scripts` and `node_modules/.bin` executables is a nice convience. It's just better.
+We recommend `yarn` over `npm` for a few reasons: `yarn.lock` files are a lifesaver, modules install way faster, and [`yarn run`](https://yarnpkg.com/en/docs/cli/run) for running `package.json` `scripts` and `node_modules/.bin` executables is a nice convenience. It's just better.
 
 # Commands
 All commands should be run through `yarn run`. If you haven't switched to [yarn](https://yarnpkg.com/) yet, now's a great time!
@@ -67,25 +67,26 @@ This is where the magic happens. The perfect workflow. This runs the development
 ```zsh
 yarn run fosterkit -- build
 ```
-Compiles files for production to your destination directory. JS files are built with Webpack 2 with standard production optimizations (Uglify, etc.). CSS is run through CSSNano. If `rev` is set to `true` in your `task-config.js` file, filenames will be hashed (file.css -> file-a8908d9io20.css) so your server may cache them indefinitely. A `rev-manifest.json` file is output to the root of your `dest` directory (`public` by default), and maps original filenames to hashed ones.
+Compiles files for production to your destination directory. JS files are built with Webpack 3 with standard production optimizations (Uglify, etc.). CSS is run through CSSNano. If `rev` is set to `true` in your `task-config.js` file, filenames will be hashed (file.css -> file-a8908d9io20.css) so your server may cache them indefinitely.
 
-**NOTE:** If you're using Wordpress please set the revision to `false` for the time being until we build a helper that can update the referenced file names. Works very well though for static builds as CSS and HTML files read this file and string-replace filenames automatically.
+**NOTE:** By default filenames revision is set to `false` for WordPress production builds. Please refer to [Fosterkit and Wordpress](extras/wordpress/README-WP.md) documentation if you'd like to [enable revision](extras/wordpress/README-WP.md#filenames-revision-hashing-for-production-builds).
 
 ```zsh
-yarn run fosterkit -- gh-pages
+yarn run fosterkit -- ghPages
 ```
 If you are building a static site, and would like to preview it on GitHub pages, this handy script does just that using [gulp-gh-pages](https://www.npmjs.com/package/gulp-gh-pages). Be sure to add or update the `homepage` property in your `package.json` to point to your gh-pages url.
 
 It's a good idea to add aliases for these commands to your `package.json` `scripts` object.
 
-```
+```json
 // package.json
   "scripts": {
     "start": yarn run fosterkit,
     "build": yarn run fosterkit -- build
   }
-
-// Command line
+```
+```zsh
+# Command line
 yarn start
 yarn run build
 ```
@@ -93,19 +94,20 @@ yarn run build
 # Configuration
 You may override the default configuration by creating a `config` folder with the following two files in it: `path-config.json` and `task-config.js`. These files will be created by any of the `-- init` tasks, or you can generate *only* the config files with the following command:
 
-```
+```zsh
 yarn run fosterkit -- init-config
 ```
 
 By default, Fosterkit expects these files to live in a `./config` a the root of your project. You may specify an alternative relative location by setting an environment variable:
 
-```
+```json
 // package.json
 "scripts": {
   "fosterkit": "FOSTERKIT_CONFIG_PATH='./some/location' fosterkit"
 }
-
-// command line
+```
+```zsh
+# command line
 yarn run fosterkit
 ```
 
@@ -145,7 +147,7 @@ browserSync: {
 ```
 
 ### javascripts
-Under the hood, JS is compiled with Webpack 2 with a heavily customized Webpack file to get you up and running with little to no configuration. An API for configuring some of the most commonly accessed options are exposed, along with some other helpers for scoping to environment. Additionally, you can get full access to modify Fosterkit's `webpackConfig` via the [`customizeWebpackConfig`](#customizeWebpackConfig) option.
+Under the hood, JS is compiled with Webpack 3 with a heavily customized Webpack file to get you up and running with little to no configuration. An API for configuring some of the most commonly accessed options are exposed, along with some other helpers for scoping to environment. Additionally, you can get full access to modify Fosterkit's `webpackConfig` via the [`customizeWebpackConfig`](#customizeWebpackConfig) option.
 
 #### `entry` (required)
 Discrete js bundle entry points. A js file will be bundled for each item. Paths are relative to the `js` folder. This maps directly to `webpackConfig.entry`.
@@ -274,7 +276,7 @@ static: {
 These tasks simply copy files from `src` to `dest` configured in `path-config.json`. Nothing to configure here other that specifying extensions or disabling the task.
 
 ### ghPages
-You can deploy the contents your `dest` directly to a remote branch (`gh-pages` by default) with `yarn run fosterkit -- gh-pages`. Options specified here will get passed directly to [gulp-gh-pages](https://github.com/shinnn/gulp-gh-pages#ghpagesoptions).
+You can deploy the contents your `dest` directly to a remote branch (`gh-pages` by default) with `yarn run fosterkit -- ghPages`. Options specified here will get passed directly to [gulp-gh-pages](https://github.com/shinnn/gulp-gh-pages#ghpagesoptions).
 
 ### svgSprite
 Generates an SVG Sprite from svg files in `src/icons`. You can either include the created SVG directly on the page and reference the icon by id like this:
@@ -344,7 +346,7 @@ Gulp tasks! Built combining the following:
 Feature | Packages Used
 ------ | -----
 **CSS** | [Sass](http://sass-lang.com/) ([Libsass](http://sass-lang.com/libsass) via [node-sass](https://github.com/sass/node-sass)), [Autoprefixer](https://github.com/postcss/autoprefixer), [CSSNano](https://github.com/ben-eb/cssnano), Source Maps
-**JavaScript** | [Babel](http://babeljs.io/), [Webpack 2](https://webpack.js.org/)
+**JavaScript** | [Babel](http://babeljs.io/), [Webpack 3](https://webpack.js.org/)
 **HTML** | [Pug](https://pugjs.org/api/getting-started.html), [gulp-data](https://github.com/colynb/gulp-data)
 **Images** | Folder for including your project's images
 **Icons** | Auto-generated [SVG Sprites](https://github.com/w0rm/gulp-svgstore)
@@ -358,7 +360,7 @@ Extras:
 Feature | Packages Used
 ------- | -------------
 **Wordpress** | [Vagrant](https://www.vagrantup.com/), [ScotchBox](https://box.scotch.io/)
-**Sass** | [Bourbon](http://bourbon.io/), [Neat](http://neat.bourbon.io/), [Family](https://lukyvj.github.io/family.scss/)
+**Sass** | [Bourbon](http://bourbon.io/), [Neat](http://neat.bourbon.io/)
 **IconFonts** | Generate icons fonts from SVGs
 **Test server** | Local production [Express](http://expressjs.com) server for your static websites
 

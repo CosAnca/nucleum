@@ -1,5 +1,4 @@
 const gulp         = require('gulp');
-// const repeatString = require('../lib/repeatString');
 const sizereport   = require('gulp-sizereport');
 const path         = require('path');
 
