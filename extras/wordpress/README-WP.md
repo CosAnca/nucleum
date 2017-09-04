@@ -20,11 +20,19 @@ One command will:
 - install/update requirements on the local webserver
 - download/install/configure WordPress
 - set WordPress options
-- scaffold/install/activate an Underscores theme
+- scaffold/install/activate [FosterPress] or an [Underscores] theme
 - install/activate the plugins you defined in the config
 - clean WordPress defaults (contents, plugins, themes, unused files)
 
+[FosterPress]: https://github.com/CosminAnca/fosterpress
+[Underscores]: https://underscores.me
+
 ## Additional info
+
+### Themes
+The default theme bundled with Fosterkit is called FosterPress, which is a minimal starter theme for WordPress.
+
+If you want to scaffold and '_s' theme set `underscores_generated: true` under theme section in wp-setup.yml file.
 
 ### Auto Update WordPress and Plugins
 If you want to automatically update WordPress and all Plugins on every vagrant up you can uncomment line 26 inside the Vagrantfile.
@@ -32,7 +40,7 @@ If you want to automatically update WordPress and all Plugins on every vagrant u
 ### Filenames revision (hashing) for production builds
 If you set `rev` to `true` in your `task-config.js` file, filenames will be hashed (file.css -> file-a8908d9io20.css) so your server may cache them indefinitely. A `rev-manifest.json` file is output to the root of your assets `dest` directory in your theme (`assets` by default), and maps original filenames to hashed ones. CSS files read this file and string-replace filenames automatically.
 
-For WordPress to read this file and automatically update filenames in your project, make sure you include the following snippet in your `functions.php` file:
+This functionality comes by default with [FosterPress] theme, otherwise if an '_s' theme is used, for WordPress to read this file and automatically update filenames in your project, make sure you include the following snippet in your `functions.php` file:
 
 ```php
 /**

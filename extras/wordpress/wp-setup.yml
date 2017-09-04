@@ -59,6 +59,7 @@ wpsettings:
 
 # theme settings
 theme:
+  underscores_generated: false
   name: Theme name
   slug: theme-name
   author: Author name
