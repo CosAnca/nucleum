@@ -63,6 +63,15 @@ cd ../../../../../
 # READ CONFIG
 eval $(parse_yaml wp-setup.yml "CONF_")
 
+# THEME RENAMING VARIABLES
+theme_text_domain="'${CONF_theme_slug}'"
+theme_functions="${CONF_theme_slug//-/_}_"
+theme_style_text_domain="Text Domain: ${CONF_theme_slug}"
+theme_doc_blocks=" ${CONF_theme_name// /_}"
+theme_handle="${CONF_theme_slug}-"
+theme_author="Author: ${CONF_theme_author}"
+theme_author_url="URL: ${CONF_theme_author_url}"
+
 # CHECK WP FOLDER
 if [ ! -d "$CONF_wpfolder" ]; then
   mkdir $CONF_wpfolder
@@ -128,10 +137,27 @@ fi
 # INSTALL THEME
 if $CONF_setup_theme ; then
   printf "${BRN}[=== INSTALL $CONF_theme_name theme ===]${NC}\n"
-  printf "${BLU}»»» scaffolding $CONF_theme_name _s theme...${NC}\n"
-  wp scaffold _s $CONF_theme_slug --theme_name="$CONF_theme_name" --author="$CONF_theme_author" --author_uri="$CONF_theme_author_url"
-  printf "${BLU}»»» activating $CONF_theme_name theme...${NC}\n"
-  wp theme activate $CONF_theme_slug
+  if $CONF_theme_underscores_generated ; then
+    printf "${BLU}»»» scaffolding $CONF_theme_name _s theme...${NC}\n"
+    wp scaffold _s $CONF_theme_slug --theme_name="$CONF_theme_name" --author="$CONF_theme_author" --author_uri="$CONF_theme_author_url"
+    printf "${BLU}»»» activating $CONF_theme_name theme...${NC}\n"
+    wp theme activate $CONF_theme_slug
+  else
+    printf "${BLU}»»» downloading theme...${NC}\n"
+    wp theme install https://github.com/CosminAnca/fosterpress/archive/master.zip
+    printf "${BLU}»»» renaming fosterpress theme to $CONF_theme_slug...${NC}\n"
+    sed -i "s/'fosterpress'/${theme_text_domain}/g" wp-content/themes/fosterpress/{,**}/*.php
+    echo ${theme_text_domain}
+    sed -i "s/fosterpress_/${theme_functions}/g" wp-content/themes/fosterpress/{,**}/*.php
+    sed -i "s/Text Domain: fosterpress/${theme_style_text_domain}/g" wp-content/themes/fosterpress/style.css
+    sed -i "s/ FosterPress/${theme_doc_blocks}/g" wp-content/themes/fosterpress/style.css
+    sed -i "s/ FosterPress/${theme_doc_blocks}/g" wp-content/themes/fosterpress/{,**}/*.php
+    sed -i "s/fosterpress-/${theme_handle}/g" wp-content/themes/fosterpress/{,**}/*.php
+    sed -i "s/Author: Cos Anca/${theme_author}/g" wp-content/themes/fosterpress/functions.php
+    sed -i "s,URL: http://github.com/CosminAnca,${theme_author_url},g" wp-content/themes/fosterpress/functions.php
+    mv wp-content/themes/fosterpress wp-content/themes/$CONF_theme_slug
+    wp theme activate $CONF_theme_slug
+  fi
 else
   printf "${BLU}>>> skipping theme installation...${NC}\n"
 fi
