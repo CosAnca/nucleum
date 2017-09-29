@@ -345,7 +345,7 @@ Gulp tasks! Built combining the following:
 
 Feature | Packages Used
 ------ | -----
-**CSS** | [Sass](http://sass-lang.com/) ([Libsass](http://sass-lang.com/libsass) via [node-sass](https://github.com/sass/node-sass)), [Autoprefixer](https://github.com/postcss/autoprefixer), [CSSNano](https://github.com/ben-eb/cssnano), Source Maps
+**CSS** | [Sass](http://sass-lang.com/) ([Libsass](http://sass-lang.com/libsass) via [node-sass](https://github.com/sass/node-sass)), [Autoprefixer](https://github.com/postcss/autoprefixer), [CSSNano](https://github.com/ben-eb/cssnano), [CombineMQ](https://github.com/frontendfriends/gulp-combine-mq), Source Maps
 **JavaScript** | [Babel](http://babeljs.io/), [Webpack 3](https://webpack.js.org/)
 **HTML** | [Pug](https://pugjs.org/api/getting-started.html), [gulp-data](https://github.com/colynb/gulp-data)
 **Images** | Folder for including your project's images
