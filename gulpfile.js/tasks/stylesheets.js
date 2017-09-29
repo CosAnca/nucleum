@@ -8,6 +8,7 @@ const sourcemaps   = require('gulp-sourcemaps');
 const handleErrors = require('../lib/handleErrors');
 const autoprefixer = require('gulp-autoprefixer');
 const path         = require('path');
+const combineMq    = require('gulp-combine-mq');
 const cssnano      = require('gulp-cssnano');
 
 const stylesheetsTask = function() {
@@ -33,6 +34,7 @@ const stylesheetsTask = function() {
     .pipe(autoprefixer(TASK_CONFIG.stylesheets.autoprefixer))
     .pipe(gulpif(global.production, cssnano(cssnanoConfig)))
     .pipe(gulpif(!global.production, sourcemaps.write()))
+    .pipe(gulpif(global.production, combineMq(TASK_CONFIG.stylesheets.combinemq || { beautify: false })))
     .pipe(gulp.dest(paths.dest))
     .pipe(browserSync.stream());
 };
