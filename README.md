@@ -117,7 +117,7 @@ The files must be named `path-config.json` and `task-config.js`.
 This file specifies the `src` and `dest` root directories, and `src` and `dest` for each task, relative to the configured root. For example, if your source files live in a folder called `app`, and your compiled files should be output to a folder called `static`, you'd update the `src` and `dest` properties here to reflect that.
 
 ## task-config.js
-This file exposes per-task configuration and overrides. At minimum, you just need to set the task to `true` to enable the task with its default configuration. If you wish to configure a task, provide a configuation object instead.
+This file exposes per-task configuration and overrides. At minimum, you just need to set the task to `true` to enable the task with its default configuration. If you wish to configure a task, provide a configuration object instead.
 
 - Any task may be disabled by setting the value to `false`. For example, if your project has its own handling HTML and templating (Wordpress, Craft, etc), you'll want to set `html` to `false` in your task-config.
 - All asset tasks have an `extensions` option that can be used to overwrite the ones that are processed and watched.
