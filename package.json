@@ -58,7 +58,6 @@
     "merge-stream": "^1.0.1",
     "minimist": "^1.2.0",
     "node-fs-extra": "^0.8.2",
-    "node-sass-glob-importer": "^5.0.0-alpha.15",
     "normalize.css": "^7.0.0",
     "open": "0.0.5",
     "pretty-hrtime": "1.0.3",
