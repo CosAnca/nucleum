@@ -3,8 +3,8 @@ const fs = require('fs');
 
 function getPathConfig() {
 
-  if (process.env.BLENDID_CONFIG_PATH) {
-    return require(path.resolve(process.env.PWD, process.env.BLENDID_CONFIG_PATH, 'path-config.json'));
+  if (process.env.FOSTERKIT_CONFIG_PATH) {
+    return require(path.resolve(process.env.PWD, process.env.FOSTERKIT_CONFIG_PATH, 'path-config.json'));
   }
 
   const defaultConfigPath = path.resolve(process.env.PWD, 'config/path-config.json');

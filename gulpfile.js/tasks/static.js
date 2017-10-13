@@ -4,7 +4,6 @@ if(!TASK_CONFIG.static) return
 const gulp    = require('gulp');
 const path    = require('path');
 
-
 const staticTask = function() {
   const srcPath = path.resolve(process.env.PWD, PATH_CONFIG.src, PATH_CONFIG.static.src);
   const defaultSrcOptions = { dot: true };

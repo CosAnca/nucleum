@@ -11,6 +11,7 @@ module.exports = {
       quiet: true,
       react: false,
     },
+    devtool: 'eval-cheap-module-source-map',
     babelLoader: {
       // 'test' is derived from TASK_CONFIG.javascripts.extensions
       // 'options' is derived from TASK_CONFIG.javascripts.babel
@@ -19,6 +20,16 @@ module.exports = {
     },
     babel: {
       presets: [['es2015', { 'modules': false }], 'stage-1'],
+    },
+    development: {},
+    production: {
+      devtool: false,
+      uglifyJsPlugin: {},
+      definePlugin: {
+        'process.env': {
+          'NODE_ENV': JSON.stringify('production'),
+        },
+      },
     },
   },
 
@@ -59,5 +70,19 @@ module.exports = {
 
   production: {
     rev: true,
+  },
+
+  additionalTasks: {
+    initialize(gulp, PATH_CONFIG, TASK_CONFIG) {
+      // gulp.task('myTask', function() { })
+    },
+    development: {
+      prebuild: null,
+      postbuild: null,
+    },
+    production: {
+      prebuild: null,
+      postbuild: null,
+    },
   },
 };

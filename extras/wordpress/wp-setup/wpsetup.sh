@@ -232,5 +232,7 @@ sed -i 's/my-theme/'"${CONF_theme_slug}"'/g' ../config/task-config.js
 printf "${BRN}==================== FOSTERKIT WP SETUP FINISHED ====================${NC}\n"
 printf "${BLU}Your website is available at: ${PRL}http://${CONF_wpsettings_url}${NC}\n"
 printf "${BLU}Enable watch mode and/or compile assets with: ${PRL}yarn run fosterkit${NC}\n"
-printf "${BLU}Modify ${PRL}functions.php${BLU} to enque scripts/styles from the ${PRL}/assets ${BLU}folder.${NC}\n"
+if $CONF_theme_underscores_generated ; then
+  printf "${BLU}Modify ${PRL}functions.php${BLU} to enque scripts/styles from the ${PRL}/assets ${BLU}folder.${NC}\n"
+fi
 printf "${BRN}========================== HAPPY CODING!!! ==========================${NC}\n"

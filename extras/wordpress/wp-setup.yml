@@ -27,9 +27,9 @@ admin:
   last_name: ""
 
 # database access
-# default to scotchbox but feel free to change the details below
+# default to fosterbox but feel free to change the details below
 db:
-  name: scotchbox
+  name: fosterbox
   user: root
   pass: root
   prefix: wp_
@@ -73,7 +73,7 @@ theme:
 plugins:
   - advanced-custom-fields
 
-# WPDISTILLERY SETUP
+# GLOBAL SETUP
 ####################################################################
 # if you don't want the setup to run all tasks, set them to false
 

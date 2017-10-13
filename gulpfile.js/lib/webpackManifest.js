@@ -5,14 +5,15 @@ module.exports = function(jsDest, dest, filename) {
   filename = filename || 'rev-manifest.json';
 
   return function() {
-    this.plugin('done', function(stats) {
-      var stats    = stats.toJson();
-      var chunks   = stats.assetsByChunkName;
-      var manifest = {};
+    this.plugin('done', function(statsObject) {
+      const stats    = statsObject.toJson();
+      const chunks   = stats.assetsByChunkName;
+      const manifest = {};
 
-      for (var key in chunks) {
-        var originalFilename = key + '.js';
-        manifest[path.join(jsDest, originalFilename)] = path.join(jsDest, chunks[key]);
+      for (let key in chunks) {
+        const originalFilename = key + '.js';
+        const chunkName = typeof chunks[key] === 'string' ? chunks[key] : chunks[key][0];
+        manifest[path.join(jsDest, originalFilename)] = path.join(jsDest, chunkName);
       }
 
       fs.writeFileSync(
