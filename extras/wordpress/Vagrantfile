@@ -20,7 +20,9 @@ Vagrant.configure("2") do |config|
     end
 
     # Run Provisioning – executed within the first `vagrant up` and every `vagrant provision`
-    unless Dir.exist?('public')
+    if Dir.exist?('public')
+      config.vm.provision "shell", path: "create-db.sh", privileged: false
+    else
       config.vm.provision "shell", path: "node_modules/fosterkit/extras/wordpress/wp-setup/provision.sh"
     end
 

@@ -81,8 +81,8 @@ It's a good idea to add aliases for these commands to your `package.json` `scrip
 ```json
 // package.json
   "scripts": {
-    "start": yarn run fosterkit,
-    "build": yarn run fosterkit -- build
+    "start": "yarn run fosterkit",
+    "build": "yarn run fosterkit -- build"
   }
 ```
 ```zsh
@@ -113,10 +113,16 @@ yarn run fosterkit
 
 The files must be named `path-config.json` and `task-config.js`.
 
-## path-config.json
+### Configuring file structure
+
+`path-config.json`
+
 This file specifies the `src` and `dest` root directories, and `src` and `dest` for each task, relative to the configured root. For example, if your source files live in a folder called `app`, and your compiled files should be output to a folder called `static`, you'd update the `src` and `dest` properties here to reflect that.
 
-## task-config.js
+### Configuring tasks
+
+`task-config.js`
+
 This file exposes per-task configuration and overrides. At minimum, you just need to set the task to `true` to enable the task with its default configuration. If you wish to configure a task, provide a configuation object instead.
 
 - Any task may be disabled by setting the value to `false`. For example, if your project has its own handling HTML and templating (Wordpress, Craft, etc), you'll want to set `html` to `false` in your task-config.
@@ -143,6 +149,16 @@ browserSync: {
     target: 'mywebsite.dev'
   },
   files: ['public/wp-content/themes/my-theme/**/*.php']
+}
+```
+
+**If you need to turn on polling within webpack-dev-middleware**, specify `watchOptions` within this section, too.
+```js
+browserSync: {
+  watchOptions: {
+    poll: true,
+    aggregateTimeout: 300
+  }
 }
 ```
 
@@ -192,9 +208,30 @@ Define additional webpack plugins that should be used in all environments.
 Define additional webpack loaders that should be used in all environments. Adds to `webpackConfig.module.rules`
 
 #### `development`, `production`
-Define additional webpack plugins and loaders for development or production environments.
+Specify additional environment specific configuration to be merged in with Fosterkit's defaults
+
+- [`devtool`](https://webpack.js.org/configuration/devtool/#devtool)
+- [`plugins`](https://webpack.js.org/concepts/plugins/)
+- [`loaders`](https://webpack.js.org/concepts/loaders/)
+
+_Production Only:_
+
+- [`uglifyJsPlugin`](https://webpack.js.org/plugins/uglifyjs-webpack-plugin/#options)
+- [`definePlugin`](https://webpack.js.org/plugins/define-plugin)
+
+Note that if `devtool` is set in production, Fosterkit will automatically[set to `uglifyJsPlugin.sourceMap` to `true`](https://github.com/webpack/webpack/issues/2704#issuecomment-228860162).
+
+**Example:**
+
 ```js
-development: {
+production: {
+  devtool: 'hidden-source-map',
+  uglifyJsPlugin: {
+    extractComments: true
+  },
+  definePlugin: {
+    SOME_API_KEY: 'abcdefg'
+  },
   plugins: (webpack) => { return [ new webpack.IgnorePlugin(/jsdom$/) ] },
   loaders: [] // Adds to `webpackConfig.module.rules`
 }
@@ -248,7 +285,7 @@ Defaults to `{ includePaths: ["./node_modules"] }` so you can `@import` files in
 Robust templating with [Pug](https://pugjs.org/api/getting-started.html).
 
 #### `dataFunction`
-[gulp-data](https://github.com/colynb/gulp-data) `dataFunction` used provide data to templates. Defaults to reading a in a global JSON, specified by the `dataFile` option.
+[gulp-data](https://github.com/colynb/gulp-data) `dataFunction` used provide data to templates. Defaults to reading in a global JSON, specified by the `dataFile` option.
 
 #### `dataFile`
 A path to a JSON file containing data to use in your Nunjucks templates via [`gulp-data`](https://github.com/colynb/gulp-data).
@@ -292,7 +329,7 @@ or reference the image remotely:
 
 If you reference the sprite remotely, be sure to include something like [svg4everybody](https://github.com/jonathantneal/svg4everybody) to ensure external loading works on Internet Explorer.
 
-I've included a helper to generate the required svg markup in `src/views/mixins/_mixins.pug`, so you can just do:
+Fosterkit includes a helper which generates the required svg markup in `src/views/mixins/_mixins.pug`, so you can just do:
 ```pug
 +sprite('my-icon')
 ```
@@ -323,6 +360,19 @@ In the following example, the first path will be `red`, the second will be `whit
 
 I recommend setting up your SVGs on a 500 x 500 canvas, centering your artwork, and expanding/combining any shapes of the same color. This last step is important. [Read more on SVG optimization here!](https://www.viget.com/articles/5-tips-for-saving-svg-for-the-web-with-illustrator)
 
+### clean
+
+```js
+clean: {
+  patterns: [
+    path.resolve(process.env.PWD, 'dist/assets'),
+    path.resolve(process.env.PWD, 'dist/templates')
+  ]
+}
+```
+
+By default, the entire `dest` directory is deleted before each build. By setting the `clean.patterns` option, you can specify which directory or directories (using globbing syntax) should be deleted instead. Use this if you have subdirectories within the `dest` directory that should be left alone (media uploaded through a CMS, say).
+
 ### production
 By default, filenames are revisioned when running the production `build` task. If you want to disable this behavior, you can set `rev` to false.
 
@@ -332,10 +382,56 @@ production: {
 }
 ```
 
+### additionalTasks
+If you wish to define additional gulp tasks, and have them run at a certain point in the build process, you may use this configuration to do so via the following config object:
+
+```json
+additionalTasks: {
+  initialize(gulp, PATH_CONFIG, TASK_CONFIG) {
+    // Add gulp tasks here
+  },
+  development: {
+    prebuild: [],
+    postbuild: []
+  },
+  production: {
+    prebuild: [],
+    postbuild: []
+  }
+}
+```
+
+Fosterkit will call `initialize`, passing in `gulp`, along with the path and task configs. Use this method to define or `require` additional gulp tasks. You can specify when and in what order your custom tasks should run in the `production` and `development` `prebuild` and `postbuild` options.
+
+For example, say you had a sprite task you wanted to run before your css compiled, and in production, you wanted to run an image compression task you had after all assets had been compiled. Your configuration might look something like this:
+
+```
+additionalTasks: {
+  initialize(gulp, PATH_CONFIG, TASK_CONFIG) {
+    gulp.task('createPngSprite', function() {
+      // do stuff
+    })
+    gulp.task('compressImages', function() {
+      // compress all the things
+    })
+  },
+  development: {
+    prebuild: ['createPngSprite'],
+    postbuild: []
+  },
+  production: {
+    prebuild: ['createPngSprite'],
+    postbuild: ['compressImages']
+  }
+}
+```
+
 # FAQ
 
 ## Can I customize and add Gulp tasks?
-You could clone this repo, copy over the gulpfile.js folder and package.json dependencies and run `gulp` instead of installing it as a modules directly, or you could fork and maintain your own custom setup.
+Yep! See [additionalTasks](#additionaltasks).
+
+You can also clone this repo, copy over the gulpfile.js folder and package.json dependencies and run `gulp` instead of installing it as a modules directly, or you could fork and maintain your own custom setup.
 
 ## I don't see JS files in my dest directory during development
 JS files are compiled and live-update via BrowserSync + WebpackDevMiddleware + WebpackHotMiddleware. That means, that you won't actually see `.js` files output to your destination directory during development, but they will be available to your browser running on the BrowserSync port.
@@ -361,7 +457,7 @@ Feature | Packages Used
 ------- | -------------
 **Wordpress** | [Vagrant](https://www.vagrantup.com/), [ScotchBox](https://box.scotch.io/)
 **Sass** | [Bourbon](http://bourbon.io/), [Neat](http://neat.bourbon.io/)
-**IconFonts** | Generate icons fonts from SVGs
+**IconFonts** | Generate icon fonts from SVGs
 **Test server** | Local production [Express](http://expressjs.com) server for your static websites
 
 ***
