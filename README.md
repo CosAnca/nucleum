@@ -385,7 +385,7 @@ production: {
 ### additionalTasks
 If you wish to define additional gulp tasks, and have them run at a certain point in the build process, you may use this configuration to do so via the following config object:
 
-```json
+```js
 additionalTasks: {
   initialize(gulp, PATH_CONFIG, TASK_CONFIG) {
     // Add gulp tasks here
@@ -405,7 +405,7 @@ Fosterkit will call `initialize`, passing in `gulp`, along with the path and tas
 
 For example, say you had a sprite task you wanted to run before your css compiled, and in production, you wanted to run an image compression task you had after all assets had been compiled. Your configuration might look something like this:
 
-```
+```js
 additionalTasks: {
   initialize(gulp, PATH_CONFIG, TASK_CONFIG) {
     gulp.task('createPngSprite', function() {
