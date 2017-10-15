@@ -9,17 +9,40 @@
 // single value, e.g:
 //
 // .foo {
-//     @include font-size(text-body);
+//     @include font(text-body);
 // }
 //
-// This will generate a rem-based font-size, e.g:
+// This will generate a rem-based font-size and line-height, e.g:
 //
 // .foo {
 //     font-size: 1rem;
+//     line-height: 1.5;
 // }
 //
 
-@mixin font-size($key, $variant: small) {
+@mixin font($key, $variant: small) {
   $font-size: font-size($key, $variant);
-  font-size: ($font-size / $global-font-size) * 1rem;
+  @include rem($font-size);
+  line-height: line-height($key, $variant);
+}
+
+// @include rem()
+// ------------------------------------
+// Generates a rem-based font-size
+//
+// .foo {
+//     @include rem(16px);
+// }
+//
+// Will output:
+//
+// .foo {
+//   font-size: 1rem;
+// }
+@mixin rem($value) {
+  @if unit($value) != "px" {
+    @warn "Value must by a px unit";
+  }
+
+  font-size: ($value / $global-font-size) * 1rem;
 }

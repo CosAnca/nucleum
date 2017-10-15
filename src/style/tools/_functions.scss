@@ -2,29 +2,58 @@
 // TOOLS / FUNCTIONS
 // =============================================================================
 
-// $text map reader
-// ===========================================
-
-// sass-lint:disable no-warn
-
-// Function to get font-size instead of using `map-get`.
-@function font-size($key, $variant: large) {
-  @if map-has-key($text, $key) {
-    @if ($variant != null) {
-      @return map-get(map-get($text, $key), $variant);
+// Maps
+// ==============================================
+// map-get-deep()
+// ------------------------------------
+// Access nested map values.
+// @author Hugo Giraudel (with modifications)
+@function map-get-deep($map, $keys...) {
+  @if map-has-keys-deep($map, $keys...) {
+    @each $key in $keys {
+      $map: map-get($map, $key);
     }
-
-    @return map-get($text, $key);
+    @return $map;
   }
 
-  @warn "Unknown `#{$key}` in $text.";
+  @warn "Unknown keys of `#{$keys...}` in the defined map";
   @return null;
+}
+
+// map-has-keys-deep()
+// ------------------------------------
+// Check for keys in nested maps.
+// @author Hugo Giraudel
+@function map-has-keys-deep($map, $keys...) {
+  @each $key in $keys {
+    @if not map-has-key($map, $key) {
+      @return false;
+    }
+    $map: map-get($map, $key);
+  }
+  @return true;
+}
+
+// font-size()
+// ------------------------------------
+
+// Function to get font-size instead of using `map-get`.
+// Function to get font-size from `$text` instead of using `map-get`.
+@function font-size($key, $variant: large) {
+  @return map-get-deep($text, $key, $variant, font-size);
+}
+
+// line-height()
+// ------------------------------------
+// Function to get line-height from `$text` instead of using `map-get`.
+@function line-height($key, $variant: large) {
+  @return map-get-deep($text, $key, $variant, line-height);
 }
 
 // $colors map reader
 // ===========================================
 
-// Function to get colour values instead of using nested `map-gets`.
+// Function to get color from `$colors` instead of using `map-get`.
 //
 // Usage:
 //
@@ -33,12 +62,7 @@
 //   }
 //
 @function color($key) {
-  @if map-has-key($colors, $key) {
-    @return map-get($colors, $key);
-  }
-
-  @warn "Unknown `#{$key}` in $colors.";
-  @return null;
+  @return map-get-deep($colors, $key);
 }
 
 // Convert pixels to ems
@@ -61,4 +85,16 @@
     @return $px;
   }
   @return ($px / $base-font-size) * 1em;
+}
+
+// strip-unit()
+// ------------------------------------
+// Function to remove the unit from a value
+// i.e. strip-unit(20px) would return 20.
+@function strip-unit($num) {
+  @if type_of($num) == number {
+    @return $num / ($num * 0 + 1);
+  } @else {
+    @warn "Value must be a number i.e. 12, 24px etc.";
+  }
 }

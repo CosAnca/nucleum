@@ -2,42 +2,77 @@
 // SETTINGS / TYPOGRAPHY
 // =============================================================================
 
-// Brand and project font-sizes are held in maps. Access these using:
-//
-//   text($KEY, $VARIANT)
-//
-// For example:
-//
-//   .foo {
-//     font-size: text(heading-alpha, large);
-//   }
+// Brand and project font-sizes and line-heights are held in maps.
+// Access these using `@include font()` from `tools/typography`.
 $text: (
   heading-alpha: (
-    small: 32px,
-    large: 62px
+    small: (
+      font-size: 36px,
+      line-height: 1.16
+    ),
+    large: (
+      font-size: 50px,
+      line-height: 1.12
+    )
   ),
   heading-bravo: (
-    small: 28px,
-    large: 48px
+    small: (
+      font-size: 29px,
+      line-height: 1.2
+    ),
+    large: (
+      font-size: 40px,
+      line-height: 1.15
+    )
   ),
   heading-charlie: (
-    small: 25px,
-    large: 36px
+    small: (
+      font-size: 25px,
+      line-height: 1.24
+    ),
+    large: (
+      font-size: 34px,
+      line-height: 1.18
+    )
   ),
   heading-delta: (
-    small: 22px,
-    large: 28px
+    small: (
+      font-size: 20px,
+      line-height: 1.3
+    ),
+    large: (
+      font-size: 28px,
+      line-height: 1.21
+    )
   ),
   text-lead: (
-    small: 20px,
-    large: 22px
+    small: (
+      font-size: 18px,
+      line-height: 1.44
+    ),
+    large: (
+      font-size: 22px,
+      line-height: 1.36
+    )
   ),
   text-body: (
-    small: 16px,
-    large: 18px
+    small: (
+      font-size: 16px,
+      line-height: 1.5
+    ),
+    large: (
+      font-size: 18px,
+      line-height: 1.44
+    )
   ),
   text-smallprint: (
-    small: 14px,
-    large: 14px
+    small: (
+      font-size: 12px,
+      line-height: 1.5
+    ),
+    large: (
+      font-size: 12px,
+      line-height: 1.5
+    )
   )
 ) !default;

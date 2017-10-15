@@ -3,12 +3,11 @@
 // ==========================================================================
 
 // Table styles are incredibly unopinionated. Simply:
-// * 1. Force TABLEs to be full-width by default.
-// * 2. Ensure their first and last cells in each row carry no indents.
+// 1. Force TABLEs to be full-width by default.
+// 2. Ensure their first and last cells in each row carry no indents.
 
 table {
   width: 100%; // [1]
-  table-layout: fixed;
 }
 
 th,
