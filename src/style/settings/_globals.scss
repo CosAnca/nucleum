@@ -9,6 +9,18 @@ $global-font-family: $helvetica;
 $global-font-size: 16px !default;
 $global-line-height: 1.5;
 
+// Global spacing settings
+// ===============================================
+
+$global-spacing: $global-line-height * 1rem;
+$global-spacing-small: $global-spacing / 2;
+$global-spacing-large: $global-spacing * 2;
+
+// Global container settings
+// ===============================================
+
+$global-container-width: 1200px !default;
+
 // Global border settings
 // ===============================================
 
@@ -21,13 +33,3 @@ $global-border-radius: 0.25em !default;
 $global-animation-speed: 0.5s !default;
 $global-animation-speed-fast: $global-animation-speed / 2 !default;
 $global-animation-speed-slow: $global-animation-speed * 2 !default;
-
-// Global spacing settings
-// =============================================================================
-// Spacing values are determined based on your project’s global line height (i.e
-// your baseline grid). It is not recommended that you modify these following
-// variables (it can break your vertical rhythm), but if you need to, you can.
-
-$global-spacing: $global-line-height * 1rem;
-$global-spacing-small: $global-spacing / 2;
-$global-spacing-large: $global-spacing * 2;

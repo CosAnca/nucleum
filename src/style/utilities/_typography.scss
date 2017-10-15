@@ -9,20 +9,11 @@
 
 // sass-lint:disable no-important
 
-.u-text-left {
-  text-align: left !important;
-}
-
-.u-text-center {
-  text-align: center !important;
-}
-
-.u-text-right {
-  text-align: right !important;
-}
-
-.u-text-justify {
-  text-align: justify !important;
+// @each loop to generate general use text alignment classes
+@each $alignment-position in left center right justify {
+  .u-text-#{$alignment-position} {
+    text-align: $alignment-position !important;
+  }
 }
 
 // Font style utilities
