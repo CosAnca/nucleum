@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 const path = require('path');
 const additionalArgs = require('minimist')(process.argv.slice(2))._;
-const fosterkitEntryFile = require.resolve('fosterkit');
+const fosterkitEntryDir = path.resolve(__dirname, '../gulpfile.js');
 const gulpModulePath = path.dirname(require.resolve('gulp'));
 const gulpBinaryFile = path.join(gulpModulePath, '/bin/gulp');
 
-let args = ['--gulpfile', fosterkitEntryFile];
+let args = ['--gulpfile', fosterkitEntryDir];
 
 if (additionalArgs.length) {
   args = args.concat(additionalArgs);

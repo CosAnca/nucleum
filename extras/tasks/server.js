@@ -1,3 +1,4 @@
+/* global process */
 const compress = require('compression');
 const config = require('../config');
 const express = require('express');
@@ -6,10 +7,10 @@ const log = require('fancy-log');
 const colors = require('ansi-colors');
 const logger = require('morgan');
 const open = require('open');
-const path = require('path');
+const projectPath = require('../lib/projectPath');
 
 const settings = {
-  root: path.resolve(process.env.PWD, config.root.dest),
+  root: projectPath(config.root.dest),
   port: process.env.PORT || 5000,
   logLevel: process.env.NODE_ENV ? 'combined' : 'dev',
   staticOptions: {

@@ -1,14 +1,12 @@
-/* global process */
 const gulp = require('gulp');
 const log = require('fancy-log');
 const colors = require('ansi-colors');
-const path = require('path');
-// const merge = require('merge-stream');
+const projectPath = require('../lib/projectPath');
 
 gulp.task('init-config', function() {
   const configStream = gulp
     .src(['gulpfile.js/path-config.json', 'gulpfile.js/task-config.js'])
-    .pipe(gulp.dest(path.join(process.env.PWD, 'config')));
+    .pipe(gulp.dest(projectPath('config')));
 
   log(
     colors.green(

@@ -1,9 +1,19 @@
-const gulp   = require('gulp');
-const path   = require('path');
-const watch  = require('gulp-watch');
+/* global PATH_CONFIG, TASK_CONFIG */
+const gulp = require('gulp');
+const path = require('path');
+const projectPath = require('../lib/projectPath');
+const watch = require('gulp-watch');
 
 const watchTask = function() {
-  const watchableTasks = ['fonts', 'iconFont', 'images', 'svgSprite', 'html', 'stylesheets', 'static'];
+  const watchableTasks = [
+    'fonts',
+    'iconFont',
+    'images',
+    'svgSprite',
+    'html',
+    'stylesheets',
+    'static',
+  ];
 
   function getTaskPathFor(taskName) {
     switch (taskName) {
@@ -23,16 +33,23 @@ const watchTask = function() {
   watchableTasks.forEach(function(taskName) {
     const taskConfig = TASK_CONFIG[taskName];
     const taskPath = getTaskPathFor(taskName);
-    const watchConfig = {};
-    if (TASK_CONFIG.watch !== undefined && TASK_CONFIG.watch.gulpWatch !== undefined) {
+    let watchConfig = {};
+    if (
+      TASK_CONFIG.watch !== undefined &&
+      TASK_CONFIG.watch.gulpWatch !== undefined
+    ) {
       watchConfig = TASK_CONFIG.watch.gulpWatch;
     }
 
     if (taskConfig) {
-      const srcPath = path.resolve(process.env.PWD, PATH_CONFIG.src, taskPath.src);
-      const globPattern = '**/*' + (taskConfig.extensions ? '.{' + taskConfig.extensions.join(',') + '}' : '');
+      const srcPath = projectPath(PATH_CONFIG.src, taskPath.src);
+      const globPattern =
+        '**/*' +
+        (taskConfig.extensions ?
+          '.{' + taskConfig.extensions.join(',') + '}' :
+          '');
       watch(path.join(srcPath, globPattern), watchConfig, function() {
-       require('./' + taskName)();
+        require('./' + taskName)();
       });
     }
   });

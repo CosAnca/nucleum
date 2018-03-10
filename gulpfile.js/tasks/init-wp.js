@@ -1,20 +1,20 @@
-/* global process, PATH_CONFIG */
+/* global PATH_CONFIG */
 const gulp = require('gulp');
 const log = require('fancy-log');
 const colors = require('ansi-colors');
-const path = require('path');
+const projectPath = require('../lib/projectPath');
 const rename = require('gulp-rename');
 const merge = require('merge-stream');
 
 gulp.task('init-wp', function() {
   const dotfilesStream = gulp
     .src(['extras/dotfiles/**/*', '!extras/dotfiles/*.txt'], { dot: true })
-    .pipe(gulp.dest(process.env.PWD));
+    .pipe(gulp.dest(projectPath()));
 
   const renameGitIgnore = gulp
     .src(['extras/dotfiles/gitignore.txt'])
     .pipe(rename('.gitignore'))
-    .pipe(gulp.dest(process.env.PWD));
+    .pipe(gulp.dest(projectPath()));
 
   const configStream = gulp
     .src([
@@ -22,11 +22,11 @@ gulp.task('init-wp', function() {
       '!extras/wordpress/wp-setup{,/**}',
       '!extras/wordpress/*.md',
     ])
-    .pipe(gulp.dest(process.env.PWD));
+    .pipe(gulp.dest(projectPath()));
 
   const srcStream = gulp
     .src(['src/**/*', '*.gitkeep'])
-    .pipe(gulp.dest(path.join(process.env.PWD, PATH_CONFIG.src)));
+    .pipe(gulp.dest(projectPath(PATH_CONFIG.src)));
 
   log(
     colors.green.bold(

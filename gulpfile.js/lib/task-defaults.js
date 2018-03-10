@@ -1,6 +1,7 @@
-const os   = require('os');
+const os = require('os');
 const path = require('path');
-const pkg  = require(path.resolve(process.env.PWD, 'package.json'));
+const projectPath = require('./projectPath');
+const pkg = require(projectPath('package.json'));
 
 module.exports = {
   javascripts: {
@@ -19,7 +20,7 @@ module.exports = {
       exclude: /node_modules/,
     },
     babel: {
-      presets: [['es2015', { 'modules': false }], 'stage-1'],
+      presets: [['es2015', { modules: false }], 'stage-1'],
     },
     development: {},
     production: {
@@ -27,7 +28,7 @@ module.exports = {
       uglifyJsPlugin: {},
       definePlugin: {
         'process.env': {
-          'NODE_ENV': JSON.stringify('production'),
+          NODE_ENV: JSON.stringify('production'),
         },
       },
     },
@@ -35,9 +36,7 @@ module.exports = {
 
   stylesheets: {
     sass: {
-      includePaths: [
-        './node_modules',
-      ],
+      includePaths: ['./node_modules'],
     },
     extensions: ['sass', 'scss', 'css'],
   },
