@@ -2,6 +2,7 @@ if (!TASK_CONFIG.static) return;
 
 // const changed = require('gulp-changed');
 const gulp = require('gulp');
+const path = require('path');
 const projectPath = require('../lib/projectPath');
 
 const staticTask = function() {

@@ -1,6 +1,6 @@
 /* global PATH_CONFIG */
 const gulp = require('gulp');
-const projectPath = require('../lib/projectPath');
+const projectPath = require('../../lib/projectPath');
 const revReplace = require('gulp-rev-replace');
 
 // 2) Update asset references with reved filenames in compiled css + js

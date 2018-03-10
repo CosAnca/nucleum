@@ -2,7 +2,7 @@ if (!TASK_CONFIG.html) return false;
 
 const gulp = require('gulp');
 const revReplace = require('gulp-rev-replace');
-const projectPath = require('../lib/projectPath');
+const projectPath = require('../../lib/projectPath');
 
 // 4) Update asset references in HTML
 gulp.task('update-html', function() {
