@@ -1,9 +1,13 @@
-const gutil        = require('gulp-util');
+const log = require('fancy-log');
+const colors = require('ansi-colors');
+const PluginError = require('plugin-error');
 const prettifyTime = require('./prettifyTime');
 const handleErrors = require('./handleErrors');
 
 module.exports = function(err, stats) {
-  if (err) throw new gutil.PluginError('webpack', err);
+  if (err) {
+    throw new PluginError('webpack', err);
+  }
 
   let statColor = stats.compilation.warnings.length < 1 ? 'green' : 'yellow';
 
@@ -14,7 +18,12 @@ module.exports = function(err, stats) {
     });
   } else {
     const compileTime = prettifyTime(stats.endTime - stats.startTime);
-    gutil.log(gutil.colors[statColor](stats));
-    gutil.log('Compiled with', gutil.colors.cyan('webpack'), 'in', gutil.colors.magenta(compileTime));
+    log(colors[statColor](stats));
+    log(
+      'Compiled with',
+      colors.cyan('webpack'),
+      'in',
+      colors.magenta(compileTime)
+    );
   }
 };
