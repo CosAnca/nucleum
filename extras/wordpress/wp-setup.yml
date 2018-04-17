@@ -38,7 +38,7 @@ db:
 #################################################################
 
 wpsettings:
-  url: mywebsite.dev
+  url: mywebsite.test
   title: My website
   description: My new awesome website
   permalink_structure: "/%postname%/"

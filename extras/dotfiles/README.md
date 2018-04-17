@@ -19,7 +19,7 @@ git clone [project-repository]
 vagrant up
 ```
 
-Now you can view the website in your browser at: [http://localurl.dev](http://localurl.dev).
+Now you can view the website in your browser at: [http://localurl.test](http://localurl.test).
 
 To run the front-end development task, which starts compiling, watching,
 and live updating all our files as we change them, you need to:
