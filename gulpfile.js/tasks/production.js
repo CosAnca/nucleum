@@ -4,6 +4,7 @@ const getEnabledTasks = require('../lib/getEnabledTasks');
 const os = require('os');
 const fs = require('fs');
 const del = require('del');
+const path = require('path');
 const projectPath = require('../lib/projectPath');
 
 const productionTask = function(cb) {

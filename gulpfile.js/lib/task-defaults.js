@@ -25,7 +25,6 @@ module.exports = {
     development: {},
     production: {
       devtool: false,
-      uglifyJsPlugin: {},
       definePlugin: {
         'process.env': {
           NODE_ENV: JSON.stringify('production'),

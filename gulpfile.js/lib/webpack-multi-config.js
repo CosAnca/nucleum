@@ -38,6 +38,7 @@ module.exports = function(env) {
   const webpackConfig = {
     context: jsSrc,
     entry: TASK_CONFIG.javascripts.entry,
+    mode: process.env['BABEL_ENV'],
     output: {
       path: path.normalize(jsDest),
       filename: rev ? '[name]-[hash].js' : '[name].js',
@@ -99,17 +100,8 @@ module.exports = function(env) {
       );
     }
 
-    const uglifyConfig = TASK_CONFIG.javascripts.production.uglifyJsPlugin;
-    webpackConfig.devtool = TASK_CONFIG.javascripts.production.devtool;
-
-    if (webpackConfig.devtool) {
-      uglifyConfig.sourceMap = true;
-    }
-
     webpackConfig.plugins.push(
-      new webpack.DefinePlugin(TASK_CONFIG.javascripts.production.definePlugin),
-      new webpack.optimize.UglifyJsPlugin(uglifyConfig),
-      new webpack.NoEmitOnErrorsPlugin()
+      new webpack.DefinePlugin(TASK_CONFIG.javascripts.production.definePlugin)
     );
   }
 

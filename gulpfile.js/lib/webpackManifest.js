@@ -6,7 +6,9 @@ module.exports = function(jsDest, dest, filename) {
   filename = filename || 'rev-manifest.json';
 
   return function() {
-    this.plugin('done', function(statsObject) {
+    const plugin = { name: 'webpackManifest'};
+
+    this.hooks.done.tap(plugin, function(statsObject) {
       const stats = statsObject.toJson();
       const chunks = stats.assetsByChunkName;
       const manifest = {};
