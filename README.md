@@ -1,12 +1,12 @@
 # ![Fosterkit](extras/default/fosterkit-cover.png)
 
-**Fosterkit** is a friendly [Gulp](http://gulpjs.com/) starter kit that integrates well into any environment to form a full-featured modern asset pipeline. It can be used as-is as a static site builder, or can be configured and integrated into many development environments and sites or apps structure. The [extras](./extras) folder contains configuration details for **Wordpress** which is currently bundled with Fosterkit in order to give you quick start for any new project based on this CMS.
+**Fosterkit** is an opinionated, performance oriented boilerplate for web development. It can be used as-is as a static site builder, or can be configured and integrated into many development environments and sites or apps structures. The [extras](./extras) folder contains configuration details for **WordPress** based projects to give you a quick start for any new website based on this CMS.
 
 ## Dependencies
 
 * Front-end stack
   * [yarn]
-* Wordpress (assuming you already have [Vagrant] and [Virtualbox])
+* WordPress (assuming you already have [Vagrant] and [VirtualBox])
   * [Vagrant Hostsupdater] (`vagrant plugin install vagrant-hostsupdater`)
 
 [yarn]: https://yarnpkg.com/lang/en/
@@ -14,7 +14,7 @@
 [virtualbox]: https://www.virtualbox.org/wiki/Downloads
 [vagrant hostsupdater]: https://github.com/cogitatio/vagrant-hostsupdater
 
-## Quick start on a fresh project (empty directory) for creating a Wordpress based website
+## Quick start on a fresh project (empty directory) for creating a WordPress based website
 
 ```zsh
 yarn init
@@ -74,7 +74,7 @@ yarn run fosterkit -- build
 
 Compiles files for production to your destination directory. JS files are built with Webpack 3 with standard production optimizations (Uglify, etc.). CSS is run through CSSNano. If `rev` is set to `true` in your `task-config.js` file, filenames will be hashed (file.css -> file-a8908d9io20.css) so your server may cache them indefinitely.
 
-**NOTE:** By default filenames revision is set to `false` for WordPress production builds. Please refer to [Fosterkit and Wordpress](extras/wordpress/README-WP.md) documentation if you'd like to [enable revision](extras/wordpress/README-WP.md#filenames-revision-hashing-for-production-builds).
+**NOTE:** By default filenames revision is set to `false` for WordPress production builds. Please refer to [Fosterkit and WordPress](extras/wordpress/README-WP.md) documentation if you'd like to [enable revision](extras/wordpress/README-WP.md#filenames-revision-hashing-for-production-builds).
 
 ```zsh
 yarn run fosterkit -- ghPages
@@ -106,7 +106,7 @@ You may override the default configuration by creating a `config` folder with th
 yarn run fosterkit -- init-config
 ```
 
-By default, Fosterkit expects these files to live in a `./config` a the root of your project. You may specify an alternative relative location by setting an environment variable:
+By default, Fosterkit expects these files to live in a `./config` at the root of your project. You may specify an alternative relative location by setting an environment variable:
 
 ```json
 // package.json
@@ -134,7 +134,7 @@ This file specifies the `src` and `dest` root directories, and `src` and `dest` 
 
 This file exposes per-task configuration and overrides. At minimum, you just need to set the task to `true` to enable the task with its default configuration. If you wish to configure a task, provide a configuation object instead.
 
-* Any task may be disabled by setting the value to `false`. For example, if your project has its own handling HTML and templating (Wordpress, Craft, etc), you'll want to set `html` to `false` in your task-config.
+* Any task may be disabled by setting the value to `false`. For example, if your project has its own handling HTML and template engine (WordPress, Craft, etc), you'll want to set `html` to `false` in your task-config.
 * All asset tasks have an `extensions` option that can be used to overwrite the ones that are processed and watched.
 
 See [task config defaults](gulpfile.js/lib/task-defaults.js) for a closer look. All configuration objects will be merged with these defaults. Note that `array` options are replaced rather than merged or concatenated.
@@ -153,7 +153,7 @@ browserSync: {
 }
 ```
 
-**If you're running another server (Vagrant for example, built in with Wordpress config)**, you'll want to use the `proxy` option, along with `files` to tell browserSync to watch additional files (like your templates).
+**If you're running another server (Vagrant for example, built in with WordPress config)**, you'll want to use the `proxy` option, along with `files` to tell browserSync to watch additional files (like your templates).
 
 ```js
 browserSync: {
@@ -259,19 +259,13 @@ Specify additional environment specific configuration to be merged in with Foste
 
 _Production Only:_
 
-* [`uglifyJsPlugin`](https://webpack.js.org/plugins/uglifyjs-webpack-plugin/#options)
 * [`definePlugin`](https://webpack.js.org/plugins/define-plugin)
-
-Note that if `devtool` is set in production, Fosterkit will automatically[set to `uglifyJsPlugin.sourceMap` to `true`](https://github.com/webpack/webpack/issues/2704#issuecomment-228860162).
 
 **Example:**
 
 ```js
 production: {
   devtool: 'hidden-source-map',
-  uglifyJsPlugin: {
-    extractComments: true
-  },
   definePlugin: {
     SOME_API_KEY: 'abcdefg'
   },
@@ -301,7 +295,7 @@ hot: {
 
 #### `customizeWebpackConfig`
 
-In the event that an option you need is not exposed, you may access, modify and return a futher customized webpackConfig by providing this option as a function. The function will recieve the Fosterkit `webpackConfig`, `env` and `webpack` as params. The `env` value will be either `development` (`yarn run fosterkit`) or `production` (`yarn run fosterkit -- build`).
+In the event that an option you need is not exposed, you may access, modify and return a further customized webpackConfig by providing this option as a function. The function will receive the Fosterkit `webpackConfig`, `env` and `webpack` as params. The `env` value will be either `development` (`yarn run fosterkit`) or `production` (`yarn run fosterkit -- build`).
 
 ```js
 customizeWebpackConfig: function (webpackConfig, env, webpack) {
@@ -329,17 +323,17 @@ Defaults to `{ includePaths: ["./node_modules"] }` so you can `@import` files in
 
 ### html
 
-**Note:** If you are on a platform that's already handling html (Wordpress), set `html: false` or delete the configuration object completely from `task-config.js`. If that's the case, don't forget to use the BrowserSync [`files` option](https://browsersync.io/docs/options#option-file) in the `browserSync` config object to start watching yout templates folder.
+**Note:** If you are on a platform that's already handling html (WordPress), set `html: false` or delete the configuration object completely from `task-config.js`. If that's the case, don't forget to use the BrowserSync [`files` option](https://browsersync.io/docs/options#option-file) in the `browserSync` config object to start watching yout templates folder.
 
 Robust templating with [Pug](https://pugjs.org/api/getting-started.html).
 
 #### `dataFunction`
 
-[gulp-data](https://github.com/colynb/gulp-data) `dataFunction` used provide data to templates. Defaults to reading in a global JSON, specified by the `dataFile` option.
+[gulp-data](https://github.com/colynb/gulp-data) `dataFunction` is used to provide data to templates. Defaults to reading in a global JSON, specified by the `dataFile` option.
 
 #### `dataFile`
 
-A path to a JSON file containing data to use in your Nunjucks templates via [`gulp-data`](https://github.com/colynb/gulp-data).
+A path to a JSON file containing data to use in your templates via [`gulp-data`](https://github.com/colynb/gulp-data).
 
 #### `htmlmin`
 
@@ -422,7 +416,7 @@ In the following example, the first path will be `red`, the second will be `whit
 </svg>
 ```
 
-I recommend setting up your SVGs on a 500 x 500 canvas, centering your artwork, and expanding/combining any shapes of the same color. This last step is important. [Read more on SVG optimization here!](https://www.viget.com/articles/5-tips-for-saving-svg-for-the-web-with-illustrator)
+We recommend setting up your SVGs on a 500 x 500 canvas, centering your artwork, and expanding/combining any shapes of the same color. This last step is important. [Read more on SVG optimization here!](https://www.viget.com/articles/5-tips-for-saving-svg-for-the-web-with-illustrator)
 
 ### clean
 
@@ -439,11 +433,11 @@ By default, the entire `dest` directory is deleted before each build. By setting
 
 ### production
 
-By default, filenames are revisioned when running the production `build` task. If you want to disable this behavior, you can set `rev` to false.
+Filenames can be revisioned when running the production `build` task. If you want to enable this behavior, you can set `rev` to true.
 
 ```js
 production: {
-  rev: false;
+  rev: true;
 }
 ```
 
@@ -524,7 +518,7 @@ Extras:
 
 | Feature         | Packages Used                                                                    |
 | --------------- | -------------------------------------------------------------------------------- |
-| **Wordpress**   | [Vagrant](https://www.vagrantup.com/), [ScotchBox](https://box.scotch.io/)       |
+| **WordPress**   | [Vagrant](https://www.vagrantup.com/), [ScotchBox](https://box.scotch.io/)       |
 | **Sass**        | [Bourbon](http://bourbon.io/), [Neat](http://neat.bourbon.io/)                   |
 | **IconFonts**   | Generate icon fonts from SVGs                                                    |
 | **Test server** | Local production [Express](http://expressjs.com) server for your static websites |
