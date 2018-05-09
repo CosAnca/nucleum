@@ -10,6 +10,7 @@ const projectPath = require('./projectPath');
 const webpack = require('webpack');
 const webpackManifest = require('./webpackManifest');
 const querystring = require('querystring');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = function(env) {
   process.env['BABEL_ENV'] =
@@ -45,6 +46,9 @@ module.exports = function(env) {
       publicPath: publicPath,
     },
     plugins: [],
+    optimization: {
+      minimizer: []
+    },
     resolve: {
       extensions: extensions,
       alias: TASK_CONFIG.javascripts.alias,
@@ -99,6 +103,15 @@ module.exports = function(env) {
         new webpackManifest(PATH_CONFIG.javascripts.dest, PATH_CONFIG.dest)
       );
     }
+
+    const uglifyConfig = TASK_CONFIG.javascripts.production.uglifyJsPlugin;
+    webpackConfig.devtool = TASK_CONFIG.javascripts.production.devtool;
+
+    if (webpackConfig.devtool) {
+      uglifyConfig.sourceMap = true;
+    }
+
+    webpackConfig.optimization.minimizer.push(new UglifyJsPlugin(uglifyConfig));
 
     webpackConfig.plugins.push(
       new webpack.DefinePlugin(TASK_CONFIG.javascripts.production.definePlugin)
