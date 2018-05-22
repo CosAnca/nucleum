@@ -1,10 +1,9 @@
 module.exports = {
-  html       : true,
-  images     : true,
-  fonts      : true,
-  static     : true,
-  svgSprite  : true,
-  ghPages    : true,
+  html: true,
+  images: true,
+  fonts: true,
+  static: true,
+  svgSprite: true,
   stylesheets: true,
 
   javascripts: {

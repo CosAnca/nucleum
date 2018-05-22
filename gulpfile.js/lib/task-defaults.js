@@ -1,8 +1,3 @@
-const os = require('os');
-const path = require('path');
-const projectPath = require('./projectPath');
-const pkg = require(projectPath('package.json'));
-
 module.exports = {
   javascripts: {
     extensions: ['js', 'jsx'],
@@ -56,11 +51,6 @@ module.exports = {
 
   fonts: {
     extensions: ['woff2', 'woff', 'eot', 'ttf', 'svg'],
-  },
-
-  ghPages: {
-    branch: 'gh-pages',
-    cacheDir: path.join(os.tmpdir(), pkg.name || 'fosterkit'),
   },
 
   svgSprite: {
