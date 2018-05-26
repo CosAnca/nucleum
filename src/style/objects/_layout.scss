@@ -7,8 +7,8 @@
 // with width Utilities, for example:
 //
 // <div class="o-layout">
-//   <div class="o-layout__item  u-width-2-col">...</div>
-//   <div class="o-layout__item  u-width-2-col">...</div>
+//   <div class="o-layout__item  u-width-1/2@medium">...</div>
+//   <div class="o-layout__item  u-width-1/2@medium">...</div>
 // </div>
 
 // Layout object creates a grid container with clearfix using Neat grid-container mixin
@@ -33,11 +33,15 @@
 .o-layout--flushed,
 .o-layout--nested {
   @include grid-collapse;
+
+  @include grid-media($medium-screen) {
+    @include grid-collapse($neat-grid-medium);
+  }
 }
 
 // Layout item creates the basics for the grid column layout
 //
-// @include grid-column(12, $base-grid);
+// @include grid-column(12, $neat-grid);
 //
 // Output
 // .element {
@@ -47,10 +51,22 @@
 // }
 
 .o-layout__item {
-  @include grid-column(12);
+  @include grid-column;
   float: none; // [1]
+
   @include grid-media($medium-screen) {
-    float: left;
+    @include grid-column(12, $neat-grid-medium);
+  }
+
+  // To avoid adding complementary classes when nesting grids
+  // we automatically collapse the gutters of a nested layout
+  // object.
+  > .o-layout {
+    @include grid-collapse;
+
+    @include grid-media($medium-screen) {
+      @include grid-collapse($neat-grid-medium);
+    }
   }
 }
 
