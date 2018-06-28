@@ -5,21 +5,21 @@ Built with [Fosterkit](https://github.com/CosminAnca/fosterkit/).
 ### Dependencies
 * Front-end stack
   * [yarn]
-* Wordpress (assuming you already have [Vagrant] and [Virtualbox])
-  * [Vagrant Hostsupdater] (`vagrant plugin install vagrant-hostsupdater`)
+* WordPress (assuming you already have [Vagrant] and [VirtualBox])
+  * [Vagrant HostsUpdater] (`vagrant plugin install vagrant-hostsupdater`)
 
 [yarn]: https://yarnpkg.com/lang/en/
 [Vagrant]: https://www.vagrantup.com/
-[Virtualbox]: https://www.virtualbox.org/wiki/Downloads
-[Vagrant Hostsupdater]: https://github.com/cogitatio/vagrant-hostsupdater
+[VirtualBox]: https://www.virtualbox.org/wiki/Downloads
+[Vagrant HostsUpdater]: https://github.com/cogitatio/vagrant-hostsupdater
 
 ### To get started:
 ```zsh
-git clone [project-repo]
+git clone [project-repository]
 vagrant up
 ```
 
-Now you can view the website in your browser at: [http://localurl.dev](http://localurl.dev).
+Now you can view the website in your browser at: [http://localurl.test](http://localurl.test).
 
 To run the front-end development task, which starts compiling, watching,
 and live updating all our files as we change them, you need to:
@@ -42,7 +42,7 @@ For more details about Fosterkit read the [documentation](https://github.com/Cos
 #### Git messages
 Your Git messages must follow this simple format:
 
-- Capitalise your commit messages.
+- Capitalize your commit messages.
 - Start your message with a verb.
 - Use present tense.
 - If case, refer to the issue/PR number in your squashed commit message.

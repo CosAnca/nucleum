@@ -1,15 +1,21 @@
-const gulp      = require('gulp');
-const path      = require('path');
-const rev       = require('gulp-rev');
-const revNapkin = require('gulp-rev-napkin');
+/* global PATH_CONFIG */
+const gulp = require('gulp');
+const projectPath = require('../../lib/projectPath');
+const rev = require('gulp-rev');
+const revdel = require('gulp-rev-delete-original');
 
 // 3) Rev and compress CSS and JS files (this is done after assets, so that if a
 //    referenced asset hash changes, the parent hash will change as well
 gulp.task('rev-css', function() {
-  return gulp.src(path.resolve(process.env.PWD, PATH_CONFIG.dest,'**/*.css'))
+  return gulp
+    .src(projectPath(PATH_CONFIG.dest, '**/*.css'))
     .pipe(rev())
     .pipe(gulp.dest(PATH_CONFIG.dest))
-    .pipe(revNapkin({verbose: false, force: true}))
-    .pipe(rev.manifest(path.resolve(process.env.PWD, PATH_CONFIG.dest, 'rev-manifest.json'), {merge: true}))
+    .pipe(revdel())
+    .pipe(
+      rev.manifest(projectPath(PATH_CONFIG.dest, 'rev-manifest.json'), {
+        merge: true,
+      })
+    )
     .pipe(gulp.dest(''));
 });

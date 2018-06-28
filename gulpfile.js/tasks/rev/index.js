@@ -1,7 +1,6 @@
-if(!TASK_CONFIG.production.rev) return
+if (!TASK_CONFIG.production.rev) return;
 
-const gulp         = require('gulp');
-// const gutil        = require('gulp-util');
+const gulp = require('gulp');
 const gulpSequence = require('gulp-sequence');
 
 const updateHtml = TASK_CONFIG.html ? 'update-html' : false;
@@ -16,7 +15,8 @@ const revTask = function(cb) {
     'rev-css',
     // 4) Update asset references in HTML
     updateHtml,
-  cb);
+    cb
+  );
 };
 
 gulp.task('rev', revTask);

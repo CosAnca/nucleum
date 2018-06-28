@@ -5,13 +5,18 @@
 // Utility class to add negative margins to a component in order to fill the
 // layout item width plus its gutters.
 .u-fill-horizontal {
-  margin-right: -$global-spacing;
-  margin-left: -$global-spacing;
+  margin-right: -#{grid-gutter-size()};
+  margin-left: -#{grid-gutter-size()};
+
+  @include grid-media($medium-screen) {
+    margin-right: -#{grid-gutter-size($neat-grid-medium)};
+    margin-left: -#{grid-gutter-size($neat-grid-medium)};
+  }
 }
 
 .u-fill-horizontal\@small {
-  @media only screen and (max-width: px2em(740px)) {
-    margin-right: -$global-spacing;
-    margin-left: -$global-spacing;
+  @include grid-media-max($medium-screen-width) {
+    margin-right: -#{grid-gutter-size()};
+    margin-left: -#{grid-gutter-size()};
   }
 }

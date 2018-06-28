@@ -2,25 +2,6 @@
 // SETTINGS / GRID SETTINGS
 // =============================================================================
 
-// Grid debugging settings
-// =======================
-// Use the visual grid mixin to debug the layout.
-// ****************************************************** //
-// IMPORTANT! Make sure you comment out or set
-// $visual-grid to false before compiling for production.
-// ****************************************************** //
-$visual-grid: false;
-$visual-grid-color: #00d4ff;
-$visual-grid-opacity: 0.1;
-
-// If you'd like to debug the baseline as well, just set
-// the following variable to true.
-// Baseline is calculated based on your $global-font-size
-// and your $global-line-height settings.
-$visual-baseline: false;
-$visual-baseline-color: #ccc;
-$visual-baseline-opacity: 0.6;
-
 // Grid global settings
 // ====================
 // We define our grid settings by overwriting Neat's built in grid object.
@@ -29,8 +10,12 @@ $visual-baseline-opacity: 0.6;
 // http://neat.bourbon.io/docs/latest/#neat-grids
 $neat-grid: (
   columns: 12,
-  gutter: $global-spacing,
+  gutter: $global-spacing / 1.5
 );
+
+// We define a new grid settings object to overwrite the gutter
+// for medium viewports up.
+$neat-grid-medium: (gutter: $global-spacing);
 
 // We define our grid maximum width here
 $grid-max-width: $global-container-width;
@@ -39,5 +24,5 @@ $grid-max-width: $global-container-width;
 $breakpoints: (
   medium: 740px,
   large: 980px,
-  x-large: 1300px,
+  x-large: 1300px
 ) !default;

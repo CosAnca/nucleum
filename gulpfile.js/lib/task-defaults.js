@@ -1,7 +1,3 @@
-const os   = require('os');
-const path = require('path');
-const pkg  = require(path.resolve(process.env.PWD, 'package.json'));
-
 module.exports = {
   javascripts: {
     extensions: ['js', 'jsx'],
@@ -19,7 +15,7 @@ module.exports = {
       exclude: /node_modules/,
     },
     babel: {
-      presets: [['es2015', { 'modules': false }], 'stage-1'],
+      presets: [['env', { modules: false }], 'stage-1'],
     },
     development: {},
     production: {
@@ -27,7 +23,7 @@ module.exports = {
       uglifyJsPlugin: {},
       definePlugin: {
         'process.env': {
-          'NODE_ENV': JSON.stringify('production'),
+          NODE_ENV: JSON.stringify('production'),
         },
       },
     },
@@ -35,9 +31,7 @@ module.exports = {
 
   stylesheets: {
     sass: {
-      includePaths: [
-        './node_modules',
-      ],
+      includePaths: ['./node_modules'],
     },
     extensions: ['sass', 'scss', 'css'],
   },
@@ -57,11 +51,6 @@ module.exports = {
 
   fonts: {
     extensions: ['woff2', 'woff', 'eot', 'ttf', 'svg'],
-  },
-
-  ghPages: {
-    branch: 'gh-pages',
-    cacheDir: path.join(os.tmpdir(), pkg.name || 'fosterkit'),
   },
 
   svgSprite: {

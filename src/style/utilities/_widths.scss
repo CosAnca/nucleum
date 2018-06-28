@@ -7,20 +7,20 @@
 // what is going on below; all you really need to know is that we end up with a
 // suite of classes like:
 //
-// .u-width-2-col@medium  -- Spans the item across 2 columns on medium viewports
-// .u-width-3-col@large   -- Spans the item across 3 columns on large viewports
-// .u-push-3-col@medium   -- Push an item over to the right by 3 columns
-// .u-pull-2-col@large    -- Pull an item back to the left by 2 columns
+// .u-width-1/2@medium  -- Spans the item half width of its container on medium viewports
+// .u-width-1/3@large   -- Spans the item 1/3 of its container width on large viewports
+// .u-push-1/3@medium   -- Push an item over to the right by 1/3 of its container width
+// .u-pull-1/2@large    -- Pull an item back to the left by half width of its container
 
 // This defines the separator for the breakpoints suffix in the class name.
 // By default, we are generating the responsive suffixes for the classes
 // with a `@` symbol so you get classes like:
-// <div class="u-width-3-col@medium">
+// <div class="u-width-1/3@medium">
+// prettier-ignore
 $breakpoint-separator: \@ !default;
 
 // Loop through all breakpoints to get their values.
 @each $breakpoint, $value in $breakpoints {
-
   // First we transform our pixels based breakpoint values to em based ones.
   // This helps us to achieve better and consistent behaviour across different
   // browsers. Read more at the link below:
@@ -29,69 +29,55 @@ $breakpoint-separator: \@ !default;
 
   // Create a new object to hold the media breakpoint value necessary for Neat's
   // grid-media mixin.
-  $grid-media-breakpoint: (
-    media: $value-in-em,
-  );
+  $grid-media-breakpoint: (media: $value-in-em);
 
-  // Get the total number of columns defined on our $base-grid object in
+  // Get the total number of columns defined on our $neat-grid object in
   // grid-settings file.
   $grid-columns: map-get($neat-grid, columns);
-  $grid-gutter: map-get($neat-grid, gutter);
+
+  // Initiate an empty map so we can push into it
+  // our column widths from the loop below.
+  $column-widths: ();
 
   // Loop through the number of columns in our grid
   @for $i from 1 through $grid-columns {
+    // Loop through the number of potential nested columns in our grid
+    @for $j from 1 through $i {
+      $w: ($j / $i);
 
-    // Build a class in the format `.u-width-3-col[@<breakpoint>]`.
-    .u-width-#{$i}-col#{$breakpoint-separator}#{$breakpoint} {
-      @include grid-media($grid-media-breakpoint) {
-        @include grid-column-width($i);
-      }
-    }
-
-    // Build a class in the format `.u-push-3-col[@<breakpoint>]`.
-    .u-push-#{$i}-col#{$breakpoint-separator}#{$breakpoint} {
-      @include grid-media($grid-media-breakpoint) {
-        @include grid-push($i);
-      }
-    }
-
-    // Build a class in the format `.u-pull-3-col[@<breakpoint>]`.
-    .u-pull-#{$i}-col#{$breakpoint-separator}#{$breakpoint} {
-      @include grid-media($grid-media-breakpoint) {
-        @include grid-push(-$i);
-      }
-    }
-
-    // Loop throught the number of potential nested columns in our grid
-    @for $j from $i through $grid-columns {
-
-      // Build a class in the format `.u-width-2-of-4-col[@<breakpoint>]`
-      .u-width-#{$i}-of-#{$j}-col#{$breakpoint-separator}#{$breakpoint} {
-        @include grid-media($grid-media-breakpoint) {
-          @include grid-column-width($i of $j);
+      @if not index($column-widths, $w) {
+        // Build a class in the format `.u-width-1/3[@<breakpoint>]`.
+        .u-width-#{$j}\/#{$i}#{$breakpoint-separator}#{$breakpoint} {
+          @include grid-media($grid-media-breakpoint) {
+            @include grid-column-width($j of $i, $neat-grid-medium);
+          }
         }
-      }
 
-      // Build a class in the format `.u-push-2-of-4-col[@<breakpoint>]`
-      .u-push-#{$i}-of-#{$j}-col#{$breakpoint-separator}#{$breakpoint} {
-        @include grid-media($grid-media-breakpoint) {
-          @include grid-push($i of $j);
+        // Build a class in the format `.u-push-1/3[@<breakpoint>]`.
+        .u-push-#{$j}\/#{$i}#{$breakpoint-separator}#{$breakpoint} {
+          @include grid-media($grid-media-breakpoint) {
+            @include grid-push($j of $i, $neat-grid-medium);
+          }
         }
-      }
 
-      // Build a class in the format `.u-pull-2-of-4-col[@<breakpoint>]`
-      .u-pull-#{$i}-of-#{$j}-col#{$breakpoint-separator}#{$breakpoint} {
-        @include grid-media($grid-media-breakpoint) {
-          @include grid-push(-$i of $j);
+        // Build a class in the format `.u-pull-1/3[@<breakpoint>]`.
+        .u-pull-#{$j}\/#{$i}#{$breakpoint-separator}#{$breakpoint} {
+          @include grid-media($grid-media-breakpoint) {
+            @include grid-push(-$j of $i, $neat-grid-medium);
+          }
         }
+
+        $column-widths: append($column-widths, $w, comma);
       }
     }
   }
 
   // Reset margin-left given by push and/or pull at previous breakpoints
+  $grid-gutter-medium: map-get($neat-grid-medium, gutter);
+
   .u-margin-left-reset#{$breakpoint-separator}#{$breakpoint} {
     @include grid-media($grid-media-breakpoint) {
-      margin-left: $grid-gutter;
+      margin-left: $grid-gutter-medium;
     }
   }
 }

@@ -1,15 +1,18 @@
-const path         = require('path');
-const fs           = require('fs');
+/* global process */
+const fs = require('fs');
+const projectPath = require('./projectPath');
 const taskDefaults = require('./task-defaults');
-const mergeWith    = require('lodash/mergeWith');
+const mergeWith = require('lodash/mergeWith');
 
 function getTaskConfig() {
-
   if (process.env.FOSTERKIT_CONFIG_PATH) {
-    return require(path.resolve(process.env.PWD, process.env.FOSTERKIT_CONFIG_PATH, 'task-config.js'));
+    return require(projectPath(
+      process.env.FOSTERKIT_CONFIG_PATH,
+      'task-config.js'
+    ));
   }
 
-  const defaultConfigPath = path.resolve(process.env.PWD, 'config/task-config.js');
+  const defaultConfigPath = projectPath('config/task-config.js');
 
   if (fs.existsSync(defaultConfigPath)) {
     return require(defaultConfigPath);
@@ -22,9 +25,10 @@ function withDefaults(taskConfig) {
   Object.keys(taskDefaults).reduce((config, key) => {
     if (taskConfig[key] !== false) {
       // if true, use default, else merge objects
-      config[key] = taskDefaults[key] === true ?
-                    taskDefaults[key] :
-                    mergeWith(taskDefaults[key], config[key] || {}, replaceArrays);
+      config[key] =
+        taskDefaults[key] === true ?
+          taskDefaults[key] :
+          mergeWith(taskDefaults[key], config[key] || {}, replaceArrays);
     }
     return config;
   }, taskConfig);
@@ -38,6 +42,6 @@ function replaceArrays(objValue, srcValue) {
   }
 }
 
-const taskConfig = withDefaults(getTaskConfig())
+const taskConfig = withDefaults(getTaskConfig());
 
-module.exports = taskConfig
+module.exports = taskConfig;

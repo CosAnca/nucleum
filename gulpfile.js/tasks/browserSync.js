@@ -1,14 +1,13 @@
-if(global.production) return
+if (global.production) return;
 
-const browserSync       = require('browser-sync');
-const gulp              = require('gulp');
-const webpack           = require('webpack');
+const browserSync = require('browser-sync');
+const gulp = require('gulp');
+const webpack = require('webpack');
 const webpackMultiConfig = require('../lib/webpack-multi-config');
-const pathToUrl         = require('../lib/pathToUrl');
-const path              = require('path');
+const pathToUrl = require('../lib/pathToUrl');
+const projectPath = require('../lib/projectPath');
 
 const browserSyncTask = function() {
-
   const webpackConfig = webpackMultiConfig('development');
   const compiler = webpack(webpackConfig);
   const proxyConfig = TASK_CONFIG.browserSync.proxy || null;
@@ -19,28 +18,38 @@ const browserSyncTask = function() {
     };
   }
 
-  // Resolve path from PWD
-  if (TASK_CONFIG.browserSync.server && TASK_CONFIG.browserSync.server.baseDir) {
-    TASK_CONFIG.browserSync.server.baseDir = path.resolve(process.env.PWD, TASK_CONFIG.browserSync.server.baseDir);
+  // Resolve path from project
+  if (
+    TASK_CONFIG.browserSync.server &&
+    TASK_CONFIG.browserSync.server.baseDir
+  ) {
+    TASK_CONFIG.browserSync.server.baseDir = projectPath(
+      TASK_CONFIG.browserSync.server.baseDir
+    );
   }
 
-  // Resolve files from PWD
+  // Resolve files from project
   if (TASK_CONFIG.browserSync.files) {
-    TASK_CONFIG.browserSync.files = TASK_CONFIG.browserSync.files.map(function(glob) {
-      return path.resolve(process.env.PWD, glob);
+    TASK_CONFIG.browserSync.files = TASK_CONFIG.browserSync.files.map(function(
+      glob
+    ) {
+      return projectPath(glob);
     });
   }
 
-  const server = TASK_CONFIG.browserSync.proxy || TASK_CONFIG.browserSync.server;
+  const server =
+    TASK_CONFIG.browserSync.proxy || TASK_CONFIG.browserSync.server;
 
-  server.middleware = [
-    require('webpack-dev-middleware')(compiler, {
-      stats: 'errors-only',
-      watchOptions: TASK_CONFIG.browserSync.watchOptions || {},
-      publicPath: pathToUrl('/', webpackConfig.output.publicPath),
-    }),
-    require('webpack-hot-middleware')(compiler),
-  ];
+  server.middleware =
+    server.middleware ||
+    [
+      require('webpack-dev-middleware')(compiler, {
+        stats: 'errors-only',
+        watchOptions: TASK_CONFIG.browserSync.watchOptions || {},
+        publicPath: pathToUrl('/', webpackConfig.output.publicPath),
+      }),
+      require('webpack-hot-middleware')(compiler),
+    ].concat(server.extraMiddlewares || []);
 
   browserSync.init(TASK_CONFIG.browserSync);
 };

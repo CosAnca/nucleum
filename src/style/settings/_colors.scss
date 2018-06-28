@@ -9,22 +9,22 @@
 // For example:
 //
 //   .foo {
-//     color: color(brand);
+//     color: color("brand");
 //   }
 
 // sass-lint:disable no-color-keywords
 
 $colors: (
-  brand:     #0072c9,
-  highlight: #73add8,
-  error:     #ff2744,
-  success:   #299934,
-  grey-10:   #eaeaea,
-  grey-20:   #c0c0c0,
-  grey-30:   #9f9f9f,
-  grey-40:   #7f7f7f,
-  grey-50:   #222,
-  text:      #4a4a4a,
-  black:     #000,
-  white:     #fff
+  "brand": #0072c9,
+  "highlight": #73add8,
+  "error": #ff2744,
+  "success": #299934,
+  "grey-10": #eaeaea,
+  "grey-20": #c0c0c0,
+  "grey-30": #9f9f9f,
+  "grey-40": #7f7f7f,
+  "grey-50": #222,
+  "text": #4a4a4a,
+  "black": #000,
+  "white": #fff
 ) !default;
