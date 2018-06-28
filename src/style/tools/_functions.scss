@@ -98,3 +98,10 @@
     @warn "Value must be a number i.e. 12, 24px etc.";
   }
 }
+
+// Grid gutter size
+// ------------------------------------
+// Function to get the grid gutter size.
+@function grid-gutter-size($grid: $neat-grid) {
+  @return _retrieve-neat-setting($grid, gutter);
+}

@@ -40,22 +40,22 @@ module.exports = function(env) {
     context: jsSrc,
     entry: TASK_CONFIG.javascripts.entry,
     mode: process.env['BABEL_ENV'],
+    module: {
+      rules: [TASK_CONFIG.javascripts.babelLoader],
+    },
+    optimization: {
+      minimizer: []
+    },
     output: {
       path: path.normalize(jsDest),
       filename: rev ? '[name]-[hash].js' : '[name].js',
       publicPath: publicPath,
     },
     plugins: [],
-    optimization: {
-      minimizer: []
-    },
     resolve: {
       extensions: extensions,
       alias: TASK_CONFIG.javascripts.alias,
       modules: [jsSrc, projectPath('node_modules')],
-    },
-    module: {
-      rules: [TASK_CONFIG.javascripts.babelLoader],
     },
   };
 

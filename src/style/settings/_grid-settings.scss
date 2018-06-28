@@ -10,7 +10,7 @@
 // http://neat.bourbon.io/docs/latest/#neat-grids
 $neat-grid: (
   columns: 12,
-  gutter: 16px
+  gutter: $global-spacing / 1.5
 );
 
 // We define a new grid settings object to overwrite the gutter
