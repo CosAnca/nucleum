@@ -5,9 +5,9 @@ const projectPath = require("../lib/projectPath");
 
 const cleanTask = function(cb) {
   const patterns =
-    TASK_CONFIG.clean && TASK_CONFIG.clean.patterns ?
-      TASK_CONFIG.clean.patterns :
-      projectPath(PATH_CONFIG.dest);
+    TASK_CONFIG.clean && TASK_CONFIG.clean.patterns
+      ? TASK_CONFIG.clean.patterns
+      : projectPath(PATH_CONFIG.dest);
 
   return del(patterns, { force: true });
 };

@@ -26,9 +26,9 @@ function withDefaults(taskConfig) {
     if (taskConfig[key] !== false) {
       // if true, use default, else merge objects
       config[key] =
-        taskDefaults[key] === true ?
-          taskDefaults[key] :
-          mergeWith(taskDefaults[key], config[key] || {}, replaceArrays);
+        taskDefaults[key] === true
+          ? taskDefaults[key]
+          : mergeWith(taskDefaults[key], config[key] || {}, replaceArrays);
     }
     return config;
   }, taskConfig);

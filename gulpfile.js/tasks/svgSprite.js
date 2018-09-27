@@ -1,14 +1,16 @@
-if (!TASK_CONFIG.svgSprite) return;
+if (!TASK_CONFIG.svgSprite) {
+  return;
+}
 
-const browserSync = require('browser-sync');
-const gulp = require('gulp');
-const svgstore = require('gulp-svgstore');
-const projectPath = require('../lib/projectPath');
+const browserSync = require("browser-sync");
+const gulp = require("gulp");
+const svgstore = require("gulp-svgstore");
+const projectPath = require("../lib/projectPath");
 
 const svgSpriteTask = function() {
   const settings = {
-    src: projectPath(PATH_CONFIG.src, PATH_CONFIG.icons.src, '*.svg'),
-    dest: projectPath(PATH_CONFIG.dest, PATH_CONFIG.icons.dest),
+    src: projectPath(PATH_CONFIG.src, PATH_CONFIG.icons.src, "*.svg"),
+    dest: projectPath(PATH_CONFIG.dest, PATH_CONFIG.icons.dest)
   };
 
   return gulp
@@ -18,5 +20,5 @@ const svgSpriteTask = function() {
     .pipe(browserSync.stream());
 };
 
-gulp.task('svgSprite', svgSpriteTask);
+gulp.task("svgSprite", svgSpriteTask);
 module.exports = svgSpriteTask;

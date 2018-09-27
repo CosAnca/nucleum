@@ -30,15 +30,11 @@ gulp.task("init", function() {
   // Setup the script rules
   pkg.scripts = {
     start: "yarn run nucleum",
-    build: "yarn run nucleum build",
+    build: "yarn run nucleum build"
   };
 
-  // Setup browserlist config
-  pkg.browserslist = [
-    "> 1%",
-    "last 2 versions",
-    "not ie < 11",
-  ];
+  // Setup browserslist config
+  pkg.browserslist = ["> 1%", "last 2 versions", "not ie < 11"];
 
   // Update the package.json file
   fs.writeFileSync(

@@ -18,7 +18,8 @@ const postcssNormalize = require("postcss-normalize");
 const purgecss = require("@fullhuman/postcss-purgecss");
 
 const stylesheetsTask = function() {
-  const isProduction = global.production !== undefined ? global.production : false;
+  const isProduction =
+    global.production !== undefined ? global.production : false;
 
   const paths = {
     src: projectPath(
@@ -26,7 +27,7 @@ const stylesheetsTask = function() {
       PATH_CONFIG.stylesheets.src,
       "**/*.{" + TASK_CONFIG.stylesheets.extensions + "}"
     ),
-    dest: projectPath(PATH_CONFIG.dest, PATH_CONFIG.stylesheets.dest),
+    dest: projectPath(PATH_CONFIG.dest, PATH_CONFIG.stylesheets.dest)
   };
 
   if (
@@ -56,18 +57,23 @@ const stylesheetsTask = function() {
   }
 
   const purgecssConfig = TASK_CONFIG.stylesheets.purgecss || {};
-  const purgecssContent = path.join(projectPath(PATH_CONFIG.src, PATH_CONFIG.html.src), "/**/*.pug");
-  purgecssConfig.extractors = [{
-    extractor: PurgeCssFromPug,
-    extensions: ["pug"],
-  }];
+  const purgecssContent = path.join(
+    projectPath(PATH_CONFIG.src, PATH_CONFIG.html.src),
+    "/**/*.pug"
+  );
+  purgecssConfig.extractors = [
+    {
+      extractor: PurgeCssFromPug,
+      extensions: ["pug"]
+    }
+  ];
   purgecssConfig.content = [purgecssContent];
 
   const postCssPlugins = [
     postcssNormalize(postcssNormalizeConfig),
     postcssPresetEnv(postcssPresetEnvConfig),
     isProduction ? cssnano(cssnanoConfig) : false,
-    isProduction ? purgecss(purgecssConfig) : false,
+    isProduction ? purgecss(purgecssConfig) : false
   ].filter(Boolean);
 
   return gulp

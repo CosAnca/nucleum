@@ -1,16 +1,16 @@
 /* global PATH_CONFIG, TASK_CONFIG */
-const gulp = require('gulp');
-const fs = require('fs-extra');
-const del = require('del');
-const projectPath = require('../lib/projectPath');
+const gulp = require("gulp");
+const fs = require("fs-extra");
+const del = require("del");
+const projectPath = require("../lib/projectPath");
 
 const replaceFiles = function(cb) {
   const temp = projectPath(PATH_CONFIG.dest);
   const dest = projectPath(PATH_CONFIG.finalDest);
   const delPatterns =
-    TASK_CONFIG.clean && TASK_CONFIG.clean.patterns ?
-      TASK_CONFIG.clean.patterns :
-      dest;
+    TASK_CONFIG.clean && TASK_CONFIG.clean.patterns
+      ? TASK_CONFIG.clean.patterns
+      : dest;
 
   del.sync(delPatterns, { force: true });
   fs.copySync(temp, dest);
@@ -19,6 +19,6 @@ const replaceFiles = function(cb) {
   cb();
 };
 
-gulp.task('replaceFiles', replaceFiles);
+gulp.task("replaceFiles", replaceFiles);
 
 module.exports = replaceFiles;
