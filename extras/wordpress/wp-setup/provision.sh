@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Wordpress setup provisioning file
+# WordPress setup provisioning file
 #
 # Author: Flurin Dürst
 # URL: https://wpdistillery.org
@@ -12,7 +12,7 @@ sudo sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 64M/g' /etc/php/7.
 sudo sed -i 's/post_max_size = 8M/post_max_size = 64M/g' /etc/php/7.0/fpm/php.ini
 sudo service nginx restart
 
-# run Wordpress setup
-echo "== Run Wordpress setup =="
-cd ../../var/www/node_modules/fosterkit/extras/wordpress/wp-setup
+# run WordPress setup
+echo "== Run WordPress setup =="
+cd ../../var/www/node_modules/nucleum/extras/wordpress/wp-setup
 sudo -u vagrant bash wpsetup.sh

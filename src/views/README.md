@@ -1,7 +1,7 @@
 # HTML Assets
-If you are using Fosterkit with another platform that handles markup, delete this folder and set the `html` config to `false` in `gulpfile.js/task-config.json`, and don't forget to [configure BrowserSync to watch your platform's template files](https://browsersync.io/docs/options/#option-files) for changes!
+If you are using Nucleum with another platform that handles markup, delete this folder and set the `html` config to `false` in `gulpfile.js/task-config.json`, and don't forget to [configure BrowserSync to watch your platform's template files](https://browsersync.io/docs/options/#option-files) for changes!
 
-If you are using Fosterkit as a standalone static site builder, this is where your markup goes. I've provided a few [Pug](https://pugjs.org/api/getting-started.html) folders and files to get you started:
+If you are using Nucleum as a standalone static site builder, this is where your markup goes. I've provided a few [Pug](https://pugjs.org/api/getting-started.html) folders and files to get you started:
 
 ### Architecture
 

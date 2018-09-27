@@ -1,4 +1,4 @@
-Fosterkit and WordPress
+Nucleum and WordPress
 -----------------------
 
 ## Dependencies
@@ -24,13 +24,13 @@ One command will:
 - install/activate the plugins you defined in the config
 - clean WordPress defaults (contents, plugins, themes, unused files)
 
-[FosterPress]: https://github.com/CosminAnca/fosterpress
+[FosterPress]: https://github.com/CosAnca/fosterpress
 [Underscores]: https://underscores.me
 
 ## Additional info
 
 ### Themes
-The default theme bundled with Fosterkit is called FosterPress, which is a minimal starter theme for WordPress.
+The default theme bundled with Nucleum is called FosterPress, which is a minimal starter theme for WordPress.
 
 If you want to scaffold and '_s' theme set `underscores_generated: true` under theme section in wp-setup.yml file.
 

@@ -1,6 +1,6 @@
 # Project name
 
-Built with [Fosterkit](https://github.com/CosminAnca/fosterkit/).
+Built with [Nucleum](https://github.com/CosAnca/nucleum/).
 
 ### Dependencies
 * Front-end stack
@@ -26,13 +26,13 @@ and live updating all our files as we change them, you need to:
 
 ```zsh
 yarn install
-yarn run fosterkit
+yarn run nucleum
 ```
 
 This will proxy the Vagrant machine through BrowserSync and also watches for any
 changes made to the PHP files as well.
 
-For more details about Fosterkit read the [documentation](https://github.com/CosminAnca/fosterkit/).
+For more details about Nucleum read the [documentation](https://github.com/CosAnca/nucleum/).
 
 ### Contributing
 1. Make your changes in a topic branch.

@@ -1,29 +1,29 @@
 module.exports = {
   javascripts: {
-    extensions: ['js', 'jsx'],
+    extensions: ["js", "jsx"],
     hot: {
       reload: true,
       noInfo: false,
       quiet: true,
       react: false,
     },
-    devtool: 'eval-cheap-module-source-map',
+    devtool: "eval-cheap-module-source-map",
     babelLoader: {
       // 'test' is derived from TASK_CONFIG.javascripts.extensions
       // 'options' is derived from TASK_CONFIG.javascripts.babel
-      loader: 'babel-loader',
+      loader: "babel-loader",
       exclude: /node_modules/,
     },
     babel: {
-      presets: [['env', { modules: false }], 'stage-1'],
+      presets: [["env", { modules: false }], "stage-1"],
     },
     development: {},
     production: {
       devtool: false,
       uglifyJsPlugin: {},
       definePlugin: {
-        'process.env': {
-          NODE_ENV: JSON.stringify('production'),
+        "process.env": {
+          NODE_ENV: JSON.stringify("production"),
         },
       },
     },
@@ -31,26 +31,24 @@ module.exports = {
 
   stylesheets: {
     sass: {
-      includePaths: ['./node_modules'],
+      includePaths: ["./node_modules"],
     },
-    extensions: ['sass', 'scss', 'css'],
+    extensions: ["sass", "scss", "css"],
   },
 
   html: {
-    dataFile: 'data/global.json',
-    htmlmin: {
-      collapseWhitespace: true,
-    },
-    extensions: ['pug', 'json'],
-    excludeFolders: ['data', 'includes', 'layout', 'mixins', 'modules'],
+    dataFile: "data/global.json",
+    htmlmin: {},
+    extensions: ["pug", "json"],
+    excludeFolders: ["data", "includes", "layout", "mixins", "modules"],
   },
 
   images: {
-    extensions: ['jpg', 'png', 'svg', 'gif'],
+    extensions: ["jpg", "png", "svg", "gif"],
   },
 
   fonts: {
-    extensions: ['woff2', 'woff', 'eot', 'ttf', 'svg'],
+    extensions: ["woff2", "woff", "eot", "ttf", "svg"],
   },
 
   svgSprite: {

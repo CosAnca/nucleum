@@ -1,5 +1,5 @@
 /* global process */
-const path = require('path');
+const path = require("path");
 
 /**
  * A function that can be used to resolve a path relatively to the

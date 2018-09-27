@@ -1,7 +1,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 #
-# Vagrantfile using Scotch Box
+# Vagrantfile using Fosterbox
 #
 # File Version: 1.0
 
@@ -15,7 +15,7 @@ Vagrant.configure("2") do |config|
     # Windows Support
     if Vagrant::Util::Platform.windows?
       config.vm.provision "shell",
-      inline: "echo \"Converting Files for Windows\" && sudo apt-get install -y dos2unix && cd /var/www/ && dos2unix wp-setup.yml && dos2unix node_modules/fosterkit/extras/wordpress/wp-setup/provision.sh && dos2unix node_modules/fosterkit/extras/wordpress/wp-setup/wpsetup.sh",
+      inline: "echo \"Converting Files for Windows\" && sudo apt-get install -y dos2unix && cd /var/www/ && dos2unix wp-setup.yml && dos2unix node_modules/nucleum/extras/wordpress/wp-setup/provision.sh && dos2unix node_modules/nucleum/extras/wordpress/wp-setup/wpsetup.sh",
       run: "always", privileged: false
     end
 
@@ -23,7 +23,7 @@ Vagrant.configure("2") do |config|
     if Dir.exist?('public')
       config.vm.provision "shell", path: "create-db.sh", privileged: false
     else
-      config.vm.provision "shell", path: "node_modules/fosterkit/extras/wordpress/wp-setup/provision.sh"
+      config.vm.provision "shell", path: "node_modules/nucleum/extras/wordpress/wp-setup/provision.sh"
     end
 
     # OPTIONAL - Update WordPress and all Plugins on vagrant up – executed within every `vagrant up`

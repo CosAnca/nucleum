@@ -30,12 +30,12 @@ gulp.task('init-wp', function() {
 
   log(
     colors.green.bold(
-      'Generating Fosterkit Wordpress project configuration files'
+      'Generating Nucleum WordPress project configuration files'
     )
   );
   log(
     colors.green(
-      'Please follow the instructions below to setup your Wordpress installation'
+      'Please follow the instructions below to setup your WordPress installation'
     )
   );
   log(

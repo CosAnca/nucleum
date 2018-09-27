@@ -5,9 +5,6 @@
     "es6": true
   },
   "extends": "eslint:recommended",
-  "parserOptions": {
-    "sourceType": "module"
-  },
   "rules": {
     "no-empty": [
       2,
@@ -93,7 +90,7 @@
     ],
     "quotes": [
       2,
-      "single",
+      "double",
       {
         "avoidEscape": true
       }

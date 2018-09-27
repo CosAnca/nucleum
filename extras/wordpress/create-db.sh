@@ -9,10 +9,10 @@
 function continue_error {
   read -p "$(echo -e "${RED}Do you want to continue anyway? (y/n) ${NC}")" -n 1 -r
   if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-    printf "\n${RED}»»» aborting Fosterkit WP setup! ${NC}\n"
+    printf "\n${RED}»»» aborting Nucleum WP setup! ${NC}\n"
     exit 1
   else
-    printf "\n${GRN}»»» continuing Fosterkit WP setup... ${NC}\n"
+    printf "\n${GRN}»»» continuing Nucleum WP setup... ${NC}\n"
   fi
 }
 trap 'continue_error' ERR
@@ -80,7 +80,7 @@ wp theme activate $CONF_theme_slug
 
 printf "${BRN}==================== FOSTERKIT WP DB SETUP FINISHED ====================${NC}\n"
 printf "${BLU}Your website is available at: ${PRL}http://${CONF_wpsettings_url}${NC}\n"
-printf "${BLU}Enable watch mode and/or compile assets with: ${PRL}yarn run fosterkit${NC}\n"
+printf "${BLU}Enable watch mode and/or compile assets with: ${PRL}yarn run nucleum${NC}\n"
 if $CONF_theme_underscores_generated ; then
   printf "${BLU}Modify ${PRL}functions.php${BLU} to enque scripts/styles from the ${PRL}/assets ${BLU}folder.${NC}\n"
 fi

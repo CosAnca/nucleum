@@ -1,7 +1,7 @@
 /* global PATH_CONFIG, TASK_CONFIG */
-const gulp = require('gulp');
-const del = require('del');
-const projectPath = require('../lib/projectPath');
+const gulp = require("gulp");
+const del = require("del");
+const projectPath = require("../lib/projectPath");
 
 const cleanTask = function(cb) {
   const patterns =
@@ -12,5 +12,5 @@ const cleanTask = function(cb) {
   return del(patterns, { force: true });
 };
 
-gulp.task('clean', cleanTask);
+gulp.task("clean", cleanTask);
 module.exports = cleanTask;

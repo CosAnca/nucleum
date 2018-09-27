@@ -1,6 +1,6 @@
-# ![Fosterkit](extras/default/fosterkit-cover.png)
+# ![Nucleum](extras/default/nucleum-cover.png)
 
-**Fosterkit** is an opinionated, performance oriented boilerplate for web development. It can be used as-is as a static site builder, or can be configured and integrated into many development environments and sites or apps structures. The [extras](./extras) folder contains configuration details for **WordPress** based projects to give you a quick start for any new website based on this CMS.
+**Nucleum** is an opinionated, performance oriented boilerplate for web development. It can be used as-is as a static site builder, or can be configured and integrated into many development environments and sites or apps structures. The [extras](./extras) folder contains configuration details for **WordPress** based projects to give you a quick start for any new website based on this CMS.
 
 ## Dependencies
 
@@ -18,22 +18,22 @@
 
 ```zsh
 yarn init
-yarn add fosterkit
-yarn run fosterkit -- init-wp
+yarn add nucleum
+yarn run nucleum -- init-wp
 ```
 
 This will generate a WordPress configuration file (`wp-setup.yml`) alongside the default src (`src`) and config (`config`) files for the front-end build.
 
 Follow the steps prompted by the command line to set up your WordPress installation.
 
-Read [Fosterkit and WordPress](extras/wordpress/README-WP.md) documentation to find out more details.
+Read [Nucleum and WordPress](extras/wordpress/README-WP.md) documentation to find out more details.
 
 ## Building a static website?
 
 **Replace** line 3 above with:
 
 ```zsh
-yarn run fosterkit -- init
+yarn run nucleum -- init
 ```
 
 This will create default `src` and `config` files in your directory and start compiling and live-updating files! Try editing them and watch your browser auto-update!
@@ -43,7 +43,7 @@ This will create default `src` and `config` files in your directory and start co
 You can generate basic _config_ files with:
 
 ```zsh
-yarn run fosterkit -- init-config
+yarn run nucleum -- init-config
 ```
 
 Then edit the configs to match the needs of your project.
@@ -52,7 +52,7 @@ Then edit the configs to match the needs of your project.
 
 #### [Node Version Manager](https://github.com/creationix/nvm)
 
-**Fosterkit requires at least Node 6**. While you can install Node a variety of ways, we highly recommend using [nvm](https://github.com/creationix/nvm) to install and manage Node versions.
+**Nucleum requires at least Node 6**. While you can install Node a variety of ways, we highly recommend using [nvm](https://github.com/creationix/nvm) to install and manage Node versions.
 
 #### [Yarn](https://yarnpkg.com/en/docs/install)
 
@@ -63,21 +63,21 @@ We recommend `yarn` over `npm` for a few reasons: `yarn.lock` files are a lifesa
 All commands should be run through `yarn run`. If you haven't switched to [yarn](https://yarnpkg.com/) yet, now's a great time!
 
 ```zsh
-yarn run fosterkit
+yarn run nucleum
 ```
 
 This is where the magic happens. The perfect workflow. This runs the development task, which starts compiling, watching, and live updating all our files as we change them. BrowserSync will start a server on port 3000, or do whatever you've configured it to do. You'll be able to see live changes in all connected browsers. Don't forget about the additional BrowserSync tools available on port 3001!
 
 ```zsh
-yarn run fosterkit -- build
+yarn run nucleum -- build
 ```
 
 Compiles files for production to your destination directory. JS files are built with Webpack 3 with standard production optimizations (Uglify, etc.). CSS is run through CSSNano. If `rev` is set to `true` in your `task-config.js` file, filenames will be hashed (file.css -> file-a8908d9io20.css) so your server may cache them indefinitely.
 
-**NOTE:** By default filenames revision is set to `false` for WordPress production builds. Please refer to [Fosterkit and WordPress](extras/wordpress/README-WP.md) documentation if you'd like to [enable revision](extras/wordpress/README-WP.md#filenames-revision-hashing-for-production-builds).
+**NOTE:** By default filenames revision is set to `false` for WordPress production builds. Please refer to [Nucleum and WordPress](extras/wordpress/README-WP.md) documentation if you'd like to [enable revision](extras/wordpress/README-WP.md#filenames-revision-hashing-for-production-builds).
 
 ```zsh
-yarn run fosterkit -- ghPages
+yarn run nucleum -- ghPages
 ```
 
 If you are building a static site, and would like to preview it on GitHub pages, this handy script does just that using [gulp-gh-pages](https://www.npmjs.com/package/gulp-gh-pages). Be sure to add or update the `homepage` property in your `package.json` to point to your gh-pages url.
@@ -87,8 +87,8 @@ It's a good idea to add aliases for these commands to your `package.json` `scrip
 ```json
 // package.json
   "scripts": {
-    "start": "yarn run fosterkit",
-    "build": "yarn run fosterkit -- build"
+    "start": "yarn run nucleum",
+    "build": "yarn run nucleum -- build"
   }
 ```
 
@@ -103,21 +103,21 @@ yarn run build
 You may override the default configuration by creating a `config` folder with the following two files in it: `path-config.json` and `task-config.js`. These files will be created by any of the `-- init` tasks, or you can generate _only_ the config files with the following command:
 
 ```zsh
-yarn run fosterkit -- init-config
+yarn run nucleum -- init-config
 ```
 
-By default, Fosterkit expects these files to live in a `./config` at the root of your project. You may specify an alternative relative location by setting an environment variable:
+By default, Nucleum expects these files to live in a `./config` at the root of your project. You may specify an alternative relative location by setting an environment variable:
 
 ```json
 // package.json
 "scripts": {
-  "fosterkit": "FOSTERKIT_CONFIG_PATH='./some/location' fosterkit"
+  "nucleum": "FOSTERKIT_CONFIG_PATH='./some/location' nucleum"
 }
 ```
 
 ```zsh
 # command line
-yarn run fosterkit
+yarn run nucleum
 ```
 
 The files must be named `path-config.json` and `task-config.js`.
@@ -197,7 +197,7 @@ browserSync: {
 
 ### javascripts
 
-Under the hood, JS is compiled with Webpack 3 with a heavily customized Webpack file to get you up and running with little to no configuration. An API for configuring some of the most commonly accessed options are exposed, along with some other helpers for scoping to environment. Additionally, you can get full access to modify Fosterkit's `webpackConfig` via the [`customizeWebpackConfig`](#customizeWebpackConfig) option.
+Under the hood, JS is compiled with Webpack 3 with a heavily customized Webpack file to get you up and running with little to no configuration. An API for configuring some of the most commonly accessed options are exposed, along with some other helpers for scoping to environment. Additionally, you can get full access to modify Nucleum's `webpackConfig` via the [`customizeWebpackConfig`](#customizeWebpackConfig) option.
 
 #### `entry` (required)
 
@@ -251,7 +251,7 @@ Define additional webpack loaders that should be used in all environments. Adds 
 
 #### `development`, `production`
 
-Specify additional environment specific configuration to be merged in with Fosterkit's defaults
+Specify additional environment specific configuration to be merged in with Nucleum's defaults
 
 * [`devtool`](https://webpack.js.org/configuration/devtool/#devtool)
 * [`plugins`](https://webpack.js.org/concepts/plugins/)
@@ -274,7 +274,7 @@ production: {
 }
 ```
 
-By default, the `env` will be `"development"` when running `yarn run fosterkit`, and `"production"` when running `yarn run fosterkit -- build`.
+By default, the `env` will be `"development"` when running `yarn run nucleum`, and `"production"` when running `yarn run nucleum -- build`.
 
 #### `hot`
 
@@ -295,7 +295,7 @@ hot: {
 
 #### `customizeWebpackConfig`
 
-In the event that an option you need is not exposed, you may access, modify and return a further customized webpackConfig by providing this option as a function. The function will receive the Fosterkit `webpackConfig`, `env` and `webpack` as params. The `env` value will be either `development` (`yarn run fosterkit`) or `production` (`yarn run fosterkit -- build`).
+In the event that an option you need is not exposed, you may access, modify and return a further customized webpackConfig by providing this option as a function. The function will receive the Nucleum `webpackConfig`, `env` and `webpack` as params. The `env` value will be either `development` (`yarn run nucleum`) or `production` (`yarn run nucleum -- build`).
 
 ```js
 customizeWebpackConfig: function (webpackConfig, env, webpack) {
@@ -307,7 +307,7 @@ customizeWebpackConfig: function (webpackConfig, env, webpack) {
 }
 ```
 
-**CAUTION!** Avoid overwriting `webpackConfig.entry` or `webpackConfig.plugins` via this function, and rely on the `entry` and `plugins` options above to avoid breaking Fosterkit's hot-loading and file revisioning setup ([view source](gulpfile.js/lib/webpack-multi-config.js)).
+**CAUTION!** Avoid overwriting `webpackConfig.entry` or `webpackConfig.plugins` via this function, and rely on the `entry` and `plugins` options above to avoid breaking Nucleum's hot-loading and file revisioning setup ([view source](gulpfile.js/lib/webpack-multi-config.js)).
 
 ### stylesheets
 
@@ -365,7 +365,7 @@ These tasks simply copy files from `src` to `dest` configured in `path-config.js
 
 ### ghPages
 
-You can deploy the contents your `dest` directly to a remote branch (`gh-pages` by default) with `yarn run fosterkit -- ghPages`. Options specified here will get passed directly to [gulp-gh-pages](https://github.com/shinnn/gulp-gh-pages#ghpagesoptions).
+You can deploy the contents your `dest` directly to a remote branch (`gh-pages` by default) with `yarn run nucleum -- ghPages`. Options specified here will get passed directly to [gulp-gh-pages](https://github.com/shinnn/gulp-gh-pages#ghpagesoptions).
 
 ### svgSprite
 
@@ -383,7 +383,7 @@ or reference the image remotely:
 
 If you reference the sprite remotely, be sure to include something like [svg4everybody](https://github.com/jonathantneal/svg4everybody) to ensure external loading works on Internet Explorer.
 
-Fosterkit includes a helper which generates the required svg markup in `src/views/mixins/_mixins.pug`, so you can just do:
+Nucleum includes a helper which generates the required svg markup in `src/views/mixins/_mixins.pug`, so you can just do:
 
 ```pug
 +sprite('my-icon')
@@ -461,7 +461,7 @@ additionalTasks: {
 }
 ```
 
-Fosterkit will call `initialize`, passing in `gulp`, along with the path and task configs. Use this method to define or `require` additional gulp tasks. You can specify when and in what order your custom tasks should run in the `production` and `development` `prebuild` and `postbuild` options.
+Nucleum will call `initialize`, passing in `gulp`, along with the path and task configs. Use this method to define or `require` additional gulp tasks. You can specify when and in what order your custom tasks should run in the `production` and `development` `prebuild` and `postbuild` options.
 
 For example, say you had a sprite task you wanted to run before your css compiled, and in production, you wanted to run an image compression task you had after all assets had been compiled. Your configuration might look something like this:
 
@@ -527,4 +527,4 @@ Extras:
 
 ### Credits:
 
-**Fosterkit** has been inspired by [Gulp Starter](https://github.com/vigetlabs/gulp-starter), [WPDistillery](https://wpdistillery.org/) and [Sky UK Styleguide](https://github.com/sky-uk/css).
+**Nucleum** has been inspired by [Gulp Starter](https://github.com/vigetlabs/gulp-starter), [WPDistillery](https://wpdistillery.org/) and [Sky UK Styleguide](https://github.com/sky-uk/css).

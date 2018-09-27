@@ -1,24 +1,24 @@
 /* global process */
-const fs = require('fs');
-const projectPath = require('./projectPath');
-const taskDefaults = require('./task-defaults');
-const mergeWith = require('lodash/mergeWith');
+const fs = require("fs");
+const projectPath = require("./projectPath");
+const taskDefaults = require("./task-defaults");
+const mergeWith = require("lodash/mergeWith");
 
 function getTaskConfig() {
   if (process.env.FOSTERKIT_CONFIG_PATH) {
     return require(projectPath(
       process.env.FOSTERKIT_CONFIG_PATH,
-      'task-config.js'
+      "task-config.js"
     ));
   }
 
-  const defaultConfigPath = projectPath('config/task-config.js');
+  const defaultConfigPath = projectPath("config/task-config.js");
 
   if (fs.existsSync(defaultConfigPath)) {
     return require(defaultConfigPath);
   }
 
-  return require('../task-config');
+  return require("../task-config");
 }
 
 function withDefaults(taskConfig) {

@@ -5,7 +5,7 @@ In this section, we will go through the `wp-setup.yml` step by step as I will ex
 The configuration file is split into five sections:
 
 * Installation
-* Wordpress
+* WordPress
 * Theme
 * Plugins
 * Setup

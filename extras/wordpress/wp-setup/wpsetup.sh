@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Wordpress setup file
+# WordPress setup file
 #
 # Author: Flurin Dürst
 # URL: https://wpdistillery.org
@@ -11,10 +11,10 @@
 function continue_error {
   read -p "$(echo -e "${RED}Do you want to continue anyway? (y/n) ${NC}")" -n 1 -r
   if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-    printf "\n${RED}»»» aborting Fosterkit WP setup! ${NC}\n"
+    printf "\n${RED}»»» aborting Nucleum WP setup! ${NC}\n"
     exit 1
   else
-    printf "\n${GRN}»»» continuing Fosterkit WP setup... ${NC}\n"
+    printf "\n${GRN}»»» continuing Nucleum WP setup... ${NC}\n"
   fi
 }
 trap 'continue_error' ERR
@@ -126,7 +126,7 @@ if $CONF_setup_settings ; then
   if $CONF_wpsettings_page_on_front ; then
     printf "${BLU}» front page:${NC}\n"
     # create and set frontpage
-    wp post create --post_type=page --post_title="$CONF_wpsettings_page_on_front_frontpage_name" --post_content='Front Page created by Fosterkit' --post_status=publish
+    wp post create --post_type=page --post_title="$CONF_wpsettings_page_on_front_frontpage_name" --post_content='Front Page created by Nucleum' --post_status=publish
     wp option update page_on_front $(wp post list --post_type=page --post_status=publish --posts_per_page=1 --pagename="$CONF_wpsettings_page_on_front_frontpage_name" --field=ID --format=ids)
     wp option update show_on_front 'page'
   fi
@@ -144,7 +144,7 @@ if $CONF_setup_theme ; then
     wp theme activate $CONF_theme_slug
   else
     printf "${BLU}»»» downloading theme...${NC}\n"
-    wp theme install https://github.com/CosminAnca/fosterpress/archive/master.zip
+    wp theme install https://github.com/CosAnca/fosterpress/archive/master.zip
     printf "${BLU}»»» renaming fosterpress theme to $CONF_theme_slug...${NC}\n"
     sed -i "s/'fosterpress'/${theme_text_domain}/g" wp-content/themes/fosterpress/{,**}/*.php
     echo ${theme_text_domain}
@@ -154,7 +154,7 @@ if $CONF_setup_theme ; then
     sed -i "s/ FosterPress/${theme_doc_blocks}/g" wp-content/themes/fosterpress/{,**}/*.php
     sed -i "s/fosterpress-/${theme_handle}/g" wp-content/themes/fosterpress/{,**}/*.php
     sed -i "s/Author: Cos Anca/${theme_author}/g" wp-content/themes/fosterpress/functions.php
-    sed -i "s,URL: http://github.com/CosminAnca,${theme_author_url},g" wp-content/themes/fosterpress/functions.php
+    sed -i "s,URL: http://github.com/CosAnca,${theme_author_url},g" wp-content/themes/fosterpress/functions.php
     mv wp-content/themes/fosterpress wp-content/themes/$CONF_theme_slug
     wp theme activate $CONF_theme_slug
   fi
@@ -231,7 +231,7 @@ sed -i 's/my-theme/'"${CONF_theme_slug}"'/g' ../config/task-config.js
 
 printf "${BRN}==================== FOSTERKIT WP SETUP FINISHED ====================${NC}\n"
 printf "${BLU}Your website is available at: ${PRL}http://${CONF_wpsettings_url}${NC}\n"
-printf "${BLU}Enable watch mode and/or compile assets with: ${PRL}yarn run fosterkit${NC}\n"
+printf "${BLU}Enable watch mode and/or compile assets with: ${PRL}yarn run nucleum${NC}\n"
 if $CONF_theme_underscores_generated ; then
   printf "${BLU}Modify ${PRL}functions.php${BLU} to enque scripts/styles from the ${PRL}/assets ${BLU}folder.${NC}\n"
 fi
