@@ -21,27 +21,14 @@
     "gulp": "gulp",
     "build": "gulp build",
     "gh-pages": "gulp gh-pages",
-    "dev:test": "mocha ./gulpfile.js/**/*.test.js",
-    "precommit": "lint-staged"
-  },
-  "lint-staged": {
-    "src/**/*.js": [
-      "eslint src --fix",
-      "prettier --write",
-      "git add"
-    ],
-    "src:/**/*.scss": [
-      "sass-lint -v",
-      "sass-lint-auto-fix",
-      "git add"
-    ]
+    "dev:test": "mocha ./gulpfile.js/**/*.test.js"
   },
   "dependencies": {
     "@fullhuman/postcss-purgecss": "^1.1.0",
     "ansi-colors": "^3.0.6",
     "autoprefixer": "^9.1.5",
     "babel-core": "^6.26.3",
-    "babel-eslint": "^10.0.0",
+    "babel-eslint": "^10.0.1",
     "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.7.0",
     "babel-preset-stage-1": "^6.24.1",
