@@ -4,54 +4,44 @@
 
 // Grid debugging settings
 // =======================
-// Use the visual grid mixin to debug the layout.
+//
+// Applies a visual grid to the body for grid debugging.
+//
 // ****************************************************** //
 // IMPORTANT! Make sure you comment out or set
 // $visual-grid to false before compiling for production.
 // ****************************************************** //
-$visual-grid: true;
+
+$visual-grid: false;
 $visual-grid-color: #00d4ff;
-$visual-grid-opacity: 0.1;
+$visual-grid-opacity: 0.3;
 
 // If you'd like to debug the baseline as well, just set
 // the following variable to true.
 // Baseline is calculated based on your $global-font-size
 // and your $global-line-height settings.
+
 $visual-baseline: false;
 $visual-baseline-color: #ccc;
 $visual-baseline-opacity: 0.6;
 
-// Visual grid rendering
-// ====================================
-// Here we apply the visual grid to the before pseudo-element
-// of the body tag.
-
-// sass-lint:disable force-pseudo-nesting
-
 @if variable-exists(visual-grid) and $visual-grid == true {
   body::before {
-    @include grid-visual-better(
+    @include grid-debug(
       rgba($visual-grid-color, $visual-grid-opacity),
-      $neat-grid
+      $adaptable-grid
     );
     display: inline-block;
     position: fixed;
     right: 0;
     left: 0;
     width: 100%;
-    max-width: px2em($grid-max-width);
+    max-width: convert-to-em($global-container-width);
     height: 100%;
     margin: 0 auto;
     content: "";
-    z-index: 4;
+    z-index: 10;
     pointer-events: none;
-
-    @include grid-media($medium-screen) {
-      @include grid-visual-better(
-        rgba($visual-grid-color, $visual-grid-opacity),
-        $neat-grid-medium
-      );
-    }
   }
 }
 
@@ -73,13 +63,11 @@ $visual-baseline-opacity: 0.6;
       height: 100%;
       min-height: 100vh;
       content: "";
-      z-index: 4;
+      z-index: 10;
       pointer-events: none;
     }
   }
 }
-
-// sass-lint:enable force-pseudo-nesting
 
 // Layout debugging
 // ===========================================
@@ -90,7 +78,7 @@ $visual-baseline-opacity: 0.6;
   // Warn when trying to manipulate layout items in grids that are
   // already reversed.
 
-  .o-layout--reverse {
+  .o-grid--reverse {
     > [class*="u-push"],
     > [class*="u-pull"] {
       outline: 10px solid $debug-color;
@@ -99,10 +87,10 @@ $visual-baseline-opacity: 0.6;
 
   // Warn when trying to use layout items outside of a layout context.
 
-  .o-layout__item {
+  .o-grid__item {
     outline: 10px solid $debug-color;
 
-    .o-layout > & {
+    .o-grid > & {
       outline: none;
     }
   }

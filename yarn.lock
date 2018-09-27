@@ -437,6 +437,12 @@ acorn@^5.5.0, acorn@^5.6.0:
   version "5.7.3"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-5.7.3.tgz#67aa231bf8812974b85235a96771eb6bd07ea279"
 
+adaptable@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/adaptable/-/adaptable-1.0.2.tgz#1410fc537a387f28395da5777a206cd0ba266ad8"
+  dependencies:
+    sass-mq "^5.0.0"
+
 after@0.8.2:
   version "0.8.2"
   resolved "https://registry.yarnpkg.com/after/-/after-0.8.2.tgz#fedb394f9f0e02aa9768e702bda23b505fae7e1f"
@@ -794,9 +800,9 @@ babel-core@^6.26.0, babel-core@^6.26.3:
     slash "^1.0.0"
     source-map "^0.5.7"
 
-babel-eslint@^10.0.0:
-  version "10.0.0"
-  resolved "https://registry.yarnpkg.com/babel-eslint/-/babel-eslint-10.0.0.tgz#0bb43e6b11a119bf3defbb1ee2521f42e2d413c9"
+babel-eslint@^10.0.1:
+  version "10.0.1"
+  resolved "https://registry.yarnpkg.com/babel-eslint/-/babel-eslint-10.0.1.tgz#919681dc099614cd7d31d45c8908695092a1faed"
   dependencies:
     "@babel/code-frame" "^7.0.0"
     "@babel/parser" "^7.0.0"
@@ -7693,6 +7699,10 @@ sass-lint@^1.12.1:
     merge "^1.2.0"
     path-is-absolute "^1.0.0"
     util "^0.10.3"
+
+sass-mq@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/sass-mq/-/sass-mq-5.0.0.tgz#7e8a8eb0f289591b3521549266f0ff923772809d"
 
 sax@^1.2.4, sax@~1.2.4:
   version "1.2.4"

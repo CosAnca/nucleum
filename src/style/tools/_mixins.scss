@@ -2,6 +2,25 @@
 // TOOLS / MIXINS
 // =============================================================================
 
+// sass-lint:disable no-warn
+
+// @include focus-styles()
+// ==============================================
+
+// Generates a consistent outline shadow for use on `:focus` or `.has-focus`.
+@mixin focus-styles($color: default, $width: 1px) {
+  @if ($color == "default") {
+    outline: $width dashed color("brand-orange");
+    outline-offset: -$width;
+  }
+  @elseif ($color == "invert") {
+    outline: $width dashed color("brand-navy");
+    outline-offset: -$width;
+  } @else {
+    @warn "`#{$color}` is not a valid outline color, it must be `default` or `invert`.";
+  }
+}
+
 // Making accessible hover/focus states simpler
 // ===========================================
 
@@ -61,16 +80,6 @@
   }
 }
 
-// Test size adjust
-// ================
-
-// Prevent certain mobile browsers from automatically zooming fonts.
-
-@mixin text-size-adjust {
-  -webkit-text-size-adjust: 100%;
-  -ms-text-size-adjust: 100%;
-}
-
 // sass-lint:enable no-vendor-prefixes
 
 // Centerer
@@ -99,50 +108,10 @@
   }
 }
 
-// ========================================================
-// NEAT Grid System Extensions
-// ========================================================
-
-// Neat column item
-@mixin grid-column-item($grid: $neat-grid) {
-  $_grid-gutter: _retrieve-neat-setting($grid, gutter);
-
-  float: _neat-float-direction($grid);
-  margin-#{_neat-float-direction($grid)}: $_grid-gutter;
-}
-
-// Neat column width
-@mixin grid-column-width($columns: null, $grid: $neat-grid) {
-  $columns: _neat-column-default($grid, $columns);
-
-  width: calc(#{_neat-column-width($grid, $columns)});
-}
-
-// Neat visual grid (better version)
-// This mixin will render a visual grid based on our grid settings.
-@mixin grid-visual-better($color: null, $grid: $neat-grid) {
-  @if not $color {
-    $color: _retrieve-neat-setting($grid, color);
-  }
-
-  $_grid-columns: _retrieve-neat-setting($grid, columns);
-  $_grid-gutter: _retrieve-neat-setting($grid, gutter);
-  $_grid-visual-column: "#{_neat-column-width($grid, 1)} + #{$_grid-gutter}";
-
-  // sass-lint:disable indentation trailing-semicolon
-
-  $_grid-visual: transparent, transparent $_grid-gutter, $color $_grid-gutter,
-    $color calc(#{$_grid-visual-column});
-
-  // sass-lint:enable indentation trailing-semicolon
-
-  background-image: repeating-linear-gradient(to right, $_grid-visual);
-}
-
 // Custom visual baseline
 @mixin grid-visual-baseline($color: null, $baseline-grid: $visual-baseline) {
   @if not $color {
-    $color: _retrieve-neat-setting($grid, color);
+    $color: _retrieve-adaptable-setting($grid, color);
   }
 
   $_grid-baseline: transparent,
@@ -151,11 +120,4 @@
     $color $global-line-height * $global-font-size;
 
   background-image: repeating-linear-gradient(to bottom, $_grid-baseline);
-}
-
-// Custom media query max-width mixin
-@mixin grid-media-max($breakpoint) {
-  @media only screen and (max-width: px2em($breakpoint)) {
-    @content;
-  }
 }

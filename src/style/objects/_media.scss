@@ -17,19 +17,19 @@
 }
 
 .o-media__img {
-  margin-right: $global-spacing;
+  margin-right: spacing(m);
   float: left;
 
   // Small Media Objects simply have smaller gaps between the image and the body.
 
   .o-media--small > & {
-    margin-right: $global-spacing-small;
+    margin-right: spacing(s);
   }
 
   // …and larger ones are, well, larger.
 
   .o-media--large > & {
-    margin-right: $global-spacing * 2;
+    margin-right: spacing(m) * 2;
   }
 
   // We can quite easily swap the image and body around by adding the
@@ -37,18 +37,17 @@
 
   .o-media--reverse > & {
     margin-right: 0;
-    margin-left: $global-spacing;
+    margin-left: spacing(m);
     float: right;
   }
 
   // …then we can have small or large versions of that.
 
   .o-media--small.o-media--reverse > & {
-    margin-left: $global-spacing-small;
+    margin-left: spacing(s);
   }
 
   .o-media--large.o-media--reverse > & {
-    margin-left: $global-spacing * 2;
+    margin-left: spacing(m) * 2;
   }
-
 }

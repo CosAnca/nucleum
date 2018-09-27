@@ -13,50 +13,56 @@
 
 // Spacing utilities will override any matching property declarations
 
-$global-spacing-properties: (
-  padding,
+// prettier-ignore
+$spacing-properties: (
   margin,
+  padding,
 );
 
-$global-spacing-directions: (
+// prettier-ignore
+$spacing-directions: (
   null,
-  -top,
-  -right,
-  -bottom,
-  -left,
+  top,
+  right,
+  bottom,
+  left,
 );
 
-$global-spacing-sizes: (
-  null: $global-spacing,
-  -small: $global-spacing-small,
-  -large: $global-spacing-large,
-) !default;
-
-@each $property in $global-spacing-properties {
-  @each $direction in $global-spacing-directions {
-
+@each $property in $spacing-properties {
+  @each $direction in $spacing-directions {
     // This is a bit nasty… If we have a `null` direction, the implication is that
     // we want to use the respective property on all sides (TRBL). Accordingly,
     // create a string of `-all` to use in our class name.
     $all: null;
 
     @if ($direction == null) {
-      $all: -all;
+      $all: all;
     }
 
     // sass-lint:disable no-important
 
-    @each $size, $value in $global-spacing-sizes {
-      .u-#{$property}#{$direction}#{$all}#{$size} {
-        #{$property}#{$direction}: $value !important;
+    @each $size, $value in $global-spacing {
+      $rem-value: null;
+
+      @if ($value == 0) {
+        $rem-value: 0;
+      } @else {
+        $rem-value: convert-to-rem($value);
+      }
+
+      .u-#{$property}-#{$direction}#{$all}-#{$size} {
+        #{$property}#{if($direction != null, "-", null)}#{$direction}: $rem-value !important;
       }
     }
-
-    .u-#{$property}#{$direction}#{$all}-none {
-      #{$property}#{$direction}: 0 !important;
-    }
-
-    // sass-lint:enable no-important
   }
 
+  @if ($property == "margin") {
+    @each $direction in $spacing-directions {
+      @if ($direction != null) {
+        .u-#{$property}-#{$direction}-auto {
+          #{$property}-#{$direction}: auto !important;
+        }
+      }
+    }
+  }
 }

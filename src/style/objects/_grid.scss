@@ -1,0 +1,60 @@
+// ==========================================================================
+// OBJECTS / GRID
+// ==========================================================================
+
+// The Grid object provides us with a column-style layout system. This file
+// contains the basic structural elements, but classes should be complemented
+// with width Utilities, for example:
+//
+// <div class="o-grid">
+//   <div class="o-grid__item u-width-1/2@medium">...</div>
+//   <div class="o-grid__item u-width-1/2@medium">...</div>
+// </div>
+
+// Grid object creates a grid container with clearfix using Neat grid-container mixin
+//
+// @include grid-container;
+//
+// Output
+// .element::after {
+//    clear: both;
+//    content: "";
+//    display: block;
+// }
+
+.o-grid {
+  @include grid-container;
+  margin-right: -$grid-gutter;
+  margin-left: -$grid-gutter;
+}
+
+// For full width or nested layouts, we have to create a collapsed grid object
+// that consumes the gutters of its container. We can achieve this using Neat's
+// built in mixin @grid-nest.
+
+.o-grid--flushed,
+.o-grid--nested {
+  @include grid-nest;
+}
+
+// Grid item creates the basics for the grid column layout
+//
+// @include grid-column(12, $neat-grid);
+//
+// Output
+// .element {
+//    width: calc(100% - 1.5rem);
+//    float: left;
+//    margin-left: 0.75rem;
+// }
+
+.o-grid__item {
+  @include grid-column;
+
+  // To avoid adding complementary classes when nesting grids
+  // we automatically collapse the gutters of a nested layout
+  // object.
+  > .o-grid {
+    @include grid-nest;
+  }
+}

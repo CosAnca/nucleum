@@ -5,13 +5,13 @@
 // Config-level settings (environment switches, debugging modes, etc.).
 
 $config: (
-  env:   dev,
-  debug: false,
+  env: dev,
+  debug: true
 ) !default;
 
 // Little helper function to retreive information from our config array. E.g.:
 //
-//   @if (config(debug) == true) {
+//   @if (config(debug, layout) == true) {
 //     ...
 //   }
 //

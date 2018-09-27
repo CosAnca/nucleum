@@ -6,15 +6,35 @@
 // ==============================================
 
 $global-font-family: $font-stack-helvetica;
+$global-fonts: (
+  helvetica: (
+    "Helvetica",
+    sans-serif
+  ),
+  arial: (
+    "Arial",
+    sans-serif
+  )
+) !default;
 $global-font-size: 16px !default;
 $global-line-height: 1.5;
 
 // Global spacing settings
 // ===============================================
 
-$global-spacing: $global-line-height * 1rem;
-$global-spacing-small: $global-spacing / 2;
-$global-spacing-large: $global-spacing * 2;
+$global-spacing-base: 16px;
+
+// prettier-ignore
+$global-spacing: (
+  "none": 0,
+  "xxs": 0.25 * $global-spacing-base, // [4px]
+  "xs": 0.5 * $global-spacing-base, // [8px]
+  "s": $global-spacing-base, // [16px]
+  "m": 1.5 * $global-spacing-base, // [24px]
+  "l": 2 * $global-spacing-base, // [32px]
+  "xl": 3 * $global-spacing-base, // [48px]
+  "xxl": 4.5 * $global-spacing-base, // [72px]
+);
 
 // Global container settings
 // ===============================================

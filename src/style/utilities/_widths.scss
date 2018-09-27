@@ -20,20 +20,10 @@
 $breakpoint-separator: \@ !default;
 
 // Loop through all breakpoints to get their values.
-@each $breakpoint, $value in $breakpoints {
-  // First we transform our pixels based breakpoint values to em based ones.
-  // This helps us to achieve better and consistent behaviour across different
-  // browsers. Read more at the link below:
-  // https://zellwk.com/blog/media-query-units/
-  $value-in-em: px2em($value);
-
-  // Create a new object to hold the media breakpoint value necessary for Neat's
-  // grid-media mixin.
-  $grid-media-breakpoint: (media: $value-in-em);
-
+@each $breakpoint, $value in $adaptable-breakpoints {
   // Get the total number of columns defined on our $neat-grid object in
   // grid-settings file.
-  $grid-columns: map-get($neat-grid, columns);
+  $grid-columns: map-get($adaptable-grid, columns);
 
   // Initiate an empty map so we can push into it
   // our column widths from the loop below.
@@ -48,22 +38,22 @@ $breakpoint-separator: \@ !default;
       @if not index($column-widths, $w) {
         // Build a class in the format `.u-width-1/3[@<breakpoint>]`.
         .u-width-#{$j}\/#{$i}#{$breakpoint-separator}#{$breakpoint} {
-          @include grid-media($grid-media-breakpoint) {
-            @include grid-column-width($j of $i, $neat-grid-medium);
+          @include grid-media($from: $breakpoint) {
+            @include grid-span($j of $i);
           }
         }
 
         // Build a class in the format `.u-push-1/3[@<breakpoint>]`.
         .u-push-#{$j}\/#{$i}#{$breakpoint-separator}#{$breakpoint} {
-          @include grid-media($grid-media-breakpoint) {
-            @include grid-push($j of $i, $neat-grid-medium);
+          @include grid-media($from: $breakpoint) {
+            @include grid-push($j of $i);
           }
         }
 
         // Build a class in the format `.u-pull-1/3[@<breakpoint>]`.
         .u-pull-#{$j}\/#{$i}#{$breakpoint-separator}#{$breakpoint} {
-          @include grid-media($grid-media-breakpoint) {
-            @include grid-push(-$j of $i, $neat-grid-medium);
+          @include grid-media($from: $breakpoint) {
+            @include grid-push(-$j of $i);
           }
         }
 
@@ -73,11 +63,11 @@ $breakpoint-separator: \@ !default;
   }
 
   // Reset margin-left given by push and/or pull at previous breakpoints
-  $grid-gutter-medium: map-get($neat-grid-medium, gutter);
+  $grid-gutter: map-get($adaptable-grid, gutter);
 
   .u-margin-left-reset#{$breakpoint-separator}#{$breakpoint} {
-    @include grid-media($grid-media-breakpoint) {
-      margin-left: $grid-gutter-medium;
+    @include grid-media($from: $breakpoint) {
+      margin-left: $grid-gutter;
     }
   }
 }

@@ -2,6 +2,8 @@
 // TOOLS / FUNCTIONS
 // =============================================================================
 
+// sass-lint:disable no-warn function-name-format
+
 // Maps
 // ==============================================
 // map-get-deep()
@@ -34,6 +36,15 @@
   @return true;
 }
 
+// font-family()
+// ------------------------------------
+
+// Function to get font-family instead of using `map-get`.
+// Function to get font-family from `$global-font-families` instead of using `map-get`.
+@function font-family($key) {
+  @return map-get-deep($global-font-families, $key);
+}
+
 // font-size()
 // ------------------------------------
 
@@ -48,6 +59,13 @@
 // Function to get line-height from `$text` instead of using `map-get`.
 @function line-height($key, $variant: large) {
   @return map-get-deep($text, $key, $variant, line-height);
+}
+
+// spacing()
+// ------------------------------------
+// Function to get spacing from $global-spacing-scale instead of using `map-get`.
+@function spacing($key) {
+  @return convert-to-rem(map-get-deep($global-spacing, $key));
 }
 
 // $colors map reader
@@ -65,22 +83,44 @@
   @return map-get-deep($colors, $key);
 }
 
-// Convert pixels to ems
-// ===========================================
+// Conversion
+// ==============================================
+
+// convert-to-rem()
+// ------------------------------------
+
+// Converts any `px` or `em` value to `rem`.
+@function convert-to-rem($value, $base-font-size: $global-font-size) {
+  @if unit($value) == "px" {
+    @return (strip-unit($value / $base-font-size)) * 1rem;
+  }
+
+  @if unit($value) == "em" {
+    @return strip-unit($value) * 1rem;
+  } @else {
+    @warn "Value must be em or px.";
+  }
+}
+
+// convert-to-em()
+// ------------------------------------
+//
+// Converts any `px` value to `em`.
+//
 // @param {Number} $px - value to convert
 // @param {Number} $base-font-size ($global-font-size) - `<body>` font size
 //
 // @example scss
-//  $font-size-in-ems: px2em(16px);
-//  p { font-size: px2em(16px); }
+//  $font-size-in-ems: convert-to-em(16px);
+//  p { font-size: convert-to-em(16px); }
 //
 // @requires $base-font-size
 // @returns {Number}
 //
-@function px2em($px, $base-font-size: $global-font-size) {
+@function convert-to-em($px, $base-font-size: $global-font-size) {
   @if unitless($px) {
     @warn "Assuming #{$px} to be in pixels, attempting to convert it into pixels.";
-    @return px2em($px * 1px, $base-font-size);
+    @return convert-to-em($px * 1px, $base-font-size);
   } @else if unit($px) == em {
     @return $px;
   }
@@ -89,6 +129,7 @@
 
 // strip-unit()
 // ------------------------------------
+//
 // Function to remove the unit from a value
 // i.e. strip-unit(20px) would return 20.
 @function strip-unit($num) {
@@ -99,9 +140,46 @@
   }
 }
 
-// Grid gutter size
+// str-replace()
 // ------------------------------------
-// Function to get the grid gutter size.
-@function grid-gutter-size($grid: $neat-grid) {
-  @return _retrieve-neat-setting($grid, gutter);
+//
+// Replace `$search` with `$replace` in `$string`
+//
+// @author Hugo Giraudel
+// @param {string} $string - Initial string
+// @param {string} $search - Substring to replace
+// @param {string} $replace ('') - New value
+// @return {string} - Updated string
+// https://css-tricks.com/snippets/sass/str-replace-function/
+@function str-replace($string, $search, $replace: "") {
+  $index: str-index($string, $search);
+
+  @if $index {
+    @return str-slice($string, 1, $index - 1) + $replace +
+      str-replace(
+        str-slice($string, $index + str-length($search)),
+        $search,
+        $replace
+      );
+  }
+
+  @return $string;
+}
+
+// encode-svg()
+// ------------------------------------
+//
+// Encode SVG to use them as data-uri for background-image
+//
+// Encodes <, > and #.
+// https://codepen.io/tigt/post/optimizing-svgs-in-data-uris
+//
+// @param {string} $string - SVG code to encode
+// @returns {string} - encoded String
+@function encode-svg($string) {
+  $string: str-replace($string, "<", "%3C");
+  $string: str-replace($string, ">", "%3E");
+  $string: str-replace($string, "#", "%23");
+
+  @return $string;
 }
