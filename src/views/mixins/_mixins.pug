@@ -1,7 +1,10 @@
-//- This is where you define your Jade mixins
+//- ----------------------------------------------------------------------- -//
+//- MIXINS / MIXINS                                                         -//
+//- ----------------------------------------------------------------------- -//
 
-//- Sprite mixin to generate SVG icons
-mixin sprite(icon)
-  span.u-sprite(class=`icon-${icon}`)
-    svg(viewBox="0 0 1 1")
-      use(xlink:href=`img/icons.svg#${icon}`)
+//- This is where you define your global/common Pug mixins
+
+//- Icon mixin to generate SVG icons
+mixin icon(iconName, aditionalClasses)
+  svg.c-icon(class=aditionalClasses)&attributes(attributes)
+    use(xlink:href=`img/icons.svg#${iconName}`)
