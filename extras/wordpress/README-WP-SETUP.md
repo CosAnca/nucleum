@@ -4,20 +4,20 @@ In this section, we will go through the `wp-setup.yml` step by step as I will ex
 
 The configuration file is split into five sections:
 
-* Installation
-* WordPress
-* Theme
-* Plugins
-* Setup
+- Installation
+- WordPress
+- Theme
+- Plugins
+- Setup
 
 ## Installation
 
-* In **`wpfolder`** you define the folder containing WordPress. Within the current version of Scotch Box this is `public` by default.
-* In **`wpversion`** you can define what WordPress version to install.
-* With **`wplocale`** you can select what language to download and install WordPress. Use language Codes like `en_US` or `en_GB`.
-* Add your timezone as string to **`timezone`**. See [List of Supported Timezones](http://php.net/manual/en/timezones.php).
-* **`admin`** defines the default admin user. Set your preferred username, password and email.
-* **`db`** contains the access data to connect WordPress to the database on the Virtual Machine. By default (when using ScotchBox) no changes are needed here. However you can add your own database details that you'd like WordPress to connect to.
+- In **`wpfolder`** you define the folder containing WordPress. Within the current version of Scotch Box this is `public` by default.
+- In **`wpversion`** you can define what WordPress version to install.
+- With **`wplocale`** you can select what language to download and install WordPress. Use language Codes like `en_US` or `en_GB`.
+- Add your timezone as string to **`timezone`**. See [List of Supported Timezones](http://php.net/manual/en/timezones.php).
+- **`admin`** defines the default admin user. Set your preferred username, password and email.
+- **`db`** contains the access data to connect WordPress to the database on the Virtual Machine. By default (when using ScotchBox) no changes are needed here. However you can add your own database details that you'd like WordPress to connect to.
 
 ```yaml
 # INSTALLATION
@@ -41,9 +41,9 @@ admin:
   first_name: ""
   last_name: ""
 
-# scotch box db access
+# db access
 db:
-  name: scotchbox
+  name: fosterbox
   user: root
   pass: root
   prefix: wp_
@@ -51,17 +51,17 @@ db:
 
 ## Settings
 
-* In **`wpsettings`** you can define WP-Options like url, title, description, the permalink_structure or edit the default image sizes.
-* Set **`page_on_front`** to true to set **`frontpage_name`** as default front page.
-* If you set **`convert_smilies`** false, smilies won't be converted to image-smilies automatically.
-* Note: To edit the url you use to access the website within your browser edit `config.vm.hostname` in the Vagrantfile.
+- In **`wpsettings`** you can define WP-Options like url, title, description, the permalink_structure or edit the default image sizes.
+- Set **`page_on_front`** to true to set **`frontpage_name`** as default front page.
+- If you set **`convert_smilies`** false, smilies won't be converted to image-smilies automatically.
+- Note: To edit the url you use to access the website within your browser edit `config.vm.hostname` in the Vagrantfile.
 
 ```yaml
 # SETTINGS
 ##############################################################
 
 wpsettings:
-  url: mywebsite.dev
+  url: mywebsite.test
   title: Example
   description: Example Description
   permalink_structure: /%postname%/
@@ -80,6 +80,7 @@ wpsettings:
 ```
 
 ## Theme
+
 Now you can install a (starter-) theme if you want. Simply add the name yuo'd like for the theme. The script will then scaffold, install and activate a barebones `_s` theme.
 
 ```yaml
@@ -95,6 +96,7 @@ theme:
 ```
 
 ## Plugins
+
 You can select what plugins you want to install.
 
 ```yaml
@@ -116,18 +118,18 @@ plugins_active:
 ```
 
 ## Setup
+
 Maybe you don't want to install a theme? Or you prefer keeping the default posts and files it comes with? Within the setup options at the bottom of the file you can tell which tasks to perform. Simply set those you wan't to skip to `false`.
 
-* **`wp`**: install WordPress core
-* **`settings`**: set custom WordPress settings (Note: the value defined **`timezone`** is also considered a setting)
-* **`theme`**: install and activate a theme
-* **`plugins`**: install the plugins listed
-* **`cleanup`**: delete WordPress defaults as followed
-  * **`comment`**: the default comment
-  * **`posts`**: the default post
-  * **`files`**: `readme.html`, `license.txt`
-  * **`themes`**: the twentyfourteen, twentyfifteen and twentysixteen theme.
-
+- **`wp`**: install WordPress core
+- **`settings`**: set custom WordPress settings (Note: the value defined **`timezone`** is also considered a setting)
+- **`theme`**: install and activate a theme
+- **`plugins`**: install the plugins listed
+- **`cleanup`**: delete WordPress defaults as followed
+  - **`comment`**: the default comment
+  - **`posts`**: the default post
+  - **`files`**: `readme.html`, `license.txt`
+  - **`themes`**: the twentyfourteen, twentyfifteen and twentysixteen theme.
 
 ```yaml
 # SETUP

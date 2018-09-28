@@ -15,7 +15,7 @@ module.exports = {
       exclude: /node_modules/
     },
     babel: {
-      presets: [["env", { modules: false }], "stage-1"]
+      presets: [["env", { modules: false }]]
     },
     development: {},
     production: {
@@ -40,7 +40,7 @@ module.exports = {
     dataFile: "data/global.json",
     htmlmin: {},
     extensions: ["pug", "json"],
-    excludeFolders: ["data", "includes", "layout", "mixins", "modules"]
+    excludeFolders: ["components", "data", "includes", "layout", "mixins"]
   },
 
   images: {

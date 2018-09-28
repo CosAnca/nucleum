@@ -5,9 +5,9 @@ const taskDefaults = require("./task-defaults");
 const mergeWith = require("lodash/mergeWith");
 
 function getTaskConfig() {
-  if (process.env.FOSTERKIT_CONFIG_PATH) {
+  if (process.env.NUCLEUM_CONFIG_PATH) {
     return require(projectPath(
-      process.env.FOSTERKIT_CONFIG_PATH,
+      process.env.NUCLEUM_CONFIG_PATH,
       "task-config.js"
     ));
   }

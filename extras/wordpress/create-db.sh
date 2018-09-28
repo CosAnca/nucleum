@@ -78,7 +78,7 @@ wp rewrite flush
 printf "${BLU}»»» activating ${CONF_theme_name} theme...${NC}\n"
 wp theme activate $CONF_theme_slug
 
-printf "${BRN}==================== FOSTERKIT WP DB SETUP FINISHED ====================${NC}\n"
+printf "${BRN}==================== NUCLEUM WP DB SETUP FINISHED ====================${NC}\n"
 printf "${BLU}Your website is available at: ${PRL}http://${CONF_wpsettings_url}${NC}\n"
 printf "${BLU}Enable watch mode and/or compile assets with: ${PRL}yarn run nucleum${NC}\n"
 if $CONF_theme_underscores_generated ; then

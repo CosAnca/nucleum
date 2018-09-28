@@ -55,7 +55,7 @@ NC='\033[0m' # no color
 # EXECUTIVE SETUP
 ####################################################################################################
 
-printf "${BRN}========== FOSTERKIT WP SETUP START ==========${NC}\n\n"
+printf "${BRN}========== NUCLEUM WP SETUP START ==========${NC}\n\n"
 
 # MOVE TO ROOT
 cd ../../../../../
@@ -229,7 +229,7 @@ printf "${BLU}»»» setting BrowserSync server proxy...${NC}\n"
 sed -i 's/mywebsite.dev/'"${CONF_wpsettings_url}"'/g' ../config/task-config.js
 sed -i 's/my-theme/'"${CONF_theme_slug}"'/g' ../config/task-config.js
 
-printf "${BRN}==================== FOSTERKIT WP SETUP FINISHED ====================${NC}\n"
+printf "${BRN}==================== NUCLEUM WP SETUP FINISHED ====================${NC}\n"
 printf "${BLU}Your website is available at: ${PRL}http://${CONF_wpsettings_url}${NC}\n"
 printf "${BLU}Enable watch mode and/or compile assets with: ${PRL}yarn run nucleum${NC}\n"
 if $CONF_theme_underscores_generated ; then

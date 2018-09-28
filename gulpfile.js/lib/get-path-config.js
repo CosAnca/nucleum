@@ -3,9 +3,9 @@ const projectPath = require("./projectPath");
 const fs = require("fs");
 
 function getPathConfig() {
-  if (process.env.FOSTERKIT_CONFIG_PATH) {
+  if (process.env.NUCLEUM_CONFIG_PATH) {
     return require(projectPath(
-      process.env.FOSTERKIT_CONFIG_PATH,
+      process.env.NUCLEUM_CONFIG_PATH,
       "path-config.json"
     ));
   }

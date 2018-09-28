@@ -1,49 +1,42 @@
-# ![Nucleum](extras/default/nucleum-cover.png)
+# ![Nucleum](./src/img/nucleum-banner.png)
 
-**Nucleum** is an opinionated, performance oriented boilerplate for web development. It can be used as-is as a static site builder, or can be configured and integrated into many development environments and sites or apps structures. The [extras](./extras) folder contains configuration details for **WordPress** based projects to give you a quick start for any new website based on this CMS.
+**Nucleum** _(formerly known as Fosterkit)_ is an opinionated, performance oriented web starter kit. It can be used as-is as a static site builder, or can be configured and integrated into many different development environments and sites or apps structures.
+
+The [extras](./extras) folder contains configuration details for **WordPress** projects. Check the [WordPress with Nucleum](./extras/wordpress/README-WP.md) documentation to learn more about how to set up Nucleum for WordPress based projects.
 
 ## Dependencies
 
-* Front-end stack
-  * [yarn]
-* WordPress (assuming you already have [Vagrant] and [VirtualBox])
-  * [Vagrant Hostsupdater] (`vagrant plugin install vagrant-hostsupdater`)
+- Front-end stack
+  - [yarn]
 
 [yarn]: https://yarnpkg.com/lang/en/
-[vagrant]: https://www.vagrantup.com/
-[virtualbox]: https://www.virtualbox.org/wiki/Downloads
-[vagrant hostsupdater]: https://github.com/cogitatio/vagrant-hostsupdater
 
-## Quick start on a fresh project (empty directory) for creating a WordPress based website
+## Quick start on a fresh project (empty directory)
 
 ```zsh
 yarn init
 yarn add nucleum
-yarn run nucleum -- init-wp
-```
-
-This will generate a WordPress configuration file (`wp-setup.yml`) alongside the default src (`src`) and config (`config`) files for the front-end build.
-
-Follow the steps prompted by the command line to set up your WordPress installation.
-
-Read [Nucleum and WordPress](extras/wordpress/README-WP.md) documentation to find out more details.
-
-## Building a static website?
-
-**Replace** line 3 above with:
-
-```zsh
-yarn run nucleum -- init
+yarn run nucleum init
 ```
 
 This will create default `src` and `config` files in your directory and start compiling and live-updating files! Try editing them and watch your browser auto-update!
+
+The init command also updates your `package.json` file to include `start` and `build` scripts for Nucleum, as well as browserslist configuration.
+
+```json
+// package.json
+"scripts": {
+  "start": "yarn run nucleum",
+  "build": "yarn run nucleum -- build"
+}
+```
 
 ## Adding to an existing project?
 
 You can generate basic _config_ files with:
 
 ```zsh
-yarn run nucleum -- init-config
+yarn run nucleum init-config
 ```
 
 Then edit the configs to match the needs of your project.
@@ -52,7 +45,7 @@ Then edit the configs to match the needs of your project.
 
 #### [Node Version Manager](https://github.com/creationix/nvm)
 
-**Nucleum requires at least Node 6**. While you can install Node a variety of ways, we highly recommend using [nvm](https://github.com/creationix/nvm) to install and manage Node versions.
+**Nucleum requires at least Node 7**. While you can install Node a variety of ways, we highly recommend using [nvm](https://github.com/creationix/nvm) to install and manage Node versions.
 
 #### [Yarn](https://yarnpkg.com/en/docs/install)
 
@@ -60,50 +53,38 @@ We recommend `yarn` over `npm` for a few reasons: `yarn.lock` files are a lifesa
 
 # Commands
 
-All commands should be run through `yarn run`. If you haven't switched to [yarn](https://yarnpkg.com/) yet, now's a great time!
+All commands should be run through `yarn run`.
 
 ```zsh
 yarn run nucleum
 ```
 
+or
+
+```zsh
+yarn start
+```
+
 This is where the magic happens. The perfect workflow. This runs the development task, which starts compiling, watching, and live updating all our files as we change them. BrowserSync will start a server on port 3000, or do whatever you've configured it to do. You'll be able to see live changes in all connected browsers. Don't forget about the additional BrowserSync tools available on port 3001!
 
 ```zsh
-yarn run nucleum -- build
+yarn run nucleum build
 ```
 
-Compiles files for production to your destination directory. JS files are built with Webpack 3 with standard production optimizations (Uglify, etc.). CSS is run through CSSNano. If `rev` is set to `true` in your `task-config.js` file, filenames will be hashed (file.css -> file-a8908d9io20.css) so your server may cache them indefinitely.
-
-**NOTE:** By default filenames revision is set to `false` for WordPress production builds. Please refer to [Nucleum and WordPress](extras/wordpress/README-WP.md) documentation if you'd like to [enable revision](extras/wordpress/README-WP.md#filenames-revision-hashing-for-production-builds).
+or
 
 ```zsh
-yarn run nucleum -- ghPages
+yarn build
 ```
 
-If you are building a static site, and would like to preview it on GitHub pages, this handy script does just that using [gulp-gh-pages](https://www.npmjs.com/package/gulp-gh-pages). Be sure to add or update the `homepage` property in your `package.json` to point to your gh-pages url.
-
-It's a good idea to add aliases for these commands to your `package.json` `scripts` object.
-
-```json
-// package.json
-  "scripts": {
-    "start": "yarn run nucleum",
-    "build": "yarn run nucleum -- build"
-  }
-```
-
-```zsh
-# Command line
-yarn start
-yarn run build
-```
+Compiles files for production to your destination directory. JS files are built using Webpack with standard production optimisations (Uglify, etc.). CSS is run through CSSNano and PurgeCSS. If `rev` is set to `true` in your `task-config.js` file, filenames will be hashed (file.css -> file-a8908d9io20.css) so your server may cache them indefinitely.
 
 # Configuration
 
-You may override the default configuration by creating a `config` folder with the following two files in it: `path-config.json` and `task-config.js`. These files will be created by any of the `-- init` tasks, or you can generate _only_ the config files with the following command:
+You may override the default configuration by creating a `config` folder with the following two files in it: `path-config.json` and `task-config.js`. These files will be created by any of the `init` tasks, or you can generate _only_ the config files with the following command:
 
 ```zsh
-yarn run nucleum -- init-config
+yarn run nucleum init-config
 ```
 
 By default, Nucleum expects these files to live in a `./config` at the root of your project. You may specify an alternative relative location by setting an environment variable:
@@ -111,7 +92,7 @@ By default, Nucleum expects these files to live in a `./config` at the root of y
 ```json
 // package.json
 "scripts": {
-  "nucleum": "FOSTERKIT_CONFIG_PATH='./some/location' nucleum"
+  "nucleum": "NUCLEUM_CONFIG_PATH='./some/location' nucleum"
 }
 ```
 
@@ -132,12 +113,12 @@ This file specifies the `src` and `dest` root directories, and `src` and `dest` 
 
 `task-config.js`
 
-This file exposes per-task configuration and overrides. At minimum, you just need to set the task to `true` to enable the task with its default configuration. If you wish to configure a task, provide a configuation object instead.
+This file exposes per-task configuration and overrides. At minimum, you just need to set the task to `true` to enable the task with its default configuration. If you wish to configure a task, provide a configuration object instead.
 
-* Any task may be disabled by setting the value to `false`. For example, if your project has its own handling HTML and template engine (WordPress, Craft, etc), you'll want to set `html` to `false` in your task-config.
-* All asset tasks have an `extensions` option that can be used to overwrite the ones that are processed and watched.
+- Any task may be disabled by setting the value to `false`. For example, if your project has its own handling HTML and template engine (WordPress, Craft, etc), you'll want to set `html` to `false` in your task-config.
+- All asset tasks have an `extensions` option that can be used to overwrite the ones that are processed and watched.
 
-See [task config defaults](gulpfile.js/lib/task-defaults.js) for a closer look. All configuration objects will be merged with these defaults. Note that `array` options are replaced rather than merged or concatenated.
+See [task config defaults](./gulpfile.js/lib/task-defaults.js) for a closer look. All configuration objects will be merged with these defaults. Note that `array` options are replaced rather than merged or concatenated.
 
 ### browserSync
 
@@ -148,7 +129,7 @@ Options to pass to [browserSync](https://browsersync.io/docs/options).
 ```js
 browserSync: {
   server: {
-    baseDir: 'public';
+    baseDir: "public";
   }
 }
 ```
@@ -158,7 +139,7 @@ browserSync: {
 ```js
 browserSync: {
   proxy: {
-    target: 'mywebsite.dev'
+    target: 'mywebsite.test'
   },
   files: ['public/wp-content/themes/my-theme/**/*.php']
 }
@@ -197,7 +178,7 @@ browserSync: {
 
 ### javascripts
 
-Under the hood, JS is compiled with Webpack 3 with a heavily customized Webpack file to get you up and running with little to no configuration. An API for configuring some of the most commonly accessed options are exposed, along with some other helpers for scoping to environment. Additionally, you can get full access to modify Nucleum's `webpackConfig` via the [`customizeWebpackConfig`](#customizeWebpackConfig) option.
+Under the hood, JS is compiled with Webpack 3 with a heavily customised Webpack file to get you up and running with little to no configuration. An API for configuring some of the most commonly accessed options are exposed, along with some other helpers for scoping to environment. Additionally, you can get full access to modify Nucleum's `webpackConfig` via the [`customizeWebpackConfig`](#customizeWebpackConfig) option.
 
 #### `entry` (required)
 
@@ -213,7 +194,7 @@ Sets the webpack devtool option in development mode. Defaults to `eval-cheap-mod
 
 #### `babel`
 
-Object to overwrite the default Babel loader config object. This defaults to `{ presets: [["es2015", { "modules": false }], 'stage-1'] }`. Same format as a `.babelrc` file.
+Object to overwrite the default Babel loader config object. This defaults to `{ presets: [["env", { "modules": false }] }`. Same format as a `.babelrc` file.
 
 #### `babelLoader`
 
@@ -235,9 +216,9 @@ Under the hood, this gets passed directly to [webpack.ProvidePlugin](https://web
 ```js
 plugins: [
   new webpack.ProvidePlugin({
-    $: 'jquery',
-    jQuery: 'jquery',
-  }),
+    $: "jquery",
+    jQuery: "jquery"
+  })
 ];
 ```
 
@@ -253,13 +234,13 @@ Define additional webpack loaders that should be used in all environments. Adds 
 
 Specify additional environment specific configuration to be merged in with Nucleum's defaults
 
-* [`devtool`](https://webpack.js.org/configuration/devtool/#devtool)
-* [`plugins`](https://webpack.js.org/concepts/plugins/)
-* [`loaders`](https://webpack.js.org/concepts/loaders/)
+- [`devtool`](https://webpack.js.org/configuration/devtool/#devtool)
+- [`plugins`](https://webpack.js.org/concepts/plugins/)
+- [`loaders`](https://webpack.js.org/concepts/loaders/)
 
 _Production Only:_
 
-* [`definePlugin`](https://webpack.js.org/plugins/define-plugin)
+- [`definePlugin`](https://webpack.js.org/plugins/define-plugin)
 
 **Example:**
 
@@ -274,7 +255,7 @@ production: {
 }
 ```
 
-By default, the `env` will be `"development"` when running `yarn run nucleum`, and `"production"` when running `yarn run nucleum -- build`.
+By default, the `env` will be `"development"` when running `yarn run nucleum`, and `"production"` when running `yarn run nucleum build`.
 
 #### `hot`
 
@@ -307,7 +288,7 @@ customizeWebpackConfig: function (webpackConfig, env, webpack) {
 }
 ```
 
-**CAUTION!** Avoid overwriting `webpackConfig.entry` or `webpackConfig.plugins` via this function, and rely on the `entry` and `plugins` options above to avoid breaking Nucleum's hot-loading and file revisioning setup ([view source](gulpfile.js/lib/webpack-multi-config.js)).
+**CAUTION!** Avoid overwriting `webpackConfig.entry` or `webpackConfig.plugins` via this function, and rely on the `entry` and `plugins` options above to avoid breaking Nucleum's hot-loading and file revisioning setup ([view source](./gulpfile.js/lib/webpack-multi-config.js)).
 
 ### stylesheets
 
@@ -323,7 +304,7 @@ Defaults to `{ includePaths: ["./node_modules"] }` so you can `@import` files in
 
 ### html
 
-**Note:** If you are on a platform that's already handling html (WordPress), set `html: false` or delete the configuration object completely from `task-config.js`. If that's the case, don't forget to use the BrowserSync [`files` option](https://browsersync.io/docs/options#option-file) in the `browserSync` config object to start watching yout templates folder.
+**Note:** If you are on a platform that's already handling html (WordPress), set `html: false` or delete the configuration object completely from `task-config.js`. If that's the case, don't forget to use the BrowserSync [`files` option](https://browsersync.io/docs/options#option-file) in the `browserSync` config object to start watching your templates folder.
 
 Robust templating with [Pug](https://pugjs.org/api/getting-started.html).
 
@@ -363,10 +344,6 @@ static: {
 
 These tasks simply copy files from `src` to `dest` configured in `path-config.json`. Nothing to configure here other that specifying extensions or disabling the task.
 
-### ghPages
-
-You can deploy the contents your `dest` directly to a remote branch (`gh-pages` by default) with `yarn run nucleum -- ghPages`. Options specified here will get passed directly to [gulp-gh-pages](https://github.com/shinnn/gulp-gh-pages#ghpagesoptions).
-
 ### svgSprite
 
 Generates an SVG Sprite from svg files in `src/icons`. You can either include the created SVG directly on the page and reference the icon by id like this:
@@ -386,15 +363,15 @@ If you reference the sprite remotely, be sure to include something like [svg4eve
 Nucleum includes a helper which generates the required svg markup in `src/views/mixins/_mixins.pug`, so you can just do:
 
 ```pug
-+sprite('my-icon')
++icon("my-icon")
 ```
 
 Which spits out:
 
 ```html
-<span class="u-sprite icon-my-icon">
-  <svg viewBox="0 0 1 1"><use xlink:href="img/icons.svg#my-icon"></use></svg>
-</span>
+<svg class="c-icon">
+  <use xlink:href="img/icons.svg#my-icon"></use>
+</svg>
 ```
 
 This particular setup allows styling 2 different colors from your CSS. You can have unlimited colors hard coded into your svg.
@@ -402,7 +379,7 @@ This particular setup allows styling 2 different colors from your CSS. You can h
 In the following example, the first path will be `red`, the second will be `white`, and the third will be `blue`. Paths **without a fill attribute** will inherit the `fill` property from CSS. Paths with `fill="currentColor"` will inherit the current CSS `color` value, and hard-coded fills will not be overwritten, since inline styles trump CSS values.
 
 ```scss
-.sprite {
+.c-icon {
   fill: red;
   color: white;
 }
@@ -416,15 +393,15 @@ In the following example, the first path will be `red`, the second will be `whit
 </svg>
 ```
 
-We recommend setting up your SVGs on a 500 x 500 canvas, centering your artwork, and expanding/combining any shapes of the same color. This last step is important. [Read more on SVG optimization here!](https://www.viget.com/articles/5-tips-for-saving-svg-for-the-web-with-illustrator)
+We recommend setting up your SVGs on a 500 x 500 canvas, center your artwork, and expanding/combining any shapes of the same color. This last step is important. [Read more on SVG optimisation here!](https://www.viget.com/articles/5-tips-for-saving-svg-for-the-web-with-illustrator)
 
 ### clean
 
 ```js
 clean: {
   patterns: [
-    path.resolve(process.env.PWD, 'dist/assets'),
-    path.resolve(process.env.PWD, 'dist/templates'),
+    path.resolve(process.env.PWD, "dist/assets"),
+    path.resolve(process.env.PWD, "dist/templates")
   ];
 }
 ```
@@ -433,7 +410,7 @@ By default, the entire `dest` directory is deleted before each build. By setting
 
 ### production
 
-Filenames can be revisioned when running the production `build` task. If you want to enable this behavior, you can set `rev` to true.
+Filenames can be revisioned when running the production `build` task. If you want to enable this behaviour, you can set `rev` to true.
 
 ```js
 production: {
@@ -451,12 +428,12 @@ additionalTasks: {
     // Add gulp tasks here
   },
   development: {
-    prebuild: [],
-    postbuild: []
+    prebuild: null,
+    postbuild: null
   },
   production: {
-    prebuild: [],
-    postbuild: []
+    prebuild: null,
+    postbuild: null
   }
 }
 ```
@@ -477,7 +454,7 @@ additionalTasks: {
   },
   development: {
     prebuild: ['createPngSprite'],
-    postbuild: []
+    postbuild: null
   },
   production: {
     prebuild: ['createPngSprite'],

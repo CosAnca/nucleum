@@ -10,19 +10,19 @@ module.exports = {
     entry: {
       // files paths are relative to
       // javascripts.dest in path-config.json
-      app: ['./app.js'],
-    },
+      app: ["./app.js"]
+    }
   },
 
   browserSync: {
     server: {
       // should match `dest` in
       // path-config.json
-      baseDir: 'public',
-    },
+      baseDir: "public"
+    }
   },
 
   production: {
-    rev: true,
-  },
+    rev: true
+  }
 };
