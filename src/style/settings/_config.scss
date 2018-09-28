@@ -11,7 +11,7 @@ $config: (
 
 // Little helper function to retreive information from our config array. E.g.:
 //
-//   @if (config(debug, layout) == true) {
+//   @if (config(debug) == true) {
 //     ...
 //   }
 //

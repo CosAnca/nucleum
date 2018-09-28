@@ -91,6 +91,10 @@
 
 // Converts any `px` or `em` value to `rem`.
 @function convert-to-rem($value, $base-font-size: $global-font-size) {
+  @if unit($value) == "rem" {
+    @return $value;
+  }
+
   @if unit($value) == "px" {
     @return (strip-unit($value / $base-font-size)) * 1rem;
   }

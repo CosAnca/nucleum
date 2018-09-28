@@ -2,30 +2,36 @@
 // UTILITIES / DEBUG
 // ==========================================================================
 
-// Grid debugging settings
-// =======================
-//
-// Applies a visual grid to the body for grid debugging.
-//
-// ****************************************************** //
-// IMPORTANT! Make sure you comment out or set
-// $visual-grid to false before compiling for production.
-// ****************************************************** //
+// Layout debugging
+// ==============================================
 
-$visual-grid: false;
-$visual-grid-color: #00d4ff;
-$visual-grid-opacity: 0.3;
+@if (config(debug) == true) {
+  $debug-color: #f00;
+  $visual-grid-color: #00d4ff;
+  $visual-grid-opacity: 0.3;
 
-// If you'd like to debug the baseline as well, just set
-// the following variable to true.
-// Baseline is calculated based on your $global-font-size
-// and your $global-line-height settings.
+  // Warn when trying to manipulate layout items in grids that are
+  // already reversed.
 
-$visual-baseline: false;
-$visual-baseline-color: #ccc;
-$visual-baseline-opacity: 0.6;
+  .o-grid--reverse {
+    > [class*="u-push"],
+    > [class*="u-pull"] {
+      outline: 10px solid $debug-color;
+    }
+  }
 
-@if variable-exists(visual-grid) and $visual-grid == true {
+  // Warn when trying to use layout items outside of a layout context.
+
+  .o-grid__item {
+    outline: 10px solid $debug-color;
+
+    .o-grid > & {
+      outline: none;
+    }
+  }
+
+  // Apply a visual grid to the body for grid debugging.
+
   body::before {
     @include grid-debug(
       rgba($visual-grid-color, $visual-grid-opacity),
@@ -44,6 +50,13 @@ $visual-baseline-opacity: 0.6;
     pointer-events: none;
   }
 }
+
+// Baseline debugging (for vertical rhythm)
+// ==============================================
+
+$visual-baseline: true;
+$visual-baseline-color: #ccc;
+$visual-baseline-opacity: 0.6;
 
 // Here we apply the visual baseline to the after pseudo-element of body
 @if variable-exists(visual-baseline) and $visual-baseline == true {
@@ -65,33 +78,6 @@ $visual-baseline-opacity: 0.6;
       content: "";
       z-index: 10;
       pointer-events: none;
-    }
-  }
-}
-
-// Layout debugging
-// ===========================================
-
-@if (config(debug) == true) {
-  $debug-color: #f00;
-
-  // Warn when trying to manipulate layout items in grids that are
-  // already reversed.
-
-  .o-grid--reverse {
-    > [class*="u-push"],
-    > [class*="u-pull"] {
-      outline: 10px solid $debug-color;
-    }
-  }
-
-  // Warn when trying to use layout items outside of a layout context.
-
-  .o-grid__item {
-    outline: 10px solid $debug-color;
-
-    .o-grid > & {
-      outline: none;
     }
   }
 }

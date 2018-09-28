@@ -109,11 +109,7 @@
 }
 
 // Custom visual baseline
-@mixin grid-visual-baseline($color: null, $baseline-grid: $visual-baseline) {
-  @if not $color {
-    $color: _retrieve-adaptable-setting($grid, color);
-  }
-
+@mixin grid-visual-baseline($color: #ccc, $baseline-grid: $visual-baseline) {
   $_grid-baseline: transparent,
     transparent ($global-line-height * $global-font-size) - 1,
     $color ($global-line-height * $global-font-size) - 1,
