@@ -4,6 +4,8 @@
 
 // Utility classes to put specific spacing values onto elements, overriding any
 // existing matching property declarations
+//
+// sass-lint:disable no-important
 
 // Settings
 // ==============================================
@@ -33,17 +35,25 @@ $spacing-directions: (
 
 // Tools (Private / Framework Only)
 // ==============================================
+//
+// We use a few mixins to build spacing classes, rather than generating them directly.
+// This also allows us to call the mixins from within other loops.
 
-@mixin _global-spacing-selector($property-alias, $direction-alias, $size) {
+@mixin _global-spacing-selector(
+  $property-alias,
+  $direction-alias,
+  $size,
+  $breakpoint
+) {
   // If we have a `null` direction, the implication is that we want to use the
   // respective property on "all" sides.
   // This can be used as `.u-m` or `.u-p`.
   @if ($direction-alias == null) {
-    .u-#{$property-alias}-#{$size} {
+    .u-#{$property-alias}-#{$size}#{$breakpoint} {
       @content;
     }
   } @else {
-    .u-#{$property-alias}#{$direction-alias}-#{$size} {
+    .u-#{$property-alias}#{$direction-alias}-#{$size}#{$breakpoint} {
       @content;
     }
   }
@@ -53,74 +63,88 @@ $spacing-directions: (
   #{$property}#{if($direction != null, "-", null)}#{$direction}: $value !important;
 }
 
+@mixin _build-spacing($breakpoint: null) {
+  @each $property-alias, $property in $spacing-properties {
+    @each $direction-alias, $direction in $spacing-directions {
+      @each $size, $value in $global-spacing {
+        $rem-value: null;
+
+        @if ($value == 0) {
+          $rem-value: 0;
+        } @else {
+          $rem-value: convert-to-rem($value);
+        }
+
+        @include _global-spacing-selector(
+          $property-alias,
+          $direction-alias,
+          $size,
+          $breakpoint
+        ) {
+          // If the `$direction-key` has nested values, loop through them too
+          // prettier-ignore
+          @if type-of($direction) == map {
+            @each $direction-key, $direction-value in $direction {
+              @each $direction-value-key in $direction-value {
+                @include _global-spacing-declaration($property, $direction-value-key, $rem-value);
+              }
+            }
+          } @else {
+            // prettier-ignore
+            @include _global-spacing-declaration($property, $direction, $rem-value);
+          }
+        }
+      }
+    }
+
+    // The below loop will generate us a suite of classes
+    // to use with the margin property when its value
+    // should be auto
+    //   .u-mt-auto {} // Applies margin-top: auto;
+    //   .u-my-auto {} // Applies margin-right and margin-left auto;
+
+    @if ($property == "margin") {
+      @each $direction-alias, $direction in $spacing-directions {
+        @if ($direction != null) {
+          .u-#{$property-alias}#{$direction-alias}-auto#{if($breakpoint != null, $breakpoint, null)} {
+            // prettier-ignore
+            @if type-of($direction) == map {
+              @each $direction-key, $direction-value in $direction {
+                @each $direction-value-key in $direction-value {
+                  @include _global-spacing-declaration($property, $direction-value-key, unquote("auto"));
+                }
+              }
+            } @else {
+              // prettier-ignore
+              @include _global-spacing-declaration($property, $direction, unquote("auto"));
+            }
+          }
+        } @else {
+          .u-#{$property-alias}-auto {
+            margin: auto;
+          }
+        }
+      }
+    }
+  }
+}
+
 // Base
 // ==============================================
 
 // The below loop will generate us a suite of classes:
 //   .u-p-s {} // Applies padding: [small-spacing-value];
 //   .u-mt-m {} // Applies margin-top: [medium-spacing-value];
-//   .u-pl-l {} // Applies padding-left: [large-spacing-value];
+//   .u-pl-l\@medium {} // Applies padding-left: [large-spacing-value] on medium viewports;
 //   .u-mx-s {} // Applies top and bottom small margin.
 
-@each $property-alias, $property in $spacing-properties {
-  @each $direction-alias, $direction in $spacing-directions {
-    @each $size, $value in $global-spacing {
-      $rem-value: null;
+// Generate our regular, non-responsive classes.
+@include _build-spacing;
 
-      @if ($value == 0) {
-        $rem-value: 0;
-      } @else {
-        $rem-value: convert-to-rem($value);
-      }
-
-      @include _global-spacing-selector(
-        $property-alias,
-        $direction-alias,
-        $size
-      ) {
-        // If the `$direction-key` has nested values, loop through them too
-        // prettier-ignore
-        @if type-of($direction) == map {
-          @each $direction-key, $direction-value in $direction {
-            @each $direction-value-key in $direction-value {
-              @include _global-spacing-declaration($property, $direction-value-key, $rem-value);
-            }
-          }
-        } @else {
-          // prettier-ignore
-          @include _global-spacing-declaration($property, $direction, $rem-value);
-        }
-      }
-    }
-  }
-
-  // The below loop will generate us a suite of classes
-  // to use with the margin property when its value
-  // should be auto
-  //   .u-mt-auto {} // Applies margin-top: auto;
-  //   .u-my-auto {} // Applies margin-right and margin-left auto;
-
-  @if ($property == "margin") {
-    @each $direction-alias, $direction in $spacing-directions {
-      @if ($direction != null) {
-        .u-#{$property-alias}#{$direction-alias}-auto {
-          // prettier-ignore
-          @if type-of($direction) == map {
-            @each $direction-key, $direction-value in $direction {
-              @each $direction-value-key in $direction-value {
-                @include _global-spacing-declaration($property, $direction-value-key, unquote("auto"));
-              }
-            }
-          } @else {
-            // prettier-ignore
-            @include _global-spacing-declaration($property, $direction, unquote("auto"));
-          }
-        }
-      } @else {
-        .u-#{$property-alias}-auto {
-          margin: auto;
-        }
-      }
-    }
+// Generate our responsive classes by looping over the series of breakpoints
+// held by Sass MQ.
+@each $breakpoint, $value in $adaptable-breakpoints {
+  @include grid-media($from: $breakpoint) {
+    @include _build-spacing(\@#{$breakpoint});
   }
 }

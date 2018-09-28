@@ -1,6 +1,8 @@
 // ==========================================================================
 // UTILITIES / DEBUG
 // ==========================================================================
+//
+// Enabling debugging mode will point out various errors and mistakes in our HTML.
 
 // Layout debugging
 // ==============================================
@@ -54,7 +56,7 @@
 // Baseline debugging (for vertical rhythm)
 // ==============================================
 
-$visual-baseline: true;
+$visual-baseline: false;
 $visual-baseline-color: #ccc;
 $visual-baseline-opacity: 0.6;
 

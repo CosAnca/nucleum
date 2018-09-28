@@ -1,0 +1,33 @@
+// ==========================================================================
+// UTILITIES / DISPLAY
+// ==========================================================================
+
+// Generate a suite of utility classes for box model display property.
+
+// prettier-ignore
+$display-values: (
+  block,
+  inline-block,
+  flex,
+  inline-flex,
+  none
+);
+
+$breakpoint-separator: \@ !default;
+
+@each $value in $display-values {
+  .u-#{if($value == "none", "hide", $value)} {
+    display: $value !important;
+  }
+}
+
+// Loop through all breakpoints to get their values.
+@each $breakpoint, $value in $adaptable-breakpoints {
+  @each $value in $display-values {
+    .u-#{if($value == "none", "hide", $value)}#{$breakpoint-separator}#{$breakpoint} {
+      @include grid-media($from: $breakpoint) {
+        display: $value !important;
+      }
+    }
+  }
+}
