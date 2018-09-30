@@ -8,7 +8,7 @@ module.exports = {
 
   browserSync: {
     proxy: {
-      target: "mywebsite.dev"
+      target: "mywebsite.test"
     },
     files: ["public/wp-content/themes/my-theme/**/*.php"]
   },

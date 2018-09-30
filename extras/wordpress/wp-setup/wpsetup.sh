@@ -2,9 +2,8 @@
 #
 # WordPress setup file
 #
-# Author: Flurin Dürst
+# Creadits: Flurin Dürst
 # URL: https://wpdistillery.org
-# Modified by: Cos Anca
 
 # ERROR Handler
 # ask user to continue on error
@@ -126,7 +125,7 @@ if $CONF_setup_settings ; then
   if $CONF_wpsettings_page_on_front ; then
     printf "${BLU}» front page:${NC}\n"
     # create and set frontpage
-    wp post create --post_type=page --post_title="$CONF_wpsettings_page_on_front_frontpage_name" --post_content='Front Page created by Nucleum' --post_status=publish
+    wp post create --post_type=page --post_title="$CONF_wpsettings_page_on_front_frontpage_name" --post_content='Front Page created with Nucleum' --post_status=publish
     wp option update page_on_front $(wp post list --post_type=page --post_status=publish --posts_per_page=1 --pagename="$CONF_wpsettings_page_on_front_frontpage_name" --field=ID --format=ids)
     wp option update show_on_front 'page'
   fi
@@ -226,7 +225,7 @@ wp cli check-update
 printf "${BLU}»»» setting Gulp tasks assets destination path...${NC}\n"
 sed -i 's/my-theme/'"${CONF_theme_slug}"'/g' ../config/path-config.json
 printf "${BLU}»»» setting BrowserSync server proxy...${NC}\n"
-sed -i 's/mywebsite.dev/'"${CONF_wpsettings_url}"'/g' ../config/task-config.js
+sed -i 's/mywebsite.test/'"${CONF_wpsettings_url}"'/g' ../config/task-config.js
 sed -i 's/my-theme/'"${CONF_theme_slug}"'/g' ../config/task-config.js
 
 printf "${BRN}==================== NUCLEUM WP SETUP FINISHED ====================${NC}\n"

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# WordPress setup
+# Create WordPress database
 #
 # Author: Cos Anca
 
