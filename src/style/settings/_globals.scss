@@ -17,7 +17,7 @@ $global-fonts: (
   )
 ) !default;
 $global-font-size: 16px !default;
-$global-line-height: 1.5;
+$global-line-height: 1.5 !default;
 
 // Global spacing settings
 // ===============================================
@@ -26,7 +26,7 @@ $global-line-height: 1.5;
 // on the global line height for a consistent
 // vertical rhythm across the website.
 
-$global-spacing-base: $global-line-height * 1rem;
+$global-spacing-base: $global-line-height * 1rem !default;
 
 // prettier-ignore
 $global-spacing: (
@@ -38,7 +38,7 @@ $global-spacing: (
   "l": $global-spacing-base * 1.5, // [36px]
   "xl": $global-spacing-base * 2, // [48px]
   "xxl": $global-spacing-base * 3, // [72px]
-);
+) !default;
 
 // Global container settings
 // ===============================================

@@ -54,6 +54,15 @@
   @return map-get-deep($text, $key, $variant, font-size);
 }
 
+// font-weight()
+// ------------------------------------
+
+// Function to get font-weight instead of using `map-get`.
+// Function to get font-weight from `$text` instead of using `map-get`.
+@function font-weight($key) {
+  @return map-get-deep($font-weights, $key);
+}
+
 // line-height()
 // ------------------------------------
 // Function to get line-height from `$text` instead of using `map-get`.
