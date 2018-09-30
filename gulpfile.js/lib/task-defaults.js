@@ -15,7 +15,7 @@ module.exports = {
       exclude: /node_modules/
     },
     babel: {
-      presets: [["env", { modules: false }]]
+      presets: [["@babel/preset-env", { modules: false }]]
     },
     development: {},
     production: {
