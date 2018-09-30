@@ -1,6 +1,6 @@
 # ![Nucleum](./src/img/nucleum-banner.png)
 
-**Nucleum** _(formerly known as Fosterkit)_ is an opinionated, performance oriented web starter kit. It can be used as-is as a static site builder, or can be configured and integrated into many different development environments and sites or apps structures.
+**Nucleum** is an opinionated, performance oriented web starter kit. It can be used as-is as a static site builder, or can be configured and integrated into many different development environments and sites or apps structures.
 
 The [extras](./extras) folder contains configuration details for **WordPress** projects. Check the [WordPress with Nucleum](./extras/wordpress/README-WP.md) documentation to learn more about how to set up Nucleum for WordPress based projects.
 
@@ -21,7 +21,7 @@ yarn run nucleum init
 
 This will create default `src` and `config` files in your directory and start compiling and live-updating files! Try editing them and watch your browser auto-update!
 
-The init command also updates your `package.json` file to include `start` and `build` scripts for Nucleum, as well as browserslist configuration.
+The init command also updates your `package.json` file to include `start` and `build` scripts for Nucleum, as well as browserslist configuration that you can customise based on your project needs.
 
 ```json
 // package.json
@@ -178,7 +178,7 @@ browserSync: {
 
 ### javascripts
 
-Under the hood, JS is compiled with Webpack 3 with a heavily customised Webpack file to get you up and running with little to no configuration. An API for configuring some of the most commonly accessed options are exposed, along with some other helpers for scoping to environment. Additionally, you can get full access to modify Nucleum's `webpackConfig` via the [`customizeWebpackConfig`](#customizeWebpackConfig) option.
+Under the hood, JS is compiled with Webpack with a heavily customised Webpack file to get you up and running with little to no configuration. An API for configuring some of the most commonly accessed options are exposed, along with some other helpers for scoping to environment. Additionally, you can get full access to modify Nucleum's `webpackConfig` via the [`customizeWebpackConfig`](#customizeWebpackConfig) option.
 
 #### `entry` (required)
 
@@ -194,7 +194,7 @@ Sets the webpack devtool option in development mode. Defaults to `eval-cheap-mod
 
 #### `babel`
 
-Object to overwrite the default Babel loader config object. This defaults to `{ presets: [["env", { "modules": false }] }`. Same format as a `.babelrc` file.
+Object to overwrite the default Babel loader config object. This defaults to `{ presets: [["@babel/preset-env", { "modules": false }] }`. Same format as a `.babelrc` file.
 
 #### `babelLoader`
 
@@ -465,7 +465,7 @@ additionalTasks: {
 
 # FAQ
 
-## Can I customize and add Gulp tasks?
+## Can I customise and add Gulp tasks?
 
 Yep! See [additionalTasks](#additionaltasks).
 
@@ -479,29 +479,38 @@ JS files are compiled and live-update via BrowserSync + WebpackDevMiddleware + W
 
 Gulp tasks! Built combining the following:
 
-| Feature               | Packages Used                                                                                                                                                                                                                                       |
-| --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **CSS**               | [Sass](http://sass-lang.com/) ([Libsass](http://sass-lang.com/libsass) via [node-sass](https://github.com/sass/node-sass)), [Autoprefixer](https://github.com/postcss/autoprefixer), [CSSNano](https://github.com/ben-eb/cssnano), Source Maps      |
-| **JavaScript**        | [Babel](http://babeljs.io/), [Webpack 3](https://webpack.js.org/)                                                                                                                                                                                   |
-| **HTML**              | [Pug](https://pugjs.org/api/getting-started.html), [gulp-data](https://github.com/colynb/gulp-data)                                                                                                                                                 |
-| **Images**            | Folder for including your project's images                                                                                                                                                                                                          |
-| **Icons**             | Auto-generated [SVG Sprites](https://github.com/w0rm/gulp-svgstore)                                                                                                                                                                                 |
-| **Fonts**             | Folder for including WebFonts                                                                                                                                                                                                                       |
-| **Live Updating**     | [BrowserSync](http://www.browsersync.io/), [Webpack Dev Middleware](https://github.com/webpack/webpack-dev-middleware), [Webpack Hot Middleware](https://github.com/glenjamin/webpack-hot-middleware)                                               |
-| **Production Builds** | CSS is [minified](http://cssnano.co/), JS is compressed and optimized with various Webpack plugins, [filename md5 hashing (reving)](https://github.com/sindresorhus/gulp-rev), [file size reporting](https://github.com/jaysalvat/gulp-sizereport). |
-| **Deployment**        | Quickly deploy `public` folder to gh-pages with [`gulp-gh-pages`](https://github.com/shinnn/gulp-gh-pages)                                                                                                                                          |
+| Feature               | Packages Used                                                                                                               |
+| --------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| **CSS**               | [Sass](http://sass-lang.com/) ([Libsass](http://sass-lang.com/libsass) via [node-sass](https://github.com/sass/node-sass)), |
+|                       | [Autoprefixer](https://github.com/postcss/autoprefixer),                                                                    |
+|                       | [CSSNano](https://github.com/ben-eb/cssnano),                                                                               |
+|                       | Source Maps                                                                                                                 |
+| **JavaScript**        | [Babel](http://babeljs.io/), [Webpack](https://webpack.js.org/)                                                             |
+| **HTML**              | [Pug](https://pugjs.org/api/getting-started.html), [gulp-data](https://github.com/colynb/gulp-data)                         |
+| **Images**            | Folder for including your project's images                                                                                  |
+| **Icons**             | Auto-generated [SVG Sprites](https://github.com/w0rm/gulp-svgstore)                                                         |
+| **Fonts**             | Folder for including WebFonts                                                                                               |
+| **Live Updating**     | [BrowserSync](http://www.browsersync.io/),                                                                                  |
+|                       | [Webpack Dev Middleware](https://github.com/webpack/webpack-dev-middleware),                                                |
+|                       | [Webpack Hot Middleware](https://github.com/glenjamin/webpack-hot-middleware)                                               |
+| **Production Builds** | CSS is [minified](http://cssnano.co/),                                                                                      |
+|                       | JS is compressed and optimized with various Webpack plugins,                                                                |
+|                       | [filename md5 hashing (reving)](https://github.com/sindresorhus/gulp-rev),                                                  |
+|                       | [file size reporting](https://github.com/jaysalvat/gulp-sizereport).                                                        |
 
 Extras:
 
-| Feature         | Packages Used                                                                    |
-| --------------- | -------------------------------------------------------------------------------- |
-| **WordPress**   | [Vagrant](https://www.vagrantup.com/), [ScotchBox](https://box.scotch.io/)       |
-| **Sass**        | [Bourbon](http://bourbon.io/), [Neat](http://neat.bourbon.io/)                   |
-| **IconFonts**   | Generate icon fonts from SVGs                                                    |
-| **Test server** | Local production [Express](http://expressjs.com) server for your static websites |
+| Feature         | Packages Used                                      |
+| --------------- | -------------------------------------------------- |
+| **WordPress**   | [Vagrant](https://www.vagrantup.com/),             |
+|                 | [ScotchBox](https://box.scotch.io/)                |
+| **Sass Mixins** | [Bourbon](http://bourbon.io/),                     |
+|                 | [Adaptable](https://github.com/CosAnca/adaptable/) |
 
 ---
 
 ### Credits:
 
-**Nucleum** has been inspired by [Gulp Starter](https://github.com/vigetlabs/gulp-starter), [WPDistillery](https://wpdistillery.org/) and [Sky UK Styleguide](https://github.com/sky-uk/css).
+[Blendid](https://github.com/vigetlabs/blendid),
+[WPDistillery](https://wpdistillery.org/),
+[Sky UK](https://github.com/sky-uk/css).
