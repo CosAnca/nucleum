@@ -1,6 +1,6 @@
 # ![Nucleum](./src/img/nucleum-banner.png)
 
-**Nucleum** is an opinionated, performance oriented web starter kit. It can be used as-is as a static site builder, or can be configured and integrated into many different development environments and sites or apps structures.
+**Nucleum** is an opinionated, performance oriented web development starter kit. It can be used as-is as a static site builder, or can be configured and integrated into many different web development environments and sites or apps structures.
 
 The [extras](./extras) folder contains configuration details for **WordPress** projects. Check the [WordPress with Nucleum](./extras/wordpress/README-WP.md) documentation to learn more about how to set up Nucleum for WordPress based projects.
 
@@ -13,23 +13,48 @@ The [extras](./extras) folder contains configuration details for **WordPress** p
 
 ## Quick start on a fresh project (empty directory)
 
+**Nucleum** is published as an npm package which allows us to start a new project in a only a few steps:
+
 ```zsh
 yarn init
 yarn add nucleum
 yarn run nucleum init
 ```
 
-This will create default `src` and `config` files in your directory and start compiling and live-updating files! Try editing them and watch your browser auto-update!
+This will create default `src` and `config` files in your project directory and start compiling and live-updating files! Try editing them and watch your browser auto-update!
 
-The init command also updates your `package.json` file to include `start` and `build` scripts for Nucleum, as well as browserslist configuration that you can customise based on your project needs.
+The `init` command also updates your `package.json` file to include `start` and `build` scripts for Nucleum:
 
 ```json
 // package.json
 "scripts": {
   "start": "yarn run nucleum",
-  "build": "yarn run nucleum -- build"
+  "build": "yarn run nucleum build"
 }
 ```
+
+which you can then use on the command line:
+
+```zsh
+# command line
+yarn start
+yarn build
+```
+
+and also adds a `browserslist` configuration that you can customize based on your project needs.
+
+```json
+// package.json
+"browserslist": [
+  "> 1%",
+  "last 2 versions",
+  "not ie < 11"
+]
+```
+
+Your project's CSS and JavaScript files will be compiled for production to include the necessary prefixes or syntax for the browsers you need to support.
+
+You can find more details about browserslist and the type of queries its configuration requires by visiting the [browserslist repo](https://github.com/browserslist/browserslist).
 
 ## Adding to an existing project?
 
@@ -49,7 +74,7 @@ Then edit the configs to match the needs of your project.
 
 #### [Yarn](https://yarnpkg.com/en/docs/install)
 
-We recommend `yarn` over `npm` for a few reasons: `yarn.lock` files are a lifesaver, modules install way faster, and [`yarn run`](https://yarnpkg.com/en/docs/cli/run) for running `package.json` `scripts` and `node_modules/.bin` executables is a nice convenience. It's just better.
+We recommend `yarn` over `npm` mainly for its [`yarn run`](https://yarnpkg.com/en/docs/cli/run) command which allows us to run `package.json` `scripts` and `node_modules/.bin` executables in a nice convenience.
 
 # Commands
 
@@ -59,22 +84,10 @@ All commands should be run through `yarn run`.
 yarn run nucleum
 ```
 
-or
-
-```zsh
-yarn start
-```
-
 This is where the magic happens. The perfect workflow. This runs the development task, which starts compiling, watching, and live updating all our files as we change them. BrowserSync will start a server on port 3000, or do whatever you've configured it to do. You'll be able to see live changes in all connected browsers. Don't forget about the additional BrowserSync tools available on port 3001!
 
 ```zsh
 yarn run nucleum build
-```
-
-or
-
-```zsh
-yarn build
 ```
 
 Compiles files for production to your destination directory. JS files are built using Webpack with standard production optimisations (Uglify, etc.). CSS is run through CSSNano and PurgeCSS. If `rev` is set to `true` in your `task-config.js` file, filenames will be hashed (file.css -> file-a8908d9io20.css) so your server may cache them indefinitely.
@@ -134,14 +147,14 @@ browserSync: {
 }
 ```
 
-**If you're running another server (Vagrant for example, built in with WordPress config)**, you'll want to use the `proxy` option, along with `files` to tell browserSync to watch additional files (like your templates).
+**If you're running another server (Vagrant for example)**, you'll want to use the `proxy` option, along with `files` to tell browserSync to watch additional files (like your templates).
 
 ```js
 browserSync: {
   proxy: {
-    target: 'mywebsite.test'
+    target: "mywebsite.localhost"
   },
-  files: ['public/wp-content/themes/my-theme/**/*.php']
+  files: ["public/wp-content/themes/my-theme/**/*.php"]
 }
 ```
 
@@ -171,14 +184,16 @@ browserSync: {
 ```js
 browserSync: {
   server: {
-    middleware: [/* On your own! Note that default 'webpack-dev-middleware' will not be enabled using this option */],
+    middleware: [
+      /* On your own! Note that default 'webpack-dev-middleware' will not be enabled using this option */
+    ],
   },
 }
 ```
 
 ### javascripts
 
-Under the hood, JS is compiled with Webpack with a heavily customised Webpack file to get you up and running with little to no configuration. An API for configuring some of the most commonly accessed options are exposed, along with some other helpers for scoping to environment. Additionally, you can get full access to modify Nucleum's `webpackConfig` via the [`customizeWebpackConfig`](#customizeWebpackConfig) option.
+Under the hood, JS is compiled with Webpack with a heavily customized Webpack file to get you up and running with little to no configuration. An API for configuring some of the most commonly accessed options are exposed, along with some other helpers for scoping to environment. Additionally, you can get full access to modify Nucleum's `webpackConfig` via the [`customizeWebpackConfig`](#customizeWebpackConfig) option.
 
 #### `entry` (required)
 
@@ -246,9 +261,9 @@ _Production Only:_
 
 ```js
 production: {
-  devtool: 'hidden-source-map',
+  devtool: "hidden-source-map",
   definePlugin: {
-    SOME_API_KEY: 'abcdefg'
+    SOME_API_KEY: "abcdefg"
   },
   plugins: (webpack) => { return [ new webpack.IgnorePlugin(/jsdom$/) ] },
   loaders: [] // Adds to `webpackConfig.module.rules`
@@ -272,15 +287,15 @@ hot: {
 }
 ```
 
-**If you're using React** `yarn add react-hot-loader@next` and set `react: true` to enable [react-hot-loader 3](https://github.com/gaearon/react-hot-loader/tree/next). [Follow the docs](https://github.com/gaearon/react-hot-loader/tree/next/docs#webpack-2) and update your React app to take advantage.
+**If you're using React** `yarn add react-hot-loader` and set `react: true` to enable [react-hot-loader](https://github.com/gaearon/react-hot-loader). [Follow the docs](https://github.com/gaearon/react-hot-loader) and update your React app to take advantage.
 
 #### `customizeWebpackConfig`
 
-In the event that an option you need is not exposed, you may access, modify and return a further customized webpackConfig by providing this option as a function. The function will receive the Nucleum `webpackConfig`, `env` and `webpack` as params. The `env` value will be either `development` (`yarn run nucleum`) or `production` (`yarn run nucleum -- build`).
+In the event that an option you need is not exposed, you may access, modify and return a further customized webpackConfig by providing this option as a function. The function will receive the Nucleum `webpackConfig`, `env` and `webpack` as params. The `env` value will be either `development` (`yarn run nucleum`) or `production` (`yarn run nucleum build`).
 
 ```js
 customizeWebpackConfig: function (webpackConfig, env, webpack) {
-  if(env === 'production') {
+  if(env === "production") {
     webpackConfig.devtool = "nosources-source-map"
   }
 
@@ -294,7 +309,9 @@ customizeWebpackConfig: function (webpackConfig, env, webpack) {
 
 #### `autoprefixer`
 
-Your Sass gets run through [Autoprefixer](https://github.com/postcss/autoprefixer), so don't prefix! Use this option to pass configuration. Defaults to `{ browsers: ["last 3 versions"] }`.
+Your Sass gets run through [Autoprefixer](https://github.com/postcss/autoprefixer), so don't prefix! Use this option to pass configuration only if you really have to overwrite the default settings applied to your `browserslist` configuration inside `package.json` file.
+
+Ideally you don't use this option and let your `browserslist` configuration handle the browsers support required for your project.
 
 #### `sass`
 
@@ -322,7 +339,7 @@ A path to a JSON file containing data to use in your templates via [`gulp-data`]
 
 #### `excludeFolders`
 
-You'll want to exclude some folders from being compiled directly. This defaults to: `["data", "includes", "layout", "mixins", "modules"]`.
+You'll want to exclude some folders from being compiled directly. This defaults to: `["components", "data", "includes", "layout", "mixins"]`.
 
 ### static
 
@@ -358,15 +375,15 @@ or reference the image remotely:
 <svg viewBox="0 0 1 1"><use xlink:href="img/icons.svg#my-icon"></use></svg>
 ```
 
-If you reference the sprite remotely, be sure to include something like [svg4everybody](https://github.com/jonathantneal/svg4everybody) to ensure external loading works on Internet Explorer.
+If you reference the sprite remotely, be sure to include something like [inline-svg-sprite](https://github.com/vigetlabs/inline-svg-sprite) to ensure external loading works on Internet Explorer.
 
-Nucleum includes a helper which generates the required svg markup in `src/views/mixins/_mixins.pug`, so you can just do:
+Nucleum includes a mixin inside `src/views/mixins/_mixins.pug` which generates the required svg markup for your icons, so you can just do:
 
 ```pug
 +icon("my-icon")
 ```
 
-Which spits out:
+Which outputs:
 
 ```html
 <svg class="c-icon">
@@ -393,7 +410,7 @@ In the following example, the first path will be `red`, the second will be `whit
 </svg>
 ```
 
-We recommend setting up your SVGs on a 500 x 500 canvas, center your artwork, and expanding/combining any shapes of the same color. This last step is important. [Read more on SVG optimisation here!](https://www.viget.com/articles/5-tips-for-saving-svg-for-the-web-with-illustrator)
+Make sure you draw your SVGs on a square (500 x 500) canvas, center your artwork, and expanding/combining any shapes of the same color. This last step is important.
 
 ### clean
 
@@ -445,27 +462,27 @@ For example, say you had a sprite task you wanted to run before your css compile
 ```js
 additionalTasks: {
   initialize(gulp, PATH_CONFIG, TASK_CONFIG) {
-    gulp.task('createPngSprite', function() {
+    gulp.task("createPngSprite", function() {
       // do stuff
     })
-    gulp.task('compressImages', function() {
+    gulp.task("compressImages", function() {
       // compress all the things
     })
   },
   development: {
-    prebuild: ['createPngSprite'],
+    prebuild: ["createPngSprite"],
     postbuild: null
   },
   production: {
-    prebuild: ['createPngSprite'],
-    postbuild: ['compressImages']
+    prebuild: ["createPngSprite"],
+    postbuild: ["compressImages"]
   }
 }
 ```
 
 # FAQ
 
-## Can I customise and add Gulp tasks?
+## Can I customize and add Gulp tasks?
 
 Yep! See [additionalTasks](#additionaltasks).
 
@@ -479,33 +496,23 @@ JS files are compiled and live-update via BrowserSync + WebpackDevMiddleware + W
 
 Gulp tasks! Built combining the following:
 
-| Feature               | Packages Used                                                                                                               |
-| --------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| **CSS**               | [Sass](http://sass-lang.com/) ([Libsass](http://sass-lang.com/libsass) via [node-sass](https://github.com/sass/node-sass)), |
-|                       | [Autoprefixer](https://github.com/postcss/autoprefixer),                                                                    |
-|                       | [CSSNano](https://github.com/ben-eb/cssnano),                                                                               |
-|                       | Source Maps                                                                                                                 |
-| **JavaScript**        | [Babel](http://babeljs.io/), [Webpack](https://webpack.js.org/)                                                             |
-| **HTML**              | [Pug](https://pugjs.org/api/getting-started.html), [gulp-data](https://github.com/colynb/gulp-data)                         |
-| **Images**            | Folder for including your project's images                                                                                  |
-| **Icons**             | Auto-generated [SVG Sprites](https://github.com/w0rm/gulp-svgstore)                                                         |
-| **Fonts**             | Folder for including WebFonts                                                                                               |
-| **Live Updating**     | [BrowserSync](http://www.browsersync.io/),                                                                                  |
-|                       | [Webpack Dev Middleware](https://github.com/webpack/webpack-dev-middleware),                                                |
-|                       | [Webpack Hot Middleware](https://github.com/glenjamin/webpack-hot-middleware)                                               |
-| **Production Builds** | CSS is [minified](http://cssnano.co/),                                                                                      |
-|                       | JS is compressed and optimized with various Webpack plugins,                                                                |
-|                       | [filename md5 hashing (reving)](https://github.com/sindresorhus/gulp-rev),                                                  |
-|                       | [file size reporting](https://github.com/jaysalvat/gulp-sizereport).                                                        |
+| Feature               | Packages Used                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| --------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **CSS**               | [Sass](http://sass-lang.com/) ([Libsass](http://sass-lang.com/libsass) via [node-sass](https://github.com/sass/node-sass)), [PostCSS](https://github.com/postcss/postcss) with [postcss-preset-env](https://github.com/csstools/postcss-preset-env), [purgecss](https://github.com/FullHuman/purgecss), [postcss-normalize](https://github.com/csstools/postcss-normalize), [cssnano](https://github.com/cssnano/cssnano), Source Maps |
+| **JavaScript**        | [Babel](http://babeljs.io/), [babel-preset-env](https://babeljs.io/docs/en/babel-preset-env), [Webpack](https://webpack.js.org/)                                                                                                                                                                                                                                                                                                       |
+| **HTML**              | [Pug](https://pugjs.org/api/getting-started.html), [gulp-data](https://github.com/colynb/gulp-data)                                                                                                                                                                                                                                                                                                                                    |
+| **Icons**             | Auto-generated [SVG Sprites](https://github.com/w0rm/gulp-svgstore)                                                                                                                                                                                                                                                                                                                                                                    |
+| **Live Updating**     | [BrowserSync](http://www.browsersync.io/),                                                                                                                                                                                                                                                                                                                                                                                             |
+|                       | [Webpack Dev Middleware](https://github.com/webpack/webpack-dev-middleware),                                                                                                                                                                                                                                                                                                                                                           |
+|                       | [Webpack Hot Middleware](https://github.com/glenjamin/webpack-hot-middleware)                                                                                                                                                                                                                                                                                                                                                          |
+| **Production Builds** | CSS is [minified](http://cssnano.co/) and [purged](https://www.purgecss.com/), JS is compressed and optimized with various Webpack plugins, [filename md5 hashing (reving)](https://github.com/sindresorhus/gulp-rev), [file size reporting](https://github.com/jaysalvat/gulp-sizereport).                                                                                                                                            |
 
 Extras:
 
-| Feature         | Packages Used                                      |
-| --------------- | -------------------------------------------------- |
-| **WordPress**   | [Vagrant](https://www.vagrantup.com/),             |
-|                 | [ScotchBox](https://box.scotch.io/)                |
-| **Sass Mixins** | [Bourbon](http://bourbon.io/),                     |
-|                 | [Adaptable](https://github.com/CosAnca/adaptable/) |
+| Feature         | Packages Used                                                                                   |
+| --------------- | ----------------------------------------------------------------------------------------------- |
+| **WordPress**   | [Vagrant](https://www.vagrantup.com/), [WordPress quick start](./extras/wordpress/README-WP.md) |
+| **Sass Mixins** | [Bourbon](http://bourbon.io/), [Adaptable](https://github.com/CosAnca/adaptable/)               |
 
 ---
 
