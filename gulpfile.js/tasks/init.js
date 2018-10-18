@@ -34,7 +34,7 @@ gulp.task("init", function() {
   };
 
   // Setup browserslist config
-  pkg.browserslist = ["> 1%", "last 2 versions", "not ie < 11"];
+  pkg.browserslist = [">0.2%", "not dead", "not ie <= 11", "not op_mini all"];
 
   // Update the package.json file
   fs.writeFileSync(

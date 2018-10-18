@@ -46,9 +46,10 @@ and also adds a `browserslist` configuration that you can customize based on you
 ```json
 // package.json
 "browserslist": [
-  "> 1%",
-  "last 2 versions",
-  "not ie < 11"
+  ">0.2%",
+  "not dead",
+  "not ie <= 11",
+  "not op_mini all"
 ]
 ```
 
