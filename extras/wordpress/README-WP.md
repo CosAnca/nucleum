@@ -8,6 +8,7 @@
   - [Docker]
   - [docker-compose]
 
+[yarn]: https://yarnpkg.com
 [docker]: https://www.docker.com/products/docker-desktop
 [docker-compose]: https://docs.docker.com/compose/install/#install-compose
 
@@ -19,9 +20,9 @@ yarn add nucleum
 yarn run nucleum init-wp
 ```
 
-This will generate the default src (`src`) and config (`config`) files for the front-end build and backend.
+This will generate a base boilerplate for starting your WordPress site development.
 
-Next, run the following command:
+Next, to install and configure your WordPress instance, run the following command:
 
 ```zsh
 sh bin/setup.sh
@@ -41,6 +42,12 @@ If you want to use a domain other than http://localhost, you'll need to:
 ## Behind the scenes
 
 The shell scripts will do all the work for you when setting up a new WordPress project. With this setup it won't take longer than 5 minutes until you can start working on a new WordPress project.
+
+The core server functionality is based on docker-compose. By default, the following containers are started: PHP-FPM, MySQL, nginx and Memcached. The ./public directory is the web root which is mapped to the nginx container.
+
+You can directly edit PHP and nginx configuration files from within the ./config folder as they are mapped to the correct locations in containers.
+
+A custom phpfpm image is used for this environment that adds a few extra things to the PHP-FPM image.
 
 ## Additional info
 
@@ -70,6 +77,50 @@ Default WordPress admin credentials:
 ### Themes
 
 Nucleum allows you to quickly scaffold an "\_s" theme or to install a theme from an URL or local `.zip` file.
+
+### WP-CLI
+
+Add this alias to `~/.bash_profile` or `~/.zshrc` file to easily run WP-CLI command.
+
+```zsh
+alias dcwp="docker-compose exec --user www-data phpfpm wp"
+```
+
+Instead of running a command like `wp plugin install` you run `dcwp plugin install` from anywhere inside the
+project directory, and it runs the command inside of the php container.
+
+### SSH Access
+
+You can easily access the WordPress/PHP container with `docker-compose exec`:
+
+```zsh
+docker-compose exec --user root phpfpm bash
+```
+
+### Useful Bash Aliases
+
+To increase efficiency with WP Local Docker, the following bash aliases can be added to `~/.bash_profile` or `~/.zshrc`:
+
+1. WP-CLI:
+   ```zsh
+   alias dcwp='docker-compose exec --user www-data phpfpm wp'
+   ```
+2. SSH into container:
+   ```zsh
+   alias dcbash='docker-compose exec --user root phpfpm bash'
+   ```
+3. Multiple instances cannot be run simultaneously. In order to switch projects, you'll need to kill all Docker containers first:
+   ```zsh
+   docker-stop() { docker stop $(docker ps -a -q); }
+   ```
+4. Combine the stop-all command with `docker-compose up` to easily start up an instance with one command:
+   ```zsh
+   alias dup="docker-stop && docker-compose up -d"
+   ```
+
+### MailCatcher
+
+MailCatcher runs a simple local SMTP server which catches any message sent to it, and displays it in its built-in web interface. All emails sent by WordPress will be intercepted by MailCatcher. To view emails in the MailCatcher web interface, navigate to `http://localhost:1080` in your web browser of choice.
 
 ### Filenames revision (hashing) for production builds
 
@@ -116,9 +167,9 @@ wp_enqueue_style( "cache-bust-style", get_template_directory_uri() . get_asset_p
 or
 
 ```php
-<?php echo get_template_directory_uri() . get_asset_path("img/filename.jpg") ?>
+echo get_template_directory_uri() . get_asset_path("img/filename.jpg")
 ```
 
 ### Windows Support
 
-Windows support will come in a future version.
+Windows support will land in a future version.
