@@ -8,16 +8,16 @@ module.exports = {
 
   browserSync: {
     proxy: {
-      target: "mywebsite.test"
+      target: "localhost"
     },
-    files: ["public/wp-content/themes/my-theme/**/*.php"]
+    files: ["public/wp-content/themes/nucleum/**/*.php"]
   },
 
   javascripts: {
     entry: {
       app: ["./app.js"]
     },
-    publicPath: "/wp-content/themes/my-theme/assets/js/"
+    publicPath: "/wp-content/themes/nucleum/assets/js/"
   },
 
   production: {
