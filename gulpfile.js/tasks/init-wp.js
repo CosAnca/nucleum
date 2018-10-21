@@ -1,10 +1,12 @@
 /* global PATH_CONFIG */
+const fs = require("fs");
 const gulp = require("gulp");
 const log = require("fancy-log");
 const colors = require("ansi-colors");
 const projectPath = require("../lib/projectPath");
 const rename = require("gulp-rename");
 const merge = require("merge-stream");
+const pkg = require(projectPath("package.json"));
 
 gulp.task("init-wp", function() {
   const dotfilesStream = gulp
@@ -17,36 +19,46 @@ gulp.task("init-wp", function() {
     .pipe(gulp.dest(projectPath()));
 
   const configStream = gulp
-    .src([
-      "extras/wordpress/**",
-      "!extras/wordpress/wp-setup{,/**}",
-      "!extras/wordpress/*.md"
-    ])
+    .src(["extras/wordpress/**", "!extras/wordpress/*.md"])
     .pipe(gulp.dest(projectPath()));
 
   const srcStream = gulp
     .src(["src/**/*", "*.gitkeep"])
     .pipe(gulp.dest(projectPath(PATH_CONFIG.src)));
 
+  // Setup the script rules
+  pkg.scripts = {
+    start: "yarn run nucleum",
+    build: "yarn run nucleum build"
+  };
+
+  // Setup browserslist config
+  pkg.browserslist = [">0.2%", "not dead", "not ie <= 11", "not op_mini all"];
+
+  // Update the package.json file
+  fs.writeFileSync(
+    path.join(projectPath(), "package.json"),
+    JSON.stringify(pkg, null, 2)
+  );
+
   log(
     colors.green.bold(
-      "Generating Nucleum WordPress project configuration files"
+      "Generating new WordPress project structure and configuration files"
     )
   );
   log(
     colors.green(
-      "Please follow the instructions below to setup your WordPress installation"
+      "Please follow the instructions below to start your WordPress installation"
     )
   );
   log(
     colors.yellow(
       `
 
-      1. Open ${colors.cyan.underline("wp-setup.yml")} and customize.
-      2. Open ${colors.cyan.underline(
-        "Vagrantfile"
-      )} and add your local domain and IP.
-      3. Run: ${colors.magenta("vagrant up")} and watch the magic!
+      1. Run ${colors.magenta("docker-compose up")}.
+      2. Run ${colors.magenta(
+        "sh bin/setup.sh"
+      )} and add follow the command line steps.
     `
     )
   );

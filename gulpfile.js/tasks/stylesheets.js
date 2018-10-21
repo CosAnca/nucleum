@@ -57,16 +57,19 @@ const stylesheetsTask = function() {
   }
 
   const purgecssConfig = TASK_CONFIG.stylesheets.purgecss || {};
-  const purgecssContent = path.join(
-    projectPath(PATH_CONFIG.src, PATH_CONFIG.html.src),
-    "/**/*.pug"
-  );
-  purgecssConfig.extractors = [
-    {
-      extractor: PurgeCssFromPug,
-      extensions: ["pug"]
-    }
-  ];
+  const purgecssContent = PATH_CONFIG.html
+    ? path.join(projectPath(PATH_CONFIG.src, PATH_CONFIG.html.src), "/**/*.pug")
+    : path.join(projectPath(), "public/wp-content/themes/**/*.php");
+
+  purgecssConfig.extractors =
+    purgecssContent.indexOf("pug") !== -1
+      ? [
+          {
+            extractor: PurgeCssFromPug,
+            extensions: ["pug"]
+          }
+        ]
+      : [];
   purgecssConfig.content = [purgecssContent];
 
   const postCssPlugins = [
