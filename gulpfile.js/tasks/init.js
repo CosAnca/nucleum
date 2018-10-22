@@ -45,10 +45,10 @@ gulp.task("init", function() {
   log(colors.green("Generating default Nucleum project files"));
   log(
     colors.yellow(`
-    To start the dev server:
+    To start the dev server run:
   `),
     colors.magenta(`
-    yarn run nucleum
+    yarn start
   `)
   );
 

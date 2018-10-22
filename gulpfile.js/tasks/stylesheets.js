@@ -61,15 +61,12 @@ const stylesheetsTask = function() {
     ? path.join(projectPath(PATH_CONFIG.src, PATH_CONFIG.html.src), "/**/*.pug")
     : path.join(projectPath(), "public/wp-content/themes/**/*.php");
 
-  purgecssConfig.extractors =
-    purgecssContent.indexOf("pug") !== -1
-      ? [
-          {
-            extractor: PurgeCssFromPug,
-            extensions: ["pug"]
-          }
-        ]
-      : [];
+  purgecssConfig.extractors = [
+    {
+      extractor: PurgeCssFromPug,
+      extensions: ["pug", "php", "html"]
+    }
+  ];
   purgecssConfig.content = [purgecssContent];
 
   const postCssPlugins = [

@@ -81,8 +81,7 @@ if [[ "$CUSTOM_THEME" == Y* ]] || [[ "$CUSTOM_THEME" == y* ]] || [ -z "$CUSTOM_T
   printf "${BLU}>>> Installing $CUSTOM_THEME_SLUG theme...${NC}\n"
   docker-compose exec phpfpm su -s /bin/bash www-data -c "wp theme install '${CUSTOM_THEME_URL}'"
   if [[ $CUSTOM_THEME_URL == *"fosterpress"* ]]; then
-    echo $PWD
-    printf "${BLU}»»» renaming fosterpress theme to $CUSTOM_THEME_SLUG...${NC}\n"
+    printf "${BLU}>>> renaming fosterpress theme to $CUSTOM_THEME_SLUG...${NC}\n"
     sed -i "" "s/'fosterpress'/${theme_text_domain}/g" public/wp-content/themes/fosterpress/{,**}/*.php
     sed -i "" "s/fosterpress_/${theme_functions}/g" public/wp-content/themes/fosterpress/{,**}/*.php
     sed -i "" "s/Text Domain: fosterpress/${theme_style_text_domain}/g" public/wp-content/themes/fosterpress/style.css
@@ -116,7 +115,7 @@ fi
 
 printf "${BRN}========== WordPress setup finished ==========${NC}\n"
 printf "${BLU}Your website is available at: ${PRL}http://localhost${NC}\n"
-printf "${BLU}To enable watch mode and start static assets compilation please${NC}\n"
-printf "${BLU}update ${PRL}config/path-config.json${BLU} and ${PRL}config/task-config.js${BLU} files${NC}\n"
-printf "${BLU}then run: ${PRL}yarn run nucleum${NC}\n"
+printf "${BLU}To enable watch mode and start static assets compilation please first update${NC}\n"
+printf "${BLU}the theme name inside ${PRL}config/path-config.json${BLU} and ${PRL}config/task-config.js${BLU} files${NC}\n"
+printf "${BLU}and then run: ${PRL}yarn start${NC}\n"
 printf "${BRN}=============== Happy Coding! ================${NC}\n"

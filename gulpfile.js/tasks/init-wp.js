@@ -6,6 +6,7 @@ const colors = require("ansi-colors");
 const projectPath = require("../lib/projectPath");
 const rename = require("gulp-rename");
 const merge = require("merge-stream");
+const path = require("path");
 const pkg = require(projectPath("package.json"));
 
 gulp.task("init-wp", function() {
