@@ -50,7 +50,7 @@ const stylesheetsTask = function() {
   const cssnanoConfig = TASK_CONFIG.stylesheets.cssnano || {};
   cssnanoConfig.autoprefixer = false; // this should always be false, since we're autoprefixing separately
 
-  class PurgeCssFromPug {
+  class NucleumPurgeCSS {
     static extract(content) {
       return content.match(/[A-z0-9@\-\/]+/g) || [];
     }
@@ -63,7 +63,7 @@ const stylesheetsTask = function() {
 
   purgecssConfig.extractors = [
     {
-      extractor: PurgeCssFromPug,
+      extractor: NucleumPurgeCSS,
       extensions: ["pug", "php", "html"]
     }
   ];

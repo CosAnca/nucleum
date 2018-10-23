@@ -1,8 +1,8 @@
-## Nucleum and WordPress
+## WordPress build with Nucleum
 
 ## Dependencies
 
-- Front-end stack
+- Frontend stack
   - [yarn]
 - WordPress
   - [Docker]
@@ -20,9 +20,9 @@ yarn add nucleum
 yarn run nucleum init-wp
 ```
 
-This will generate a base boilerplate for starting your WordPress site development.
+This will generate a WordPress ready boilerplate containing frontend source structure and base files.
 
-Next, to install and configure your WordPress instance, run the following command:
+Next, to install and configure your WordPress instance, run:
 
 ```zsh
 sh bin/setup.sh
@@ -43,9 +43,9 @@ If you want to use a domain other than http://localhost, you'll need to:
 
 The shell scripts will do all the work for you when setting up a new WordPress project. With this setup it won't take longer than 5 minutes until you can start working on a new WordPress project.
 
-The core server functionality is based on docker-compose. By default, the following containers are started: PHP-FPM, MySQL, nginx and Memcached. The ./public directory is the web root which is mapped to the nginx container.
+The core server functionality is based on docker-compose. By default, the following containers are started: PHP-FPM, MySQL, nginx and Memcached. The `./public` directory is the web root which is mapped to the nginx container.
 
-You can directly edit PHP and nginx configuration files from within the ./config folder as they are mapped to the correct locations in containers.
+You can directly edit PHP and nginx configuration files from within the `./config` folder as they are mapped to the correct locations in containers.
 
 A custom phpfpm image is used for this environment that adds a few extra things to the PHP-FPM image.
 
