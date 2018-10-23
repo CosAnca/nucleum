@@ -6,20 +6,30 @@
 // so that we get nice and consistent vertical rhythm very cheaply.
 // http://csswizardry.com/2012/06/single-direction-margin-declarations/
 
-// sass-lint:disable single-line-per-selector
-
-h1, h2, h3, h4, h5, h6, hgroup,
-ul, ol, dl,
-blockquote, p, address,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hgroup,
+ul,
+ol,
+dl,
+blockquote,
+p,
+address,
 table,
-fieldset, figure,
+fieldset,
+figure,
 pre {
-  margin-bottom: $global-spacing;
+  margin-bottom: spacing(m);
 }
 
 // We’ll also indent list elements by the same amount of spacing.
 
-ul,  ol,
+ul,
+ol,
 dd {
-  margin-left: $global-spacing;
+  margin-left: spacing(m);
 }

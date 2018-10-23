@@ -1,0 +1,15 @@
+// ==========================================================================
+// UTILITIES / COLORS
+// ==========================================================================
+
+// Generate a suite of utility classes that map directly to our colour palette.
+
+@each $name, $value in $colors {
+  .u-color-#{$name} {
+    color: $value !important;
+  }
+
+  .u-bg-#{$name} {
+    background-color: $value !important;
+  }
+}

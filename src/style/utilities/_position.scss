@@ -1,0 +1,17 @@
+// ==========================================================================
+// UTILITIES / POSITION
+// ==========================================================================
+
+// Utility classes to position an element
+// sass-lint:disable no-important
+
+// Settings
+// ==============================================
+
+$positions: (static, relative, absolute, fixed, sticky);
+
+@each $position in $positions {
+  .u-#{$position} {
+    position: $position !important;
+  }
+}

@@ -1,49 +1,68 @@
-# ![Fosterkit](extras/default/fosterkit-cover.png)
+# ![Nucleum](./src/img/nucleum-banner.png)
 
-**Fosterkit** is an opinionated, performance oriented boilerplate for web development. It can be used as-is as a static site builder, or can be configured and integrated into many development environments and sites or apps structures. The [extras](./extras) folder contains configuration details for **WordPress** based projects to give you a quick start for any new website based on this CMS.
+**Nucleum** is an opinionated, performance oriented web development starter kit. It can be used as-is as a static site builder, or can be configured and integrated into many different web development environments and sites or apps structures.
+
+The [extras](./extras) folder contains configuration details for **WordPress** projects. Check the [WordPress with Nucleum](./extras/wordpress/README-WP.md) documentation to learn more about how to set up Nucleum for WordPress based projects.
 
 ## Dependencies
 
-* Front-end stack
-  * [yarn]
-* WordPress (assuming you already have [Vagrant] and [VirtualBox])
-  * [Vagrant Hostsupdater] (`vagrant plugin install vagrant-hostsupdater`)
+- Front-end stack
+  - [yarn]
 
 [yarn]: https://yarnpkg.com/lang/en/
-[vagrant]: https://www.vagrantup.com/
-[virtualbox]: https://www.virtualbox.org/wiki/Downloads
-[vagrant hostsupdater]: https://github.com/cogitatio/vagrant-hostsupdater
 
-## Quick start on a fresh project (empty directory) for creating a WordPress based website
+## Quick start on a fresh project (empty directory)
+
+**Nucleum** is published as an npm package which allows us to start a new project in a only a few steps:
 
 ```zsh
 yarn init
-yarn add fosterkit
-yarn run fosterkit -- init-wp
+yarn add nucleum
+yarn run nucleum init
 ```
 
-This will generate a WordPress configuration file (`wp-setup.yml`) alongside the default src (`src`) and config (`config`) files for the front-end build.
+This will create default `src` and `config` files in your project directory.
 
-Follow the steps prompted by the command line to set up your WordPress installation.
+The `init` command also updates your `package.json` file to include `start` and `build` scripts for Nucleum:
 
-Read [Fosterkit and WordPress](extras/wordpress/README-WP.md) documentation to find out more details.
+```json
+// package.json
+"scripts": {
+  "start": "yarn run nucleum",
+  "build": "yarn run nucleum build"
+}
+```
 
-## Building a static website?
-
-**Replace** line 3 above with:
+which you can then use on the command line:
 
 ```zsh
-yarn run fosterkit -- init
+# command line
+yarn start
+yarn build
 ```
 
-This will create default `src` and `config` files in your directory and start compiling and live-updating files! Try editing them and watch your browser auto-update!
+and also adds a `browserslist` configuration that you can customize based on your project needs.
+
+```json
+// package.json
+"browserslist": [
+  ">0.2%",
+  "not dead",
+  "not ie <= 11",
+  "not op_mini all"
+]
+```
+
+Your project's CSS and JavaScript files will be compiled for production to include the necessary prefixes or syntax for the browsers you need to support.
+
+You can find more details about browserslist and the type of queries its configuration requires by visiting the [browserslist repo](https://github.com/browserslist/browserslist).
 
 ## Adding to an existing project?
 
 You can generate basic _config_ files with:
 
 ```zsh
-yarn run fosterkit -- init-config
+yarn run nucleum init-config
 ```
 
 Then edit the configs to match the needs of your project.
@@ -52,72 +71,48 @@ Then edit the configs to match the needs of your project.
 
 #### [Node Version Manager](https://github.com/creationix/nvm)
 
-**Fosterkit requires at least Node 6**. While you can install Node a variety of ways, we highly recommend using [nvm](https://github.com/creationix/nvm) to install and manage Node versions.
+**Nucleum requires at least Node 7**. While you can install Node a variety of ways, we highly recommend using [nvm](https://github.com/creationix/nvm) to install and manage Node versions.
 
 #### [Yarn](https://yarnpkg.com/en/docs/install)
 
-We recommend `yarn` over `npm` for a few reasons: `yarn.lock` files are a lifesaver, modules install way faster, and [`yarn run`](https://yarnpkg.com/en/docs/cli/run) for running `package.json` `scripts` and `node_modules/.bin` executables is a nice convenience. It's just better.
+We recommend `yarn` over `npm` mainly for its [`yarn run`](https://yarnpkg.com/en/docs/cli/run) command which allows us to run `package.json` `scripts` and `node_modules/.bin` executables in a nice convenience.
 
 # Commands
 
-All commands should be run through `yarn run`. If you haven't switched to [yarn](https://yarnpkg.com/) yet, now's a great time!
+All commands should be run through `yarn run`.
 
 ```zsh
-yarn run fosterkit
+yarn start
 ```
 
 This is where the magic happens. The perfect workflow. This runs the development task, which starts compiling, watching, and live updating all our files as we change them. BrowserSync will start a server on port 3000, or do whatever you've configured it to do. You'll be able to see live changes in all connected browsers. Don't forget about the additional BrowserSync tools available on port 3001!
 
 ```zsh
-yarn run fosterkit -- build
+yarn build
 ```
 
-Compiles files for production to your destination directory. JS files are built with Webpack 3 with standard production optimizations (Uglify, etc.). CSS is run through CSSNano. If `rev` is set to `true` in your `task-config.js` file, filenames will be hashed (file.css -> file-a8908d9io20.css) so your server may cache them indefinitely.
-
-**NOTE:** By default filenames revision is set to `false` for WordPress production builds. Please refer to [Fosterkit and WordPress](extras/wordpress/README-WP.md) documentation if you'd like to [enable revision](extras/wordpress/README-WP.md#filenames-revision-hashing-for-production-builds).
-
-```zsh
-yarn run fosterkit -- ghPages
-```
-
-If you are building a static site, and would like to preview it on GitHub pages, this handy script does just that using [gulp-gh-pages](https://www.npmjs.com/package/gulp-gh-pages). Be sure to add or update the `homepage` property in your `package.json` to point to your gh-pages url.
-
-It's a good idea to add aliases for these commands to your `package.json` `scripts` object.
-
-```json
-// package.json
-  "scripts": {
-    "start": "yarn run fosterkit",
-    "build": "yarn run fosterkit -- build"
-  }
-```
-
-```zsh
-# Command line
-yarn start
-yarn run build
-```
+Compiles files for production to your destination directory. JS files are built using Webpack with standard production optimisations (Uglify, etc.). CSS is run through CSSNano and PurgeCSS. If `rev` is set to `true` in your `task-config.js` file, filenames will be hashed (file.css -> file-a8908d9io20.css) so your server may cache them indefinitely.
 
 # Configuration
 
-You may override the default configuration by creating a `config` folder with the following two files in it: `path-config.json` and `task-config.js`. These files will be created by any of the `-- init` tasks, or you can generate _only_ the config files with the following command:
+You may override the default configuration by creating a `config` folder with the following two files in it: `path-config.json` and `task-config.js`. These files will be created by any of the `init` tasks, or you can generate _only_ the config files with the following command:
 
 ```zsh
-yarn run fosterkit -- init-config
+yarn run nucleum init-config
 ```
 
-By default, Fosterkit expects these files to live in a `./config` at the root of your project. You may specify an alternative relative location by setting an environment variable:
+By default, Nucleum expects these files to live in a `./config` at the root of your project. You may specify an alternative relative location by setting an environment variable:
 
 ```json
 // package.json
 "scripts": {
-  "fosterkit": "FOSTERKIT_CONFIG_PATH='./some/location' fosterkit"
+  "nucleum": "NUCLEUM_CONFIG_PATH='./some/location' nucleum"
 }
 ```
 
 ```zsh
 # command line
-yarn run fosterkit
+yarn run nucleum
 ```
 
 The files must be named `path-config.json` and `task-config.js`.
@@ -132,12 +127,12 @@ This file specifies the `src` and `dest` root directories, and `src` and `dest` 
 
 `task-config.js`
 
-This file exposes per-task configuration and overrides. At minimum, you just need to set the task to `true` to enable the task with its default configuration. If you wish to configure a task, provide a configuation object instead.
+This file exposes per-task configuration and overrides. At minimum, you just need to set the task to `true` to enable the task with its default configuration. If you wish to configure a task, provide a configuration object instead.
 
-* Any task may be disabled by setting the value to `false`. For example, if your project has its own handling HTML and template engine (WordPress, Craft, etc), you'll want to set `html` to `false` in your task-config.
-* All asset tasks have an `extensions` option that can be used to overwrite the ones that are processed and watched.
+- Any task may be disabled by setting the value to `false`. For example, if your project has its own handling HTML and template engine (WordPress, Craft, etc), you'll want to set `html` to `false` in your task-config.
+- All asset tasks have an `extensions` option that can be used to overwrite the ones that are processed and watched.
 
-See [task config defaults](gulpfile.js/lib/task-defaults.js) for a closer look. All configuration objects will be merged with these defaults. Note that `array` options are replaced rather than merged or concatenated.
+See [task config defaults](./gulpfile.js/lib/task-defaults.js) for a closer look. All configuration objects will be merged with these defaults. Note that `array` options are replaced rather than merged or concatenated.
 
 ### browserSync
 
@@ -148,19 +143,19 @@ Options to pass to [browserSync](https://browsersync.io/docs/options).
 ```js
 browserSync: {
   server: {
-    baseDir: 'public';
+    baseDir: "public";
   }
 }
 ```
 
-**If you're running another server (Vagrant for example, built in with WordPress config)**, you'll want to use the `proxy` option, along with `files` to tell browserSync to watch additional files (like your templates).
+**If you're running another server (Docker for example)**, you'll want to use the `proxy` option, along with `files` to tell browserSync to watch additional files (like your templates).
 
 ```js
 browserSync: {
   proxy: {
-    target: 'mywebsite.dev'
+    target: "localhost"
   },
-  files: ['public/wp-content/themes/my-theme/**/*.php']
+  files: ["public/wp-content/themes/nucleum/**/*.php"]
 }
 ```
 
@@ -190,14 +185,16 @@ browserSync: {
 ```js
 browserSync: {
   server: {
-    middleware: [/* On your own! Note that default 'webpack-dev-middleware' will not be enabled using this option */],
+    middleware: [
+      /* On your own! Note that default 'webpack-dev-middleware' will not be enabled using this option */
+    ],
   },
 }
 ```
 
 ### javascripts
 
-Under the hood, JS is compiled with Webpack 3 with a heavily customized Webpack file to get you up and running with little to no configuration. An API for configuring some of the most commonly accessed options are exposed, along with some other helpers for scoping to environment. Additionally, you can get full access to modify Fosterkit's `webpackConfig` via the [`customizeWebpackConfig`](#customizeWebpackConfig) option.
+Under the hood, JS is compiled with Webpack with a heavily customized Webpack file to get you up and running with little to no configuration. An API for configuring some of the most commonly accessed options are exposed, along with some other helpers for scoping to environment. Additionally, you can get full access to modify Nucleum's `webpackConfig` via the [`customizeWebpackConfig`](#customizeWebpackConfig) option.
 
 #### `entry` (required)
 
@@ -213,7 +210,7 @@ Sets the webpack devtool option in development mode. Defaults to `eval-cheap-mod
 
 #### `babel`
 
-Object to overwrite the default Babel loader config object. This defaults to `{ presets: [["es2015", { "modules": false }], 'stage-1'] }`. Same format as a `.babelrc` file.
+Object to overwrite the default Babel loader config object. This defaults to `{ presets: [["@babel/preset-env", { "modules": false }] }`. Same format as a `.babelrc` file.
 
 #### `babelLoader`
 
@@ -235,9 +232,9 @@ Under the hood, this gets passed directly to [webpack.ProvidePlugin](https://web
 ```js
 plugins: [
   new webpack.ProvidePlugin({
-    $: 'jquery',
-    jQuery: 'jquery',
-  }),
+    $: "jquery",
+    jQuery: "jquery"
+  })
 ];
 ```
 
@@ -251,30 +248,30 @@ Define additional webpack loaders that should be used in all environments. Adds 
 
 #### `development`, `production`
 
-Specify additional environment specific configuration to be merged in with Fosterkit's defaults
+Specify additional environment specific configuration to be merged in with Nucleum's defaults
 
-* [`devtool`](https://webpack.js.org/configuration/devtool/#devtool)
-* [`plugins`](https://webpack.js.org/concepts/plugins/)
-* [`loaders`](https://webpack.js.org/concepts/loaders/)
+- [`devtool`](https://webpack.js.org/configuration/devtool/#devtool)
+- [`plugins`](https://webpack.js.org/concepts/plugins/)
+- [`loaders`](https://webpack.js.org/concepts/loaders/)
 
 _Production Only:_
 
-* [`definePlugin`](https://webpack.js.org/plugins/define-plugin)
+- [`definePlugin`](https://webpack.js.org/plugins/define-plugin)
 
 **Example:**
 
 ```js
 production: {
-  devtool: 'hidden-source-map',
+  devtool: "hidden-source-map",
   definePlugin: {
-    SOME_API_KEY: 'abcdefg'
+    SOME_API_KEY: "abcdefg"
   },
   plugins: (webpack) => { return [ new webpack.IgnorePlugin(/jsdom$/) ] },
   loaders: [] // Adds to `webpackConfig.module.rules`
 }
 ```
 
-By default, the `env` will be `"development"` when running `yarn run fosterkit`, and `"production"` when running `yarn run fosterkit -- build`.
+By default, the `env` will be `"development"` when running `yarn run nucleum`, and `"production"` when running `yarn run nucleum build`.
 
 #### `hot`
 
@@ -291,15 +288,15 @@ hot: {
 }
 ```
 
-**If you're using React** `yarn add react-hot-loader@next` and set `react: true` to enable [react-hot-loader 3](https://github.com/gaearon/react-hot-loader/tree/next). [Follow the docs](https://github.com/gaearon/react-hot-loader/tree/next/docs#webpack-2) and update your React app to take advantage.
+**If you're using React** `yarn add react-hot-loader` and set `react: true` to enable [react-hot-loader](https://github.com/gaearon/react-hot-loader). [Follow the docs](https://github.com/gaearon/react-hot-loader) and update your React app to take advantage.
 
 #### `customizeWebpackConfig`
 
-In the event that an option you need is not exposed, you may access, modify and return a further customized webpackConfig by providing this option as a function. The function will receive the Fosterkit `webpackConfig`, `env` and `webpack` as params. The `env` value will be either `development` (`yarn run fosterkit`) or `production` (`yarn run fosterkit -- build`).
+In the event that an option you need is not exposed, you may access, modify and return a further customized webpackConfig by providing this option as a function. The function will receive the Nucleum `webpackConfig`, `env` and `webpack` as params. The `env` value will be either `development` (`yarn run nucleum`) or `production` (`yarn run nucleum build`).
 
 ```js
 customizeWebpackConfig: function (webpackConfig, env, webpack) {
-  if(env === 'production') {
+  if(env === "production") {
     webpackConfig.devtool = "nosources-source-map"
   }
 
@@ -307,13 +304,15 @@ customizeWebpackConfig: function (webpackConfig, env, webpack) {
 }
 ```
 
-**CAUTION!** Avoid overwriting `webpackConfig.entry` or `webpackConfig.plugins` via this function, and rely on the `entry` and `plugins` options above to avoid breaking Fosterkit's hot-loading and file revisioning setup ([view source](gulpfile.js/lib/webpack-multi-config.js)).
+**CAUTION!** Avoid overwriting `webpackConfig.entry` or `webpackConfig.plugins` via this function, and rely on the `entry` and `plugins` options above to avoid breaking Nucleum's hot-loading and file revisioning setup ([view source](./gulpfile.js/lib/webpack-multi-config.js)).
 
 ### stylesheets
 
 #### `autoprefixer`
 
-Your Sass gets run through [Autoprefixer](https://github.com/postcss/autoprefixer), so don't prefix! Use this option to pass configuration. Defaults to `{ browsers: ["last 3 versions"] }`.
+Your Sass gets run through [Autoprefixer](https://github.com/postcss/autoprefixer), so don't prefix! Use this option to pass configuration only if you really have to overwrite the default settings applied to your `browserslist` configuration inside `package.json` file.
+
+Ideally you don't use this option and let your `browserslist` configuration handle the browsers support required for your project.
 
 #### `sass`
 
@@ -323,7 +322,7 @@ Defaults to `{ includePaths: ["./node_modules"] }` so you can `@import` files in
 
 ### html
 
-**Note:** If you are on a platform that's already handling html (WordPress), set `html: false` or delete the configuration object completely from `task-config.js`. If that's the case, don't forget to use the BrowserSync [`files` option](https://browsersync.io/docs/options#option-file) in the `browserSync` config object to start watching yout templates folder.
+**Note:** If you are on a platform that's already handling html (WordPress), set `html: false` or delete the configuration object completely from `task-config.js`. If that's the case, don't forget to use the BrowserSync [`files` option](https://browsersync.io/docs/options#option-file) in the `browserSync` config object to start watching your templates folder.
 
 Robust templating with [Pug](https://pugjs.org/api/getting-started.html).
 
@@ -341,7 +340,7 @@ A path to a JSON file containing data to use in your templates via [`gulp-data`]
 
 #### `excludeFolders`
 
-You'll want to exclude some folders from being compiled directly. This defaults to: `["data", "includes", "layout", "mixins", "modules"]`.
+You'll want to exclude some folders from being compiled directly. This defaults to: `["components", "data", "includes", "layout", "mixins"]`.
 
 ### static
 
@@ -363,10 +362,6 @@ static: {
 
 These tasks simply copy files from `src` to `dest` configured in `path-config.json`. Nothing to configure here other that specifying extensions or disabling the task.
 
-### ghPages
-
-You can deploy the contents your `dest` directly to a remote branch (`gh-pages` by default) with `yarn run fosterkit -- ghPages`. Options specified here will get passed directly to [gulp-gh-pages](https://github.com/shinnn/gulp-gh-pages#ghpagesoptions).
-
 ### svgSprite
 
 Generates an SVG Sprite from svg files in `src/icons`. You can either include the created SVG directly on the page and reference the icon by id like this:
@@ -381,20 +376,20 @@ or reference the image remotely:
 <svg viewBox="0 0 1 1"><use xlink:href="img/icons.svg#my-icon"></use></svg>
 ```
 
-If you reference the sprite remotely, be sure to include something like [svg4everybody](https://github.com/jonathantneal/svg4everybody) to ensure external loading works on Internet Explorer.
+If you reference the sprite remotely, be sure to include something like [inline-svg-sprite](https://github.com/vigetlabs/inline-svg-sprite) to ensure external loading works on Internet Explorer.
 
-Fosterkit includes a helper which generates the required svg markup in `src/views/mixins/_mixins.pug`, so you can just do:
+Nucleum includes a mixin inside `src/views/mixins/_mixins.pug` which generates the required svg markup for your icons, so you can just do:
 
 ```pug
-+sprite('my-icon')
++icon("my-icon")
 ```
 
-Which spits out:
+Which outputs:
 
 ```html
-<span class="u-sprite icon-my-icon">
-  <svg viewBox="0 0 1 1"><use xlink:href="img/icons.svg#my-icon"></use></svg>
-</span>
+<svg class="c-icon">
+  <use xlink:href="img/icons.svg#my-icon"></use>
+</svg>
 ```
 
 This particular setup allows styling 2 different colors from your CSS. You can have unlimited colors hard coded into your svg.
@@ -402,7 +397,7 @@ This particular setup allows styling 2 different colors from your CSS. You can h
 In the following example, the first path will be `red`, the second will be `white`, and the third will be `blue`. Paths **without a fill attribute** will inherit the `fill` property from CSS. Paths with `fill="currentColor"` will inherit the current CSS `color` value, and hard-coded fills will not be overwritten, since inline styles trump CSS values.
 
 ```scss
-.sprite {
+.c-icon {
   fill: red;
   color: white;
 }
@@ -416,15 +411,15 @@ In the following example, the first path will be `red`, the second will be `whit
 </svg>
 ```
 
-We recommend setting up your SVGs on a 500 x 500 canvas, centering your artwork, and expanding/combining any shapes of the same color. This last step is important. [Read more on SVG optimization here!](https://www.viget.com/articles/5-tips-for-saving-svg-for-the-web-with-illustrator)
+Make sure you draw your SVGs on a square (500 x 500) canvas, center your artwork, and expanding/combining any shapes of the same color. This last step is important.
 
 ### clean
 
 ```js
 clean: {
   patterns: [
-    path.resolve(process.env.PWD, 'dist/assets'),
-    path.resolve(process.env.PWD, 'dist/templates'),
+    path.resolve(process.env.PWD, "dist/assets"),
+    path.resolve(process.env.PWD, "dist/templates")
   ];
 }
 ```
@@ -433,7 +428,7 @@ By default, the entire `dest` directory is deleted before each build. By setting
 
 ### production
 
-Filenames can be revisioned when running the production `build` task. If you want to enable this behavior, you can set `rev` to true.
+Filenames can be revisioned when running the production `build` task. If you want to enable this behaviour, you can set `rev` to true.
 
 ```js
 production: {
@@ -451,37 +446,37 @@ additionalTasks: {
     // Add gulp tasks here
   },
   development: {
-    prebuild: [],
-    postbuild: []
+    prebuild: null,
+    postbuild: null
   },
   production: {
-    prebuild: [],
-    postbuild: []
+    prebuild: null,
+    postbuild: null
   }
 }
 ```
 
-Fosterkit will call `initialize`, passing in `gulp`, along with the path and task configs. Use this method to define or `require` additional gulp tasks. You can specify when and in what order your custom tasks should run in the `production` and `development` `prebuild` and `postbuild` options.
+Nucleum will call `initialize`, passing in `gulp`, along with the path and task configs. Use this method to define or `require` additional gulp tasks. You can specify when and in what order your custom tasks should run in the `production` and `development` `prebuild` and `postbuild` options.
 
 For example, say you had a sprite task you wanted to run before your css compiled, and in production, you wanted to run an image compression task you had after all assets had been compiled. Your configuration might look something like this:
 
 ```js
 additionalTasks: {
   initialize(gulp, PATH_CONFIG, TASK_CONFIG) {
-    gulp.task('createPngSprite', function() {
+    gulp.task("createPngSprite", function() {
       // do stuff
     })
-    gulp.task('compressImages', function() {
+    gulp.task("compressImages", function() {
       // compress all the things
     })
   },
   development: {
-    prebuild: ['createPngSprite'],
-    postbuild: []
+    prebuild: ["createPngSprite"],
+    postbuild: null
   },
   production: {
-    prebuild: ['createPngSprite'],
-    postbuild: ['compressImages']
+    prebuild: ["createPngSprite"],
+    postbuild: ["compressImages"]
   }
 }
 ```
@@ -502,29 +497,28 @@ JS files are compiled and live-update via BrowserSync + WebpackDevMiddleware + W
 
 Gulp tasks! Built combining the following:
 
-| Feature               | Packages Used                                                                                                                                                                                                                                       |
-| --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **CSS**               | [Sass](http://sass-lang.com/) ([Libsass](http://sass-lang.com/libsass) via [node-sass](https://github.com/sass/node-sass)), [Autoprefixer](https://github.com/postcss/autoprefixer), [CSSNano](https://github.com/ben-eb/cssnano), Source Maps      |
-| **JavaScript**        | [Babel](http://babeljs.io/), [Webpack 3](https://webpack.js.org/)                                                                                                                                                                                   |
-| **HTML**              | [Pug](https://pugjs.org/api/getting-started.html), [gulp-data](https://github.com/colynb/gulp-data)                                                                                                                                                 |
-| **Images**            | Folder for including your project's images                                                                                                                                                                                                          |
-| **Icons**             | Auto-generated [SVG Sprites](https://github.com/w0rm/gulp-svgstore)                                                                                                                                                                                 |
-| **Fonts**             | Folder for including WebFonts                                                                                                                                                                                                                       |
-| **Live Updating**     | [BrowserSync](http://www.browsersync.io/), [Webpack Dev Middleware](https://github.com/webpack/webpack-dev-middleware), [Webpack Hot Middleware](https://github.com/glenjamin/webpack-hot-middleware)                                               |
-| **Production Builds** | CSS is [minified](http://cssnano.co/), JS is compressed and optimized with various Webpack plugins, [filename md5 hashing (reving)](https://github.com/sindresorhus/gulp-rev), [file size reporting](https://github.com/jaysalvat/gulp-sizereport). |
-| **Deployment**        | Quickly deploy `public` folder to gh-pages with [`gulp-gh-pages`](https://github.com/shinnn/gulp-gh-pages)                                                                                                                                          |
+| Feature               | Packages Used                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| --------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **CSS**               | [Sass](http://sass-lang.com/) ([Libsass](http://sass-lang.com/libsass) via [node-sass](https://github.com/sass/node-sass)), [PostCSS](https://github.com/postcss/postcss) with [postcss-preset-env](https://github.com/csstools/postcss-preset-env), [purgecss](https://github.com/FullHuman/purgecss), [postcss-normalize](https://github.com/csstools/postcss-normalize), [cssnano](https://github.com/cssnano/cssnano), Source Maps |
+| **JavaScript**        | [Babel](http://babeljs.io/), [babel-preset-env](https://babeljs.io/docs/en/babel-preset-env), [Webpack](https://webpack.js.org/)                                                                                                                                                                                                                                                                                                       |
+| **HTML**              | [Pug](https://pugjs.org/api/getting-started.html), [gulp-data](https://github.com/colynb/gulp-data)                                                                                                                                                                                                                                                                                                                                    |
+| **Icons**             | Auto-generated [SVG Sprites](https://github.com/w0rm/gulp-svgstore)                                                                                                                                                                                                                                                                                                                                                                    |
+| **Live Updating**     | [BrowserSync](http://www.browsersync.io/),                                                                                                                                                                                                                                                                                                                                                                                             |
+|                       | [Webpack Dev Middleware](https://github.com/webpack/webpack-dev-middleware),                                                                                                                                                                                                                                                                                                                                                           |
+|                       | [Webpack Hot Middleware](https://github.com/glenjamin/webpack-hot-middleware)                                                                                                                                                                                                                                                                                                                                                          |
+| **Production Builds** | CSS is [minified](http://cssnano.co/) and [purged](https://www.purgecss.com/), JS is compressed and optimized with various Webpack plugins, [filename md5 hashing (reving)](https://github.com/sindresorhus/gulp-rev), [file size reporting](https://github.com/jaysalvat/gulp-sizereport).                                                                                                                                            |
 
 Extras:
 
-| Feature         | Packages Used                                                                    |
-| --------------- | -------------------------------------------------------------------------------- |
-| **WordPress**   | [Vagrant](https://www.vagrantup.com/), [ScotchBox](https://box.scotch.io/)       |
-| **Sass**        | [Bourbon](http://bourbon.io/), [Neat](http://neat.bourbon.io/)                   |
-| **IconFonts**   | Generate icon fonts from SVGs                                                    |
-| **Test server** | Local production [Express](http://expressjs.com) server for your static websites |
+| Feature         | Packages Used                                                                                   |
+| --------------- | ----------------------------------------------------------------------------------------------- |
+| **WordPress**   | [Vagrant](https://www.vagrantup.com/), [WordPress quick start](./extras/wordpress/README-WP.md) |
+| **Sass Mixins** | [Bourbon](http://bourbon.io/), [Adaptable](https://github.com/CosAnca/adaptable/)               |
 
 ---
 
 ### Credits:
 
-**Fosterkit** has been inspired by [Gulp Starter](https://github.com/vigetlabs/gulp-starter), [WPDistillery](https://wpdistillery.org/) and [Sky UK Styleguide](https://github.com/sky-uk/css).
+[Blendid](https://github.com/vigetlabs/blendid),
+[WPDistillery](https://wpdistillery.org/),
+[Sky UK](https://github.com/sky-uk/css).

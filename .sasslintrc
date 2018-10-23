@@ -18,16 +18,14 @@
     "extends-before-mixins": 0,
     "force-attribute-nesting": 0,
     "force-element-nesting": 0,
+    "force-pseudo-nesting": 0,
     "leading-zero": 0,
     "mixin-name-format": 1,
     "mixins-before-declarations": [
       1,
       {
         "exclude": [
-          "breakpoint",
           "grid-media",
-          "grid-media-max",
-          "media",
           "hocus"
         ]
       }

@@ -2,17 +2,29 @@
 // UTILITIES / VERTICAL ALIGN
 // ==========================================================================
 
-// Utility classes to vertically align an element centrally within its parent.
-// This class requires a set height on the parent element to function correctly.
-.u-vertical-align-center {
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
+// Utility classes to vertically align an element
+// sass-lint:disable no-important
+
+.u-align-baseline {
+  vertical-align: baseline !important; // Browser default
 }
 
-// Using .u-vertical-align-center on an element can cause visual issues if it renders
-// on a half pixel so we can apply preserve-3d to prevent this on the parent
-// element.
-.u-vertical-align-parent {
-  transform-style: preserve-3d;
+.u-align-top {
+  vertical-align: top !important;
+}
+
+.u-align-middle {
+  vertical-align: middle !important;
+}
+
+.u-align-bottom {
+  vertical-align: bottom !important;
+}
+
+.u-align-text-bottom {
+  vertical-align: text-bottom !important;
+}
+
+.u-align-text-top {
+  vertical-align: text-top !important;
 }

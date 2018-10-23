@@ -2,9 +2,13 @@
 // OBJECTS / CONTAINER
 // ==========================================================================
 
-// 1. The $grid-max-width variable is defined in _grid-settings.scss file.
+// 1. The $global-container-width variable is defined inside
+//    settings/_globals.scss file.
 
 .o-container {
-  @include margin(null auto);
-  max-width: px2em($grid-max-width); // [1]
+  max-width: convert-to-em($global-container-width); // [1]
+  margin-right: auto; // [2]
+  margin-left: auto; // [2]
+  padding-right: $grid-gutter; // [3]
+  padding-left: $grid-gutter; // [3]
 }

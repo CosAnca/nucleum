@@ -1,0 +1,22 @@
+// ==========================================================================
+// COMPONENTS / ICONS
+// ==========================================================================
+
+// To be used with SVG icons sprite
+
+// Settings
+// ============================================
+//
+// 1. We set the size of the icons in `em`s so it will
+//    scale more easily based on parent's font-size;
+$icon-size: 1em; // [1]
+
+// Base
+// ============================================
+
+.c-icon {
+  @include size($icon-size); // [1]
+  display: inline-flex;
+  flex-shrink: 0;
+  fill: currentColor;
+}

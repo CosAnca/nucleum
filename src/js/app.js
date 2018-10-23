@@ -1,3 +1,3 @@
-import './modules';
+import "./modules";
 
-console.log('app.js file has loaded!');
+console.log("app.js file has loaded!");

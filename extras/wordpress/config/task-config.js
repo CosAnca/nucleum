@@ -1,26 +1,26 @@
 module.exports = {
-  html       : false,
-  images     : true,
-  fonts      : true,
-  svgSprite  : true,
-  static     : true,
+  html: false,
+  images: true,
+  fonts: true,
+  svgSprite: true,
+  static: true,
   stylesheets: true,
 
   browserSync: {
     proxy: {
-      target: 'mywebsite.dev',
+      target: "localhost"
     },
-    files: ['public/wp-content/themes/my-theme/**/*.php'],
+    files: ["public/wp-content/themes/nucleum/**/*.php"]
   },
 
   javascripts: {
     entry: {
-      app: ['./app.js'],
+      app: ["./app.js"]
     },
-    publicPath: '/wp-content/themes/my-theme/assets/js/',
+    publicPath: "/wp-content/themes/nucleum/assets/js/"
   },
 
   production: {
-    rev: false,
-  },
+    rev: false
+  }
 };

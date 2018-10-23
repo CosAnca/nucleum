@@ -1,46 +1,132 @@
-Fosterkit and WordPress
------------------------
+## WordPress build with Nucleum
 
 ## Dependencies
-- [ScotchBox](https://box.scotch.io) (using [Vagrant](https://vagrantup.com) & [Virtualbox](https://virtualbox.org))
-- [Vagrant Hostsupdater](https://github.com/cogitatio/vagrant-hostsupdater) (`vagrant plugin install vagrant-hostsupdater`)
+
+- Frontend stack
+  - [yarn]
+- WordPress
+  - [Docker]
+  - [docker-compose]
+
+[yarn]: https://yarnpkg.com
+[docker]: https://www.docker.com/products/docker-desktop
+[docker-compose]: https://docs.docker.com/compose/install/#install-compose
+
+## Quick start on a fresh project (empty directory) for creating a WordPress based website
+
+```zsh
+yarn init
+yarn add nucleum
+yarn run nucleum init-wp
+```
+
+This will generate a WordPress ready boilerplate containing frontend source structure and base files.
+
+Next, to install and configure your WordPress instance, run:
+
+```zsh
+sh bin/setup.sh
+```
 
 ## Setup
-To setup a new project running Scotch Box and WordPress, simply follow these steps:
 
-1. Customize `wp-setup.yml` to suit your project needs (see [configuration file documentation](README-WP-SETUP.md)).
-2. In `Vagrantfile` add your local development IP at `config.vm.network ip:` and the domain name at `config.vm.hostname` (This should be the same as `wpsettings:url:` in `wp-setup.yml`).
-3. Run `vagrant up` inside your project root.
+Follow the steps prompted by the command line to set up your WordPress installation.
+
+**Note:**
+
+If you want to use a domain other than http://localhost, you'll need to:
+
+1. Add an entry to your hosts file. Ex: `127.0.0.1 docker.localhost`
+2. Update _WordPress Address (URL)_ and _Site Address (URL)_.
 
 ## Behind the scenes
-The shell scripts will do all the work for you when setting up a new WordPress project. Simply add your preferred theme, plugins, options etc. into `wp-setup.yml` and you're good to go. With this setup it won't take longer than 5 minutes until you can start working on a new WordPress project.
 
-One command will:
-- install Scotch Box
-- install/update requirements on the local webserver
-- download/install/configure WordPress
-- set WordPress options
-- scaffold/install/activate [FosterPress] or an [Underscores] theme
-- install/activate the plugins you defined in the config
-- clean WordPress defaults (contents, plugins, themes, unused files)
+The shell scripts will do all the work for you when setting up a new WordPress project. With this setup it won't take longer than 5 minutes until you can start working on a new WordPress project.
 
-[FosterPress]: https://github.com/CosminAnca/fosterpress
-[Underscores]: https://underscores.me
+The core server functionality is based on docker-compose. By default, the following containers are started: PHP-FPM, MySQL, nginx and Memcached. The `./public` directory is the web root which is mapped to the nginx container.
+
+You can directly edit PHP and nginx configuration files from within the `./config` folder as they are mapped to the correct locations in containers.
+
+A custom phpfpm image is used for this environment that adds a few extra things to the PHP-FPM image.
 
 ## Additional info
 
+### Database
+
+Default MySQL connection information (from within PHP-FPM container):
+
+| --------- | ----------- |
+| Database | wordpress |
+| --------- | ----------- |
+| Username | wordpress |
+| --------- | ----------- |
+| Password | password |
+| --------- | ----------- |
+| Host | mysql |
+| ----- | ------- |
+
+Default WordPress admin credentials:
+
+| --------- | ----------- |
+| Username | admin |
+| --------- | ----------- |
+| Password | password |
+
+**Note:** If you provided details different to the above during setup, use those instead.
+
 ### Themes
-The default theme bundled with Fosterkit is called FosterPress, which is a minimal starter theme for WordPress.
 
-If you want to scaffold and '_s' theme set `underscores_generated: true` under theme section in wp-setup.yml file.
+Nucleum allows you to quickly scaffold an "\_s" theme or to install a theme from an URL or local `.zip` file.
 
-### Auto Update WordPress and Plugins
-If you want to automatically update WordPress and all Plugins on every vagrant up you can uncomment line 26 inside the Vagrantfile.
+### WP-CLI
+
+Add this alias to `~/.bash_profile` or `~/.zshrc` file to easily run WP-CLI command.
+
+```zsh
+alias dcwp="docker-compose exec --user www-data phpfpm wp"
+```
+
+Instead of running a command like `wp plugin install` you run `dcwp plugin install` from anywhere inside the
+project directory, and it runs the command inside of the php container.
+
+### SSH Access
+
+You can easily access the WordPress/PHP container with `docker-compose exec`:
+
+```zsh
+docker-compose exec --user root phpfpm bash
+```
+
+### Useful Bash Aliases
+
+To increase efficiency with WP Local Docker, the following bash aliases can be added to `~/.bash_profile` or `~/.zshrc`:
+
+1. WP-CLI:
+   ```zsh
+   alias dcwp='docker-compose exec --user www-data phpfpm wp'
+   ```
+2. SSH into container:
+   ```zsh
+   alias dcbash='docker-compose exec --user root phpfpm bash'
+   ```
+3. Multiple instances cannot be run simultaneously. In order to switch projects, you'll need to kill all Docker containers first:
+   ```zsh
+   docker-stop() { docker stop $(docker ps -a -q); }
+   ```
+4. Combine the stop-all command with `docker-compose up` to easily start up an instance with one command:
+   ```zsh
+   alias dup="docker-stop && docker-compose up -d"
+   ```
+
+### MailCatcher
+
+MailCatcher runs a simple local SMTP server which catches any message sent to it, and displays it in its built-in web interface. All emails sent by WordPress will be intercepted by MailCatcher. To view emails in the MailCatcher web interface, navigate to `http://localhost:1080` in your web browser of choice.
 
 ### Filenames revision (hashing) for production builds
+
 If you set `rev` to `true` in your `task-config.js` file, filenames will be hashed (file.css -> file-a8908d9io20.css) so your server may cache them indefinitely. A `rev-manifest.json` file is output to the root of your assets `dest` directory in your theme (`assets` by default), and maps original filenames to hashed ones. CSS files read this file and string-replace filenames automatically.
 
-This functionality comes by default with [FosterPress] theme, otherwise if an '_s' theme is used, for WordPress to read this file and automatically update filenames in your project, make sure you include the following snippet in your `functions.php` file:
+For WordPress to read this file and automatically update filenames in your project, make sure you include the following snippet in your `functions.php` file:
 
 ```php
 /**
@@ -72,26 +158,18 @@ function get_asset_path( $filename ) {
 }
 ```
 
-Once you have this snippet included into your `functions.php` file, you can reference the assets filenames in your `.php` files, like this:
+Once you have this snippet included into your `functions.php` file, you can reference the assets filenames in your `.php` files, in one of the following ways:
 
 ```php
-wp_enqueue_style( 'cache-bust-style', get_template_directory_uri() . get_asset_path('style/style.css'), array(), null, false );
+wp_enqueue_style( "cache-bust-style", get_template_directory_uri() . get_asset_path("style/style.css"), array(), null, false );
 ```
 
 or
 
 ```php
-<?php echo get_template_directory_uri() . get_asset_path('img/filename.jpg') ?>
+echo get_template_directory_uri() . get_asset_path("img/filename.jpg")
 ```
 
 ### Windows Support
-Using Windows? No Problem! The provision script will detect if you're using Windows and if so, automatically convert all files using dos2unix.
 
-This setup is based on [WPDistillery](https://github.com/flurinduerst/WPDistillery)
-
-## Thank you to author and contributors of WPDistillery
-
-* Author: Flurin Dürst ([Website](https://flurinduerst.ch), [Mail](mailto:flurin@flurinduerst.ch), [Twitter](https://twitter.com/flurinduerst))
-* Contributors:
-  * [@ShaneShipston](https://github.com/ShaneShipston)
-  * [@drawcard](https://github.com/drawcard)
+Windows support will land in a future version.

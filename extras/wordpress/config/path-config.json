@@ -1,6 +1,6 @@
 {
   "src": "./src",
-  "dest": "./public/wp-content/themes/my-theme/assets",
+  "dest": "./public/wp-content/themes/nucleum/assets",
 
   "static": {
     "src": "static",

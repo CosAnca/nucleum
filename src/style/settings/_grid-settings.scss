@@ -2,27 +2,28 @@
 // SETTINGS / GRID SETTINGS
 // =============================================================================
 
+// Nucleum core css uses Adaptable (npm.im/adaptable) for its grid system.
+// Check Adaptable's documentation here: https://github.com/CosAnca/adaptable
+
 // Grid global settings
 // ====================
-// We define our grid settings by overwriting Neat's built in grid object.
-// Our grid will have 12 columns and 1.5rem (24px) gutters width across
-// all breakpoints. Find more about Neat grid here:
-// http://neat.bourbon.io/docs/latest/#neat-grids
-$neat-grid: (
-  columns: 12,
-  gutter: $global-spacing / 1.5
+//
+// We define our grid settings by overwriting Adaptable's built in grid object.
+// Our grid will have 12 columns and 1.5rem (24px) gutters across
+// all breakpoints. Find more about Adaptable's grid configuration here:
+// https://github.com/CosAnca/adaptable#adaptable-grid
+
+$grid-columns: 12;
+$grid-gutter: 1.5rem;
+
+$adaptable-grid: (
+  columns: $grid-columns,
+  gutter: $grid-gutter
 );
 
-// We define a new grid settings object to overwrite the gutter
-// for medium viewports up.
-$neat-grid-medium: (gutter: $global-spacing);
-
-// We define our grid maximum width here
-$grid-max-width: $global-container-width;
-
 // We define our breakpoints in the object below.
-$breakpoints: (
-  medium: 740px,
+$adaptable-breakpoints: (
+  medium: 640px,
   large: 980px,
-  x-large: 1300px
-) !default;
+  x-large: 1200px
+);
