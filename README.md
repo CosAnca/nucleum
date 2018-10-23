@@ -21,7 +21,7 @@ yarn add nucleum
 yarn run nucleum init
 ```
 
-This will create default `src` and `config` files in your project directory and start compiling and live-updating files! Try editing them and watch your browser auto-update!
+This will create default `src` and `config` files in your project directory.
 
 The `init` command also updates your `package.json` file to include `start` and `build` scripts for Nucleum:
 
@@ -82,13 +82,13 @@ We recommend `yarn` over `npm` mainly for its [`yarn run`](https://yarnpkg.com/e
 All commands should be run through `yarn run`.
 
 ```zsh
-yarn run nucleum
+yarn start
 ```
 
 This is where the magic happens. The perfect workflow. This runs the development task, which starts compiling, watching, and live updating all our files as we change them. BrowserSync will start a server on port 3000, or do whatever you've configured it to do. You'll be able to see live changes in all connected browsers. Don't forget about the additional BrowserSync tools available on port 3001!
 
 ```zsh
-yarn run nucleum build
+yarn build
 ```
 
 Compiles files for production to your destination directory. JS files are built using Webpack with standard production optimisations (Uglify, etc.). CSS is run through CSSNano and PurgeCSS. If `rev` is set to `true` in your `task-config.js` file, filenames will be hashed (file.css -> file-a8908d9io20.css) so your server may cache them indefinitely.
@@ -148,14 +148,14 @@ browserSync: {
 }
 ```
 
-**If you're running another server (Vagrant for example)**, you'll want to use the `proxy` option, along with `files` to tell browserSync to watch additional files (like your templates).
+**If you're running another server (Docker for example)**, you'll want to use the `proxy` option, along with `files` to tell browserSync to watch additional files (like your templates).
 
 ```js
 browserSync: {
   proxy: {
-    target: "mywebsite.localhost"
+    target: "localhost"
   },
-  files: ["public/wp-content/themes/my-theme/**/*.php"]
+  files: ["public/wp-content/themes/nucleum/**/*.php"]
 }
 ```
 
