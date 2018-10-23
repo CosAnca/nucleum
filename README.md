@@ -1,13 +1,15 @@
+**IMPORTANT!** This project has been renamed to Nucleum and therefore we no longer maintain the fosterkit branch.
+
 # ![Fosterkit](extras/default/fosterkit-cover.png)
 
 **Fosterkit** is an opinionated, performance oriented boilerplate for web development. It can be used as-is as a static site builder, or can be configured and integrated into many development environments and sites or apps structures. The [extras](./extras) folder contains configuration details for **WordPress** based projects to give you a quick start for any new website based on this CMS.
 
 ## Dependencies
 
-* Front-end stack
-  * [yarn]
-* WordPress (assuming you already have [Vagrant] and [VirtualBox])
-  * [Vagrant Hostsupdater] (`vagrant plugin install vagrant-hostsupdater`)
+- Front-end stack
+  - [yarn]
+- WordPress (assuming you already have [Vagrant] and [VirtualBox])
+  - [Vagrant Hostsupdater] (`vagrant plugin install vagrant-hostsupdater`)
 
 [yarn]: https://yarnpkg.com/lang/en/
 [vagrant]: https://www.vagrantup.com/
@@ -134,8 +136,8 @@ This file specifies the `src` and `dest` root directories, and `src` and `dest` 
 
 This file exposes per-task configuration and overrides. At minimum, you just need to set the task to `true` to enable the task with its default configuration. If you wish to configure a task, provide a configuation object instead.
 
-* Any task may be disabled by setting the value to `false`. For example, if your project has its own handling HTML and template engine (WordPress, Craft, etc), you'll want to set `html` to `false` in your task-config.
-* All asset tasks have an `extensions` option that can be used to overwrite the ones that are processed and watched.
+- Any task may be disabled by setting the value to `false`. For example, if your project has its own handling HTML and template engine (WordPress, Craft, etc), you'll want to set `html` to `false` in your task-config.
+- All asset tasks have an `extensions` option that can be used to overwrite the ones that are processed and watched.
 
 See [task config defaults](gulpfile.js/lib/task-defaults.js) for a closer look. All configuration objects will be merged with these defaults. Note that `array` options are replaced rather than merged or concatenated.
 
@@ -148,7 +150,7 @@ Options to pass to [browserSync](https://browsersync.io/docs/options).
 ```js
 browserSync: {
   server: {
-    baseDir: 'public';
+    baseDir: "public";
   }
 }
 ```
@@ -235,9 +237,9 @@ Under the hood, this gets passed directly to [webpack.ProvidePlugin](https://web
 ```js
 plugins: [
   new webpack.ProvidePlugin({
-    $: 'jquery',
-    jQuery: 'jquery',
-  }),
+    $: "jquery",
+    jQuery: "jquery"
+  })
 ];
 ```
 
@@ -253,13 +255,13 @@ Define additional webpack loaders that should be used in all environments. Adds 
 
 Specify additional environment specific configuration to be merged in with Fosterkit's defaults
 
-* [`devtool`](https://webpack.js.org/configuration/devtool/#devtool)
-* [`plugins`](https://webpack.js.org/concepts/plugins/)
-* [`loaders`](https://webpack.js.org/concepts/loaders/)
+- [`devtool`](https://webpack.js.org/configuration/devtool/#devtool)
+- [`plugins`](https://webpack.js.org/concepts/plugins/)
+- [`loaders`](https://webpack.js.org/concepts/loaders/)
 
 _Production Only:_
 
-* [`definePlugin`](https://webpack.js.org/plugins/define-plugin)
+- [`definePlugin`](https://webpack.js.org/plugins/define-plugin)
 
 **Example:**
 
@@ -423,8 +425,8 @@ We recommend setting up your SVGs on a 500 x 500 canvas, centering your artwork,
 ```js
 clean: {
   patterns: [
-    path.resolve(process.env.PWD, 'dist/assets'),
-    path.resolve(process.env.PWD, 'dist/templates'),
+    path.resolve(process.env.PWD, "dist/assets"),
+    path.resolve(process.env.PWD, "dist/templates")
   ];
 }
 ```
