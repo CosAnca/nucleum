@@ -510,15 +510,17 @@ Gulp tasks! Built combining the following:
 
 Extras:
 
-| Feature         | Packages Used                                                                                   |
-| --------------- | ----------------------------------------------------------------------------------------------- |
-| **WordPress**   | [Vagrant](https://www.vagrantup.com/), [WordPress quick start](./extras/wordpress/README-WP.md) |
-| **Sass Mixins** | [Bourbon](http://bourbon.io/), [Adaptable](https://github.com/CosAnca/adaptable/)               |
+| Feature            | Packages Used                                                                        |
+| ------------------ | ------------------------------------------------------------------------------------ |
+| **WordPress**      | [Docker], [docker-compose], [WordPress quick start](./extras/wordpress/README-WP.md) |
+| **Sass Libraries** | [Bourbon](http://bourbon.io/), [Adaptable](https://github.com/CosAnca/adaptable/)    |
 
 ---
 
 ### Credits:
 
 [Blendid](https://github.com/vigetlabs/blendid),
-[WPDistillery](https://wpdistillery.org/),
 [Sky UK](https://github.com/sky-uk/css).
+
+[docker]: https://www.docker.com/products/docker-desktop
+[docker-compose]: https://docs.docker.com/compose/install/#install-compose
