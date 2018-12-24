@@ -4,7 +4,12 @@ module.exports = {
   fonts: true,
   svgSprite: true,
   static: true,
-  stylesheets: true,
+  stylesheets: {
+    purgecss: {
+      content: "public/wp-content/themes/nucleum/**/*.php",
+      extensions: ["php"]
+    }
+  },
 
   browserSync: {
     proxy: {

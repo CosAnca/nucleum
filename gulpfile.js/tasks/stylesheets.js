@@ -52,28 +52,46 @@ const stylesheetsTask = function() {
 
   class NucleumPurgeCSS {
     static extract(content) {
-      return content.match(/[A-z0-9@\-\/]+/g) || [];
+      return content.match(/[A-z0-9@\-\:\/]+/g) || [];
     }
   }
 
   const purgecssConfig = TASK_CONFIG.stylesheets.purgecss || {};
-  const purgecssContent = PATH_CONFIG.html
-    ? path.join(projectPath(PATH_CONFIG.src, PATH_CONFIG.html.src), "/**/*.pug")
-    : path.join(projectPath(), "public/wp-content/themes/**/*.php");
 
-  purgecssConfig.extractors = [
-    {
-      extractor: NucleumPurgeCSS,
-      extensions: ["pug", "php", "html"]
-    }
-  ];
-  purgecssConfig.content = [purgecssContent];
+  if (TASK_CONFIG.html) {
+    purgecssConfig.content = [
+      path.join(
+        projectPath(PATH_CONFIG.src, PATH_CONFIG.html.src),
+        "/**/*.{" + TASK_CONFIG.html.extensions + "}"
+      )
+    ];
+
+    purgecssConfig.extractors = [
+      {
+        extractor: NucleumPurgeCSS,
+        extensions: TASK_CONFIG.html.extensions
+      }
+    ];
+  } else {
+    purgecssConfig.content = [
+      path.join(projectPath(), ...TASK_CONFIG.stylesheets.purgecss.content)
+    ];
+
+    purgecssConfig.extractors = [
+      {
+        extractor: NucleumPurgeCSS,
+        extensions: TASK_CONFIG.stylesheets.purgecss.extensions
+      }
+    ];
+  }
 
   const postCssPlugins = [
     postcssNormalize(postcssNormalizeConfig),
     postcssPresetEnv(postcssPresetEnvConfig),
     isProduction ? cssnano(cssnanoConfig) : false,
-    isProduction ? purgecss(purgecssConfig) : false
+    isProduction && TASK_CONFIG.stylesheets.purgecss !== false
+      ? purgecss(purgecssConfig)
+      : false
   ].filter(Boolean);
 
   return gulp

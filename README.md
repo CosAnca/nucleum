@@ -308,11 +308,27 @@ customizeWebpackConfig: function (webpackConfig, env, webpack) {
 
 ### stylesheets
 
-#### `autoprefixer`
+#### `presetEnv`
 
-Your Sass gets run through [Autoprefixer](https://github.com/postcss/autoprefixer), so don't prefix! Use this option to pass configuration only if you really have to overwrite the default settings applied to your `browserslist` configuration inside `package.json` file.
+[PostCSS Preset Env](https://github.com/csstools/postcss-preset-env) lets you convert modern CSS into something most browsers can understand, determining the polyfills you need based on your targeted browsers or runtime environments.
 
-Ideally you don't use this option and let your `browserslist` configuration handle the browsers support required for your project.
+Be default we set the stage of postcssPresetEnv to 0 which will enable experimental feature of CSS.
+
+Within this object you can also override the browserslist configuration and/or autoprefixer settings. Please read more about postcssPresetEnv configuration on their repo page https://github.com/csstools/postcss-preset-env#options.
+
+#### `normalize`
+
+[PostCSS Normalize](https://github.com/csstools/postcss-normalize) lets you use the parts of normalize.css you need from your `browserslist`. Please read more about postcssNormalize configuration option on their repo page https://github.com/csstools/postcss-normalize#options. By default the `forceImport` option is set to `true` in Nucleum, so we don't have to specifically include the library at the beginning of our sass file.
+
+#### `cssnano`
+
+[cssnano](https://cssnano.co/) takes your nicely formatted CSS and runs it through many focused optimisations, to ensure that the final result is as small as possible for a production environment. _This optimisation is only run on the build task_.
+
+#### `purgecss`
+
+[purgecss](https://www.purgecss.com/) is a tool to remove unused CSS. Purgecss has a list of options that allow you to customize its behavior. Customization can improve the performance and efficiency of Purgecss. You can customize its configuration with the options found on their documentation page https://www.purgecss.com/configuration. _This optimisation is only run on the build task_.
+
+**IMPORTANT** All of the above stylesheets options are included as PostCSS plugins.
 
 #### `sass`
 
@@ -387,9 +403,7 @@ Nucleum includes a mixin inside `src/views/mixins/_mixins.pug` which generates t
 Which outputs:
 
 ```html
-<svg class="c-icon">
-  <use xlink:href="img/icons.svg#my-icon"></use>
-</svg>
+<svg class="c-icon"><use xlink:href="img/icons.svg#my-icon"></use></svg>
 ```
 
 This particular setup allows styling 2 different colors from your CSS. You can have unlimited colors hard coded into your svg.
