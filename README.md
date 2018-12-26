@@ -71,7 +71,7 @@ Then edit the configs to match the needs of your project.
 
 #### [Node Version Manager](https://github.com/creationix/nvm)
 
-**Nucleum requires at least Node 7**. While you can install Node a variety of ways, we highly recommend using [nvm](https://github.com/creationix/nvm) to install and manage Node versions.
+**Nucleum requires at least Node 6.2.2**. While you can install Node a variety of ways, we highly recommend using [nvm](https://github.com/creationix/nvm) to install and manage Node versions.
 
 #### [Yarn](https://yarnpkg.com/en/docs/install)
 
