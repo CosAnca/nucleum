@@ -16,17 +16,10 @@ svg {
   vertical-align: middle; // [3]
 }
 
-// 1. If a `width` and/or `height` attribute have been explicitly defined, let’s
-//    not make the image fluid.
+// If a `width` and/or `height` attribute have been explicitly defined, let’s
+// not make the image fluid.
 
-img[width], // [1]
-img[height] {  // [1]
+img[width],
+img[height] {
   max-width: none;
-}
-
-// 2. Make SVG icons inherit element color.
-
-svg path {
-  stroke: inherit; // [2]
-  fill: inherit; // [2]
 }

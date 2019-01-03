@@ -19,6 +19,6 @@
 .o-list-inline--wide {
   // [li]
   > .o-list-inline__item:not(:last-child) {
-    margin-right: spacing(m);
+    margin-right: spacing("m");
   }
 }

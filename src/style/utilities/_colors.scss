@@ -4,6 +4,8 @@
 
 // Generate a suite of utility classes that map directly to our colour palette.
 
+// sass-lint:disable no-important
+
 @each $name, $value in $colors {
   .u-color-#{$name} {
     color: $value !important;

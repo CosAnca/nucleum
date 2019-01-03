@@ -23,7 +23,7 @@ table,
 fieldset,
 figure,
 pre {
-  margin-bottom: spacing(m);
+  margin-bottom: spacing("m");
 }
 
 // We’ll also indent list elements by the same amount of spacing.
@@ -31,5 +31,5 @@ pre {
 ul,
 ol,
 dd {
-  margin-left: spacing(m);
+  margin-left: spacing("m");
 }

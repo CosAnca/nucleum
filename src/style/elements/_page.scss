@@ -13,13 +13,16 @@
 // 5. Force scrollbars to always be visible to prevent awkward ‘jumps’ when
 //    navigating between pages that do/do not have enough content to produce
 //    scrollbars naturally.
+// 6. Prevent horizontal scrollbars showing up when children width is set
+//    to 100vw.
 
 html {
   @include font-smoothing; // [1]
   min-height: 100%; // [3]
-  color: color(text);
+  color: color("text");
   font-family: $global-font-family;
   font-size: ($global-font-size / 16px) * 1em; // [4]
   line-height: $global-line-height; // [4]
   overflow-y: scroll; // [5]
+  overflow-x: hidden; // [6]
 }
