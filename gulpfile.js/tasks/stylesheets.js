@@ -93,7 +93,7 @@ const stylesheetsTask = function() {
     postcssNormalize(postcssNormalizeConfig),
     postcssPresetEnv(postcssPresetEnvConfig),
     isProduction ? cssnano(cssnanoConfig) : false,
-    isProduction && TASK_CONFIG.stylesheets.purgecss !== false
+    isProduction && TASK_CONFIG.stylesheets.purgecss
       ? purgecss(purgecssConfig)
       : false
   ].filter(Boolean);
