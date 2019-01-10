@@ -59,30 +59,34 @@ const stylesheetsTask = function() {
   const purgecssConfig = TASK_CONFIG.stylesheets.purgecss || {};
 
   if (TASK_CONFIG.html) {
-    purgecssConfig.content = [
-      path.join(
-        projectPath(PATH_CONFIG.src, PATH_CONFIG.html.src),
-        "/**/*.{" + TASK_CONFIG.html.extensions + "}"
-      )
-    ];
+    if (TASK_CONFIG.purgecss) {
+      purgecssConfig.content = [
+        path.join(
+          projectPath(PATH_CONFIG.src, PATH_CONFIG.html.src),
+          "/**/*.{" + TASK_CONFIG.html.extensions + "}"
+        )
+      ];
 
-    purgecssConfig.extractors = [
-      {
-        extractor: NucleumPurgeCSS,
-        extensions: TASK_CONFIG.html.extensions
-      }
-    ];
+      purgecssConfig.extractors = [
+        {
+          extractor: NucleumPurgeCSS,
+          extensions: TASK_CONFIG.html.extensions
+        }
+      ];
+    }
   } else {
-    purgecssConfig.content = [
-      path.join(projectPath(), ...TASK_CONFIG.stylesheets.purgecss.content)
-    ];
+    if (TASK_CONFIG.purgecss) {
+      purgecssConfig.content = [
+        path.join(projectPath(), ...TASK_CONFIG.stylesheets.purgecss.content)
+      ];
 
-    purgecssConfig.extractors = [
-      {
-        extractor: NucleumPurgeCSS,
-        extensions: TASK_CONFIG.stylesheets.purgecss.extensions
-      }
-    ];
+      purgecssConfig.extractors = [
+        {
+          extractor: NucleumPurgeCSS,
+          extensions: TASK_CONFIG.stylesheets.purgecss.extensions
+        }
+      ];
+    }
   }
 
   const postCssPlugins = [

@@ -1,6 +1,6 @@
 {
   "name": "nucleum",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "A performance oriented web starter kit",
   "license": "MIT",
   "engines": {
@@ -30,12 +30,12 @@
     "ansi-colors": "^3.2.3",
     "autoprefixer": "^9.4.4",
     "babel-eslint": "^10.0.1",
-    "babel-loader": "^8.0.4",
+    "babel-loader": "^8.0.5",
     "bourbon": "5.1.0",
     "browser-sync": "^2.26.3",
     "cssnano": "^4.1.8",
     "del": "3.0.0",
-    "eslint": "^5.11.1",
+    "eslint": "^5.12.0",
     "eslint-config-prettier": "^3.3.0",
     "eslint-plugin-compat": "^2.6.3",
     "eslint-plugin-prettier": "^3.0.1",
@@ -72,11 +72,11 @@
     "pretty-hrtime": "1.0.3",
     "require-dir": "1.2.0",
     "sass-lint": "^1.12.1",
-    "sass-lint-auto-fix": "^0.15.0",
+    "sass-lint-auto-fix": "^0.15.1",
     "uglifyjs-webpack-plugin": "^2.1.1",
     "webpack": "^4.28.3",
-    "webpack-cli": "^3.2.0",
-    "webpack-dev-middleware": "^3.4.0",
+    "webpack-cli": "^3.2.1",
+    "webpack-dev-middleware": "^3.5.0",
     "webpack-hot-middleware": "^2.24.3"
   },
   "devDependencies": {
