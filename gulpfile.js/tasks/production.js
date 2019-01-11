@@ -1,5 +1,5 @@
+/* global PATH_CONFIG, TASK_CONFIG */
 const gulp = require("gulp");
-const gulpSequence = require("gulp-sequence");
 const getEnabledTasks = require("../lib/getEnabledTasks");
 const os = require("os");
 const fs = require("fs");
@@ -7,7 +7,7 @@ const del = require("del");
 const path = require("path");
 const projectPath = require("../lib/projectPath");
 
-const productionTask = function(cb) {
+function productionTask(cb) {
   global.production = true;
 
   // Build to a temporary directory, then move compiled files as a last step
@@ -21,22 +21,22 @@ const productionTask = function(cb) {
   fs.mkdirSync(PATH_CONFIG.dest);
 
   const tasks = getEnabledTasks("production");
-  const rev = TASK_CONFIG.production.rev ? "rev" : false;
-  const static = TASK_CONFIG.static ? "static" : false;
+  const rev = TASK_CONFIG.production.rev ? "rev" : [];
+  const static = TASK_CONFIG.static ? "static" : [];
   const { prebuild, postbuild } = TASK_CONFIG.additionalTasks.production;
 
-  gulpSequence(
+  return gulp.series(
     prebuild,
-    tasks.assetTasks,
-    tasks.codeTasks,
+    gulp.parallel(tasks.assetTasks),
+    gulp.parallel(tasks.codeTasks),
     rev,
     "size-report",
     static,
     postbuild,
-    "replaceFiles",
-    cb
-  );
-};
+    "replaceFiles"
+  )(cb);
+}
 
-gulp.task("build", productionTask);
+productionTask.displayName = "build";
+gulp.task(productionTask);
 module.exports = productionTask;

@@ -4,10 +4,9 @@ const path = require("path");
 const projectPath = require("../lib/projectPath");
 const watch = require("gulp-watch");
 
-const watchTask = function() {
+function watchTask() {
   const watchableTasks = [
     "fonts",
-    "iconFont",
     "images",
     "svgSprite",
     "html",
@@ -17,8 +16,6 @@ const watchTask = function() {
 
   function getTaskPathFor(taskName) {
     switch (taskName) {
-      case "iconFont":
-        return PATH_CONFIG.icons;
       case "svgSprite":
         return PATH_CONFIG.icons;
       case "html":
@@ -53,8 +50,8 @@ const watchTask = function() {
       });
     }
   });
-};
+}
 
-gulp.task("watch", ["browserSync"], watchTask);
-
+watchTask.displayName = "watch";
+gulp.task(watchTask);
 module.exports = watchTask;

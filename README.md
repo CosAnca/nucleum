@@ -326,7 +326,18 @@ Within this object you can also override the browserslist configuration and/or a
 
 #### `purgecss`
 
-[purgecss](https://www.purgecss.com/) is a tool to remove unused CSS. Purgecss has a list of options that allow you to customize its behavior. Customization can improve the performance and efficiency of Purgecss. You can customize its configuration with the options found on their documentation page https://www.purgecss.com/configuration. _This optimisation is only run on the build task_.
+[purgecss](https://www.purgecss.com/) is a tool to remove unused CSS. Purgecss has a list of options that allow you to customize its behavior. Customization can improve the performance and efficiency of Purgecss. You can customize its configuration with the options found on their documentation page https://www.purgecss.com/configuration. _This optimisation (when enabled) will only run on the build task_.
+
+```js
+stylesheets: {
+  purgecss: {
+    content: ["./src/views/**/*.pug"],
+    extractors: {
+      extensions: ["pug"]
+    }
+  }
+}
+```
 
 **IMPORTANT** All of the above stylesheets options are included as PostCSS plugins.
 

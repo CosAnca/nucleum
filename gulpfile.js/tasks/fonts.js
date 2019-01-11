@@ -1,3 +1,4 @@
+/* global PATH_CONFIG, TASK_CONFIG */
 if (!TASK_CONFIG.fonts) {
   return;
 }
@@ -7,7 +8,7 @@ const changed = require("gulp-changed");
 const gulp = require("gulp");
 const projectPath = require("../lib/projectPath");
 
-const fontsTask = function() {
+function fontsTask() {
   const paths = {
     src: projectPath(
       PATH_CONFIG.src,
@@ -22,7 +23,8 @@ const fontsTask = function() {
     .pipe(changed(paths.dest)) // Ignore unchanged files
     .pipe(gulp.dest(paths.dest))
     .pipe(browserSync.stream());
-};
+}
 
-gulp.task("fonts", fontsTask);
+fontsTask.displayName = "fonts";
+gulp.task(fontsTask);
 module.exports = fontsTask;

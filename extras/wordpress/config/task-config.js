@@ -6,7 +6,7 @@ module.exports = {
   static: true,
   stylesheets: {
     purgecss: {
-      content: "public/wp-content/themes/nucleum/**/*.php",
+      content: ["public/wp-content/themes/nucleum/**/*.php"],
       extensions: ["php"]
     }
   },

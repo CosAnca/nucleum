@@ -1,3 +1,4 @@
+/* global PATH_CONFIG, TASK_CONFIG */
 if (!TASK_CONFIG.static) {
   return;
 }
@@ -16,15 +17,13 @@ const staticTask = function() {
   );
 
   const paths = {
-    src: [
-      path.join(srcPath, "**/*"),
-      projectPath("!" + PATH_CONFIG.src, PATH_CONFIG.static.src, "README.md")
-    ],
+    src: path.join(srcPath, "**/*"),
     dest: projectPath(PATH_CONFIG.dest, PATH_CONFIG.static.dest)
   };
 
   return gulp.src(paths.src, options).pipe(gulp.dest(paths.dest));
 };
 
-gulp.task("static", staticTask);
+staticTask.displayName = "static";
+gulp.task(staticTask);
 module.exports = staticTask;

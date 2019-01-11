@@ -9,7 +9,7 @@ const merge = require("merge-stream");
 const path = require("path");
 const pkg = require(projectPath("package.json"));
 
-gulp.task("init-wp", function() {
+function initWPTask() {
   const dotfilesStream = gulp
     .src(["extras/dotfiles/**/*", "!extras/dotfiles/*.txt"], { dot: true })
     .pipe(gulp.dest(projectPath()));
@@ -65,4 +65,7 @@ gulp.task("init-wp", function() {
   );
 
   return merge(dotfilesStream, renameGitIgnore, configStream, srcStream);
-});
+}
+
+initWPTask.displayName = "init-wp";
+gulp.task(initWPTask);

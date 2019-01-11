@@ -1,3 +1,4 @@
+/* global TASK_CONFIG */
 if (global.production) {
   return;
 }
@@ -9,7 +10,7 @@ const webpackMultiConfig = require("../lib/webpack-multi-config");
 const pathToUrl = require("../lib/pathToUrl");
 const projectPath = require("../lib/projectPath");
 
-const browserSyncTask = function() {
+function browserSyncTask() {
   const webpackConfig = webpackMultiConfig("development");
   const compiler = webpack(webpackConfig);
   const proxyConfig = TASK_CONFIG.browserSync.proxy || null;
@@ -54,7 +55,8 @@ const browserSyncTask = function() {
     ].concat(server.extraMiddlewares || []);
 
   browserSync.init(TASK_CONFIG.browserSync);
-};
+}
 
-gulp.task("browserSync", browserSyncTask);
+browserSyncTask.displayName = "browserSync";
+gulp.task(browserSyncTask);
 module.exports = browserSyncTask;

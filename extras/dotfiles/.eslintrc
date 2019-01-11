@@ -4,9 +4,13 @@
     "commonjs": true,
     "es6": true
   },
-  "extends": ["plugin:prettier/recommended"],
+  "extends": ["eslint:recommended", "plugin:prettier/recommended"],
   "parserOptions": {
     "sourceType": "module"
   },
-  "plugins": ["compat"]
+  "rules": {
+    "array-callback-return": "error",
+    "class-methods-use-this": "error",
+    "no-loop-func": "error"
+  }
 }

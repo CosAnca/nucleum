@@ -1,3 +1,4 @@
+/* global PATH_CONFIG, TASK_CONFIG */
 if (!TASK_CONFIG.javascripts) {
   return;
 }
@@ -15,5 +16,6 @@ const webpackProductionTask = function(callback) {
   });
 };
 
-gulp.task("webpack:production", webpackProductionTask);
+webpackProductionTask.displayName = "webpack:production";
+gulp.task(webpackProductionTask);
 module.exports = webpackProductionTask;
