@@ -314,7 +314,17 @@ customizeWebpackConfig: function (webpackConfig, env, webpack) {
 
 Be default we set the stage of postcssPresetEnv to 0 which will enable experimental feature of CSS.
 
-Within this object you can also override the browserslist configuration and/or autoprefixer settings. Please read more about postcssPresetEnv configuration on their repo page https://github.com/csstools/postcss-preset-env#options.
+Within this object you can also override the `browserslist` configuration and/or `autoprefixer` settings. Please read more about postcssPresetEnv configuration on their repo page https://github.com/csstools/postcss-preset-env#options.
+
+```js
+stylesheets: {
+  presetEnv: {
+    stage: 3,
+    browsers: "last 2 versions",
+    autoprefixer: { grid: true } // passing `autoprefixer: false` disables autoprefixer
+  }
+}
+```
 
 #### `normalize`
 
@@ -331,10 +341,8 @@ Within this object you can also override the browserslist configuration and/or a
 ```js
 stylesheets: {
   purgecss: {
-    content: ["./src/views/**/*.pug"],
-    extractors: {
-      extensions: ["pug"]
-    }
+    content: ["../views/**/*.pug"], // the path should be relative to your src stylesheet file
+    extensions: ["pug"] // this will be assigned to the built-in extractor extensions object
   }
 }
 ```

@@ -44,7 +44,7 @@ const stylesheetsTask = function() {
   postcssNormalizeConfig.forceImport = true;
 
   const postcssPresetEnvConfig = TASK_CONFIG.stylesheets.presetEnv || {};
-  postcssPresetEnvConfig.stage = 0;
+  postcssPresetEnvConfig.stage = postcssPresetEnvConfig.stage || 0;
 
   const cssnanoConfig = TASK_CONFIG.stylesheets.cssnano || {};
   cssnanoConfig.autoprefixer = false; // this should always be false, since we're autoprefixing separately
@@ -62,7 +62,7 @@ const stylesheetsTask = function() {
     purgecssConfig.extractors = [
       {
         extractor: NucleumPurgeCSS,
-        extensions: TASK_CONFIG.stylesheets.purgecss.extractors.extensions
+        extensions: TASK_CONFIG.stylesheets.purgecss.extensions
       }
     ];
   }
