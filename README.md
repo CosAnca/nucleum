@@ -314,7 +314,17 @@ customizeWebpackConfig: function (webpackConfig, env, webpack) {
 
 Be default we set the stage of postcssPresetEnv to 0 which will enable experimental feature of CSS.
 
-Within this object you can also override the browserslist configuration and/or autoprefixer settings. Please read more about postcssPresetEnv configuration on their repo page https://github.com/csstools/postcss-preset-env#options.
+Within this object you can also override the `browserslist` configuration and/or `autoprefixer` settings. Please read more about postcssPresetEnv configuration on their repo page https://github.com/csstools/postcss-preset-env#options.
+
+```js
+stylesheets: {
+  presetEnv: {
+    stage: 3,
+    browsers: "last 2 versions",
+    autoprefixer: { grid: true } // passing `autoprefixer: false` disables autoprefixer
+  }
+}
+```
 
 #### `normalize`
 
@@ -326,7 +336,16 @@ Within this object you can also override the browserslist configuration and/or a
 
 #### `purgecss`
 
-[purgecss](https://www.purgecss.com/) is a tool to remove unused CSS. Purgecss has a list of options that allow you to customize its behavior. Customization can improve the performance and efficiency of Purgecss. You can customize its configuration with the options found on their documentation page https://www.purgecss.com/configuration. _This optimisation is only run on the build task_.
+[purgecss](https://www.purgecss.com/) is a tool to remove unused CSS. Purgecss has a list of options that allow you to customize its behavior. Customization can improve the performance and efficiency of Purgecss. You can customize its configuration with the options found on their documentation page https://www.purgecss.com/configuration. _This optimisation (when enabled) will only run on the build task_.
+
+```js
+stylesheets: {
+  purgecss: {
+    content: ["../views/**/*.pug"], // the path should be relative to your src stylesheet file
+    extensions: ["pug"] // this will be assigned to the built-in extractor extensions object
+  }
+}
+```
 
 **IMPORTANT** All of the above stylesheets options are included as PostCSS plugins.
 

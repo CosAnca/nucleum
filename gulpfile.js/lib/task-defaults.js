@@ -65,12 +65,12 @@ module.exports = {
       // gulp.task('myTask', function() { })
     },
     development: {
-      prebuild: null,
-      postbuild: null
+      prebuild: [],
+      postbuild: []
     },
     production: {
-      prebuild: null,
-      postbuild: null
+      prebuild: [],
+      postbuild: []
     }
   }
 };

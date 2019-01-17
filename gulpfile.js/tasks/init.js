@@ -9,7 +9,7 @@ const merge = require("merge-stream");
 const path = require("path");
 const pkg = require(projectPath("package.json"));
 
-gulp.task("init", function() {
+function initTask() {
   const dotfilesStream = gulp
     .src(["extras/dotfiles/**/*", "!extras/dotfiles/*.txt"], { dot: true })
     .pipe(gulp.dest(projectPath()));
@@ -53,4 +53,7 @@ gulp.task("init", function() {
   );
 
   return merge(dotfilesStream, renameGitIgnore, configStream, srcStream);
-});
+}
+
+initTask.displayName = "init";
+gulp.task(initTask);

@@ -4,7 +4,7 @@ const fs = require("fs-extra");
 const del = require("del");
 const projectPath = require("../lib/projectPath");
 
-const replaceFiles = function(cb) {
+function replaceFiles(cb) {
   const temp = projectPath(PATH_CONFIG.dest);
   const dest = projectPath(PATH_CONFIG.finalDest);
   const delPatterns =
@@ -17,8 +17,7 @@ const replaceFiles = function(cb) {
   del.sync(temp, { force: true });
 
   cb();
-};
+}
 
-gulp.task("replaceFiles", replaceFiles);
-
+gulp.task(replaceFiles);
 module.exports = replaceFiles;

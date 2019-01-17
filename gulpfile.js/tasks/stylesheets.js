@@ -12,7 +12,6 @@ const handleErrors = require("../lib/handleErrors");
 const projectPath = require("../lib/projectPath");
 const postcss = require("gulp-postcss");
 const cssnano = require("cssnano");
-const path = require("path");
 const postcssPresetEnv = require("postcss-preset-env");
 const postcssNormalize = require("postcss-normalize");
 const purgecss = require("@fullhuman/postcss-purgecss");
@@ -45,48 +44,27 @@ const stylesheetsTask = function() {
   postcssNormalizeConfig.forceImport = true;
 
   const postcssPresetEnvConfig = TASK_CONFIG.stylesheets.presetEnv || {};
-  postcssPresetEnvConfig.stage = 0;
+  postcssPresetEnvConfig.stage = postcssPresetEnvConfig.stage || 0;
 
   const cssnanoConfig = TASK_CONFIG.stylesheets.cssnano || {};
   cssnanoConfig.autoprefixer = false; // this should always be false, since we're autoprefixing separately
 
   class NucleumPurgeCSS {
     static extract(content) {
+      // eslint-disable-next-line no-useless-escape
       return content.match(/[A-z0-9@\-\:\/]+/g) || [];
     }
   }
 
   const purgecssConfig = TASK_CONFIG.stylesheets.purgecss || {};
 
-  if (TASK_CONFIG.html) {
-    if (TASK_CONFIG.purgecss) {
-      purgecssConfig.content = [
-        path.join(
-          projectPath(PATH_CONFIG.src, PATH_CONFIG.html.src),
-          "/**/*.{" + TASK_CONFIG.html.extensions + "}"
-        )
-      ];
-
-      purgecssConfig.extractors = [
-        {
-          extractor: NucleumPurgeCSS,
-          extensions: TASK_CONFIG.html.extensions
-        }
-      ];
-    }
-  } else {
-    if (TASK_CONFIG.purgecss) {
-      purgecssConfig.content = [
-        path.join(projectPath(), ...TASK_CONFIG.stylesheets.purgecss.content)
-      ];
-
-      purgecssConfig.extractors = [
-        {
-          extractor: NucleumPurgeCSS,
-          extensions: TASK_CONFIG.stylesheets.purgecss.extensions
-        }
-      ];
-    }
+  if (TASK_CONFIG.stylesheets.purgecss) {
+    purgecssConfig.extractors = [
+      {
+        extractor: NucleumPurgeCSS,
+        extensions: TASK_CONFIG.stylesheets.purgecss.extensions
+      }
+    ];
   }
 
   const postCssPlugins = [
@@ -109,5 +87,6 @@ const stylesheetsTask = function() {
     .pipe(browserSync.stream());
 };
 
-gulp.task("stylesheets", stylesheetsTask);
+stylesheetsTask.displayName = "stylesheets";
+gulp.task(stylesheetsTask);
 module.exports = stylesheetsTask;

@@ -1,3 +1,4 @@
+/* global PATH_CONFIG, TASK_CONFIG */
 if (!TASK_CONFIG.html) {
   return;
 }
@@ -13,7 +14,7 @@ const projectPath = require("../lib/projectPath");
 const pug = require("gulp-pug");
 const fs = require("fs");
 
-const htmlTask = function() {
+function htmlTask() {
   const exclude =
     "!" +
     projectPath(
@@ -36,7 +37,7 @@ const htmlTask = function() {
 
   const dataFunction =
     TASK_CONFIG.html.dataFunction ||
-    function(file) {
+    function() {
       const dataPath = projectPath(
         PATH_CONFIG.src,
         PATH_CONFIG.html.src,
@@ -63,7 +64,8 @@ const htmlTask = function() {
     .pipe(gulpif(global.production, htmlmin(TASK_CONFIG.html.htmlmin)))
     .pipe(gulp.dest(paths.dest))
     .on("end", browserSync.reload);
-};
+}
 
-gulp.task("html", htmlTask);
+htmlTask.displayName = "html";
+gulp.task(htmlTask);
 module.exports = htmlTask;

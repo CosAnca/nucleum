@@ -1,22 +1,23 @@
+/* global TASK_CONFIG */
 const gulp = require("gulp");
-const gulpSequence = require("gulp-sequence");
 const getEnabledTasks = require("../lib/getEnabledTasks");
 
-const defaultTask = function(cb) {
+function defaultTask(cb) {
   let tasks = getEnabledTasks("watch");
-  const static = TASK_CONFIG.static ? "static" : false;
+  const staticTask = TASK_CONFIG.static ? "static" : [];
   const { prebuild, postbuild } = TASK_CONFIG.additionalTasks.development;
-  gulpSequence(
+
+  return gulp.series(
     "clean",
     prebuild,
-    tasks.assetTasks,
-    tasks.codeTasks,
-    static,
+    gulp.parallel(tasks.assetTasks),
+    gulp.parallel(tasks.codeTasks),
+    staticTask,
     postbuild,
-    "watch",
-    cb
-  );
-};
+    gulp.parallel("watch", "browserSync")
+  )(cb);
+}
 
-gulp.task("default", defaultTask);
+defaultTask.displayName = "default";
+gulp.task(defaultTask);
 module.exports = defaultTask;

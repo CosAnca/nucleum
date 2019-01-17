@@ -1,3 +1,4 @@
+/* global PATH_CONFIG, TASK_CONFIG */
 if (!TASK_CONFIG.svgSprite) {
   return;
 }
@@ -20,5 +21,6 @@ const svgSpriteTask = function() {
     .pipe(browserSync.stream());
 };
 
-gulp.task("svgSprite", svgSpriteTask);
+svgSpriteTask.displayName = "svgSprite";
+gulp.task(svgSpriteTask);
 module.exports = svgSpriteTask;
