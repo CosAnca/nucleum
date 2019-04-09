@@ -16,7 +16,7 @@ const postcssPresetEnv = require("postcss-preset-env");
 const postcssNormalize = require("postcss-normalize");
 const purgecss = require("@fullhuman/postcss-purgecss");
 
-const stylesheetsTask = function() {
+function stylesheetsTask() {
   const isProduction =
     global.production !== undefined ? global.production : false;
 
@@ -85,7 +85,7 @@ const stylesheetsTask = function() {
     .pipe(gulpif(!global.production, sourcemaps.write()))
     .pipe(gulp.dest(paths.dest))
     .pipe(browserSync.stream());
-};
+}
 
 stylesheetsTask.displayName = "stylesheets";
 gulp.task(stylesheetsTask);

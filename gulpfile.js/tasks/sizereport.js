@@ -3,7 +3,7 @@ const gulp = require("gulp");
 const sizereport = require("gulp-sizereport");
 const projectPath = require("../lib/projectPath");
 
-const sizeReportTask = function() {
+function sizeReportTask() {
   return gulp
     .src([projectPath(PATH_CONFIG.dest, "**/*"), "*!rev-manifest.json"])
     .pipe(
@@ -11,7 +11,7 @@ const sizeReportTask = function() {
         gzip: true
       })
     );
-};
+}
 
 sizeReportTask.displayName = "size-report";
 gulp.task(sizeReportTask);
