@@ -8,7 +8,7 @@ const gulp = require("gulp");
 const svgstore = require("gulp-svgstore");
 const projectPath = require("../lib/projectPath");
 
-const svgSpriteTask = function() {
+function svgSpriteTask() {
   const settings = {
     src: projectPath(PATH_CONFIG.src, PATH_CONFIG.icons.src, "*.svg"),
     dest: projectPath(PATH_CONFIG.dest, PATH_CONFIG.icons.dest)
@@ -19,7 +19,7 @@ const svgSpriteTask = function() {
     .pipe(svgstore(TASK_CONFIG.svgSprite.svgstore))
     .pipe(gulp.dest(settings.dest))
     .pipe(browserSync.stream());
-};
+}
 
 svgSpriteTask.displayName = "svgSprite";
 gulp.task(svgSpriteTask);

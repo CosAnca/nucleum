@@ -11,7 +11,7 @@ const projectPath = require("./projectPath");
 const webpack = require("webpack");
 const webpackManifest = require("./webpackManifest");
 const querystring = require("querystring");
-const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
 
 module.exports = function(env) {
   process.env.BABEL_ENV = process.env.BABEL_ENV || process.env.NODE_ENV || env;
@@ -104,14 +104,14 @@ module.exports = function(env) {
       );
     }
 
-    const uglifyConfig = TASK_CONFIG.javascripts.production.uglifyJsPlugin;
+    const terserConfig = TASK_CONFIG.javascripts.production.terserPlugin;
     webpackConfig.devtool = TASK_CONFIG.javascripts.production.devtool;
 
     if (webpackConfig.devtool) {
-      uglifyConfig.sourceMap = true;
+      terserConfig.sourceMap = true;
     }
 
-    webpackConfig.optimization.minimizer.push(new UglifyJsPlugin(uglifyConfig));
+    webpackConfig.optimization.minimizer.push(new TerserPlugin(terserConfig));
 
     webpackConfig.plugins.push(
       new webpack.DefinePlugin(TASK_CONFIG.javascripts.production.definePlugin)

@@ -8,7 +8,7 @@ const gulp = require("gulp");
 const path = require("path");
 const projectPath = require("../lib/projectPath");
 
-const staticTask = function() {
+function staticTask() {
   const srcPath = projectPath(PATH_CONFIG.src, PATH_CONFIG.static.src);
   const defaultSrcOptions = { dot: true };
   const options = Object.assign(
@@ -22,7 +22,7 @@ const staticTask = function() {
   };
 
   return gulp.src(paths.src, options).pipe(gulp.dest(paths.dest));
-};
+}
 
 staticTask.displayName = "static";
 gulp.task(staticTask);
