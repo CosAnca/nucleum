@@ -19,27 +19,6 @@ $global-fonts: (
 $global-font-size: 16px !default;
 $global-line-height: 1.5 !default;
 
-// Global spacing settings
-// ===============================================
-//
-// The global spacing configuration should be based
-// on the global line height for a consistent
-// vertical rhythm across the website.
-
-$global-spacing-base: $global-line-height * 1rem !default;
-
-// prettier-ignore
-$global-spacing: (
-  "none": 0,
-  "xxs": $global-spacing-base / 6, // [4px]
-  "xs": $global-spacing-base / 3, // [8px]
-  "s": $global-spacing-base / 1.5, // [16px]
-  "m": $global-spacing-base, // [24px]
-  "l": $global-spacing-base * 1.5, // [36px]
-  "xl": $global-spacing-base * 2, // [48px]
-  "xxl": $global-spacing-base * 3, // [72px]
-) !default;
-
 // Global container settings
 // ===============================================
 

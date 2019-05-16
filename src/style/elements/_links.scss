@@ -1,13 +1,13 @@
-// ==========================================================================
+// =============================================================================
 // ELEMENTS / LINKS
-// ==========================================================================
+// =============================================================================
 
 // Our basic A elements only need very minimal styling. Anything more
 // opinionated (e.g. buttons, calls-to-action, etc.) will need a class defining
 // in the Components layer.
 
 a {
-  color: color("brand");
+  color: color("text");
   text-decoration: none;
   cursor: pointer;
 
