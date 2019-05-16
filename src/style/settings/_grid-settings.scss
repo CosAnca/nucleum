@@ -20,10 +20,3 @@ $adaptable-grid: (
   columns: $grid-columns,
   gutter: $grid-gutter
 );
-
-// We define our breakpoints in the object below.
-$adaptable-breakpoints: (
-  medium: 640px,
-  large: 980px,
-  x-large: 1200px
-);

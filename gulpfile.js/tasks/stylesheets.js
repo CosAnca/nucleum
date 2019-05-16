@@ -41,7 +41,6 @@ function stylesheetsTask() {
   }
 
   const postcssNormalizeConfig = TASK_CONFIG.stylesheets.normalize || {};
-  postcssNormalizeConfig.forceImport = true;
 
   const postcssPresetEnvConfig = TASK_CONFIG.stylesheets.presetEnv || {};
   postcssPresetEnvConfig.stage = postcssPresetEnvConfig.stage || 0;

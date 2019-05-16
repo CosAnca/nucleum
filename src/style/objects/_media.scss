@@ -1,6 +1,6 @@
-// ==========================================================================
+// =============================================================================
 // OBJECTS / MEDIA
-// ==========================================================================
+// =============================================================================
 
 // The Media Object is the poster-child of the OOCSS methodology. It simply
 // places any image-like content next to any text-like content.
@@ -17,19 +17,19 @@
 }
 
 .o-media__img {
-  margin-right: spacing("m");
+  margin-right: spacing("6");
   float: left;
 
   // Small Media Objects simply have smaller gaps between the image and the body.
 
   .o-media--small > & {
-    margin-right: spacing("s");
+    margin-right: spacing("4");
   }
 
   // …and larger ones are, well, larger.
 
   .o-media--large > & {
-    margin-right: spacing("m") * 2;
+    margin-right: spacing("6") * 2;
   }
 
   // We can quite easily swap the image and body around by adding the
@@ -37,17 +37,17 @@
 
   .o-media--reverse > & {
     margin-right: 0;
-    margin-left: spacing("m");
+    margin-left: spacing("6");
     float: right;
   }
 
   // …then we can have small or large versions of that.
 
   .o-media--small.o-media--reverse > & {
-    margin-left: spacing("s");
+    margin-left: spacing("4");
   }
 
   .o-media--large.o-media--reverse > & {
-    margin-left: spacing("m") * 2;
+    margin-left: spacing("6") * 2;
   }
 }

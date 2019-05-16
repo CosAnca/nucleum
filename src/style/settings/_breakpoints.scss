@@ -1,0 +1,44 @@
+// =============================================================================
+// SETTINGS / BREAKPOINTS
+// =============================================================================
+
+// Adaptable Configuration
+// ==============================================
+
+// Define our breakpoints for later use with Adaptable. The key (e.g. `medium`)
+// becomes the alias for a breakpoint; the value (e.g. `632px`) is that point at
+// which that breakpoint kicks in. These pixel values will be converted into ems
+// by Adaptable.
+//
+// Note: Adaptable's `em` values are calculated via the browser-default HTML
+//       font-size of `16px`, *not* our $global-font-size.
+//       Further reading: https://stackoverflow.com/a/39935188
+//
+// Make use of these breakpoints like so:
+//
+//   .foo {
+//     color: red;
+//
+//     @include grid-media($from: medium) {
+//       color: green;
+//     }
+//
+//   }
+//
+// This will compile to:
+//
+//   .foo {
+//     color: red;
+//   }
+//
+//   @media (min-width: 21em) {
+//     .foo {
+//       color: green;
+//     }
+//   }
+
+$adaptable-breakpoints: (
+  medium: 640px,
+  large: 980px,
+  x-large: 1200px
+);

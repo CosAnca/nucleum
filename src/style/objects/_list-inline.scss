@@ -1,24 +1,44 @@
-// ==========================================================================
+// =============================================================================
 // OBJECTS / LIST-INLINE
-// ==========================================================================
+// =============================================================================
 
 // The list-inline object displays any list of items as a single line.
 
 // [ul|ol]
 .o-list-inline {
-  display: flex;
-  align-items: center;
   margin-left: 0;
   list-style: none;
 }
 
-// Spacing modifiers
+// [li]
+.o-list-inline__item:not(:last-child) {
+  display: inline-block;
+  margin-right: spacing("6");
+}
+
+// Modifiers
 // ===========================================
 
-// [ul|ol]
-.o-list-inline--wide {
-  // [li]
+// Smaller spacing between list items.
+
+.o-list-inline--narrow {
   > .o-list-inline__item:not(:last-child) {
-    margin-right: spacing("m");
+    margin-right: spacing("3");
+  }
+}
+
+// Wider spacing between list items.
+
+.o-list-inline--wide {
+  > .o-list-inline__item:not(:last-child) {
+    margin-right: spacing("12");
+  }
+}
+
+// No spacing between list items.
+
+.o-list-inline--flush {
+  > .o-list-inline__item:not(:last-child) {
+    margin-right: 0;
   }
 }

@@ -1,8 +1,9 @@
-// ==========================================================================
+// =============================================================================
 // GENERIC / VERTICAL RHYTHM
-// ==========================================================================
+// =============================================================================
 
-// Apply our base spacing unit as a `margin-bottom` to all block level elements
+// Apply the base font size multiplied by the base line height
+// as a `margin-bottom` to all block level elements
 // so that we get nice and consistent vertical rhythm very cheaply.
 // http://csswizardry.com/2012/06/single-direction-margin-declarations/
 
@@ -23,7 +24,7 @@ table,
 fieldset,
 figure,
 pre {
-  margin-bottom: spacing("m");
+  margin-bottom: convert-to-rem($global-font-size * $global-line-height);
 }
 
 // We’ll also indent list elements by the same amount of spacing.
@@ -31,5 +32,5 @@ pre {
 ul,
 ol,
 dd {
-  margin-left: spacing("m");
+  margin-left: convert-to-rem($global-font-size * $global-line-height);
 }
