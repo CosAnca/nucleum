@@ -21,7 +21,7 @@ html {
   min-height: 100%; // [3]
   color: color("text");
   font-family: $global-font-family;
-  font-size: ($global-font-size / 16px) * 1em; // [4]
+  font-size: convert-to-em($global-font-size); // [4]
   line-height: $global-line-height; // [4]
   overflow-y: scroll; // [5]
   overflow-x: hidden; // [6]

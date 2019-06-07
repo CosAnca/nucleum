@@ -142,9 +142,9 @@ $spacing-directions: (
 @include _build-spacing;
 
 // Generate our responsive classes by looping over the series of breakpoints
-// held by Sass MQ.
-@each $breakpoint, $value in $adaptable-breakpoints {
-  @include grid-media($from: $breakpoint) {
+// held by $mq-breakpoints inside _breakpoint.scss file.
+@each $breakpoint, $value in $mq-breakpoints {
+  @include mq($from: $breakpoint) {
     @include _build-spacing(\@#{$breakpoint});
   }
 }

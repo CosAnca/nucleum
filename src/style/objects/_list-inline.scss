@@ -13,7 +13,7 @@
 // [li]
 .o-list-inline__item:not(:last-child) {
   display: inline-block;
-  margin-right: spacing("6");
+  margin-right: spacing(6);
 }
 
 // Modifiers
@@ -23,7 +23,7 @@
 
 .o-list-inline--narrow {
   > .o-list-inline__item:not(:last-child) {
-    margin-right: spacing("3");
+    margin-right: spacing(3);
   }
 }
 
@@ -31,7 +31,7 @@
 
 .o-list-inline--wide {
   > .o-list-inline__item:not(:last-child) {
-    margin-right: spacing("12");
+    margin-right: spacing(12);
   }
 }
 

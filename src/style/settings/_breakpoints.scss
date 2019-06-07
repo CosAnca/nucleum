@@ -2,15 +2,15 @@
 // SETTINGS / BREAKPOINTS
 // =============================================================================
 
-// Adaptable Configuration
+// Sass MQ Configuration
 // ==============================================
 
-// Define our breakpoints for later use with Adaptable. The key (e.g. `medium`)
+// Define our breakpoints for later use with Sass MQ. The key (e.g. `medium`)
 // becomes the alias for a breakpoint; the value (e.g. `632px`) is that point at
 // which that breakpoint kicks in. These pixel values will be converted into ems
-// by Adaptable.
+// by Sass MQ.
 //
-// Note: Adaptable's `em` values are calculated via the browser-default HTML
+// Note: Sass MQ's `em` values are calculated via the browser-default HTML
 //       font-size of `16px`, *not* our $global-font-size.
 //       Further reading: https://stackoverflow.com/a/39935188
 //
@@ -19,7 +19,7 @@
 //   .foo {
 //     color: red;
 //
-//     @include grid-media($from: medium) {
+//     @include mq($from: medium) {
 //       color: green;
 //     }
 //
@@ -37,7 +37,7 @@
 //     }
 //   }
 
-$adaptable-breakpoints: (
+$mq-breakpoints: (
   medium: 640px,
   large: 980px,
   x-large: 1200px

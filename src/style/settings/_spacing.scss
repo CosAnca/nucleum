@@ -12,17 +12,17 @@ $global-spacing-base: 0.25 * $global-font-size !default;
 
 // prettier-ignore
 $global-spacing: (
-  "0": 0,
-  "1": $global-spacing-base, // [4px]
-  "2": $global-spacing-base * 2, // [8px]
-  "3": $global-spacing-base * 3, // [12px]
-  "4": $global-spacing-base * 4, // [16px]
-  "5": $global-spacing-base * 5, // [20px]
-  "6": $global-spacing-base * 6, // [24px]
-  "7": $global-spacing-base * 8, // [32px]
-  "8": $global-spacing-base * 10, // [40px]
-  "9": $global-spacing-base * 12, // [48px]
-  "10": $global-spacing-base * 14, // [56px]
-  "11": $global-spacing-base * 18, // [72px]
-  "12": $global-spacing-base * 32 // [128px]
+  0: 0,
+  1: $global-spacing-base, // [4px]
+  2: $global-spacing-base * 2, // [8px]
+  3: $global-spacing-base * 3, // [12px]
+  4: $global-spacing-base * 4, // [16px]
+  5: $global-spacing-base * 5, // [20px]
+  6: $global-spacing-base * 6, // [24px]
+  8: $global-spacing-base * 8, // [32px]
+  10: $global-spacing-base * 10, // [40px]
+  12: $global-spacing-base * 12, // [48px]
+  14: $global-spacing-base * 14, // [56px]
+  18: $global-spacing-base * 18, // [72px]
+  32: $global-spacing-base * 32 // [128px]
 ) !default;

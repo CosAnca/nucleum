@@ -9,6 +9,7 @@
 // VENDOR LIBRARIES (imported from node_modules)
 // Bourbon..............A simple and lightweight mixin library for Sass.
 // Adaptable............A lightweight flex base semantic grid framework built with Sass.
+// Sass MQ..............Media Queries with superpowers.
 //
 // SETTINGS
 // All..................Because our Settings layer doesn’t actually produce any
@@ -78,6 +79,7 @@
 
 @import "bourbon/core/bourbon";
 @import "adaptable/core/adaptable";
+@import "sass-mq/mq";
 
 // Settings
 @import "settings/all";

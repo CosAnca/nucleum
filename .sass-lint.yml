@@ -19,7 +19,7 @@ rules:
   mixins-before-declarations:
     - 1
     - exclude:
-        - grid-media
+        - mq
         - hocus
   no-ids: 1
   no-extends: 1

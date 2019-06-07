@@ -1,14 +1,13 @@
 # Stylesheet Assets (Sass)
+
 Sass is the greatest, and libsass (via node-sass) is the fastest! Put your Sass here.
 
-If you're using the Icon Font task, a `generated` folder containing `_icons.sass` will be automatically created. Be sure to `@import generated/icons` in `style.sass`.
+[Normalize.css](https://github.com/necolas/normalize.css) is provided as a PostCSS plugin and can be included either through `task-config.js` file or using the default import directive `@import-normalize` in the main `style.scss` file.
 
-[Normalize.css](https://github.com/necolas/normalize.css) is also installed and `@import`'d by default, mostly as an example of how to include css from `node_modules`.
+Other Sass libraries used with our CSS are:
 
-We also include in the same way three other Sass libraries:
-* [Bourbon](http://bourbon.io)
-* [Neat](http://neat.bourbon.io)
-* [Family](https://lukyvj.github.io/family.scss/)
+- [Bourbon](https://bourbon.io)
+- [Adaptable](https://github.com/CosAnca/adaptable)
 
 ### Architecture
 
@@ -23,10 +22,12 @@ Project stylesheets should be structured following closely to the principles of 
 7. **Utilities** - Helpers and overrides.
 
 ### Tasks and Files
+
 ```
 gulpfile.js/tasks/stylesheets
 ```
-Your Sass gets run through Autoprefixer, so don't prefix!
-In the `production` task, output is minfified with [cssnano](https://github.com/ben-eb/cssnano).
 
-You may also provide additional [`node-sass` options](https://github.com/sass/node-sass#options) to the `sass` property in css task config in `config.json`. By default, we've disabled `indentedSyntax` and added the paths to Normalize.css, Bourbon and Neat via the `includePaths` option.
+Your Sass gets run through Autoprefixer, so don't prefix!
+In the `production` task, output is minified with [cssnano](https://github.com/ben-eb/cssnano).
+
+You may also provide additional [`node-sass` options](https://github.com/sass/node-sass#options) to the `sass` property in css task config in `config.json`. By default, we've disabled `indentedSyntax` and added the paths to Bourbon and Adaptable via the `includePaths` option.

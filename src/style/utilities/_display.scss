@@ -24,10 +24,10 @@ $breakpoint-separator: \@ !default;
 }
 
 // Loop through all breakpoints to get their values.
-@each $breakpoint, $value in $adaptable-breakpoints {
+@each $breakpoint, $value in $mq-breakpoints {
   @each $value in $display-values {
     .u-#{if($value == "none", "hide", $value)}#{$breakpoint-separator}#{$breakpoint} {
-      @include grid-media($from: $breakpoint) {
+      @include mq($from: $breakpoint) {
         display: $value !important;
       }
     }

@@ -7,22 +7,22 @@
 // what is going on below; all you really need to know is that we end up with a
 // suite of classes like:
 //
-// .u-width-1/2@medium  -- Spans the item half width of its container on medium viewports
-// .u-width-1/3@large   -- Spans the item 1/3 of its container width on large viewports
-// .u-push-1/3@medium   -- Push an item over to the right by 1/3 of its container width
-// .u-pull-1/2@large    -- Pull an item back to the left by half width of its container
+// .u-width-1/2         -- half width
+// .u-width-3/4@medium  -- three quarters width on medium-and-up screens
+// .u-push-2/3          -- Push an item over to the right by two thirds
+// .u-pull-1/2@large    -- Pull an item back to the left by half
 
-// This defines the separator for the breakpoints suffix in the class name.
-// By default, we are generating the responsive suffixes for the classes
-// with a `@` symbol so you get classes like:
-// <div class="u-width-1/3@medium">
+// sass-lint:disable no-important
 // prettier-ignore
-$breakpoint-separator: \@ !default;
 
-// Loop through all breakpoints to get their values.
-@each $breakpoint, $value in $adaptable-breakpoints {
-  // Get the total number of columns defined on our $neat-grid object in
-  // grid-settings file.
+@mixin _build-widths($breakpoint: null) {
+  // Generate an auto width utility class at each of our breakpoints.
+  .u-width-auto#{$breakpoint} {
+    width: auto !important;
+  }
+
+  // Get the total number of columns defined on our $adaptable-grid object inside
+  // _grid-settings file.
   $grid-columns: map-get($adaptable-grid, columns);
 
   // Initiate an empty map so we can push into it
@@ -37,28 +37,33 @@ $breakpoint-separator: \@ !default;
 
       @if not index($column-widths, $w) {
         // Build a class in the format `.u-width-1/3[@<breakpoint>]`.
-        .u-width-#{$j}\/#{$i}#{$breakpoint-separator}#{$breakpoint} {
-          @include grid-media($from: $breakpoint) {
-            @include grid-span($j of $i);
-          }
+        .u-width-#{$j}\/#{$i}#{$breakpoint} {
+          @include grid-span($j of $i);
         }
 
         // Build a class in the format `.u-push-1/3[@<breakpoint>]`.
-        .u-push-#{$j}\/#{$i}#{$breakpoint-separator}#{$breakpoint} {
-          @include grid-media($from: $breakpoint) {
-            @include grid-push($j of $i);
-          }
+        .u-push-#{$j}\/#{$i}#{$breakpoint} {
+          @include grid-push($j of $i);
         }
 
         // Build a class in the format `.u-pull-1/3[@<breakpoint>]`.
-        .u-pull-#{$j}\/#{$i}#{$breakpoint-separator}#{$breakpoint} {
-          @include grid-media($from: $breakpoint) {
-            @include grid-push(-$j of $i);
-          }
+        .u-pull-#{$j}\/#{$i}#{$breakpoint} {
+          @include grid-push(-$j of $i);
         }
 
         $column-widths: append($column-widths, $w, comma);
       }
     }
+  }
+}
+
+// Generate our regular, non-responsive classes.
+@include _build-widths;
+
+// Generate our responsive classes by looping over the series of breakpoints
+// held by $mq-breakpoints inside _breakpoint.scss file.
+@each $breakpoint, $value in $mq-breakpoints {
+  @include mq($from: $breakpoint) {
+    @include _build-widths(\@#{$breakpoint});
   }
 }

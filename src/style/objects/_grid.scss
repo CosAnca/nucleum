@@ -11,15 +11,15 @@
 //   <div class="o-grid__item u-width-1/2@medium">...</div>
 // </div>
 
-// Grid object creates a grid container with clearfix using Neat grid-container mixin
+// Grid object creates a flexbox grid container using Adaptable grid-container
+// mixin
 //
 // @include grid-container;
 //
 // Output
-// .element::after {
-//    clear: both;
-//    content: "";
-//    display: block;
+// .element {
+//   display: flex;
+//   flex-wrap: wrap;
 // }
 
 .o-grid {
@@ -29,7 +29,7 @@
 }
 
 // For full width or nested layouts, we have to create a collapsed grid object
-// that consumes the gutters of its container. We can achieve this using Neat's
+// that consumes the gutters of its container. We can achieve this using Adaptable's
 // built in mixin @grid-nest.
 
 .o-grid--flushed,
@@ -39,20 +39,22 @@
 
 // Grid item creates the basics for the grid column layout
 //
-// @include grid-column(12, $neat-grid);
+// @include grid-column(12, $adaptable-grid);
 //
 // Output
 // .element {
-//    width: calc(100% - 1.5rem);
-//    float: left;
-//    margin-left: 0.75rem;
+//    flex-grow: 0;
+//    flex-shrink: 0;
+//    flex-basis: calc(100% - 3rem);
+//    max-width: calc(100% - 3rem);
+//    margin-left: 1.5rem;
 // }
 
 .o-grid__item {
   @include grid-column;
 
   // To avoid adding complementary classes when nesting grids
-  // we automatically collapse the gutters of a nested layout
+  // we automatically collapse the gutters of a nested grid
   // object.
   > .o-grid {
     @include grid-nest;
