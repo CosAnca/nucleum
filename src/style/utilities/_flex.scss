@@ -1,0 +1,43 @@
+// ==========================================================================
+// UTILITIES / FLEX
+// ==========================================================================
+
+// Utility classes for flexbox properties
+// sass-lint:disable no-important
+
+// Align Items
+// -------------------------------------------
+
+$item-alignments: (stretch, start, center, end, baseline, flex-start, flex-end);
+
+@each $alignment in $item-alignments {
+  .u-items-#{$alignment} {
+    align-items: $alignment !important;
+  }
+
+  .u-self-#{$alignment} {
+    align-self: $alignment !important;
+  }
+}
+
+// Justify Content
+// -------------------------------------------
+
+$justifications: (start, center, end, space-between, space-around);
+
+@each $justification in $justifications {
+  .u-justify-#{$justification} {
+    justify-content: $justification !important;
+  }
+}
+
+// Misc
+// -------------------------------------------
+
+.u-flex-wrap {
+  flex-wrap: wrap;
+}
+
+.u-flex-no-wrap {
+  flex-wrap: nowrap;
+}
