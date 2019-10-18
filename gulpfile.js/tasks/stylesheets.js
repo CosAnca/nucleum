@@ -87,9 +87,15 @@ function stylesheetsTask() {
     postCssPlugins.concat(TASK_CONFIG.stylesheets.postCssPlugins || []);
   }
 
+  const sassLintConfigFile = projectPath(".sass-lint.yml");
+
   return gulp
     .src(paths.src)
-    .pipe(sassLint())
+    .pipe(
+      sassLint({
+        configFile: sassLintConfigFile
+      })
+    )
     .pipe(sassLint.format())
     .pipe(sassLint.failOnError())
     .pipe(gulpif(!global.production, sourcemaps.init()))
