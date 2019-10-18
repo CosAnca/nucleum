@@ -1,6 +1,6 @@
 const notify = require("gulp-notify");
 
-module.exports = function(errorObject, callback) {
+module.exports = function(errorObject) {
   notify
     .onError(
       errorObject

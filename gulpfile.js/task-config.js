@@ -4,7 +4,16 @@ module.exports = {
   fonts: true,
   static: true,
   svgSprite: true,
-  stylesheets: true,
+  stylesheets: {
+    criticalCss: {
+      config: {
+        base: "./public",
+        inline: true,
+        width: 1200,
+        height: 1200
+      }
+    }
+  },
 
   javascripts: {
     entry: {

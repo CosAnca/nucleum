@@ -1,7 +1,7 @@
 /* global PATH_CONFIG */
 const gulp = require("gulp");
 const sizereport = require("gulp-sizereport");
-const projectPath = require("../lib/projectPath");
+const projectPath = require("../lib/project-path");
 
 function sizeReportTask() {
   return gulp

@@ -1,0 +1,18 @@
+// ==========================================================================
+// UTILITIES / BREAKOUT
+// ==========================================================================
+//
+// Allows components to break out of their container and span across the
+// full width of the viewport.
+
+.u-breakout {
+  margin-right: calc(50% - 50vw); // [1]
+  margin-left: calc(50% - 50vw); // [1]
+}
+
+.u-breakout\@small {
+  @include mq($until: medium) {
+    margin-right: calc(50% - 50vw); // [1]
+    margin-left: calc(50% - 50vw); // [1]
+  }
+}

@@ -9,9 +9,21 @@
 // ==============================================
 
 $positions: (static, relative, absolute, fixed, sticky);
+$breakpoint-separator: \@ !default;
 
 @each $position in $positions {
   .u-#{$position} {
     position: $position !important;
+  }
+}
+
+// Loop through all breakpoints to get their values.
+@each $breakpoint, $value in $mq-breakpoints {
+  @each $position in $positions {
+    .u-#{$position}#{$breakpoint-separator}#{$breakpoint} {
+      @include mq($from: $breakpoint) {
+        position: $position !important;
+      }
+    }
   }
 }

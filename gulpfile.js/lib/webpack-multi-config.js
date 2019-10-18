@@ -1,4 +1,4 @@
-/* global process PATH_CONFIG TASK_CONFIG */
+/* global PATH_CONFIG TASK_CONFIG */
 "use strict";
 
 if (!TASK_CONFIG.javascripts) {
@@ -6,10 +6,10 @@ if (!TASK_CONFIG.javascripts) {
 }
 
 const path = require("path");
-const pathToUrl = require("./pathToUrl");
-const projectPath = require("./projectPath");
+const pathToUrl = require("./path-to-url");
+const projectPath = require("./project-path");
 const webpack = require("webpack");
-const webpackManifest = require("./webpackManifest");
+const webpackManifest = require("./webpack-manifest");
 const querystring = require("querystring");
 const TerserPlugin = require("terser-webpack-plugin");
 
@@ -41,7 +41,10 @@ module.exports = function(env) {
     entry: TASK_CONFIG.javascripts.entry,
     mode: process.env.BABEL_ENV,
     module: {
-      rules: [TASK_CONFIG.javascripts.babelLoader]
+      rules: [
+        TASK_CONFIG.javascripts.eslintLoader,
+        TASK_CONFIG.javascripts.babelLoader
+      ]
     },
     optimization: {
       minimizer: []

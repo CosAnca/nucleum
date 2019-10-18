@@ -1,5 +1,4 @@
-/* global process */
-const projectPath = require("./projectPath");
+const projectPath = require("./project-path");
 const fs = require("fs");
 
 function getPathConfig() {

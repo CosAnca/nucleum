@@ -2,7 +2,7 @@
 const gulp = require("gulp");
 const fs = require("fs-extra");
 const del = require("del");
-const projectPath = require("../lib/projectPath");
+const projectPath = require("../lib/project-path");
 
 function replaceFiles(cb) {
   const temp = projectPath(PATH_CONFIG.dest);

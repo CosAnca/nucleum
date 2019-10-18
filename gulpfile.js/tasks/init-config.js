@@ -1,7 +1,7 @@
 const gulp = require("gulp");
 const log = require("fancy-log");
 const colors = require("ansi-colors");
-const projectPath = require("../lib/projectPath");
+const projectPath = require("../lib/project-path");
 
 function initConfigTask() {
   const configStream = gulp

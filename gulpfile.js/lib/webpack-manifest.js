@@ -1,5 +1,5 @@
 const path = require("path");
-const projectPath = require("./projectPath");
+const projectPath = require("./project-path");
 const fs = require("fs");
 
 module.exports = function(jsDest, dest, filename) {

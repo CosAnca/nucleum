@@ -18,7 +18,7 @@
     @return $map;
   }
 
-  @warn "Unknown keys of `#{$keys...}` in the defined map";
+  @warn "Unknown keys of `#{$keys}` in the defined map";
   @return null;
 }
 
@@ -95,6 +95,19 @@
 // Conversion
 // ==============================================
 
+// strip-unit()
+// ------------------------------------
+//
+// Function to remove the unit from a value
+// i.e. strip-unit(20px) would return 20.
+@function strip-unit($num) {
+  @if type_of($num) == number {
+    @return $num / ($num * 0 + 1);
+  } @else {
+    @warn "Value must be a number i.e. 12, 24px etc.";
+  }
+}
+
 // convert-to-rem()
 // ------------------------------------
 
@@ -138,61 +151,4 @@
     @return $px;
   }
   @return ($px / $base-font-size) * 1em;
-}
-
-// strip-unit()
-// ------------------------------------
-//
-// Function to remove the unit from a value
-// i.e. strip-unit(20px) would return 20.
-@function strip-unit($num) {
-  @if type_of($num) == number {
-    @return $num / ($num * 0 + 1);
-  } @else {
-    @warn "Value must be a number i.e. 12, 24px etc.";
-  }
-}
-
-// str-replace()
-// ------------------------------------
-//
-// Replace `$search` with `$replace` in `$string`
-//
-// @author Hugo Giraudel
-// @param {string} $string - Initial string
-// @param {string} $search - Substring to replace
-// @param {string} $replace ('') - New value
-// @return {string} - Updated string
-// https://css-tricks.com/snippets/sass/str-replace-function/
-@function str-replace($string, $search, $replace: "") {
-  $index: str-index($string, $search);
-
-  @if $index {
-    @return str-slice($string, 1, $index - 1) + $replace +
-      str-replace(
-        str-slice($string, $index + str-length($search)),
-        $search,
-        $replace
-      );
-  }
-
-  @return $string;
-}
-
-// encode-svg()
-// ------------------------------------
-//
-// Encode SVG to use them as data-uri for background-image
-//
-// Encodes <, > and #.
-// https://codepen.io/tigt/post/optimizing-svgs-in-data-uris
-//
-// @param {string} $string - SVG code to encode
-// @returns {string} - encoded String
-@function encode-svg($string) {
-  $string: str-replace($string, "<", "%3C");
-  $string: str-replace($string, ">", "%3E");
-  $string: str-replace($string, "#", "%23");
-
-  @return $string;
 }

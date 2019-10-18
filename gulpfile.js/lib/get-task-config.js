@@ -1,6 +1,5 @@
-/* global process */
 const fs = require("fs");
-const projectPath = require("./projectPath");
+const projectPath = require("./project-path");
 const taskDefaults = require("./task-defaults");
 const mergeWith = require("lodash/mergeWith");
 

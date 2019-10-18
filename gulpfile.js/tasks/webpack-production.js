@@ -4,7 +4,7 @@ if (!TASK_CONFIG.javascripts) {
 }
 
 const gulp = require("gulp");
-const logger = require("../lib/compileLogger");
+const logger = require("../lib/compile-logger");
 const webpack = require("webpack");
 
 function webpackProductionTask(callback) {

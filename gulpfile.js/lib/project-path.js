@@ -1,4 +1,3 @@
-/* global process */
 const path = require("path");
 
 /**

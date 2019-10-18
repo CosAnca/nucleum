@@ -15,11 +15,3 @@ svg {
   font-style: italic; // [2]
   vertical-align: middle; // [3]
 }
-
-// If a `width` and/or `height` attribute have been explicitly defined, let’s
-// not make the image fluid.
-
-img[width],
-img[height] {
-  max-width: none;
-}

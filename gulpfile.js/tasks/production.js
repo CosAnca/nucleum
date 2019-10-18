@@ -1,11 +1,11 @@
 /* global PATH_CONFIG, TASK_CONFIG */
 const gulp = require("gulp");
-const getEnabledTasks = require("../lib/getEnabledTasks");
+const getEnabledTasks = require("../lib/get-enabled-tasks");
 const os = require("os");
 const fs = require("fs");
 const del = require("del");
 const path = require("path");
-const projectPath = require("../lib/projectPath");
+const projectPath = require("../lib/project-path");
 
 function productionTask(cb) {
   global.production = true;
@@ -29,6 +29,7 @@ function productionTask(cb) {
     prebuild,
     gulp.parallel(tasks.assetTasks),
     gulp.parallel(tasks.codeTasks),
+    "criticalCss",
     rev,
     "size-report",
     static,

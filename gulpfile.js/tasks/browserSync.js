@@ -7,10 +7,10 @@ const browserSync = require("browser-sync");
 const gulp = require("gulp");
 const webpack = require("webpack");
 const webpackMultiConfig = require("../lib/webpack-multi-config");
-const pathToUrl = require("../lib/pathToUrl");
-const projectPath = require("../lib/projectPath");
+const pathToUrl = require("../lib/path-to-url");
+const projectPath = require("../lib/project-path");
 
-function browserSyncTask() {
+function browserSyncTask(cb) {
   const webpackConfig = webpackMultiConfig("development");
   const compiler = webpack(webpackConfig);
   const proxyConfig = TASK_CONFIG.browserSync.proxy || null;
@@ -55,6 +55,7 @@ function browserSyncTask() {
     ].concat(server.extraMiddlewares || []);
 
   browserSync.init(TASK_CONFIG.browserSync);
+  cb();
 }
 
 browserSyncTask.displayName = "browserSync";

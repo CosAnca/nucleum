@@ -8,6 +8,13 @@ module.exports = {
     purgecss: {
       content: ["public/wp-content/themes/nucleum/**/*.php"],
       extensions: ["php"]
+    },
+    criticalCss: {
+      config: {
+        base: "./public/wp-content/themes/nucleum",
+        width: 1200,
+        height: 1200
+      }
     }
   },
 

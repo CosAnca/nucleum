@@ -9,45 +9,44 @@
 // http://www.stubbornella.org/content/2010/06/25/the-media-object-saves-hundreds-of-lines-of-code/
 
 .o-media {
-  @include clearfix;
-}
-
-.o-media__body {
-  overflow: hidden;
+  display: flex;
 }
 
 .o-media__img {
-  margin-right: spacing(6);
-  float: left;
+  margin-right: $grid-gutter;
 
   // Small Media Objects simply have smaller gaps between the image and the body.
 
   .o-media--small > & {
-    margin-right: spacing(4);
+    margin-right: $grid-gutter / 2;
   }
 
-  // …and larger ones are, well, larger.
+  // ...and larger ones are, well, larger.
 
   .o-media--large > & {
-    margin-right: spacing(6) * 2;
+    margin-right: $grid-gutter * 2;
   }
 
   // We can quite easily swap the image and body around by adding the
-  // `--reverse` Modifier to the Block.
+  // `--invert` Modifier to the Block.
 
-  .o-media--reverse > & {
+  .o-media--invert > & {
+    order: 1;
     margin-right: 0;
-    margin-left: spacing(6);
-    float: right;
+    margin-left: $grid-gutter;
   }
 
-  // …then we can have small or large versions of that.
+  // ...then we can have small or large versions of that.
 
-  .o-media--small.o-media--reverse > & {
-    margin-left: spacing(4);
+  .o-media--small.o-media--invert > & {
+    margin-left: $grid-gutter / 2;
   }
 
-  .o-media--large.o-media--reverse > & {
-    margin-left: spacing(6) * 2;
+  .o-media--large.o-media--invert > & {
+    margin-left: $grid-gutter * 2;
   }
+}
+
+.o-media__body {
+  flex: 1;
 }

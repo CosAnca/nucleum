@@ -19,7 +19,7 @@
 html {
   @include font-smoothing; // [1]
   min-height: 100%; // [3]
-  color: color("text");
+  color: color("gray-700");
   font-family: $global-font-family;
   font-size: convert-to-em($global-font-size); // [4]
   line-height: $global-line-height; // [4]
