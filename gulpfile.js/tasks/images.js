@@ -6,7 +6,7 @@ if (!TASK_CONFIG.images) {
 const browserSync = require("browser-sync");
 const changed = require("gulp-changed");
 const gulp = require("gulp");
-const projectPath = require("../lib/projectPath");
+const projectPath = require("../lib/project-path");
 
 function imagesTask() {
   const paths = {

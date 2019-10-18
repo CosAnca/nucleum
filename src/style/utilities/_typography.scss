@@ -8,30 +8,43 @@
 // ==============================================
 
 // sass-lint:disable no-important
+$text-alignments: (left, center, right, justify);
 
-// @each loop to generate general use text alignment classes
-@each $alignment-position in left center right justify {
-  .u-text-#{$alignment-position} {
-    text-align: $alignment-position !important;
+// Generate general use text alignment classes
+@each $text-alignment in $text-alignments {
+  .u-text-#{$text-alignment} {
+    text-align: $text-alignment !important;
   }
 }
 
-// Font style utilities
-// ==============================================
-
-.u-text-italic {
-  font-style: italic !important;
+// Generate responsive text alignment classes
+@each $breakpoint, $value in $mq-breakpoints {
+  @each $text-alignment in $text-alignments {
+    .u-text-#{$text-alignment}\@#{$breakpoint} {
+      @include mq($from: $breakpoint) {
+        text-align: $text-alignment !important;
+      }
+    }
+  }
 }
 
-// Font weight utilities
+// Font weights and styles utilities
 // ==============================================
 //
 // $font-weights are declared inside settings/_typography
 
 @each $font-weight-key, $font-weight-value in $font-weights {
-  .u-text-#{$font-weight-key} {
+  .u-font-#{$font-weight-key} {
     font-weight: $font-weight-value !important;
   }
+}
+
+.u-font-normal {
+  font-style: normal !important;
+}
+
+.u-font-italic {
+  font-style: italic !important;
 }
 
 // Transformation

@@ -1,8 +1,8 @@
 const log = require("fancy-log");
 const colors = require("ansi-colors");
 const PluginError = require("plugin-error");
-const prettifyTime = require("./prettifyTime");
-const handleErrors = require("./handleErrors");
+const prettifyTime = require("./prettify-time");
+const handleErrors = require("./handle-errors");
 
 module.exports = function(err, stats) {
   if (err) {

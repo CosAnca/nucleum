@@ -1,6 +1,6 @@
 /* global TASK_CONFIG */
 const gulp = require("gulp");
-const getEnabledTasks = require("../lib/getEnabledTasks");
+const getEnabledTasks = require("../lib/get-enabled-tasks");
 
 function defaultTask(cb) {
   let tasks = getEnabledTasks("watch");

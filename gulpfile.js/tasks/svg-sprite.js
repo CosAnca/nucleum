@@ -6,7 +6,7 @@ if (!TASK_CONFIG.svgSprite) {
 const browserSync = require("browser-sync");
 const gulp = require("gulp");
 const svgstore = require("gulp-svgstore");
-const projectPath = require("../lib/projectPath");
+const projectPath = require("../lib/project-path");
 
 function svgSpriteTask() {
   const settings = {

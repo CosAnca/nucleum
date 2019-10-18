@@ -1,3 +1,4 @@
+/* global TASK_CONFIG */
 const compact = require("lodash/compact");
 const isEmpty = require("lodash/isEmpty");
 

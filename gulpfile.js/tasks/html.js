@@ -8,9 +8,9 @@ const changed = require("gulp-changed");
 const data = require("gulp-data");
 const gulp = require("gulp");
 const gulpif = require("gulp-if");
-const handleErrors = require("../lib/handleErrors");
+const handleErrors = require("../lib/handle-errors");
 const htmlmin = require("gulp-htmlmin");
-const projectPath = require("../lib/projectPath");
+const projectPath = require("../lib/project-path");
 const pug = require("gulp-pug");
 const fs = require("fs");
 

@@ -1,6 +1,6 @@
 /* global PATH_CONFIG */
 const gulp = require("gulp");
-const projectPath = require("../../lib/projectPath");
+const projectPath = require("../../lib/project-path");
 const rev = require("gulp-rev");
 const revdel = require("gulp-rev-delete-original");
 

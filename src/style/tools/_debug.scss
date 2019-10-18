@@ -60,6 +60,17 @@ $visual-baseline: false;
 $visual-baseline-color: #ccc;
 $visual-baseline-opacity: 0.6;
 
+// Custom visual baseline
+// sass-lint:disable indentation
+@mixin grid-visual-baseline($color: #ccc, $baseline-grid: $visual-baseline) {
+  $_grid-baseline: transparent,
+    transparent ($global-line-height * $global-font-size) - 1,
+    $color ($global-line-height * $global-font-size) - 1,
+    $color $global-line-height * $global-font-size;
+
+  background-image: repeating-linear-gradient(to bottom, $_grid-baseline);
+}
+
 // Here we apply the visual baseline to the after pseudo-element of body
 @if variable-exists(visual-baseline) and $visual-baseline == true {
   body {

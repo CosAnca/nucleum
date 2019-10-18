@@ -8,22 +8,57 @@
 // Align Items
 // -------------------------------------------
 
-$item-alignments: (stretch, start, center, end, baseline, flex-start, flex-end);
+$item-alignments: (stretch, start, center, end, baseline);
 
 @each $alignment in $item-alignments {
   .u-items-#{$alignment} {
     align-items: $alignment !important;
   }
+}
 
-  .u-self-#{$alignment} {
-    align-self: $alignment !important;
+@each $breakpoint, $value in $mq-breakpoints {
+  @each $alignment in $item-alignments {
+    .u-items-#{$alignment}\@#{$breakpoint} {
+      @include mq($from: $breakpoint) {
+        align-items: $alignment !important;
+      }
+    }
+  }
+}
+
+// Align Self
+// -------------------------------------------
+
+$selft-alignments: (stretch, start, center, end, baseline);
+
+@each $self-alignment in $selft-alignments {
+  .u-self-#{$self-alignment} {
+    align-self: $self-alignment !important;
+  }
+}
+
+@each $breakpoint, $value in $mq-breakpoints {
+  @each $self-alignment in $selft-alignments {
+    .u-self-#{$self-alignment}\@#{$breakpoint} {
+      @include mq($from: $breakpoint) {
+        align-self: $self-alignment !important;
+      }
+    }
   }
 }
 
 // Justify Content
 // -------------------------------------------
 
-$justifications: (start, center, end, space-between, space-around);
+$justifications: (
+  start,
+  flex-start,
+  center,
+  end,
+  flex-end,
+  space-between,
+  space-around
+);
 
 @each $justification in $justifications {
   .u-justify-#{$justification} {
@@ -31,13 +66,40 @@ $justifications: (start, center, end, space-between, space-around);
   }
 }
 
+@each $breakpoint, $value in $mq-breakpoints {
+  @each $justification in $justifications {
+    .u-justify-#{$justification}\@#{$breakpoint} {
+      @include mq($from: $breakpoint) {
+        justify-content: $justification !important;
+      }
+    }
+  }
+}
+
 // Misc
 // -------------------------------------------
 
+// Flex fill
+// Use the `.flex-fill` class on a series of sibling elements to force them into
+// widths equal to their content (or equal widths if their content does not
+// surpass their border-boxes) while taking up all available horizontal space.
+
+.u-flex-fill {
+  flex: 1 1 auto !important;
+}
+
+@each $breakpoint, $value in $mq-breakpoints {
+  .u-flex-fill\@#{$breakpoint} {
+    @include mq($from: $breakpoint) {
+      flex: 1 1 auto !important;
+    }
+  }
+}
+
 .u-flex-wrap {
-  flex-wrap: wrap;
+  flex-wrap: wrap !important;
 }
 
 .u-flex-no-wrap {
-  flex-wrap: nowrap;
+  flex-wrap: nowrap !important;
 }

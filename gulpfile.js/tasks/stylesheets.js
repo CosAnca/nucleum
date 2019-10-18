@@ -7,13 +7,15 @@ const gulp = require("gulp");
 const gulpif = require("gulp-if");
 const browserSync = require("browser-sync");
 const sass = require("gulp-sass");
+const sassLint = require("gulp-sass-lint");
 const sourcemaps = require("gulp-sourcemaps");
-const handleErrors = require("../lib/handleErrors");
-const projectPath = require("../lib/projectPath");
+const handleErrors = require("../lib/handle-errors");
+const projectPath = require("../lib/project-path");
 const postcss = require("gulp-postcss");
 const cssnano = require("cssnano");
 const postcssPresetEnv = require("postcss-preset-env");
 const postcssNormalize = require("postcss-normalize");
+const postcssSVG = require("postcss-svg");
 const purgecss = require("@fullhuman/postcss-purgecss");
 
 function stylesheetsTask() {
@@ -45,6 +47,8 @@ function stylesheetsTask() {
   const postcssPresetEnvConfig = TASK_CONFIG.stylesheets.presetEnv || {};
   postcssPresetEnvConfig.stage = postcssPresetEnvConfig.stage || 0;
 
+  const postcssSVGPath = projectPath(PATH_CONFIG.dest, PATH_CONFIG.images.dest);
+
   const cssnanoConfig = TASK_CONFIG.stylesheets.cssnano || {};
   cssnanoConfig.autoprefixer = false; // this should always be false, since we're autoprefixing separately
 
@@ -69,14 +73,25 @@ function stylesheetsTask() {
   const postCssPlugins = [
     postcssNormalize(postcssNormalizeConfig),
     postcssPresetEnv(postcssPresetEnvConfig),
+    postcssSVG({
+      dirs: postcssSVGPath
+    }),
     isProduction ? cssnano(cssnanoConfig) : false,
     isProduction && TASK_CONFIG.stylesheets.purgecss
       ? purgecss(purgecssConfig)
       : false
   ].filter(Boolean);
 
+  // Add defined plugins
+  if (TASK_CONFIG.stylesheets.postCssPlugins) {
+    postCssPlugins.concat(TASK_CONFIG.stylesheets.postCssPlugins || []);
+  }
+
   return gulp
     .src(paths.src)
+    .pipe(sassLint())
+    .pipe(sassLint.format())
+    .pipe(sassLint.failOnError())
     .pipe(gulpif(!global.production, sourcemaps.init()))
     .pipe(sass(TASK_CONFIG.stylesheets.sass))
     .on("error", handleErrors)

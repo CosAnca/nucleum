@@ -17,6 +17,12 @@
     "dest": "style"
   },
 
+  "criticalCss": {
+    "siteUrl": "http://localhost",
+    "src": "",
+    "dest": "style/critical"
+  },
+
   "images": {
     "src": "img",
     "dest": "img"

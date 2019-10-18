@@ -1,10 +1,10 @@
 /* global PATH_CONFIG, TASK_CONFIG */
 const gulp = require("gulp");
 const path = require("path");
-const projectPath = require("../lib/projectPath");
+const projectPath = require("../lib/project-path");
 const watch = require("gulp-watch");
 
-function watchTask() {
+function watchTask(cb) {
   const watchableTasks = [
     "fonts",
     "images",
@@ -50,6 +50,7 @@ function watchTask() {
       });
     }
   });
+  cb();
 }
 
 watchTask.displayName = "watch";
