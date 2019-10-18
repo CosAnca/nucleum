@@ -23,13 +23,14 @@ function productionTask(cb) {
   const tasks = getEnabledTasks("production");
   const rev = TASK_CONFIG.production.rev ? "rev" : [];
   const static = TASK_CONFIG.static ? "static" : [];
+  const criticalCss = TASK_CONFIG.stylesheets.criticalCss ? "criticalCss" : [];
   const { prebuild, postbuild } = TASK_CONFIG.additionalTasks.production;
 
   return gulp.series(
     prebuild,
     gulp.parallel(tasks.assetTasks),
     gulp.parallel(tasks.codeTasks),
-    "criticalCss",
+    criticalCss,
     rev,
     "size-report",
     static,
