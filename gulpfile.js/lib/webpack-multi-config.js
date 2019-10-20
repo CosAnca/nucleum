@@ -41,10 +41,7 @@ module.exports = function(env) {
     entry: TASK_CONFIG.javascripts.entry,
     mode: process.env.BABEL_ENV,
     module: {
-      rules: [
-        TASK_CONFIG.javascripts.eslintLoader,
-        TASK_CONFIG.javascripts.babelLoader
-      ]
+      rules: [TASK_CONFIG.javascripts.babelLoader]
     },
     optimization: {
       minimizer: []

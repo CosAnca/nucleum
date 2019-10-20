@@ -1,6 +1,6 @@
 {
   "name": "nucleum",
-  "version": "2.4.2",
+  "version": "2.4.3",
   "description": "A performance oriented web starter kit",
   "license": "MIT",
   "engines": {
@@ -86,7 +86,7 @@
   },
   "devDependencies": {
     "chai": "^4.2.0",
-    "mocha": "6.2.1"
+    "mocha": "6.2.2"
   },
   "resolutions": {
     "graceful-fs": "^4.1.11"

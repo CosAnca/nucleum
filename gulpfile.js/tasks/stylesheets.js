@@ -7,7 +7,6 @@ const gulp = require("gulp");
 const gulpif = require("gulp-if");
 const browserSync = require("browser-sync");
 const sass = require("gulp-sass");
-const sassLint = require("gulp-sass-lint");
 const sourcemaps = require("gulp-sourcemaps");
 const handleErrors = require("../lib/handle-errors");
 const projectPath = require("../lib/project-path");
@@ -87,17 +86,8 @@ function stylesheetsTask() {
     postCssPlugins.concat(TASK_CONFIG.stylesheets.postCssPlugins || []);
   }
 
-  const sassLintConfigFile = projectPath(".sass-lint.yml");
-
   return gulp
     .src(paths.src)
-    .pipe(
-      sassLint({
-        configFile: sassLintConfigFile
-      })
-    )
-    .pipe(sassLint.format())
-    .pipe(sassLint.failOnError())
     .pipe(gulpif(!global.production, sourcemaps.init()))
     .pipe(sass(TASK_CONFIG.stylesheets.sass))
     .on("error", handleErrors)
