@@ -12,7 +12,7 @@ function criticalCssTask(cb) {
   const pages = TASK_CONFIG.stylesheets.criticalCss.pages || [];
   const config = TASK_CONFIG.stylesheets.criticalCss.config || {};
   const paths = {
-    siteUrl: projectPath(PATH_CONFIG.criticalCss.siteUrl),
+    siteUrl: PATH_CONFIG.criticalCss.siteUrl,
     src: projectPath(PATH_CONFIG.dest, PATH_CONFIG.criticalCss.src),
     dest: projectPath(PATH_CONFIG.dest, PATH_CONFIG.criticalCss.dest)
   };
