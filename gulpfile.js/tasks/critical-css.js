@@ -1,4 +1,4 @@
-/* global PATH_CONFIG TASK_CONFIG */
+/* global TASK_CONFIG */
 if (!TASK_CONFIG.stylesheets.criticalCss) {
   return;
 }
@@ -9,33 +9,36 @@ const critical = require("critical");
 const projectPath = require("../lib/project-path");
 
 function criticalCssTask(cb) {
+  const siteUrl = TASK_CONFIG.stylesheets.criticalCss.siteUrl || "";
   const pages = TASK_CONFIG.stylesheets.criticalCss.pages || [];
   const config = TASK_CONFIG.stylesheets.criticalCss.config || {};
   const paths = {
-    siteUrl: PATH_CONFIG.criticalCss.siteUrl,
-    src: projectPath(PATH_CONFIG.dest, PATH_CONFIG.criticalCss.src),
-    dest: projectPath(PATH_CONFIG.dest, PATH_CONFIG.criticalCss.dest)
+    src: projectPath(TASK_CONFIG.stylesheets.criticalCss.src),
+    dest: projectPath(TASK_CONFIG.stylesheets.criticalCss.dest)
   };
+
+  console.log(paths.src);
+  console.log(paths.dest);
 
   if (pages.length) {
     return pages.map(page => {
-      config.src = paths.siteUrl + page.url;
+      config.src = siteUrl + page.url;
       config.dest = paths.dest + "/" + page.template + "-critical.css";
 
       return critical.generate(config, err => {
         if (err) {
-          handleErrors;
+          handleErrors(err);
         }
         cb();
       });
     });
-  } else {
-    return gulp
-      .src(paths.src)
-      .pipe(critical.stream(config))
-      .on("error", handleErrors)
-      .pipe(gulp.dest(paths.dest));
   }
+
+  return gulp
+    .src(paths.src)
+    .pipe(critical.stream(config))
+    .on("error", handleErrors)
+    .pipe(gulp.dest(paths.dest));
 }
 
 criticalCssTask.displayName = "criticalCss";

@@ -22,12 +22,6 @@
     "dest": "style"
   },
 
-  "criticalCss": {
-    "siteUrl": "",
-    "src": "./**/*.html",
-    "dest": "./"
-  },
-
   "images": {
     "src": "img",
     "dest": "img"
