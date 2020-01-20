@@ -6,6 +6,7 @@ module.exports = {
   svgSprite: true,
   stylesheets: {
     criticalCss: {
+      siteUrl: "",
       config: {
         base: "./public",
         inline: true,

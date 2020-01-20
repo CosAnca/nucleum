@@ -23,7 +23,6 @@
   },
 
   "criticalCss": {
-    "siteUrl": "",
     "src": "./**/*.html",
     "dest": "./"
   },
