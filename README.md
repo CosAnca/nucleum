@@ -355,9 +355,7 @@ Allows passing extra postcss plugins into the pipeline.
 
 ```js
 stylesheets: {
-  postCssPlugins: [
-    pluginName(pluginConfig)
-  ]
+  postCssPlugins: [pluginName(pluginConfig)];
 }
 ```
 
@@ -380,7 +378,6 @@ There are two ways of generating critical CSS.
 ```js
 // path-config.json
 "criticalCss": {
-  "siteUrl": "",
   "src": "./**/*.html",
   "dest": "./"
 }
@@ -389,6 +386,7 @@ There are two ways of generating critical CSS.
 ```js
 // task-config.js
 criticalCss: {
+  siteUrl: "",
   config: {
     // ...critical options
     base: "./public",
@@ -403,7 +401,6 @@ criticalCss: {
 ```js
 // path-config.json
 "criticalCss": {
-  "siteUrl": "http://localhost",
   "src": "", // this should be empty because the src is set per page in task-config.js
   "dest": "style/critical"
 }
@@ -412,6 +409,7 @@ criticalCss: {
 ```js
 // task-config.js
 criticalCss: {
+  siteUrl: "http://localhost",
   config: {
     // ...critical options
     base: "./public",
@@ -539,7 +537,7 @@ In our SCSS file, when we need an inline icon we can just reference the symbol i
 
 ```scss
 .icon {
-  background-image: url("icons#icon-info" param(--icon-fill-color color("success")));
+  background-image: url("icons#icon-info"param(--icon-fill-color color("success")));
 }
 ```
 
@@ -627,16 +625,16 @@ JS files are compiled and live-update via BrowserSync + WebpackDevMiddleware + W
 
 Gulp tasks! Built combining the following:
 
-| Feature               | Packages Used                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| --------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Feature               | Packages Used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| --------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **CSS**               | [Sass](http://sass-lang.com/) ([Libsass](http://sass-lang.com/libsass) via [node-sass](https://github.com/sass/node-sass)), [PostCSS](https://github.com/postcss/postcss) with [postcss-preset-env](https://github.com/csstools/postcss-preset-env), [purgecss](https://github.com/FullHuman/purgecss), [postcss-normalize](https://github.com/csstools/postcss-normalize), [cssnano](https://github.com/cssnano/cssnano), [postcssSVG](https://github.com/jonathantneal/postcss-svg), Source Maps |
-| **JavaScript**        | [Babel](http://babeljs.io/), [babel-preset-env](https://babeljs.io/docs/en/babel-preset-env), [Webpack](https://webpack.js.org/)                                                                                                                                                                                                                                                                                                       |
-| **HTML**              | [Pug](https://pugjs.org/api/getting-started.html), [gulp-data](https://github.com/colynb/gulp-data)                                                                                                                                                                                                                                                                                                                                    |
-| **Icons**             | Auto-generated [SVG Sprites](https://github.com/w0rm/gulp-svgstore)                                                                                                                                                                                                                                                                                                                                                                    |
-| **Live Updating**     | [BrowserSync](http://www.browsersync.io/),                                                                                                                                                                                                                                                                                                                                                                                             |
-|                       | [Webpack Dev Middleware](https://github.com/webpack/webpack-dev-middleware),                                                                                                                                                                                                                                                                                                                                                           |
-|                       | [Webpack Hot Middleware](https://github.com/glenjamin/webpack-hot-middleware)                                                                                                                                                                                                                                                                                                                                                          |
-| **Production Builds** | CSS is [minified](http://cssnano.co/) and [purged](https://www.purgecss.com/), JS is compressed and optimized with various Webpack plugins, [filename md5 hashing (reving)](https://github.com/sindresorhus/gulp-rev), [file size reporting](https://github.com/jaysalvat/gulp-sizereport).                                                                                                                                            |
+| **JavaScript**        | [Babel](http://babeljs.io/), [babel-preset-env](https://babeljs.io/docs/en/babel-preset-env), [Webpack](https://webpack.js.org/)                                                                                                                                                                                                                                                                                                                                                                   |
+| **HTML**              | [Pug](https://pugjs.org/api/getting-started.html), [gulp-data](https://github.com/colynb/gulp-data)                                                                                                                                                                                                                                                                                                                                                                                                |
+| **Icons**             | Auto-generated [SVG Sprites](https://github.com/w0rm/gulp-svgstore)                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| **Live Updating**     | [BrowserSync](http://www.browsersync.io/),                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+|                       | [Webpack Dev Middleware](https://github.com/webpack/webpack-dev-middleware),                                                                                                                                                                                                                                                                                                                                                                                                                       |
+|                       | [Webpack Hot Middleware](https://github.com/glenjamin/webpack-hot-middleware)                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| **Production Builds** | CSS is [minified](http://cssnano.co/) and [purged](https://www.purgecss.com/), JS is compressed and optimized with various Webpack plugins, [filename md5 hashing (reving)](https://github.com/sindresorhus/gulp-rev), [file size reporting](https://github.com/jaysalvat/gulp-sizereport).                                                                                                                                                                                                        |
 
 Extras:
 
