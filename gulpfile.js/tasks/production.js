@@ -14,7 +14,7 @@ function productionTask(cb) {
   PATH_CONFIG.finalDest = PATH_CONFIG.dest;
   PATH_CONFIG.dest = PATH_CONFIG.temp
     ? projectPath(PATH_CONFIG.temp)
-    : path.join(os.tmpdir(), "gulp-starter");
+    : path.join(os.tmpdir(), "nucleum");
 
   // Make sure the temp directory exists and is empty
   del.sync(PATH_CONFIG.dest, { force: true });

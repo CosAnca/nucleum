@@ -7,8 +7,6 @@ module.exports = {
   stylesheets: {
     criticalCss: {
       siteUrl: "",
-      src: "./**/*.html",
-      dest: "./",
       config: {
         base: "./public",
         inline: true,

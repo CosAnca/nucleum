@@ -51,19 +51,17 @@ function stylesheetsTask() {
   const cssnanoConfig = TASK_CONFIG.stylesheets.cssnano || {};
   cssnanoConfig.autoprefixer = false; // this should always be false, since we're autoprefixing separately
 
-  class NucleumPurgeCSS {
-    static extract(content) {
-      // eslint-disable-next-line no-useless-escape
-      return content.match(/[A-z0-9@\-\:\/]+/g) || [];
-    }
-  }
+  const nucleumPurgeCSS = content => {
+    // eslint-disable-next-line no-useless-escape
+    return content.match(/[A-z0-9@\-\:\/]+/g) || [];
+  };
 
   const purgecssConfig = TASK_CONFIG.stylesheets.purgecss || {};
 
   if (TASK_CONFIG.stylesheets.purgecss) {
     purgecssConfig.extractors = [
       {
-        extractor: NucleumPurgeCSS,
+        extractor: nucleumPurgeCSS,
         extensions: TASK_CONFIG.stylesheets.purgecss.extensions
       }
     ];

@@ -22,6 +22,11 @@
     "dest": "style"
   },
 
+  "criticalCss": {
+    "src": "./**/*.html",
+    "dest": "./"
+  },
+
   "images": {
     "src": "img",
     "dest": "img"
