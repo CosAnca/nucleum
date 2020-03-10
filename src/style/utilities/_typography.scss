@@ -7,7 +7,8 @@
 // Text alignment utilities
 // ==============================================
 
-// sass-lint:disable no-important
+// stylelint-disable declaration-no-important
+
 $text-alignments: (left, center, right, justify);
 
 // Generate general use text alignment classes

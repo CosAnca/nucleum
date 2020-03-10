@@ -2,8 +2,6 @@
 // TOOLS / MIXINS
 // =============================================================================
 
-// sass-lint:disable no-warn
-
 // @include focus-styles()
 // ==============================================
 
@@ -38,7 +36,7 @@
 // Visually hide content, leaving it accessible to screenreaders and ATs.
 // http://snook.ca/archives/html_and_css/hiding-content-for-accessibility
 
-// sass-lint:disable no-important
+// stylelint-disable declaration-no-important
 
 @mixin hide-visually {
   // Hiding elements visually overrides any matching property declarations
@@ -47,10 +45,10 @@
   height: 1px !important;
   margin: -1px !important;
   padding: 0 !important;
-  border: 0 !important;
-  white-space: nowrap !important;
   overflow: hidden !important;
   clip: rect(0 0 0 0) !important;
+  border: 0 !important;
+  white-space: nowrap !important;
 }
 
 // Completely hide content both visually from the screen, and from screenreaders
@@ -60,14 +58,12 @@
   display: none !important;
 }
 
-// sass-lint:enable no-important
+// stylelint-enable declaration-no-important
 
 // Font smoothing
 // ==============
 
 // Controls the application of anti-aliasing when fonts are rendered on mac OS.
-
-// sass-lint:disable no-vendor-prefixes
 
 @mixin font-smoothing($value: antialiased) {
   @if $value == antialiased {
@@ -78,8 +74,6 @@
     -moz-osx-font-smoothing: auto;
   }
 }
-
-// sass-lint:enable no-vendor-prefixes
 
 // Centerer
 @mixin centerer($horizontal: true, $vertical: true) {
@@ -102,7 +96,7 @@
 @mixin overlay($color) {
   &::before {
     @include position(absolute, 0 0 0 0);
-    background-color: $color;
     content: "";
+    background-color: $color;
   }
 }

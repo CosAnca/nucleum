@@ -4,16 +4,9 @@
 
 // Generate a suite of utility classes for box model display property.
 
-// sass-lint:disable no-important
+// stylelint-disable declaration-no-important
 
-// prettier-ignore
-$display-values: (
-  block,
-  inline-block,
-  flex,
-  inline-flex,
-  none
-);
+$display-values: (block, inline-block, flex, inline-flex, none);
 
 $breakpoint-separator: \@ !default;
 

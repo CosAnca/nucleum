@@ -36,40 +36,6 @@
   @return true;
 }
 
-// font-family()
-// ------------------------------------
-
-// Function to get font-family instead of using `map-get`.
-// Function to get font-family from `$global-font-families` instead of using `map-get`.
-@function font-family($key) {
-  @return map-get-deep($global-font-families, $key);
-}
-
-// font-size()
-// ------------------------------------
-
-// Function to get font-size instead of using `map-get`.
-// Function to get font-size from `$text` instead of using `map-get`.
-@function font-size($key, $variant: large) {
-  @return map-get-deep($text, $key, $variant, font-size);
-}
-
-// font-weight()
-// ------------------------------------
-
-// Function to get font-weight instead of using `map-get`.
-// Function to get font-weight from `$text` instead of using `map-get`.
-@function font-weight($key) {
-  @return map-get-deep($font-weights, $key);
-}
-
-// line-height()
-// ------------------------------------
-// Function to get line-height from `$text` instead of using `map-get`.
-@function line-height($key, $variant: large) {
-  @return map-get-deep($text, $key, $variant, line-height);
-}
-
 // spacing()
 // ------------------------------------
 // Function to get spacing from $global-spacing-scale instead of using `map-get`.

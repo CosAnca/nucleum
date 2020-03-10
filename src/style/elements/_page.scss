@@ -19,10 +19,10 @@
 html {
   @include font-smoothing; // [1]
   min-height: 100%; // [3]
+  overflow-x: hidden; // [6]
+  overflow-y: scroll; // [5]
   color: color("gray-700");
   font-family: $global-font-family;
   font-size: convert-to-em($global-font-size); // [4]
   line-height: $global-line-height; // [4]
-  overflow-y: scroll; // [5]
-  overflow-x: hidden; // [6]
 }

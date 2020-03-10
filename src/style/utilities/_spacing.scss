@@ -5,31 +5,31 @@
 // Utility classes to put specific spacing values onto elements, overriding any
 // existing matching property declarations
 //
-// sass-lint:disable no-important
+// stylelint-disable declaration-no-important
 
 // Settings
 // ==============================================
 
 // prettier-ignore
 $spacing-properties: (
-  m: margin,
-  p: padding,
+  "m": margin,
+  "p": padding,
 );
 
 // prettier-ignore
 $spacing-directions: (
-  null: null,
-  t: top,
-  r: right,
-  b: bottom,
-  l: left,
-  x: (
-    l: left,
-    r: right,
+  "null": null,
+  "t": top,
+  "r": right,
+  "b": bottom,
+  "l": left,
+  "x": (
+    "l": left,
+    "r": right,
   ),
-  y: (
-    t: top,
-    b: bottom
+  "y": (
+    "t": top,
+    "b": bottom
   )
 );
 
@@ -48,7 +48,7 @@ $spacing-directions: (
   // If we have a `null` direction, the implication is that we want to use the
   // respective property on "all" sides.
   // This can be used as `.u-m` or `.u-p`.
-  @if ($direction-alias == null) {
+  @if ($direction-alias == "null") {
     .u-#{$property-alias}-#{$size}#{$breakpoint} {
       @content;
     }

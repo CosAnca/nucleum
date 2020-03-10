@@ -17,6 +17,6 @@ $grid-columns: 12;
 $grid-gutter: 1.5rem;
 
 $adaptable-grid: (
-  columns: $grid-columns,
-  gutter: $grid-gutter
+  "columns": $grid-columns,
+  "gutter": $grid-gutter
 );

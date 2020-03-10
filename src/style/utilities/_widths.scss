@@ -12,7 +12,7 @@
 // .u-push-2/3          -- Push an item over to the right by two thirds
 // .u-pull-1/2@large    -- Pull an item back to the left by half
 
-// sass-lint:disable no-important
+// stylelint-disable declaration-no-important
 // prettier-ignore
 
 @mixin _build-widths($breakpoint: null) {
