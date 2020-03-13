@@ -1,6 +1,6 @@
-// =============================================================================
+// ==========================================================================
 // UTILITIES / DISPLAY
-// =============================================================================
+// ==========================================================================
 
 // Generate a suite of utility classes for box model display property.
 
@@ -8,28 +8,29 @@
 
 // prettier-ignore
 $display-values: (
+  none,
   block,
   inline-block,
   flex,
   inline-flex,
-  none
+  table,
+  table-row,
+  table-cell
 );
 
-$breakpoint-separator: \@ !default;
-
-@each $value in $display-values {
-  .u-#{if($value == "none", "hide", $value)} {
-    display: $value !important;
+@mixin _build-display($breakpoint: null) {
+  @each $value in $display-values {
+    .u-#{if($value == "none", "hide", $value)}#{$breakpoint} {
+      display: $value !important;
+    }
   }
 }
 
-// Loop through all breakpoints to get their values.
+@include _build-display;
+
+// Create box model display classes for each breakpoint
 @each $breakpoint, $value in $mq-breakpoints {
-  @each $value in $display-values {
-    .u-#{if($value == "none", "hide", $value)}#{$breakpoint-separator}#{$breakpoint} {
-      @include mq($from: $breakpoint) {
-        display: $value !important;
-      }
-    }
+  @include mq($from: $breakpoint) {
+    @include _build-display(\@#{$breakpoint});
   }
 }

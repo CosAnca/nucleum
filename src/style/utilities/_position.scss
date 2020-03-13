@@ -1,29 +1,30 @@
-// =============================================================================
+// ==========================================================================
 // UTILITIES / POSITION
-// =============================================================================
+// ==========================================================================
 
-// Utility classes to position an element
-// sass-lint:disable no-important
+// Generate a suite of utility classes for position property.
 
-// Settings
-// ==============================================
+// prettier-ignore
+$position-values: (
+  static,
+  relative,
+  absolute,
+  sticky,
+  fixed
+);
 
-$positions: (static, relative, absolute, fixed, sticky);
-$breakpoint-separator: \@ !default;
-
-@each $position in $positions {
-  .u-#{$position} {
-    position: $position !important;
+@mixin _build-position($breakpoint: null) {
+  @each $value in $position-values {
+    .u-#{$value}#{$breakpoint} {
+      position: $value !important; // sass-lint:disable-line no-important
+    }
   }
 }
 
-// Loop through all breakpoints to get their values.
+@include _build-position;
+
 @each $breakpoint, $value in $mq-breakpoints {
-  @each $position in $positions {
-    .u-#{$position}#{$breakpoint-separator}#{$breakpoint} {
-      @include mq($from: $breakpoint) {
-        position: $position !important;
-      }
-    }
+  @include mq($from: $breakpoint) {
+    @include _build-position(\@#{$breakpoint});
   }
 }

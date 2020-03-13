@@ -10,30 +10,25 @@
 //   <div class="o-grid__item u-width-1/2@medium">...</div>
 //   <div class="o-grid__item u-width-1/2@medium">...</div>
 // </div>
-
-// Grid object creates a flexbox grid container using Adaptable grid-container
-// mixin
 //
-// @include grid-container;
+// Our grid object also consumes the gutters of its container to allow easier
+// grid nesting.
+//
+// Grid object creates a flexbox grid container using Adaptable grid-nest mixin.
+//
+// @include grid-nest;
 //
 // Output
 // .element {
 //   display: flex;
 //   flex-wrap: wrap;
+//   margin-left: -1.5rem; // $grid-gutter
+//   margin-right: -1.5rem; // $grid-gutter
+//   flex: 0 0 calc(100% + 3rem);
+//   max-width: calc(100% + 3rem);
 // }
 
 .o-grid {
-  @include grid-container;
-  margin-right: -$grid-gutter;
-  margin-left: -$grid-gutter;
-}
-
-// For full width or nested layouts, we have to create a collapsed grid object
-// that consumes the gutters of its container. We can achieve this using Adaptable's
-// built in mixin @grid-nest.
-
-.o-grid--flushed,
-.o-grid--nested {
   @include grid-nest;
 }
 
@@ -52,11 +47,15 @@
 
 .o-grid__item {
   @include grid-column;
+}
 
-  // To avoid adding complementary classes when nesting grids
-  // we automatically collapse the gutters of a nested grid
-  // object.
-  > .o-grid {
-    @include grid-nest;
+// Generate our regular, non-responsive classes.
+@include _build-grid-system;
+
+// Generate our responsive classes by looping over the series of breakpoints
+// held by $mq-breakpoints inside _breakpoint.scss file.
+@each $breakpoint, $value in $mq-breakpoints {
+  @include mq($from: $breakpoint) {
+    @include _build-grid-system(\@#{$breakpoint});
   }
 }

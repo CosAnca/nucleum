@@ -6,7 +6,7 @@
 
 $config: (
   env: dev,
-  debug: false
+  debug: true
 ) !default;
 
 // Little helper function to retreive information from our config array. E.g.:
