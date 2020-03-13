@@ -13,16 +13,27 @@
 // 5. Force scrollbars to always be visible to prevent awkward ‘jumps’ when
 //    navigating between pages that do/do not have enough content to produce
 //    scrollbars naturally.
-// 6. Prevent horizontal scrollbars showing up when children width is set
-//    to 100vw.
 
 html {
   @include font-smoothing; // [1]
   min-height: 100%; // [3]
-  overflow-x: hidden; // [6]
   overflow-y: scroll; // [5]
   color: color("gray-700");
   font-family: $global-font-family;
   font-size: convert-to-em($global-font-size); // [4]
   line-height: $global-line-height; // [4]
+}
+
+// Prevent content being ilegible with `dark-mode` enabled.
+
+body {
+  background-color: color("white");
+}
+
+// As browsers interpret `vw` differently, some of our full-width (`100vw`) UI
+// components cause unwanted horizontal scrolling.
+
+html,
+body {
+  overflow-x: hidden;
 }
