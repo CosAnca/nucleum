@@ -1,11 +1,12 @@
 // =============================================================================
-// UTILITIES / ASPECT RATIO
+// OBJECTS / ASPECT RATIO
 // =============================================================================
 //
-// Maintain aspect ratio of elements.
+// Forces elements to maintain their aspect ratio throughout different
+// viewport widths.
 
 // Base
-// ===========================================
+// ====================================
 
 .o-aspect-ratio {
   display: block;
@@ -14,7 +15,16 @@
   padding: 0;
   overflow: hidden;
 
-  > :first-child {
+  &::before {
+    content: "";
+    display: block;
+  }
+
+  .o-aspect-ratio__item,
+  iframe,
+  embed,
+  object,
+  video {
     @include position(absolute, 0 null 0 0);
     @include size(100%);
     border: 0;
@@ -22,28 +32,29 @@
   }
 }
 
-// Modifiers (Cosmetic)
-// ===========================================
+// Modifiers (Size)
+// ====================================
 
-.o-aspect-ratio--contain {
-  overflow: visible;
-
-  > :first-child {
-    object-fit: contain;
+.o-aspect-ratio--16\:9 {
+  &::before {
+    padding-top: percentage(9 / 16);
   }
 }
 
-// Modifiers (Size)
-// ===========================================
-
-.o-aspect-ratio--16\:9 {
-  padding-top: percentage(9 / 16);
+.o-aspect-ratio--4\:3 {
+  &::before {
+    padding-top: percentage(3 / 4);
+  }
 }
 
-.o-aspect-ratio--4\:3 {
-  padding-top: percentage(3 / 4);
+.o-aspect-ratio--3\:4 {
+  &::before {
+    padding-top: percentage(4 / 3);
+  }
 }
 
 .o-aspect-ratio--1\:1 {
-  padding-top: percentage(1 / 1);
+  &::before {
+    padding-top: percentage(1 / 1);
+  }
 }

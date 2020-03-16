@@ -31,7 +31,7 @@
     }
 
     // Build a class in the format `.u-push-1/3[@<breakpoint>]`.
-    .o-grid__item--col-start-#{$i}#{$breakpoint} {
+    .o-grid__item--offset-#{$i}-col#{$breakpoint} {
       @include grid-push($i of $grid-columns);
     }
   }

@@ -1,18 +1,18 @@
 // ==========================================================================
-// UTILITIES / BREAKOUT
+// OBJECTS / BREAKOUT
 // ==========================================================================
 //
 // Allows components to break out of their container and span across the
 // full width of the viewport.
 
 .o-breakout {
-  margin-right: calc(50% - 50vw); // [1]
-  margin-left: calc(50% - 50vw); // [1]
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
 }
 
 .o-breakout\@small {
   @include mq($until: medium) {
-    margin-right: calc(50% - 50vw); // [1]
-    margin-left: calc(50% - 50vw); // [1]
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
   }
 }

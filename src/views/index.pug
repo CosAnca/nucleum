@@ -5,25 +5,16 @@ block content
   // Site content
   main#main-content
     .o-container
-      h1.u-text-center Hello World
+      h1.u-text-center Nucleum Grid System
       .o-grid
         .o-grid__item.u-my-3.u-py-6.u-bg-gray-400
-        .o-grid__item.u-my-3.u-py-6.u-bg-gray-400(class="u-width-1/2")
-        .o-grid__item.u-my-3.u-py-6.u-bg-gray-400(class="u-width-1/2")
+        .o-grid__item.o-grid__item--span-6-col.u-my-3.u-py-6.u-bg-gray-400
+        .o-grid__item.u-my-3.u-py-6.u-bg-gray-400(class="o-grid__item--span-6-col@large")
           .o-grid
-            .o-grid__item.u-py-6.u-bg-gray-600(class="u-width-1/2")
-            .o-grid__item.u-py-6.u-bg-gray-600(class="u-width-1/2")
-    .o-container
-      h1.u-text-center New Grid System
-      .o-grid
-        .o-grid__item.u-my-3.u-py-6.u-bg-gray-400
-        .o-grid__item.u-my-3.u-py-6.u-bg-gray-400(class="o-grid__item--span-6-col")
-        .o-grid__item.u-my-3.u-py-6.u-bg-gray-400(class="o-grid__item--span-6-col")
-          .o-grid
-            .o-grid__item.u-py-6.u-bg-gray-600(class="o-grid__item--span-6-col")
-            .o-grid__item.u-py-6.u-bg-gray-600(class="o-grid__item--span-6-col")
-        .o-grid__item.u-my-3.u-py-3.u-bg-gray-400(class="o-grid__item--span-9-col")
+            .o-grid__item.o-grid__item--span-6-col.u-py-6.u-bg-gray-600
+            .o-grid__item.o-grid__item--span-6-col.u-py-6.u-bg-gray-600
+        .o-grid__item.u-my-3.u-py-3.u-bg-gray-400
           .o-grid
             .o-grid__item.u-my-3.u-py-6.u-bg-gray-600(class="o-grid__item--span-8-col o-grid__item--span-6-col@large")
             .o-grid__item.u-my-3.u-py-6.u-bg-gray-600(class="o-grid__item--span-4-col o-grid__item--span-6-col@large")
-            .o-grid__item.u-my-3.u-py-6.u-bg-gray-600(class="o-grid__item--span-6-col@large o-grid__item--col-start-3@large")
+            .o-grid__item.u-my-3.u-py-6.u-bg-gray-600(class="o-grid__item--span-6-col@large o-grid__item--offset-3-col@medium u-ml-6@large")

@@ -88,7 +88,7 @@
     "scss/selector-no-redundant-nesting-selector": true,
     "scss/selector-no-union-class-name": true,
     "selector-class-pattern": [
-      "^(?:(?:c|o|s|t|u|is|has)-|_)[a-z0-9\\@]+(?:-[a-z0-9\\/\\@]+)*(?:__[a-z0-9]+(?:-[a-z0-9]+)*)?(?:--[a-z0-9\\:\\/\\@]+(?:-[a-z0-9]+)*)?(?:\\[.+\\])?$",
+      "^(?:(?:c|o|s|t|u|is|has)-|_)[a-z0-9\\@]+(?:-[a-z0-9\\/\\@]+)*(?:__[a-z0-9]+(?:-[a-z0-9]+)*)?(?:--[a-z0-9\\:\\/\\@]+(?:-[a-z0-9\\@]+)*)?(?:\\[.+\\])?$",
       {
         "message": "Selector should be namespaced and written in lowercase hyphenated BEM. (selector-class-pattern)"
       }
