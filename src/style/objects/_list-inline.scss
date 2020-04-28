@@ -11,9 +11,12 @@
 }
 
 // [li]
-.o-list-inline__item:not(:last-child) {
+.o-list-inline__item {
   display: inline-block;
-  margin-right: spacing(6);
+
+  &:not(:last-child) {
+    margin-right: spacing(6);
+  }
 }
 
 // Modifiers
