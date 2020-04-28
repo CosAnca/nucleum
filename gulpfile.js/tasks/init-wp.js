@@ -30,11 +30,11 @@ function initWPTask() {
   // Setup the script rules
   pkg.scripts = {
     start: "yarn run nucleum",
-    build: "yarn run nucleum build"
+    build: "yarn run nucleum build",
   };
 
   // Setup browserslist config
-  pkg.browserslist = [">0.2%", "not dead", "not ie <= 11", "not op_mini all"];
+  pkg.browserslist = [">0.2%", "not dead", "ie >= 11", "not op_mini all"];
 
   // Update the package.json file
   fs.writeFileSync(
