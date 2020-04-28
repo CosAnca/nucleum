@@ -19,6 +19,11 @@ function initTask() {
     .pipe(rename(".gitignore"))
     .pipe(gulp.dest(projectPath()));
 
+  const renameEditorConfig = gulp
+    .src(["extras/dotfiles/editorconfig.txt"])
+    .pipe(rename(".editorconfig"))
+    .pipe(gulp.dest(projectPath()));
+
   const configStream = gulp
     .src(["gulpfile.js/path-config.json", "gulpfile.js/task-config.js"])
     .pipe(gulp.dest(projectPath("config")));
@@ -52,7 +57,13 @@ function initTask() {
   `)
   );
 
-  return merge(dotfilesStream, renameGitIgnore, configStream, srcStream);
+  return merge(
+    dotfilesStream,
+    renameGitIgnore,
+    renameEditorConfig,
+    configStream,
+    srcStream
+  );
 }
 
 initTask.displayName = "init";
