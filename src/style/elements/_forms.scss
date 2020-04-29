@@ -2,11 +2,16 @@
 // ELEMENTS / FORMS
 // =============================================================================
 
-// Semantically, we’d like all forms to be built with FIELDSETs and LEGENDs, but
-//  we don’t want to visually see them.
+// Semantically, we’d like all forms to be built with FIELDSETs but we don't
+// want to visually see them.
+
+// 1. Reset Chrome and Firefox behaviour which sets a `min-width: min-content;`
+//    on fieldsets.
+// 2. Remove default border.
 
 fieldset {
-  border: 0;
+  min-width: 0; // [1]
+  border: 0; // [2]
 }
 
 // Make sure our form elements don’t use any UA-specific font styles: we want

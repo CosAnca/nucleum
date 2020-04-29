@@ -105,23 +105,28 @@
 
 // Objects
 @import "objects/container";
+@import "objects/flow";
 @import "objects/grid";
+@import "objects/icons";
 @import "objects/media";
 @import "objects/tables";
 @import "objects/list-bare";
 @import "objects/list-block";
 @import "objects/list-inline";
+@import "objects/aspect-ratio";
+@import "objects/breakout";
 
 // Components
 @import "components/all";
 
 // Utilities
-@import "utilities/clearfix";
 @import "utilities/colors";
 @import "utilities/display";
+@import "utilities/flex";
+@import "utilities/generic";
 @import "utilities/position";
 @import "utilities/screenreaders";
+@import "utilities/sizing";
 @import "utilities/spacing";
 @import "utilities/typography";
 @import "utilities/vertical-align";
-@import "utilities/widths";

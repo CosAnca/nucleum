@@ -11,28 +11,31 @@ module.exports = {
         base: "./public",
         inline: true,
         width: 1200,
-        height: 1200
-      }
-    }
+        height: 1200,
+      },
+    },
+    purgecss: {
+      content: ["./src/views/**/*.pug"],
+    },
   },
 
   javascripts: {
     entry: {
       // files paths are relative to
       // javascripts.dest in path-config.json
-      app: ["./app.js"]
-    }
+      app: ["./app.js"],
+    },
   },
 
   browserSync: {
     server: {
       // should match `dest` in
       // path-config.json
-      baseDir: "public"
-    }
+      baseDir: "public",
+    },
   },
 
   production: {
-    rev: true
-  }
+    rev: true,
+  },
 };

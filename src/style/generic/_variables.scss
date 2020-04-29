@@ -12,6 +12,6 @@
 
   // Spacing
   @each $spacing, $value in $global-spacing {
-    #{--spacing}-#{$spacing}: $value;
+    #{--spacing}-#{$spacing}: if($value == 0, $value, convert-to-rem($value));
   }
 }

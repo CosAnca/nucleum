@@ -1,0 +1,60 @@
+// =============================================================================
+// OBJECTS / ASPECT RATIO
+// =============================================================================
+//
+// Forces elements to maintain their aspect ratio throughout different
+// viewport widths.
+
+// Base
+// ====================================
+
+.o-aspect-ratio {
+  display: block;
+  position: relative;
+  width: 100%;
+  padding: 0;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    display: block;
+  }
+
+  .o-aspect-ratio__item,
+  iframe,
+  embed,
+  object,
+  video {
+    @include position(absolute, 0 null 0 0);
+    @include size(100%);
+    border: 0;
+    object-fit: cover;
+  }
+}
+
+// Modifiers (Size)
+// ====================================
+
+.o-aspect-ratio--16\:9 {
+  &::before {
+    padding-top: percentage(9 / 16);
+  }
+}
+
+.o-aspect-ratio--4\:3 {
+  &::before {
+    padding-top: percentage(3 / 4);
+  }
+}
+
+.o-aspect-ratio--3\:4 {
+  &::before {
+    padding-top: percentage(4 / 3);
+  }
+}
+
+.o-aspect-ratio--1\:1 {
+  &::before {
+    padding-top: percentage(1 / 1);
+  }
+}

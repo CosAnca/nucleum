@@ -27,7 +27,7 @@ function stylesheetsTask() {
       PATH_CONFIG.stylesheets.src,
       "**/*.{" + TASK_CONFIG.stylesheets.extensions + "}"
     ),
-    dest: projectPath(PATH_CONFIG.dest, PATH_CONFIG.stylesheets.dest)
+    dest: projectPath(PATH_CONFIG.dest, PATH_CONFIG.stylesheets.dest),
   };
 
   if (
@@ -35,7 +35,7 @@ function stylesheetsTask() {
     TASK_CONFIG.stylesheets.sass.includePaths
   ) {
     TASK_CONFIG.stylesheets.sass.includePaths = TASK_CONFIG.stylesheets.sass.includePaths.map(
-      function(includePath) {
+      function (includePath) {
         return projectPath(includePath);
       }
     );
@@ -51,7 +51,7 @@ function stylesheetsTask() {
   const cssnanoConfig = TASK_CONFIG.stylesheets.cssnano || {};
   cssnanoConfig.autoprefixer = false; // this should always be false, since we're autoprefixing separately
 
-  const nucleumPurgeCSS = content => {
+  const nucleumPurgeCssDefaultExtractor = (content) => {
     // eslint-disable-next-line no-useless-escape
     return content.match(/[A-z0-9@\-\:\/]+/g) || [];
   };
@@ -59,24 +59,19 @@ function stylesheetsTask() {
   const purgecssConfig = TASK_CONFIG.stylesheets.purgecss || {};
 
   if (TASK_CONFIG.stylesheets.purgecss) {
-    purgecssConfig.extractors = [
-      {
-        extractor: nucleumPurgeCSS,
-        extensions: TASK_CONFIG.stylesheets.purgecss.extensions
-      }
-    ];
+    purgecssConfig.defaultExtractor = nucleumPurgeCssDefaultExtractor;
   }
 
   const postCssPlugins = [
     postcssNormalize(postcssNormalizeConfig),
     postcssPresetEnv(postcssPresetEnvConfig),
     postcssSVG({
-      dirs: postcssSVGPath
+      dirs: postcssSVGPath,
     }),
     isProduction ? cssnano(cssnanoConfig) : false,
     isProduction && TASK_CONFIG.stylesheets.purgecss
       ? purgecss(purgecssConfig)
-      : false
+      : false,
   ].filter(Boolean);
 
   // Add defined plugins

@@ -19,6 +19,11 @@ function initTask() {
     .pipe(rename(".gitignore"))
     .pipe(gulp.dest(projectPath()));
 
+  const renameEditorConfig = gulp
+    .src(["extras/dotfiles/editorconfig.txt"])
+    .pipe(rename(".editorconfig"))
+    .pipe(gulp.dest(projectPath()));
+
   const configStream = gulp
     .src(["gulpfile.js/path-config.json", "gulpfile.js/task-config.js"])
     .pipe(gulp.dest(projectPath("config")));
@@ -30,11 +35,11 @@ function initTask() {
   // Setup the script rules
   pkg.scripts = {
     start: "yarn run nucleum",
-    build: "yarn run nucleum build"
+    build: "yarn run nucleum build",
   };
 
   // Setup browserslist config
-  pkg.browserslist = [">0.2%", "not dead", "not ie <= 11", "not op_mini all"];
+  pkg.browserslist = [">0.2%", "not dead", "ie >= 11", "not op_mini all"];
 
   // Update the package.json file
   fs.writeFileSync(
@@ -52,7 +57,13 @@ function initTask() {
   `)
   );
 
-  return merge(dotfilesStream, renameGitIgnore, configStream, srcStream);
+  return merge(
+    dotfilesStream,
+    renameGitIgnore,
+    renameEditorConfig,
+    configStream,
+    srcStream
+  );
 }
 
 initTask.displayName = "init";

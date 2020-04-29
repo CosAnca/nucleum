@@ -48,7 +48,7 @@ and also adds a `browserslist` configuration that you can customize based on you
 "browserslist": [
   ">0.2%",
   "not dead",
-  "not ie <= 11",
+  "ie >= 11",
   "not op_mini all"
 ]
 ```
@@ -328,7 +328,8 @@ stylesheets: {
 
 #### `normalize`
 
-[PostCSS Normalize](https://github.com/csstools/postcss-normalize) lets you use the parts of normalize.css you need from your `browserslist`. Please read more about postcssNormalize configuration option on their repo page https://github.com/csstools/postcss-normalize#options. By default the `forceImport` option is set to `true` in Nucleum, so we don't have to specifically include the library at the beginning of our sass file.
+[PostCSS Normalize](https://github.com/csstools/postcss-normalize) lets you use the parts of normalize.css you need from your `browserslist`. Please read more about postcssNormalize configuration option on their repo page https://github.com/csstools/postcss-normalize#options.
+By default this option is disabled in Nucleum but you can enable it either by setting the `forceImport` option to `true` under `stylesheets.normalize` object in task-config.js without having to specifically include the library at the beginning of our sass file, or by importing the library in your main sass file.
 
 #### `cssnano`
 
@@ -341,8 +342,8 @@ stylesheets: {
 ```js
 stylesheets: {
   purgecss: {
-    content: ["../views/**/*.pug"], // the path should be relative to your src stylesheet file
-    extensions: ["pug"] // this will be assigned to the built-in extractor extensions object
+    content: ["./src/views/**/*.pug"], // the path should be absolute (you may need to use `path.resolve()`)
+    // extra configuration (check the options in their documentation)
   }
 }
 ```
@@ -520,7 +521,25 @@ In the following example, the first path will be `red`, the second will be `whit
 
 Make sure you draw your SVGs on a square (500 x 500) canvas, center your artwork, and expanding/combining any shapes of the same color. This last step is important.
 
-We also include [postcss-svg](https://github.com/jonathantneal/postcss-svg) which allows us to inline SVGs (encoded) in out CSS code.
+We also include [postcss-svg](https://github.com/jonathantneal/postcss-svg) which automatically encodes SVGs referenced through `url("../path/to/file.svg")` in our CSS files.
+
+Example:
+
+```scss
+.element {
+  background-image: url("../img/logo.svg");
+}
+```
+
+The above will output:
+
+```css
+.element {
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' ...");
+}
+```
+
+We can also set the fill color of the encoded SVG using custom properties in our SVGs markup.
 
 To use this option make sure the `<path/>` styles are not set with individual attributes (like `fill="currentColor"` or `fill="red"`) but within a single `style` attribute, like so:
 
@@ -533,7 +552,7 @@ To use this option make sure the `<path/>` styles are not set with individual at
 
 The first `fill` property is a fallback for Internet Explorer while the second one is picked up by browsers that support CSS Custom Properties (CSS Variables).
 
-In our SCSS file, when we need an inline icon we can just reference the symbol id from the SVG sprite, like this:
+In our SCSS file, when we need an inline icon we can just reference the symbol id from the SVG sprite or the SVG file path, like this:
 
 ```scss
 .icon {
@@ -574,12 +593,12 @@ additionalTasks: {
     // Add gulp tasks here
   },
   development: {
-    prebuild: null,
-    postbuild: null
+    prebuild: [],
+    postbuild: []
   },
   production: {
-    prebuild: null,
-    postbuild: null
+    prebuild: [],
+    postbuild: []
   }
 }
 ```
@@ -600,7 +619,7 @@ additionalTasks: {
   },
   development: {
     prebuild: ["createPngSprite"],
-    postbuild: null
+    postbuild: []
   },
   production: {
     prebuild: ["createPngSprite"],
