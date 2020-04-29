@@ -12,16 +12,6 @@
   $visual-grid-color: #00d4ff;
   $visual-grid-opacity: 0.3;
 
-  // Warn when trying to manipulate layout items in grids that are
-  // already reversed.
-
-  .o-grid--reverse {
-    > [class*="u-push"],
-    > [class*="u-pull"] {
-      outline: 10px solid $debug-color;
-    }
-  }
-
   // Warn when trying to use layout items outside of a layout context.
 
   .o-grid__item {

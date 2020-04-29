@@ -4,7 +4,7 @@
   "description": "A performance oriented web starter kit",
   "license": "MIT",
   "engines": {
-    "node": ">=11.10.1",
+    "node": ">=10.20.1",
     "npm": ">=5.6.0"
   },
   "main": "gulpfile.js/index.js",

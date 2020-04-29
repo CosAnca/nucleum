@@ -1,7 +1,9 @@
 language: node_js
 env: TRAVIS_CI=true
 node_js:
-  - "11.10.1"
+  - "10.20.1"
+  - "12.0.0"
+  - node
 services:
   - xvfb
 script:

@@ -105,6 +105,7 @@
 
 // Objects
 @import "objects/container";
+@import "objects/flow";
 @import "objects/grid";
 @import "objects/icons";
 @import "objects/media";
@@ -121,9 +122,10 @@
 // Utilities
 @import "utilities/colors";
 @import "utilities/display";
+@import "utilities/flex";
 @import "utilities/position";
 @import "utilities/screenreaders";
-@import "utilities/spacing";
 @import "utilities/sizing";
+@import "utilities/spacing";
 @import "utilities/typography";
 @import "utilities/vertical-align";

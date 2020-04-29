@@ -8,15 +8,15 @@
 .o-list-inline {
   margin-left: 0;
   list-style: none;
+
+  > * + * {
+    margin-left: spacing(6);
+  }
 }
 
 // [li]
 .o-list-inline__item {
   display: inline-block;
-
-  &:not(:last-child) {
-    margin-right: spacing(6);
-  }
 }
 
 // Modifiers
@@ -25,23 +25,23 @@
 // Smaller spacing between list items.
 
 .o-list-inline--narrow {
-  > .o-list-inline__item:not(:last-child) {
-    margin-right: spacing(3);
+  > * + * {
+    margin-left: spacing(3);
   }
 }
 
 // Wider spacing between list items.
 
 .o-list-inline--wide {
-  > .o-list-inline__item:not(:last-child) {
-    margin-right: spacing(12);
+  > * + * {
+    margin-left: spacing(12);
   }
 }
 
 // No spacing between list items.
 
 .o-list-inline--flush {
-  > .o-list-inline__item:not(:last-child) {
-    margin-right: 0;
+  > * + * {
+    margin-left: 0;
   }
 }
