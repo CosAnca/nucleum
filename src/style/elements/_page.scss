@@ -24,10 +24,14 @@ html {
   line-height: $global-line-height; // [3]
 }
 
-// Make sure content is visible when user `dark-mode` is enabled.
+// Set core body defaults
+//
+// 1. Make sure content is visible when user `dark-mode` is enabled.
+// 2. Set smooth scrolling as default.
 
 body {
-  background-color: color("white");
+  background-color: color("white"); // [1]
+  scroll-behavior: smooth; // [2]
 }
 
 // As browsers interpret `vw` differently, some of our full-width (`100vw`) UI
