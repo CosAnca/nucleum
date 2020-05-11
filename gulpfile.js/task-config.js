@@ -1,5 +1,3 @@
-const path = require("path");
-
 module.exports = {
   html: true,
   images: true,
