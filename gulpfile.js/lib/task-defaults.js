@@ -5,17 +5,17 @@ module.exports = {
       reload: true,
       noInfo: false,
       quiet: true,
-      react: false
+      react: false,
     },
     devtool: "eval-cheap-module-source-map",
     babelLoader: {
       // 'test' is derived from TASK_CONFIG.javascripts.extensions
       // 'options' is derived from TASK_CONFIG.javascripts.babel
       loader: "babel-loader",
-      exclude: /node_modules/
+      exclude: /node_modules/,
     },
     babel: {
-      presets: [["@babel/preset-env", { modules: false }]]
+      presets: [["@babel/preset-env", { modules: false }]],
     },
     development: {},
     production: {
@@ -23,40 +23,42 @@ module.exports = {
       uglifyJsPlugin: {},
       definePlugin: {
         "process.env": {
-          NODE_ENV: JSON.stringify("production")
-        }
-      }
-    }
+          NODE_ENV: JSON.stringify("production"),
+        },
+      },
+    },
   },
 
   stylesheets: {
     sass: {
-      includePaths: ["./node_modules"]
+      includePaths: ["./node_modules"],
     },
-    extensions: ["sass", "scss", "css"]
+    extensions: ["sass", "scss", "css"],
   },
+
+  generate: true,
 
   html: {
     dataFile: "data/global.json",
     htmlmin: {},
     extensions: ["pug", "json"],
-    excludeFolders: ["components", "data", "includes", "layout", "mixins"]
+    excludeFolders: ["components", "data", "includes", "layout", "mixins"],
   },
 
   images: {
-    extensions: ["jpg", "png", "svg", "gif"]
+    extensions: ["jpg", "png", "svg", "gif"],
   },
 
   fonts: {
-    extensions: ["woff2", "woff", "eot", "ttf", "svg"]
+    extensions: ["woff2", "woff", "eot", "ttf", "svg"],
   },
 
   svgSprite: {
-    svgstore: {}
+    svgstore: {},
   },
 
   production: {
-    rev: true
+    rev: true,
   },
 
   additionalTasks: {
@@ -66,11 +68,11 @@ module.exports = {
     },
     development: {
       prebuild: [],
-      postbuild: []
+      postbuild: [],
     },
     production: {
       prebuild: [],
-      postbuild: []
-    }
-  }
+      postbuild: [],
+    },
+  },
 };
