@@ -2,7 +2,6 @@
 const gulp = require("gulp");
 const path = require("path");
 const projectPath = require("../lib/project-path");
-// const watch = require("gulp-watch");
 
 function watchTask(cb) {
   const watchableTasks = [
@@ -45,12 +44,6 @@ function watchTask(cb) {
         (taskConfig.extensions
           ? ".{" + taskConfig.extensions.join(",") + "}"
           : "");
-
-      console.log(path.join(srcPath, globPattern));
-
-      // watch(path.join(srcPath, globPattern), watchConfig, function () {
-      //   require("./" + taskName)();
-      // });
 
       gulp.watch(
         path.join(srcPath, globPattern),

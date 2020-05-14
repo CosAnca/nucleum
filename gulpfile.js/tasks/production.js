@@ -1,25 +1,10 @@
-/* global PATH_CONFIG, TASK_CONFIG */
+/* global TASK_CONFIG */
 const gulp = require("gulp");
 const getEnabledTasks = require("../lib/get-enabled-tasks");
-const os = require("os");
-const fs = require("fs");
-const del = require("del");
-const path = require("path");
-const projectPath = require("../lib/project-path");
 
 function productionTask(cb) {
   global.production = true;
   process.env.NODE_ENV = "production";
-
-  // Build to a temporary directory, then move compiled files as a last step
-  // PATH_CONFIG.finalDest = PATH_CONFIG.dest;
-  // PATH_CONFIG.dest = PATH_CONFIG.temp
-  //   ? projectPath(PATH_CONFIG.temp)
-  //   : path.join(os.tmpdir(), "nucleum");
-
-  // Make sure the build directory exists and is empty
-  del.sync(PATH_CONFIG.dest, { force: true });
-  fs.mkdirSync(PATH_CONFIG.dest);
 
   const tasks = getEnabledTasks("production");
   const rev = TASK_CONFIG.production.rev ? "rev" : [];
@@ -28,6 +13,7 @@ function productionTask(cb) {
   const { prebuild, postbuild } = TASK_CONFIG.additionalTasks.production;
 
   return gulp.series(
+    "clean",
     prebuild,
     gulp.parallel(tasks.assetTasks),
     gulp.parallel(tasks.codeTasks),
@@ -36,7 +22,6 @@ function productionTask(cb) {
     "size-report",
     static,
     postbuild
-    // "replaceFiles"
   )(cb);
 }
 

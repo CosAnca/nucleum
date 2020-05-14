@@ -15,7 +15,7 @@ module.exports = {
       },
     },
     purgecss: {
-      content: ["./src/views/**/*.pug"],
+      content: ["./src/views/**/*.{njk,md}"],
     },
   },
 

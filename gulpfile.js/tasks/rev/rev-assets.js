@@ -18,7 +18,7 @@ function revAssetsTask() {
     .pipe(
       rev.manifest(projectPath(PATH_CONFIG.dest, "rev-manifest.json"), {
         base: projectPath(PATH_CONFIG.dest),
-        merge: true
+        merge: true,
       })
     )
     .pipe(gulp.dest(PATH_CONFIG.dest));

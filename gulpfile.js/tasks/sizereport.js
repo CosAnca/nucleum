@@ -8,7 +8,7 @@ function sizeReportTask() {
     .src([projectPath(PATH_CONFIG.dest, "**/*"), "*!rev-manifest.json"])
     .pipe(
       sizereport({
-        gzip: true
+        gzip: true,
       })
     );
 }
