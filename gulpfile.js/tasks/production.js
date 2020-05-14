@@ -9,14 +9,15 @@ const projectPath = require("../lib/project-path");
 
 function productionTask(cb) {
   global.production = true;
+  process.env.NODE_ENV = "production";
 
   // Build to a temporary directory, then move compiled files as a last step
-  PATH_CONFIG.finalDest = PATH_CONFIG.dest;
-  PATH_CONFIG.dest = PATH_CONFIG.temp
-    ? projectPath(PATH_CONFIG.temp)
-    : path.join(os.tmpdir(), "nucleum");
+  // PATH_CONFIG.finalDest = PATH_CONFIG.dest;
+  // PATH_CONFIG.dest = PATH_CONFIG.temp
+  //   ? projectPath(PATH_CONFIG.temp)
+  //   : path.join(os.tmpdir(), "nucleum");
 
-  // Make sure the temp directory exists and is empty
+  // Make sure the build directory exists and is empty
   del.sync(PATH_CONFIG.dest, { force: true });
   fs.mkdirSync(PATH_CONFIG.dest);
 
@@ -34,8 +35,8 @@ function productionTask(cb) {
     rev,
     "size-report",
     static,
-    postbuild,
-    "replaceFiles"
+    postbuild
+    // "replaceFiles"
   )(cb);
 }
 

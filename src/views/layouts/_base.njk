@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{%- if title -%}{{ title }} | {{ site.title }}{%- else -%}{{ site.title }}{%- endif -%}</title>
+    <link rel="stylesheet" href="{{ '/style/style.css' | url }}">
+
+    {% include "_meta.njk" %}
+  </head>
+
+  <body>
+    <a href="#main" class="sr-skip-link">Skip to main content</a>
+
+    {% include "_header.njk" %}
+
+    <main id="main" tabindex="-1">
+      {{ content | safe }}
+    </main>
+
+    {% include "_footer.njk" %}
+
+    <script src="{{ '/js/app.js' | url }}" defer></script>
+
+    <!--! LAST BUILD: {{ build.env }} {{ build.timestamp }} -->
+  </body>
+
+</html>

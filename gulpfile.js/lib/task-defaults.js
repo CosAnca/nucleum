@@ -36,13 +36,8 @@ module.exports = {
     extensions: ["sass", "scss", "css"],
   },
 
-  generate: true,
-
   html: {
-    dataFile: "data/global.json",
-    htmlmin: {},
-    extensions: ["pug", "json"],
-    excludeFolders: ["components", "data", "includes", "layout", "mixins"],
+    extensions: ["njk", "md", "json", "js"],
   },
 
   images: {
