@@ -3,23 +3,23 @@
   "dest": "./public",
 
   "html": {
-    "src": "views",
+    "src": "./",
     "dest": "./"
   },
 
   "static": {
-    "src": "static",
+    "src": "assets/static",
     "dest": "./"
   },
 
   "javascripts": {
-    "src": "js",
-    "dest": "js"
+    "src": "assets/js",
+    "dest": "assets/js"
   },
 
   "stylesheets": {
-    "src": "style",
-    "dest": "style"
+    "src": "assets/style",
+    "dest": "assets/style"
   },
 
   "criticalCss": {
@@ -28,17 +28,17 @@
   },
 
   "images": {
-    "src": "img",
-    "dest": "img"
+    "src": "assets/img",
+    "dest": "assets/img"
   },
 
   "fonts": {
-    "src": "fonts",
-    "dest": "fonts"
+    "src": "assets/fonts",
+    "dest": "assets/fonts"
   },
 
   "icons": {
-    "src": "icons",
-    "dest": "img"
+    "src": "assets/icons",
+    "dest": "assets/img"
   }
 }

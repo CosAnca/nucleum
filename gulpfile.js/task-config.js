@@ -6,16 +6,15 @@ module.exports = {
   svgSprite: true,
   stylesheets: {
     criticalCss: {
-      siteUrl: "",
       config: {
         base: "./public",
         inline: true,
-        width: 1200,
-        height: 1200,
+        width: 1280,
+        height: 800,
       },
     },
     purgecss: {
-      content: ["./src/views/**/*.{njk,md}"],
+      content: ["./src/**/*.{njk,md}"],
     },
   },
 
