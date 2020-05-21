@@ -8,7 +8,7 @@ const revdel = require("gulp-rev-delete-original");
 function revAssetsTask() {
   // Ignore files that may reference assets. We'll rev them next.
   const ignoreThese =
-    "!" + projectPath(PATH_CONFIG.dest, "**/*+(css|js|json|html)");
+    "!" + projectPath(PATH_CONFIG.dest, "**/*+(css|js|json|html|xml)");
 
   return gulp
     .src([projectPath(PATH_CONFIG.dest, "**/*"), ignoreThese])

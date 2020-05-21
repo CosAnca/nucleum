@@ -7,13 +7,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>{%- if title -%}{{ title }} | {{ site.title }}{%- else -%}{{ site.title }}{%- endif -%}</title>
-    <link rel="stylesheet" href="{{ '/assets/style/style.css' | url }}">
 
     {% include "_meta.njk" %}
+
+    {% block styles %}
+      <link rel="stylesheet" href="{{ '/assets/css/styles.css' | url }}">
+    {% endblock %}
+
   </head>
 
   <body>
-    <a href="#main" class="sr-skip-link">Skip to main content</a>
 
     {% include "_header.njk" %}
 
@@ -23,7 +26,9 @@
 
     {% include "_footer.njk" %}
 
-    <script src="{{ '/assets/js/app.js' | url }}" defer></script>
+    {% block scripts %}
+      <script defer src="{{ '/assets/js/app.js' | url }}"></script>
+    {% endblock %}
 
     <!--! LAST BUILD: {{ build.env }} {{ build.timestamp }} -->
   </body>

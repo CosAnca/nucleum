@@ -18,8 +18,8 @@
   },
 
   "stylesheets": {
-    "src": "assets/style",
-    "dest": "assets/style"
+    "src": "assets/styles",
+    "dest": "assets/css"
   },
 
   "criticalCss": {
@@ -28,8 +28,8 @@
   },
 
   "images": {
-    "src": "assets/img",
-    "dest": "assets/img"
+    "src": "assets/images",
+    "dest": "assets/images"
   },
 
   "fonts": {
@@ -39,6 +39,6 @@
 
   "icons": {
     "src": "assets/icons",
-    "dest": "assets/img"
+    "dest": "assets/images"
   }
 }
