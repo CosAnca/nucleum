@@ -19,8 +19,8 @@ function productionTask(cb) {
     gulp.parallel(tasks.codeTasks),
     criticalCss,
     rev,
-    "size-report",
     static,
+    "size-report",
     postbuild
   )(cb);
 }

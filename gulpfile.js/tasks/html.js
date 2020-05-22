@@ -6,13 +6,20 @@ if (!TASK_CONFIG.html) {
 const browserSync = require("browser-sync");
 const gulp = require("gulp");
 const exec = require("child_process").exec;
+const projectPath = require("../lib/project-path");
 
 function htmlTask(cb) {
   const cmd = "eleventy";
 
-  exec(cmd, (err) => {
-    cb(err);
-  });
+  exec(
+    cmd,
+    {
+      cwd: projectPath(),
+    },
+    (err) => {
+      cb(err);
+    }
+  );
 
   browserSync.reload();
 }

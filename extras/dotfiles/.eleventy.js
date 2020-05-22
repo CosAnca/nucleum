@@ -15,7 +15,7 @@ module.exports = function (eleventyConfig) {
 
   return {
     dir: {
-      input: "src/views",
+      input: "src",
       data: "data",
       includes: "includes",
       layouts: "layouts",
@@ -24,5 +24,6 @@ module.exports = function (eleventyConfig) {
     templateFormats: ["njk", "md"],
     htmlTemplateEngine: "njk",
     markdownTemplateEngine: "njk",
+    passthroughFileCopy: false,
   };
 };
