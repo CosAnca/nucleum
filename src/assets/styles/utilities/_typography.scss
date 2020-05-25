@@ -14,7 +14,7 @@ $text-alignments: (left, center, right, justify);
 @mixin _build-text-alignments($breakpoint: null) {
   // Generate general use text alignment classes
   @each $text-alignment in $text-alignments {
-    .u-text-#{$text-alignment} {
+    .u-text-#{$text-alignment}#{$breakpoint} {
       text-align: $text-alignment !important;
     }
   }
