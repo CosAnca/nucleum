@@ -48,7 +48,7 @@ module.exports = function (env) {
     },
     output: {
       path: path.normalize(jsDest),
-      filename: rev ? "[name]-[hash].js" : "[name].js",
+      filename: rev ? "[name]-[contenthash:10].js" : "[name].js",
       publicPath,
     },
     plugins: [],

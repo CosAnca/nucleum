@@ -1,4 +1,4 @@
-const path = require("path");
+const pathToUrl = require("./path-to-url");
 const projectPath = require("./project-path");
 const fs = require("fs");
 
@@ -17,7 +17,8 @@ module.exports = function (jsDest, dest, filename) {
         const originalFilename = key + ".js";
         const chunkName =
           typeof chunks[key] === "string" ? chunks[key] : chunks[key][0];
-        manifest[path.join(jsDest, originalFilename)] = path.join(
+
+        manifest[pathToUrl(jsDest, originalFilename)] = pathToUrl(
           jsDest,
           chunkName
         );

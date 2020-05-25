@@ -7,6 +7,7 @@ const browserSync = require("browser-sync");
 const gulp = require("gulp");
 const exec = require("child_process").exec;
 const projectPath = require("../lib/project-path");
+const handleErrors = require("../lib/handle-errors");
 
 function htmlTask(cb) {
   const cmd = "eleventy";
@@ -17,7 +18,10 @@ function htmlTask(cb) {
       cwd: projectPath(),
     },
     (err) => {
-      cb(err);
+      if (err) {
+        handleErrors(err);
+      }
+      cb();
     }
   );
 
