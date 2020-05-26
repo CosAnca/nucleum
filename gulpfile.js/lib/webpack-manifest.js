@@ -1,14 +1,14 @@
-const path = require("path");
+const pathToUrl = require("./path-to-url");
 const projectPath = require("./project-path");
 const fs = require("fs");
 
-module.exports = function(jsDest, dest, filename) {
+module.exports = function (jsDest, dest, filename) {
   filename = filename || "rev-manifest.json";
 
-  return function() {
+  return function () {
     const plugin = { name: "webpackManifest" };
 
-    this.hooks.done.tap(plugin, function(statsObject) {
+    this.hooks.done.tap(plugin, function (statsObject) {
       const stats = statsObject.toJson();
       const chunks = stats.assetsByChunkName;
       const manifest = {};
@@ -17,7 +17,8 @@ module.exports = function(jsDest, dest, filename) {
         const originalFilename = key + ".js";
         const chunkName =
           typeof chunks[key] === "string" ? chunks[key] : chunks[key][0];
-        manifest[path.join(jsDest, originalFilename)] = path.join(
+
+        manifest[pathToUrl(jsDest, originalFilename)] = pathToUrl(
           jsDest,
           chunkName
         );
