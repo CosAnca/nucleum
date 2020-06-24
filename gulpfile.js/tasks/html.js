@@ -21,11 +21,10 @@ function htmlTask(cb) {
       if (err) {
         handleErrors(err);
       }
+      browserSync.reload();
       cb();
     }
   );
-
-  browserSync.reload();
 }
 
 htmlTask.displayName = "html";

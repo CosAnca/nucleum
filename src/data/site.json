@@ -3,7 +3,7 @@
   "description": "A performance oriented web starter kit",
   "lang": "en",
   "locale": "en_GB",
-  "logo": "/img/nucleum-banner.png",
+  "logo": "/assets/images/nucleum-banner.png",
   "domain": "domain.tld",
   "url": "https://domain.tld",
   "repo": "https://github.com/CosAnca",

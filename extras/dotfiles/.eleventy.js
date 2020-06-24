@@ -1,3 +1,5 @@
+const beautify = require("simply-beautiful");
+
 module.exports = function (eleventyConfig) {
   // Filters
   eleventyConfig.addNunjucksFilter("absoluteUrl", (href, base) => {
@@ -12,6 +14,21 @@ module.exports = function (eleventyConfig) {
 
   // Layouts
   eleventyConfig.addLayoutAlias("base", "_base.njk");
+
+  // Transforms
+  eleventyConfig.addTransform("beautify", function (content, outputPath) {
+    if (outputPath.endsWith(".html")) {
+      let beautifyHTML = beautify.html(content, {
+        indent_size: 2,
+        indent_scripts: "keep",
+        unformatted: [],
+      });
+
+      return beautifyHTML;
+    }
+
+    return content;
+  });
 
   return {
     dir: {

@@ -233,8 +233,8 @@ Under the hood, this gets passed directly to [webpack.ProvidePlugin](https://web
 plugins: [
   new webpack.ProvidePlugin({
     $: "jquery",
-    jQuery: "jquery"
-  })
+    jQuery: "jquery",
+  }),
 ];
 ```
 
@@ -566,7 +566,7 @@ In our SCSS file, when we need an inline icon we can just reference the symbol i
 clean: {
   patterns: [
     path.resolve(process.env.PWD, "dist/assets"),
-    path.resolve(process.env.PWD, "dist/templates")
+    path.resolve(process.env.PWD, "dist/templates"),
   ];
 }
 ```
@@ -661,13 +661,6 @@ Extras:
 | ------------------ | ------------------------------------------------------------------------------------ |
 | **WordPress**      | [Docker], [docker-compose], [WordPress quick start](./extras/wordpress/README-WP.md) |
 | **Sass Libraries** | [Bourbon](http://bourbon.io/), [Adaptable](https://github.com/CosAnca/adaptable/)    |
-
----
-
-### Credits:
-
-[Blendid](https://github.com/vigetlabs/blendid),
-[Sky UK](https://github.com/sky-uk/css).
 
 [docker]: https://www.docker.com/products/docker-desktop
 [docker-compose]: https://docs.docker.com/compose/install/#install-compose
