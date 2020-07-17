@@ -14,7 +14,7 @@
 
   // Warn when trying to use layout items outside of a layout context.
 
-  .o-grid__item {
+  .o-grid__col {
     outline: 10px solid $debug-color;
 
     .o-grid > & {

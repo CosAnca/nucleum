@@ -77,6 +77,46 @@ Then edit the configs to match the needs of your project.
 
 We recommend `yarn` over `npm` mainly for its [`yarn run`](https://yarnpkg.com/en/docs/cli/run) command which allows us to run `package.json` `scripts` and `node_modules/.bin` executables in a nice convenience.
 
+#### Additional dev dependencies
+
+[eslint](https://eslint.org/)
+[eslint-config-prettier](https://github.com/prettier/eslint-config-prettier)
+[eslint-plugin-compat](https://github.com/amilajack/eslint-plugin-compat)
+[eslint-plugin-prettier](https://github.com/prettier/eslint-plugin-prettier)
+[prettier](https://prettier.io/)
+[stylelint](https://stylelint.io/)
+[stylelint-config-nucleum](https://github.com/CosAnca/stylelint-config-nucleum)
+[husky](https://github.com/typicode/husky)
+[lint-staged](https://github.com/okonet/lint-staged)
+
+You can install them all at once by running the following command in your Terminal:
+
+```zsh
+yarn add -D eslint eslint-config-prettier eslint-plugin-compat eslint-plugin-prettier husky lint-staged prettier stylelint stylelint-config-nucleum
+```
+
+Nucleum automatically generates config files for eslint and stylelint that you can either use as they are or change.
+
+If you'd like to have your code (SCSS and JS) linted before every commit, you can add the following configuraiton objects into your `package.json` file:
+
+```json
+"husky": {
+  "hooks": {
+    "pre-commit": "lint-staged"
+  }
+},
+"lint-staged": {
+  "src/js/**/*.js": [
+    "eslint --fix",
+    "prettier --write"
+  ],
+  "src/style/**/*.scss": [
+    "stylelint --fix",
+    "prettier --write"
+  ]
+}
+```
+
 # Commands
 
 All commands should be run through `yarn run`.
@@ -434,23 +474,11 @@ Setting the `config` object, you can create the necessary configuration for [cri
 
 **Note:** If you are on a platform that's already handling html (WordPress), set `html: false` or delete the configuration object completely from `task-config.js`. If that's the case, don't forget to use the BrowserSync [`files` option](https://browsersync.io/docs/options#option-file) in the `browserSync` config object to start watching your templates folder.
 
-Robust templating with [Pug](https://pugjs.org/api/getting-started.html).
+Nucleum is using [Eleventy] under the hood to generate static HTML files.
 
-#### `dataFunction`
+By default, we use [Nunjucks] as the prefered templating engine but you can change that to any other Eleventy [supported template languages](https://www.11ty.dev/docs/languages/). Also, by default the HTML output is beautified rather than minified. If you'd like to change that behaviour, you'll have to add a new transform to minify the output. Find out more in the [Eleventy Documentation](https://www.11ty.dev/docs/config/#transforms-example-minify-html-output)
 
-[gulp-data](https://github.com/colynb/gulp-data) `dataFunction` is used to provide data to templates. Defaults to reading in a global JSON, specified by the `dataFile` option.
-
-#### `dataFile`
-
-A path to a JSON file containing data to use in your templates via [`gulp-data`](https://github.com/colynb/gulp-data).
-
-#### `htmlmin`
-
-[Options](https://github.com/kangax/html-minifier#options-quick-reference) to pass to [`gulp-htmlmin`](https://github.com/jonschlinkert/gulp-htmlmin.
-
-#### `excludeFolders`
-
-You'll want to exclude some folders from being compiled directly. This defaults to: `["components", "data", "includes", "layout", "mixins"]`.
+Change or extend Eleventy configuration through the [.eleventy.js](./.eleventy.js) file.
 
 ### static
 
@@ -506,8 +534,8 @@ In the following example, the first path will be `red`, the second will be `whit
 
 ```scss
 .c-icon {
-  fill: red;
-  color: white;
+  fill: #f00;
+  color: #fff;
 }
 ```
 
@@ -526,7 +554,7 @@ We also include [postcss-svg](https://github.com/jonathantneal/postcss-svg) whic
 Example:
 
 ```scss
-.element {
+.c-element {
   background-image: url("../img/logo.svg");
 }
 ```
@@ -534,7 +562,7 @@ Example:
 The above will output:
 
 ```css
-.element {
+.c-element {
   background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' ...");
 }
 ```
@@ -555,7 +583,7 @@ The first `fill` property is a fallback for Internet Explorer while the second o
 In our SCSS file, when we need an inline icon we can just reference the symbol id from the SVG sprite or the SVG file path, like this:
 
 ```scss
-.icon {
+.o-icon {
   background-image: url("icons#icon-info"param(--icon-fill-color color("success")));
 }
 ```
@@ -644,16 +672,14 @@ JS files are compiled and live-update via BrowserSync + WebpackDevMiddleware + W
 
 Gulp tasks! Built combining the following:
 
-| Feature               | Packages Used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| --------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **CSS**               | [Sass](http://sass-lang.com/) ([Libsass](http://sass-lang.com/libsass) via [node-sass](https://github.com/sass/node-sass)), [PostCSS](https://github.com/postcss/postcss) with [postcss-preset-env](https://github.com/csstools/postcss-preset-env), [purgecss](https://github.com/FullHuman/purgecss), [postcss-normalize](https://github.com/csstools/postcss-normalize), [cssnano](https://github.com/cssnano/cssnano), [postcssSVG](https://github.com/jonathantneal/postcss-svg), Source Maps |
-| **JavaScript**        | [Babel](http://babeljs.io/), [babel-preset-env](https://babeljs.io/docs/en/babel-preset-env), [Webpack](https://webpack.js.org/)                                                                                                                                                                                                                                                                                                                                                                   |
-| **HTML**              | [Pug](https://pugjs.org/api/getting-started.html), [gulp-data](https://github.com/colynb/gulp-data)                                                                                                                                                                                                                                                                                                                                                                                                |
-| **Icons**             | Auto-generated [SVG Sprites](https://github.com/w0rm/gulp-svgstore)                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| **Live Updating**     | [BrowserSync](http://www.browsersync.io/),                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-|                       | [Webpack Dev Middleware](https://github.com/webpack/webpack-dev-middleware),                                                                                                                                                                                                                                                                                                                                                                                                                       |
-|                       | [Webpack Hot Middleware](https://github.com/glenjamin/webpack-hot-middleware)                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| **Production Builds** | CSS is [minified](http://cssnano.co/) and [purged](https://www.purgecss.com/), JS is compressed and optimized with various Webpack plugins, [filename md5 hashing (reving)](https://github.com/sindresorhus/gulp-rev), [file size reporting](https://github.com/jaysalvat/gulp-sizereport).                                                                                                                                                                                                        |
+| Feature               | Packages Used                                                     |
+| --------------------- | ----------------------------------------------------------------- |
+| **HTML**              | [Eleventy]                                                        |
+| **CSS**               | [Sass], [PostCSS], [purgecss], [cssnano]                          |
+| **JavaScript**        | [Babel], [babel-preset-env], [Webpack]                            |
+| **Icons**             | Auto-generated SVG Sprites with [svgstore]                        |
+| **Live Updating**     | [BrowserSync], [Webpack Dev Middleware], [Webpack Hot Middleware] |
+| **Production Builds** | [Filename hashing], [Size Report]                                 |
 
 Extras:
 
@@ -662,5 +688,24 @@ Extras:
 | **WordPress**      | [Docker], [docker-compose], [WordPress quick start](./extras/wordpress/README-WP.md) |
 | **Sass Libraries** | [Bourbon](http://bourbon.io/), [Adaptable](https://github.com/CosAnca/adaptable/)    |
 
+[sass]: https://sass-lang.com
+[libsass]: https://sass-lang.com/libsass
+[node-sass]: https://github.com/sass/node-sass
+[postcss]: https://github.com/postcss/postcss
+[postcss-preset-env]: https://github.com/csstools/postcss-preset-env
+[postcss-normalize]: https://github.com/csstools/postcss-normalize
+[postcsssvg]: https://github.com/jonathantneal/postcss-svg
+[purgecss]: https://github.com/FullHuman/purgecss
+[cssnano]: https://github.com/cssnano/cssnano
+[babel]: https://babeljs.io/
+[babel-preset-env]: https://babeljs.io/docs/en/babel-preset-env
+[webpack]: https://webpack.js.org/
+[webpack dev middleware]: https://github.com/webpack/webpack-dev-middleware
+[webpack hot middleware]: https://github.com/glenjamin/webpack-hot-middleware
+[eleventy]: https://11ty.dev
+[svgstore]: https://github.com/w0rm/gulp-svgstore
+[browsersync]: https://www.browsersync.io/
 [docker]: https://www.docker.com/products/docker-desktop
 [docker-compose]: https://docs.docker.com/compose/install/#install-compose
+[filename hashing]: https://github.com/sindresorhus/gulp-rev
+[size report]: https://github.com/jaysalvat/gulp-sizereport

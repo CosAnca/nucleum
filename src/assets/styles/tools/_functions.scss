@@ -2,8 +2,6 @@
 // TOOLS / FUNCTIONS
 // =============================================================================
 
-// sass-lint:disable no-warn function-name-format
-
 // Maps
 // ==============================================
 // map-get-deep()
@@ -43,6 +41,20 @@
   @return convert-to-rem(map-get-deep($global-spacing, $key));
 }
 
+// border-width()
+// ------------------------------------
+// Function to get border-width from $border-widths instead of using `map-get`.
+@function border-width($key) {
+  @return convert-to-rem(map-get-deep($border-width, $key));
+}
+
+// border-radius()
+// ------------------------------------
+// Function to get border-radius from $border-radius instead of using `map-get`.
+@function border-radius($key) {
+  @return convert-to-rem(map-get-deep($border-radius, $key));
+}
+
 // $colors map reader
 // ===========================================
 
@@ -79,6 +91,10 @@
 
 // Converts any `px` or `em` value to `rem`.
 @function convert-to-rem($value, $base-font-size: $global-font-size) {
+  @if $value == 0 {
+    @return $value;
+  }
+
   @if unit($value) == "rem" {
     @return $value;
   }
@@ -117,4 +133,29 @@
     @return $px;
   }
   @return ($px / $base-font-size) * 1em;
+}
+
+// Misc
+// ===========================================
+
+// Replace `$search` with `$replace` in `$string`
+// @author Hugo Giraudel
+// @param {string} $string - Initial string
+// @param {string} $search - Substring to replace
+// @param {string} $replace ('') - New value
+// @return {string} - Updated string
+// https://css-tricks.com/snippets/sass/str-replace-function/
+@function str-replace($string, $search, $replace: "") {
+  $index: str-index($string, $search);
+
+  @if $index {
+    @return str-slice($string, 1, $index - 1) + $replace +
+      str-replace(
+        str-slice($string, $index + str-length($search)),
+        $search,
+        $replace
+      );
+  }
+
+  @return $string;
 }

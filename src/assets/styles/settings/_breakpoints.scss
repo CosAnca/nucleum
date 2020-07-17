@@ -5,7 +5,7 @@
 // Sass MQ Configuration
 // ==============================================
 
-// Define our breakpoints for later use with Sass MQ. The key (e.g. `medium`)
+// Define our breakpoints for later use with Sass MQ. The key (e.g. `md`)
 // becomes the alias for a breakpoint; the value (e.g. `632px`) is that point at
 // which that breakpoint kicks in. These pixel values will be converted into ems
 // by Sass MQ.
@@ -19,7 +19,7 @@
 //   .foo {
 //     color: red;
 //
-//     @include mq($from: medium) {
+//     @include mq($from: md) {
 //       color: green;
 //     }
 //
@@ -38,7 +38,7 @@
 //   }
 
 $mq-breakpoints: (
-  "medium": 640px,
-  "large": 980px,
-  "x-large": 1200px
+  "md": 640px,
+  "lg": 980px,
+  "xl": 1200px,
 );

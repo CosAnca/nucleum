@@ -6,27 +6,21 @@
 // ==============================================
 
 // Generates a consistent outline shadow for use on `:focus` or `.has-focus`.
-@mixin focus-styles($color: default, $width: 1px) {
-  @if ($color == "default") {
-    outline: $width dashed color("brand-orange");
-    outline-offset: -$width;
-  } @else if ($color == "invert") {
-    outline: $width dashed color("brand-navy");
-    outline-offset: -$width;
+@mixin focus-styles($el: link, $color: default, $offset: 2px) {
+  @if ($el == "link") {
+    outline: 3px solid color("info");
+    outline-offset: $offset;
+    text-decoration: none;
+  } @else if ($el == "image") {
+    outline: none;
+    box-shadow: 0 0 0 3px color("info");
+  } @else if ($el == "button") {
+    outline: none;
+    box-shadow: 0 0 0 3px color("info");
+    color: color("white");
+    text-decoration: none;
   } @else {
-    @warn "`#{$color}` is not a valid outline color, it must be `default` or `invert`.";
-  }
-}
-
-// Making accessible hover/focus states simpler
-// ===========================================
-
-// Generate `:hover` and `:focus` styles in one go.
-// http://www.456bereastreet.com/archive/201004/whenever_you_use_hover_also_use_focus/
-@mixin hocus {
-  &:hover,
-  &:focus {
-    @content;
+    @warn "`#{$el}` is not a valid element. It must be `link`, `image` or `button`.";
   }
 }
 
@@ -59,44 +53,3 @@
 }
 
 // stylelint-enable declaration-no-important
-
-// Font smoothing
-// ==============
-
-// Controls the application of anti-aliasing when fonts are rendered on mac OS.
-
-@mixin font-smoothing($value: antialiased) {
-  @if $value == antialiased {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  } @else {
-    -webkit-font-smoothing: subpixel-antialiased;
-    -moz-osx-font-smoothing: auto;
-  }
-}
-
-// Centerer
-@mixin centerer($horizontal: true, $vertical: true) {
-  position: absolute;
-
-  @if $horizontal and $vertical {
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  } @else if $horizontal {
-    left: 50%;
-    transform: translateX(-50%);
-  } @else if $vertical {
-    top: 50%;
-    transform: translateY(-50%);
-  }
-}
-
-// Overlay
-@mixin overlay($color) {
-  &::before {
-    @include position(absolute, 0 0 0 0);
-    content: "";
-    background-color: $color;
-  }
-}

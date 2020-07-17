@@ -22,6 +22,17 @@
 // Modifiers
 // ===========================================
 
+// Flex
+
+// [ul|ol]
+.o-list-inline--flex {
+  display: flex;
+
+  > * {
+    display: inline-flex;
+  }
+}
+
 // Smaller spacing between list items.
 
 .o-list-inline--narrow {

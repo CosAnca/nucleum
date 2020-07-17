@@ -7,8 +7,8 @@
 // with grid item modifier classes, for example:
 //
 // <div class="o-grid">
-//   <div class="o-grid__item o-grid__item--span-6-col">...</div>
-//   <div class="o-grid__item o-grid__item--span-6-col">...</div>
+//   <div class="o-grid__col o-grid__col--6">...</div>
+//   <div class="o-grid__col o-grid__col--6">...</div>
 // </div>
 //
 // Our grid object also consumes the gutters of its container to allow easier
@@ -45,7 +45,7 @@
 //    margin-left: 1.5rem;
 // }
 
-.o-grid__item {
+.o-grid__col {
   @include grid-column;
 }
 
@@ -57,12 +57,12 @@
 // You shouldn’t need to know the full ins-and-outs of what is going on below;
 // all you really need to know is that we end up with a suite of classes like:
 //
-// .o-grid__item--span-6-col         -- spans for 6 columns or half width
-// .o-grid__item--span-9-col@medium  -- spans for 9 columns or three quarters
-//                                      on medium-and-up screens
-// .o-grid__item--offset-8-col       -- push an item over to the right by 8 cols
-//                                      or two thirds
-// .o-grid__item--offset-3-col@large -- pull an item back to the left by half
+// .o-grid__col--6 -- spans for 6 columns or half width
+// .o-grid__col--9@md -- spans for 9 columns or three quarters
+//                       on medium-and-up screens
+// .o-grid__col--push-8 -- push an item over to the right by 8 cols
+//                         or two thirds
+// .o-grid__col--pull-3@lg -- pull an item back to the left by half
 
 @mixin _build-grid-system($breakpoint: null) {
   // Get the total number of columns defined on our $adaptable-grid object inside
@@ -75,18 +75,18 @@
 
   // Loop through the number of columns in our grid
   @for $i from 1 through $grid-columns {
-    // Build a class in the format `.o-grid__item--span-6-col[@<breakpoint>]`.
-    .o-grid__item--span-#{$i}-col#{$breakpoint} {
+    // Build a class in the format `.o-grid__col--6[@<breakpoint>]`.
+    .o-grid__col--#{$i}#{$breakpoint} {
       @include grid-span($i of $grid-columns);
     }
 
-    // Build a class in the format `.o-grid__item--push-2-col[@<breakpoint>]`.
-    .o-grid__item--push-#{$i}-col#{$breakpoint} {
+    // Build a class in the format `.o-grid__col--push-2[@<breakpoint>]`.
+    .o-grid__col--push-#{$i}#{$breakpoint} {
       @include grid-push($i of $grid-columns);
     }
 
-    // Build a class in the format `.o-grid__item--pull-2-col[@<breakpoint>]`.
-    .o-grid__item--pull-#{$i}-col#{$breakpoint} {
+    // Build a class in the format `.o-grid__col--pull-2[@<breakpoint>]`.
+    .o-grid__col--pull-#{$i}#{$breakpoint} {
       @include grid-push(-$i of $grid-columns);
     }
   }

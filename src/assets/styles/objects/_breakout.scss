@@ -11,7 +11,7 @@
 }
 
 .o-breakout\@small {
-  @include mq($until: medium) {
+  @include mq($until: md) {
     width: 100vw;
     margin-left: calc(50% - 50vw);
   }
