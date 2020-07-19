@@ -178,7 +178,7 @@ See [task config defaults](./gulpfile.js/lib/task-defaults.js) for a closer look
 
 Options to pass to [browserSync](https://browsersync.io/docs/options).
 
-**If you're using Pug (built in) to compile a static site**, you'll want to use the `server` and tell it which server to serve up via the `baseDir` option.
+**If you're using Eleventy (built in) to create a static site**, you'll want to use the `server` property and tell it which directory to serve up via the `baseDir` option.
 
 ```js
 browserSync: {
@@ -382,7 +382,7 @@ By default this option is disabled in Nucleum but you can enable it either by se
 ```js
 stylesheets: {
   purgecss: {
-    content: ["./src/views/**/*.pug"], // the path should be absolute (you may need to use `path.resolve()`)
+    content: ["./src/**/*.njk"], // the path should be absolute (you may need to use `path.resolve()`)
     // extra configuration (check the options in their documentation)
   }
 }
@@ -472,13 +472,13 @@ Setting the `config` object, you can create the necessary configuration for [cri
 
 ### html
 
-**Note:** If you are on a platform that's already handling html (WordPress), set `html: false` or delete the configuration object completely from `task-config.js`. If that's the case, don't forget to use the BrowserSync [`files` option](https://browsersync.io/docs/options#option-file) in the `browserSync` config object to start watching your templates folder.
+**Note:** If you are on a platform that's already handling html, like a CMS (WordPress, Craft, etc.), set `html: false` or delete the configuration object completely from `task-config.js`. If that's the case, don't forget to use the BrowserSync [`files` option](https://browsersync.io/docs/options#option-file) in the `browserSync` config object to start watching your templates folder.
 
 Nucleum is using [Eleventy] under the hood to generate static HTML files.
 
-By default, we use [Nunjucks] as the prefered templating engine but you can change that to any other Eleventy [supported template languages](https://www.11ty.dev/docs/languages/). Also, by default the HTML output is beautified rather than minified. If you'd like to change that behaviour, you'll have to add a new transform to minify the output. Find out more in the [Eleventy Documentation](https://www.11ty.dev/docs/config/#transforms-example-minify-html-output)
+We use [Nunjucks] as the default templating engine but you can change that to any other Eleventy [supported template languages](https://www.11ty.dev/docs/languages/). Also, by default the HTML output is beautified rather than minified. If you'd like to change that behaviour, you'll have to add a new transform to minify the output. Find out more in the [Eleventy Documentation](https://www.11ty.dev/docs/config/#transforms-example-minify-html-output).
 
-Change or extend Eleventy configuration through the [.eleventy.js](./.eleventy.js) file.
+You can change or extend Eleventy's configuration through the [.eleventy.js](./.eleventy.js) file.
 
 ### static
 
@@ -511,21 +511,29 @@ Generates an SVG Sprite from `.svg` files in `src/icons`. You can either include
 or reference the image remotely:
 
 ```html
-<svg viewBox="0 0 1 1"><use xlink:href="img/icons.svg#my-icon"></use></svg>
+<svg viewBox="0 0 1 1">
+  <use xlink:href="/assets/images/icons.svg#my-icon"></use>
+</svg>
 ```
 
 If you reference the sprite remotely, be sure to include something like [inline-svg-sprite](https://github.com/vigetlabs/inline-svg-sprite) to ensure external loading works on Internet Explorer.
 
-Nucleum includes a mixin inside `src/views/mixins/_mixins.pug` which generates the required svg markup for your icons, so you can just do:
+Nucleum includes a macro inside `src/includes/_macros.njk` which generates the required svg markup for your icons, so you can just do:
 
-```pug
-+icon("my-icon")
+```njk
+{% from "_macros.njk" import icon %}
+
+{{ icon("my-icon") }}
 ```
+
+For advanced usage, see the example at the top of the `src/includes/_macros.njk` file.
 
 Which outputs:
 
 ```html
-<svg class="c-icon"><use xlink:href="img/icons.svg#my-icon"></use></svg>
+<svg class="c-icon">
+  <use xlink:href="/assets/images/icons.svg#my-icon"></use>
+</svg>
 ```
 
 This particular setup allows styling 2 different colors from your CSS. You can have unlimited colors hard coded into your svg.
@@ -547,7 +555,13 @@ In the following example, the first path will be `red`, the second will be `whit
 </svg>
 ```
 
-Make sure you draw your SVGs on a square (500 x 500) canvas, center your artwork, and expanding/combining any shapes of the same color. This last step is important.
+Make sure:
+
+1. you draw your SVGs on a square (24 x 24) canvas
+2. you center your artwork
+3. you expand/combine any shapes of the same color
+
+The last step is very important to ensure the correct style (fill) gets applied to the path you actually target.
 
 We also include [postcss-svg](https://github.com/jonathantneal/postcss-svg) which automatically encodes SVGs referenced through `url("../path/to/file.svg")` in our CSS files.
 
