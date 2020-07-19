@@ -1,3 +1,7 @@
+const pathConfig = require("./config/path-config.json");
+const pathConfigSrc = pathConfig.src.split("/")[1];
+const pathConfigDest = pathConfig.dest.split("/")[1];
+
 const beautify = require("simply-beautiful");
 
 module.exports = function (eleventyConfig) {
@@ -32,11 +36,11 @@ module.exports = function (eleventyConfig) {
 
   return {
     dir: {
-      input: "src",
+      input: pathConfigSrc,
       data: "data",
       includes: "includes",
       layouts: "layouts",
-      output: "public",
+      output: pathConfigDest,
     },
     templateFormats: ["njk", "md"],
     htmlTemplateEngine: "njk",
