@@ -8,15 +8,12 @@
 .o-list-inline {
   margin-left: 0;
   list-style: none;
-
-  > * + * {
-    margin-left: spacing(6);
-  }
 }
 
 // [li]
 .o-list-inline__item {
   display: inline-block;
+  margin-right: spacing(6);
 }
 
 // Modifiers
@@ -36,23 +33,23 @@
 // Smaller spacing between list items.
 
 .o-list-inline--narrow {
-  > * + * {
-    margin-left: spacing(3);
+  > .o-list-inline__item {
+    margin-right: spacing(3);
   }
 }
 
 // Wider spacing between list items.
 
 .o-list-inline--wide {
-  > * + * {
-    margin-left: spacing(12);
+  > .o-list-inline__item {
+    margin-right: spacing(12);
   }
 }
 
 // No spacing between list items.
 
 .o-list-inline--flush {
-  > * + * {
-    margin-left: 0;
+  > .o-list-inline__item {
+    margin-right: 0;
   }
 }

@@ -20,8 +20,10 @@
 
     {% include "_header.njk" %}
 
-    <main id="main" tabindex="-1">
-      {{ content | safe }}
+    <main id="main">
+      {% block content %}
+        {{ content | safe }}
+      {% endblock %}
     </main>
 
     {% include "_footer.njk" %}

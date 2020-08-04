@@ -6,43 +6,47 @@
 // contains the basic structural elements, but classes should be complemented
 // with grid item modifier classes, for example:
 //
-// <div class="o-grid">
-//   <div class="o-grid__col o-grid__col--6">...</div>
-//   <div class="o-grid__col o-grid__col--6">...</div>
+// <div class="o-container">
+//   <div class="o-grid">
+//     <div class="o-grid__col o-grid__col--6">...</div>
+//     <div class="o-grid__col o-grid__col--6">...</div>
+//   </div>
 // </div>
 //
 // Our grid object also consumes the gutters of its container to allow easier
 // grid nesting.
 //
-// Grid object creates a flexbox grid container using Adaptable grid-nest mixin.
+// Grid object creates a flexbox grid container using the grid-container mixin.
 //
-// @include grid-nest;
+// .o-grid {
+//   @include grid-container;
+// }
 //
 // Output
-// .element {
+// .o-grid {
 //   display: flex;
+//   flex: 1 0 calc(100% + 48px);
 //   flex-wrap: wrap;
-//   margin-left: -1.5rem; // $grid-gutter
-//   margin-right: -1.5rem; // $grid-gutter
-//   flex: 0 0 calc(100% + 3rem);
-//   max-width: calc(100% + 3rem);
+//   margin-left: -24px;
+//   margin-right: -24px;
 // }
 
 .o-grid {
-  @include grid-nest;
+  @include grid-container;
 }
 
-// Grid item creates the basics for the grid column layout
+// Grid column creates the basics for the grid column layout
 //
-// @include grid-column(12, $adaptable-grid);
+// .o-grid__col {
+//   @include grid-column;
+// }
 //
 // Output
-// .element {
-//    flex-grow: 0;
-//    flex-shrink: 0;
-//    flex-basis: calc(100% - 3rem);
-//    max-width: calc(100% - 3rem);
-//    margin-left: 1.5rem;
+// .o-grid__col {
+//   flex-shrink: 0;
+//   width: calc(100% - 48px);
+//   max-width: calc(100% - 48px);
+//   margin-left: 24px;
 // }
 
 .o-grid__col {
@@ -50,19 +54,21 @@
 }
 
 //
-// Tools (Private) - Build grid items modifier classes
+// Tools (Private) - Build grid columns modifier classes
 // ==========================================================================
 //
-// This code will generate our entire project’s grid system classes in one go.
-// You shouldn’t need to know the full ins-and-outs of what is going on below;
+// This code will generate our grid system column modifier classes in one go.
+// You shouldn’t need to know the full ins-and-outs of what is going on below,
 // all you really need to know is that we end up with a suite of classes like:
 //
-// .o-grid__col--6 -- spans for 6 columns or half width
-// .o-grid__col--9@md -- spans for 9 columns or three quarters
-//                       on medium-and-up screens
-// .o-grid__col--push-8 -- push an item over to the right by 8 cols
-//                         or two thirds
-// .o-grid__col--pull-3@lg -- pull an item back to the left by half
+// .o-grid__col--6 -- spans for 6 columns
+// .o-grid__col--9@md -- spans for 9 columns on medium and up screens
+// .o-grid__col--push-8 -- push an column over to the right by 8 cols
+// .o-grid__col--pull-3@lg -- pull an column to the left by 3 columns
+//                            on large and up screens
+//
+// that you can then use with the main `.o-grid__col` class to modify your
+// grid columns size and position.
 
 @mixin _build-grid-system($breakpoint: null) {
   // Get the total number of columns defined on our $adaptable-grid object inside

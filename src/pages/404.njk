@@ -1,17 +1,21 @@
 ---
-layout: base
 title: Page not found
 excludeFromSitemap: true
 permalink: 404/index.html
 ---
 
-<div class="u-text-center">
-  <header>
-    <h1>Hmmm...</h1>
-    <p>Seems like you're lost.</p>
-  </header>
-  <div>
-    <p>Sorry about that - might be a typo in the URL, or maybe this page has moved.</p>
-    <a href="/">Go Back Home</a>
+{% extends "../layouts/_base.njk" %}
+
+{% block content %}
+  <div class="u-text-center">
+    <header>
+      <h1>Hmmm...</h1>
+      <p>Seems like you're lost.</p>
+    </header>
+    <div>
+      <p>Sorry about that - might be a typo in the URL, or maybe this page has moved.</p>
+      <a href="/">Go Back Home</a>
+    </div>
   </div>
-</div>
+{% endblock %}
+

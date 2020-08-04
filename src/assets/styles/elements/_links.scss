@@ -7,11 +7,7 @@
 // in the Components layer.
 
 a {
-  color: color("gray-700");
-  text-decoration: none;
+  color: color("info");
+  text-decoration: underline;
   cursor: pointer;
-
-  &:hover {
-    text-decoration: underline;
-  }
 }

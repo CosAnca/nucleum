@@ -5,6 +5,38 @@
 // Utility classes for flexbox properties
 // stylelint-disable declaration-no-important
 
+// Flex direction
+// -------------------------------------------
+//
+// Use `.u-flex-row` to position flex items horizontally in the same direction
+// as text
+//
+// Use `.u-flex-row-reverse` to position flex items horizontally in the
+// opposite direction
+//
+// Use `.u-flex-col` to position flex items vertically
+//
+// Use `.u-flex-col-reverse` to position flex items vertically in the
+// opposite direction
+
+$flex-direction: (row, row-reverse, column, column-reverse);
+
+@mixin _build-flex-direction($breakpoint: null) {
+  @each $value in $flex-direction {
+    .u-flex-#{if(str-index($value, "column"), str-replace($value, "column", "col"), $value)}#{$breakpoint} {
+      flex-direction: $value !important;
+    }
+  }
+}
+
+@include _build-flex-direction;
+
+@each $breakpoint, $value in $mq-breakpoints {
+  @include mq($from: $breakpoint) {
+    @include _build-flex-direction(\@#{$breakpoint});
+  }
+}
+
 // Align Items
 // -------------------------------------------
 
@@ -76,6 +108,34 @@ $justifications: (
   }
 }
 
+// Flex wrap
+// -------------------------------------------
+//
+// Use `.u-flex-wrap` to allow flex items to wrap.
+//
+// Use `.u-flex-no-wrap` to prevent flex items from wrapping,
+// causing inflexible items to overflow the container if necessary.
+//
+// Use `.u-flex-wrap-reverse` to wrap flex items in the reverse direction.
+
+$flex-wrap: (wrap, nowrap, wrap-reverse);
+
+@mixin _build-flex-wrap($breakpoint: null) {
+  @each $value in $flex-wrap {
+    .u-flex-#{if($value == "nowrap", "no-wrap", $value)}#{$breakpoint} {
+      flex-wrap: $value !important;
+    }
+  }
+}
+
+@include _build-flex-wrap;
+
+@each $breakpoint, $value in $mq-breakpoints {
+  @include mq($from: $breakpoint) {
+    @include _build-flex-wrap(\@#{$breakpoint});
+  }
+}
+
 // Misc
 // -------------------------------------------
 
@@ -111,26 +171,4 @@ $justifications: (
 
 .u-flex-none {
   flex: none !important;
-}
-
-// Flex no wrap
-// Use `.u-flex-no-wrap` to prevent flex items from wrapping,
-// causing inflexible items to overflow the container if necessary.
-
-.u-flex-no-wrap {
-  flex-wrap: nowrap !important;
-}
-
-// Flex wrap
-// Use `.u-flex-wrap` to allow flex items to wrap.
-
-.u-flex-wrap {
-  flex-wrap: wrap !important;
-}
-
-// Flex wrap reverse
-// Use `.u-flex-wrap-reverse` to wrap flex items in the reverse direction.
-
-.u-flex-wrap-reverse {
-  flex-wrap: wrap-reverse !important;
 }

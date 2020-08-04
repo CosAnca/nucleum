@@ -17,11 +17,11 @@ $size-values: (
 
 @mixin _build-sizes($breakpoint: null) {
   @each $value, $size in $size-values {
-    .u-width-#{$value}#{$breakpoint} {
+    .u-w-#{$value}#{$breakpoint} {
       width: $size !important;
     }
 
-    .u-height-#{$value}#{$breakpoint} {
+    .u-h-#{$value}#{$breakpoint} {
       height: $size !important;
     }
   }
@@ -33,4 +33,10 @@ $size-values: (
   @include mq($from: $breakpoint) {
     @include _build-sizes(\@#{$breakpoint});
   }
+}
+
+// Full viewport min-height
+
+.u-min-h-screen {
+  min-height: 100vh !important;
 }
