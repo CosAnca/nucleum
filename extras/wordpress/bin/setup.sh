@@ -70,7 +70,7 @@ read CUSTOM_THEME
 if [[ "$CUSTOM_THEME" == Y* ]] || [[ "$CUSTOM_THEME" == y* ]] || [ -z "$CUSTOM_THEME" ]; then
   echo "Please enter the theme URL or local ZIP path: \c "
   read CUSTOM_THEME_URL
-  echo "Please set a theme slug: \c"
+  echo "Please enter the theme slug: \c"
   read CUSTOM_THEME_SLUG
   # THEME RENAMING VARIABLES
   theme_text_domain="'${CUSTOM_THEME_SLUG}'"
