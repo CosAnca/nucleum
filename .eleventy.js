@@ -34,8 +34,8 @@ module.exports = function (eleventyConfig) {
     dir: {
       input: "src",
       data: "data",
-      includes: "includes",
-      layouts: "layouts",
+      includes: "views/includes",
+      layouts: "views/layouts",
       output: "public",
     },
     templateFormats: ["njk", "md"],

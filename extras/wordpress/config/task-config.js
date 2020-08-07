@@ -7,32 +7,32 @@ module.exports = {
   stylesheets: {
     purgecss: {
       content: ["public/wp-content/themes/nucleum/**/*.php"],
-      extensions: ["php"]
+      extensions: ["php"],
     },
     criticalCss: {
       config: {
         base: "./public/wp-content/themes/nucleum",
         width: 1200,
-        height: 1200
-      }
-    }
+        height: 1200,
+      },
+    },
   },
 
   browserSync: {
     proxy: {
-      target: "localhost"
+      target: "localhost",
     },
-    files: ["public/wp-content/themes/nucleum/**/*.php"]
+    files: ["public/wp-content/themes/nucleum/**/*.php"],
   },
 
   javascripts: {
     entry: {
-      app: ["./app.js"]
+      app: ["./app.js"],
     },
-    publicPath: "/wp-content/themes/nucleum/assets/js/"
+    publicPath: "/wp-content/themes/nucleum/assets/js/",
   },
 
   production: {
-    rev: false
-  }
+    rev: false,
+  },
 };

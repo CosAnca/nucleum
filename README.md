@@ -46,7 +46,7 @@ and also adds a `browserslist` configuration that you can customize based on you
 ```js
 // package.json
 "browserslist": [
-  ">0.2%",
+  ">0.5%",
   "not dead",
   "ie >= 11",
   "not op_mini all"
@@ -390,13 +390,13 @@ stylesheets: {
 
 **IMPORTANT** All of the above stylesheets options are included as PostCSS plugins.
 
-#### `postCssPlugins`
+#### `postcssPlugins`
 
 Allows passing extra postcss plugins into the pipeline.
 
 ```js
 stylesheets: {
-  postCssPlugins: [pluginName(pluginConfig)];
+  postcssPlugins: [pluginName(pluginConfig)];
 }
 ```
 
@@ -479,6 +479,8 @@ Nucleum is using [Eleventy] under the hood to generate static HTML files.
 We use [Nunjucks] as the default templating engine but you can change that to any other Eleventy [supported template languages](https://www.11ty.dev/docs/languages/). Also, by default the HTML output is beautified rather than minified. If you'd like to change that behaviour, you'll have to add a new transform to minify the output. Find out more in the [Eleventy Documentation](https://www.11ty.dev/docs/config/#transforms-example-minify-html-output).
 
 You can change or extend Eleventy's configuration through the [.eleventy.js](./.eleventy.js) file.
+
+If you ever need a more verbose error output for Eleventy, run your project with the following command: `DEBUG=Eleventy* yarn start`.
 
 ### static
 

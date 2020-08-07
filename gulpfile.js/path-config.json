@@ -3,7 +3,7 @@
   "dest": "./public",
 
   "html": {
-    "src": "./",
+    "src": "views",
     "dest": "./"
   },
 

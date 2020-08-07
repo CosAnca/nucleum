@@ -2,12 +2,20 @@
 
 Sass is the greatest, and libsass (via node-sass) is the fastest! Put your Sass here.
 
-[Normalize.css](https://github.com/necolas/normalize.css) is provided as a PostCSS plugin and can be included either through `task-config.js` file or using the default import directive `@import-normalize` in the main `style.scss` file.
-
-Other Sass libraries used with our CSS are:
+Included Sass libraries:
 
 - [Bourbon](https://bourbon.io)
 - [Adaptable](https://github.com/CosAnca/adaptable)
+
+The Sass output is also passed through [PostCSS](https://github.com/postcss/postcss) to allow you to use any PostCSS plugins you may need.
+
+Included PostCSS plugins:
+
+- [postcss-normalize](https://github.com/csstools/postcss-normalize)
+- [postcss-preset-env](https://github.com/csstools/postcss-preset-env)
+- [postcss-svg](https://github.com/Pavliko/postcss-svg)
+
+- To use [Normalize.css](https://github.com/necolas/normalize.css) via [postcss-normalize](https://github.com/csstools/postcss-normalize) you have to included it either through `task-config.js` file or using the default import directive `@import-normalize` in the main `style.scss` file.
 
 ### Architecture
 

@@ -105,16 +105,16 @@
 
 // Objects
 @import "objects/container";
-@import "objects/flow";
 @import "objects/grid";
+@import "objects/flow";
+@import "objects/aspect-ratio";
+@import "objects/breakout";
 @import "objects/icons";
-@import "objects/media";
-@import "objects/tables";
 @import "objects/list-bare";
 @import "objects/list-block";
 @import "objects/list-inline";
-@import "objects/aspect-ratio";
-@import "objects/breakout";
+@import "objects/media";
+@import "objects/tables";
 
 // Components
 @import "components/all";

@@ -13,6 +13,21 @@
     "type": "git",
     "url": "https://github.com/CosAnca/nucleum.git"
   },
+  "keywords": [
+    "static-site-generator",
+    "static-site",
+    "ssg",
+    "gulp",
+    "eleventy",
+    "11ty",
+    "nunjucks",
+    "sass",
+    "postcss",
+    "webpack",
+    "babel",
+    "eslint",
+    "stylelint"
+  ],
   "bin": {
     "nucleum": "bin/nucleum.js"
   },
