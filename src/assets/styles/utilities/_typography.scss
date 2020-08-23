@@ -31,10 +31,8 @@ $text-alignments: (left, center, right, justify);
 
 // Font weights and styles utilities
 // ==============================================
-//
-// $font-weights are declared inside settings/_typography
 
-@each $font-weight-key, $font-weight-value in $font-weights {
+@each $font-weight-key, $font-weight-value in $font-weight {
   .u-font-#{$font-weight-key} {
     font-weight: $font-weight-value !important;
   }

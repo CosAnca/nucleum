@@ -2,82 +2,35 @@
 // SETTINGS / TYPOGRAPHY
 // =============================================================================
 
-// Brand and project font-sizes and line-heights are held in maps.
-// Access these using `@include font()` from `tools/typography`.
-$text: (
-  "heading-alpha": (
-    "small": (
-      "font-size": 36px,
-      "line-height": 1.16
-    ),
-    "large": (
-      "font-size": 50px,
-      "line-height": 1.12
-    )
-  ),
-  "heading-bravo": (
-    "small": (
-      "font-size": 29px,
-      "line-height": 1.2
-    ),
-    "large": (
-      "font-size": 40px,
-      "line-height": 1.15
-    )
-  ),
-  "heading-charlie": (
-    "small": (
-      "font-size": 25px,
-      "line-height": 1.24
-    ),
-    "large": (
-      "font-size": 34px,
-      "line-height": 1.18
-    )
-  ),
-  "heading-delta": (
-    "small": (
-      "font-size": 20px,
-      "line-height": 1.3
-    ),
-    "large": (
-      "font-size": 28px,
-      "line-height": 1.21
-    )
-  ),
-  "text-lead": (
-    "small": (
-      "font-size": 18px,
-      "line-height": 1.44
-    ),
-    "large": (
-      "font-size": 22px,
-      "line-height": 1.36
-    )
-  ),
-  "text-body": (
-    "small": (
-      "font-size": 16px,
-      "line-height": 1.5
-    ),
-    "large": (
-      "font-size": 18px,
-      "line-height": 1.44
-    )
-  ),
-  "text-smallprint": (
-    "small": (
-      "font-size": 12px,
-      "line-height": 1.5
-    ),
-    "large": (
-      "font-size": 12px,
-      "line-height": 1.5
-    )
-  )
+// Brand and project font-sizes, font-weights and line-heights are held in maps.
+
+// Font sizes
+//
+// Define their values in `px`.
+// The output value will be in `rem`.
+//
+// Access these using the `font-size` mixin or function
+// from `tools/typography`
+
+$font-size: (
+  "xs": 12px,
+  "sm": 14px,
+  "base": 16px,
+  "lg": 18px,
+  "xl": 20px,
+  "2xl": 24px,
+  "3xl": 30px,
+  "4xl": 36px,
+  "5xl": 40px,
+  "6xl": 48px,
+  "7xl": 64px,
 ) !default;
 
-$font-weights: (
+// Font weights
+// Access these using either `@include font-weight()` mixin or `font-weight()`
+// function from `tools/typography`
+
+$font-weight: (
   "hairline": 100,
   "thin": 200,
   "light": 300,
@@ -86,5 +39,105 @@ $font-weights: (
   "semibold": 600,
   "bold": 700,
   "extrabold": 800,
-  "black": 900
+  "black": 900,
+) !default;
+
+// Line heights
+// Access these using either `@include line-height()` mixin or `line-height()`
+// function from `tools/typography`
+
+$line-height: (
+  "none": 1,
+  "tight": 1.25,
+  "normal": 1.5,
+) !default;
+
+// Text
+//
+// The following map compose the font-size and line-height into deeper maps
+// that we use to generate responsive font-size.
+//
+// Access these using `@include text()` from `tools/typography`.
+
+$text: (
+  "heading-alpha": (
+    "small": (
+      "font-size": map-get($font-size, "4xl"),
+      "line-height": map-get($line-height, "tight"),
+    ),
+    "large": (
+      "font-size": map-get($font-size, "6xl"),
+      "line-height": map-get($line-height, "tight"),
+    ),
+  ),
+  "heading-bravo": (
+    "small": (
+      "font-size": map-get($font-size, "3xl"),
+      "line-height": map-get($line-height, "tight"),
+    ),
+    "large": (
+      "font-size": map-get($font-size, "5xl"),
+      "line-height": map-get($line-height, "tight"),
+    ),
+  ),
+  "heading-charlie": (
+    "small": (
+      "font-size": map-get($font-size, "2xl"),
+      "line-height": map-get($line-height, "tight"),
+    ),
+    "large": (
+      "font-size": map-get($font-size, "4xl"),
+      "line-height": map-get($line-height, "tight"),
+    ),
+  ),
+  "heading-delta": (
+    "small": (
+      "font-size": map-get($font-size, "xl"),
+      "line-height": map-get($line-height, "tight"),
+    ),
+    "large": (
+      "font-size": map-get($font-size, "3xl"),
+      "line-height": map-get($line-height, "tight"),
+    ),
+  ),
+  "lead": (
+    "small": (
+      "font-size": map-get($font-size, "lg"),
+      "line-height": map-get($line-height, "normal"),
+    ),
+    "large": (
+      "font-size": map-get($font-size, "lg"),
+      "line-height": map-get($line-height, "normal"),
+    ),
+  ),
+  "body": (
+    "small": (
+      "font-size": map-get($font-size, "base"),
+      "line-height": map-get($line-height, "normal"),
+    ),
+    "large": (
+      "font-size": map-get($font-size, "base"),
+      "line-height": map-get($line-height, "normal"),
+    ),
+  ),
+  "smallprint": (
+    "small": (
+      "font-size": map-get($font-size, "sm"),
+      "line-height": map-get($line-height, "normal"),
+    ),
+    "large": (
+      "font-size": map-get($font-size, "sm"),
+      "line-height": map-get($line-height, "normal"),
+    ),
+  ),
+  "tinyprint": (
+    "small": (
+      "font-size": map-get($font-size, "xs"),
+      "line-height": map-get($line-height, "normal"),
+    ),
+    "large": (
+      "font-size": map-get($font-size, "xs"),
+      "line-height": map-get($line-height, "normal"),
+    ),
+  ),
 ) !default;
