@@ -16,7 +16,7 @@
     @return $map;
   }
 
-  @warn "Unknown keys of `#{$keys}` in the defined map";
+  @error "Unknown keys of `#{$keys}` in `#{$map}";
   @return null;
 }
 

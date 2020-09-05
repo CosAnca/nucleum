@@ -5,21 +5,32 @@
 // Headings
 // ===========================================
 
-// Force all headings to have the exact same *default* styling. This means we
-// are free to use the correct semantic element without having opinionated look-
-// and-feel attached to it. Provide all cosmetics for specific visual use cases
-// via heading classes (i.e. `.c-heading-*`).
-//
-// http://csswizardry.com/2016/02/managing-typography-on-large-apps/
+// Simple default styles for headings 1 through 6. Anything more opinionated
+// than simple font-size changes should likely be applied via classes (see:
+// http://csswizardry.com/2016/02/managing-typography-on-large-apps/).
 
-h1,
-h2,
-h3,
-h4,
-h5,
+h1 {
+  @include font-size("4xl");
+}
+
+h2 {
+  @include font-size("3xl");
+}
+
+h3 {
+  @include font-size("2xl");
+}
+
+h4 {
+  @include font-size("xl");
+}
+
+h5 {
+  @include font-size("lg");
+}
+
 h6 {
-  @include text("body");
-  font-weight: normal;
+  @include font-size("base");
 }
 
 // Other text-level elements

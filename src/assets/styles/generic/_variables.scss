@@ -16,12 +16,12 @@
   }
 
   // Font size
-  @each $key, $value in $font-size {
+  @each $key, $value in $font-sizes {
     #{--font-size}-#{$key}: $value;
   }
 
   // Font weight
-  @each $key, $value in $font-weight {
+  @each $key, $value in $font-weights {
     #{--font-weight}-#{$key}: $value;
   }
 }

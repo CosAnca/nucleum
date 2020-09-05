@@ -12,10 +12,10 @@
 // Access these using the `font-size` mixin or function
 // from `tools/typography`
 
-$font-size: (
+$font-sizes: (
   "xs": 12px,
   "sm": 14px,
-  "base": 16px,
+  "base": $global-font-size,
   "lg": 18px,
   "xl": 20px,
   "2xl": 24px,
@@ -30,7 +30,7 @@ $font-size: (
 // Access these using either `@include font-weight()` mixin or `font-weight()`
 // function from `tools/typography`
 
-$font-weight: (
+$font-weights: (
   "hairline": 100,
   "thin": 200,
   "light": 300,
@@ -46,98 +46,8 @@ $font-weight: (
 // Access these using either `@include line-height()` mixin or `line-height()`
 // function from `tools/typography`
 
-$line-height: (
+$line-heights: (
   "none": 1,
   "tight": 1.25,
-  "normal": 1.5,
-) !default;
-
-// Text
-//
-// The following map compose the font-size and line-height into deeper maps
-// that we use to generate responsive font-size.
-//
-// Access these using `@include text()` from `tools/typography`.
-
-$text: (
-  "heading-alpha": (
-    "small": (
-      "font-size": map-get($font-size, "4xl"),
-      "line-height": map-get($line-height, "tight"),
-    ),
-    "large": (
-      "font-size": map-get($font-size, "6xl"),
-      "line-height": map-get($line-height, "tight"),
-    ),
-  ),
-  "heading-bravo": (
-    "small": (
-      "font-size": map-get($font-size, "3xl"),
-      "line-height": map-get($line-height, "tight"),
-    ),
-    "large": (
-      "font-size": map-get($font-size, "5xl"),
-      "line-height": map-get($line-height, "tight"),
-    ),
-  ),
-  "heading-charlie": (
-    "small": (
-      "font-size": map-get($font-size, "2xl"),
-      "line-height": map-get($line-height, "tight"),
-    ),
-    "large": (
-      "font-size": map-get($font-size, "4xl"),
-      "line-height": map-get($line-height, "tight"),
-    ),
-  ),
-  "heading-delta": (
-    "small": (
-      "font-size": map-get($font-size, "xl"),
-      "line-height": map-get($line-height, "tight"),
-    ),
-    "large": (
-      "font-size": map-get($font-size, "3xl"),
-      "line-height": map-get($line-height, "tight"),
-    ),
-  ),
-  "lead": (
-    "small": (
-      "font-size": map-get($font-size, "lg"),
-      "line-height": map-get($line-height, "normal"),
-    ),
-    "large": (
-      "font-size": map-get($font-size, "lg"),
-      "line-height": map-get($line-height, "normal"),
-    ),
-  ),
-  "body": (
-    "small": (
-      "font-size": map-get($font-size, "base"),
-      "line-height": map-get($line-height, "normal"),
-    ),
-    "large": (
-      "font-size": map-get($font-size, "base"),
-      "line-height": map-get($line-height, "normal"),
-    ),
-  ),
-  "smallprint": (
-    "small": (
-      "font-size": map-get($font-size, "sm"),
-      "line-height": map-get($line-height, "normal"),
-    ),
-    "large": (
-      "font-size": map-get($font-size, "sm"),
-      "line-height": map-get($line-height, "normal"),
-    ),
-  ),
-  "tinyprint": (
-    "small": (
-      "font-size": map-get($font-size, "xs"),
-      "line-height": map-get($line-height, "normal"),
-    ),
-    "large": (
-      "font-size": map-get($font-size, "xs"),
-      "line-height": map-get($line-height, "normal"),
-    ),
-  ),
+  "normal": $global-line-height,
 ) !default;
