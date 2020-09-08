@@ -9,8 +9,8 @@
 // Define their values in `px`.
 // The output value will be in `rem`.
 //
-// Access these using the `font-size` mixin or function
-// from `tools/typography`
+// Access these using the `@include font-size()` mixin defined in
+// `tools/_typography.scss`
 
 $font-sizes: (
   "xs": 12px,
@@ -27,8 +27,9 @@ $font-sizes: (
 ) !default;
 
 // Font weights
-// Access these using either `@include font-weight()` mixin or `font-weight()`
-// function from `tools/typography`
+//
+// Access these using the `@include font-weight()` mixin defined in
+// `tools/_typography.scss`
 
 $font-weights: (
   "hairline": 100,
@@ -43,8 +44,9 @@ $font-weights: (
 ) !default;
 
 // Line heights
-// Access these using either `@include line-height()` mixin or `line-height()`
-// function from `tools/typography`
+//
+// Access these using `@include line-height()` mixin defined in
+// `tools/_typography.scss`
 
 $line-heights: (
   "none": 1,

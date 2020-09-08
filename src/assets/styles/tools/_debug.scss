@@ -51,7 +51,6 @@ $visual-baseline-color: #ccc;
 $visual-baseline-opacity: 0.6;
 
 // Custom visual baseline
-// sass-lint:disable indentation
 @mixin grid-visual-baseline($color: #ccc, $baseline-grid: $visual-baseline) {
   $_grid-baseline: transparent,
     transparent ($global-line-height * $global-font-size) - 1,

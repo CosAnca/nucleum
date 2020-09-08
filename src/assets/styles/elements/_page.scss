@@ -7,21 +7,27 @@
 // 1. Fonts on OSX will look more consistent with other systems that do not
 //    render text using sub-pixel anti-aliasing.
 // 2. Ensure the page always fills at least the entire height of the viewport.
-// 3. Set the default `font-size` and `line-height` for the entire project,
-//    sourced from our default variables. The `font-size` is calculated to exist
-//    in ems, the `line-height` is calculated to exist unitlessly.
-// 4. Force vertical scrollbars to always be visible to prevent awkward ‘jumps’
+// 3. Force vertical scrollbars to always be visible to prevent awkward ‘jumps’
 //    when navigating between pages that do/do not have enough content to
 //    produce scrollbars naturally.
+// 4. Set the default `font-size` and `line-height` for the entire project,
+//    sourced from our default variables. The `font-size` is calculated to exist
+//    in ems, the `line-height` is calculated to exist unitlessly.
+// 5. Prevent adjustments of font size after orientation changes in iOS.
+// 6. Change the default tap highlight to be completely transparent in iOS.
+
+// stylelint-disable property-no-vendor-prefix
 
 html {
   @include font-smoothing; // [1]
   min-height: 100%; // [2]
-  overflow-y: scroll; // [4]
+  overflow-y: scroll; // [3]
   color: color("gray-700");
   font-family: $global-font-family;
-  font-size: convert-to-em($global-font-size); // [3]
-  line-height: $global-line-height; // [3]
+  font-size: convert-to-em($global-font-size); // [4]
+  line-height: $global-line-height; // [4]
+  -webkit-text-size-adjust: 100%; // [5]
+  -webkit-tap-highlight-color: rgba(color("black"), 0); // [6]
 }
 
 // Set core body defaults

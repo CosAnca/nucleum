@@ -7,30 +7,30 @@
 // so that we get nice and consistent vertical rhythm very cheaply.
 // http://csswizardry.com/2012/06/single-direction-margin-declarations/
 
+address,
 h1,
 h2,
 h3,
 h4,
 h5,
 h6,
-hgroup,
-ul,
-ol,
-dl,
 blockquote,
 p,
-address,
-table,
-fieldset,
+pre,
+dl,
+ol,
+ul,
 figure,
-pre {
+hr,
+table,
+fieldset {
   margin-bottom: convert-to-rem($global-font-size * $global-line-height);
 }
 
 // We’ll also indent list elements by the same amount of spacing.
 
-ul,
+dd,
 ol,
-dd {
+ul {
   margin-left: convert-to-rem($global-font-size * $global-line-height);
 }

@@ -36,8 +36,22 @@ h6 {
 // Other text-level elements
 // ===========================================
 
-// As above, leave SMALL as a purely semantic choice, and omit any cosmetics.
-
 small {
-  font: inherit;
+  font-size: 75%;
+}
+
+sub,
+sup {
+  position: relative;
+  font-size: 75%;
+  line-height: 0;
+  vertical-align: baseline;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+sup {
+  top: -0.5em;
 }

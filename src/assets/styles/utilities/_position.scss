@@ -17,7 +17,7 @@ $position-values: (
 @mixin _build-position($breakpoint: null) {
   @each $value in $position-values {
     .u-#{$value}#{$breakpoint} {
-      position: $value !important; // sass-lint:disable-line no-important
+      position: $value !important;
     }
   }
 }
