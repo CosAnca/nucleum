@@ -36,7 +36,7 @@
     right: 0;
     left: 0;
     width: 100%;
-    max-width: convert-to-em($global-container-width);
+    max-width: convert-to-em($container-max-width);
     height: 100%;
     margin: 0 auto;
     pointer-events: none;
@@ -53,9 +53,9 @@ $visual-baseline-opacity: 0.6;
 // Custom visual baseline
 @mixin grid-visual-baseline($color: #ccc, $baseline-grid: $visual-baseline) {
   $_grid-baseline: transparent,
-    transparent ($global-line-height * $global-font-size) - 1,
-    $color ($global-line-height * $global-font-size) - 1,
-    $color $global-line-height * $global-font-size;
+    transparent ($line-height-base * $font-size-base) - 1,
+    $color ($line-height-base * $font-size-base) - 1,
+    $color $line-height-base * $font-size-base;
 
   background-image: repeating-linear-gradient(to bottom, $_grid-baseline);
 }

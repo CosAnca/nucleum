@@ -37,11 +37,11 @@ module.exports = {
   },
 
   html: {
-    extensions: ["njk", "md", "json", "js"],
+    extensions: ["pug", "njk", "md", "json", "js"],
   },
 
   images: {
-    extensions: ["jpg", "png", "svg", "gif"],
+    extensions: ["jpg", "png", "svg", "gif", "webp", "avif"],
   },
 
   fonts: {

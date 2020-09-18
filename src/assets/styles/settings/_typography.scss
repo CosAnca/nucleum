@@ -2,7 +2,16 @@
 // SETTINGS / TYPOGRAPHY
 // =============================================================================
 
-// Brand and project font-sizes, font-weights and line-heights are held in maps.
+// Base typography settings
+
+$font-family-base: $font-stack-system !default;
+
+// $font-size-root affects the value of `rem`,
+// which is used for font sizes, paddings and margins as well
+$font-size-root: null !default;
+// $font-size-base affects the font size of the body text
+$font-size-base: 16px !default;
+$line-height-base: 1.5 !default;
 
 // Font sizes
 //
@@ -15,7 +24,7 @@
 $font-sizes: (
   "xs": 12px,
   "sm": 14px,
-  "base": $global-font-size,
+  "base": $font-size-base,
   "lg": 18px,
   "xl": 20px,
   "2xl": 24px,
@@ -51,5 +60,5 @@ $font-weights: (
 $line-heights: (
   "none": 1,
   "tight": 1.25,
-  "normal": $global-line-height,
+  "normal": $line-height-base,
 ) !default;

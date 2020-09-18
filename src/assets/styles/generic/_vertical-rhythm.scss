@@ -24,7 +24,7 @@ figure,
 hr,
 table,
 fieldset {
-  margin-bottom: convert-to-rem($global-font-size * $global-line-height);
+  margin-bottom: convert-to-rem($font-size-base * $line-height-base);
 }
 
 // We’ll also indent list elements by the same amount of spacing.
@@ -32,5 +32,5 @@ fieldset {
 dd,
 ol,
 ul {
-  margin-left: convert-to-rem($global-font-size * $global-line-height);
+  margin-left: convert-to-rem($font-size-base * $line-height-base);
 }

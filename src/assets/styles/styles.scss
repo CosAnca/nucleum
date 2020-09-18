@@ -34,7 +34,6 @@
 // ELEMENTS
 // Page.................Set up our HTML and/or BODY elements.
 // Typography...........Simple typographical elements (e.g. H1–H6).
-// Forms................Very, very basic (reset-like) form element styles.
 // Links................Default styles for simple hyperlinks.
 // Tables...............Baseline styling to TABLE elements.
 // Images...............Sensible defaults for IMG elements.
@@ -104,7 +103,6 @@
 // Elements
 @import "elements/page";
 @import "elements/typography";
-@import "elements/forms";
 @import "elements/links";
 @import "elements/tables";
 @import "elements/images";

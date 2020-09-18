@@ -5,6 +5,8 @@
 // As well as using Normalize.css, it is often advantageous to remove all
 // margins from certain elements.
 
+// stylelint-disable property-no-vendor-prefix
+
 body,
 h1,
 h2,
@@ -46,4 +48,164 @@ li > {
 table {
   border-spacing: 0;
   border-collapse: collapse;
+}
+
+// 1. Matches default `<td>` alignment by inheriting `text-align`.
+// 2. Fix alignment for Safari
+
+th {
+  text-align: inherit; // 1
+  text-align: -webkit-match-parent; // 2
+}
+
+thead,
+tbody,
+tfoot,
+tr,
+td,
+th {
+  border-width: 0;
+  border-style: solid;
+  border-color: inherit;
+}
+
+// Semantically, we’d like all forms to be built with FIELDSETs but we don't
+// want to visually see them.
+
+// 1. Reset Chrome and Firefox behaviour which sets a `min-width: min-content;`
+//    on fieldsets.
+// 2. Remove default border.
+
+fieldset {
+  min-width: 0; // [1]
+  border: 0; // [2]
+}
+
+// Make sure our form elements don’t use any UA-specific font styles: we want
+// them to use ours. This may need reverting as more design information becomes
+// available, and we start putting together more complete forms.
+
+// 1. Remove the margin in Firefox and Safari
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  margin: 0;
+  font: inherit;
+}
+
+// Show the overflow in Edge
+
+button,
+input {
+  overflow: visible;
+}
+
+// Remove the inheritance of text transform in Firefox
+
+button,
+select {
+  text-transform: none;
+}
+
+// Remove the inheritance of word-wrap in Safari.
+
+select {
+  word-wrap: normal;
+}
+
+address {
+  font-style: normal;
+  line-height: inherit;
+}
+
+// Remove inner border and padding from Firefox, but don't restore the outline like Normalize.
+
+::-moz-focus-inner {
+  padding: 0;
+  border-style: none;
+}
+
+// 1. Textareas should really only resize vertically so they don't break their (horizontal) containers.
+
+textarea {
+  resize: vertical; // 1
+}
+
+// Fix height of inputs with a type of datetime-local, date, month, week, or time
+
+::-webkit-datetime-edit-fields-wrapper,
+::-webkit-datetime-edit-text,
+::-webkit-datetime-edit-minute,
+::-webkit-datetime-edit-hour-field,
+::-webkit-datetime-edit-day-field,
+::-webkit-datetime-edit-month-field,
+::-webkit-datetime-edit-year-field {
+  padding: 0;
+}
+
+::-webkit-inner-spin-button {
+  height: auto;
+}
+
+// 1. Correct the outline style in Safari.
+// 2. This overrides the extra rounded corners on search inputs in iOS so that our
+//    `.form-control` class can properly style them. Note that this cannot simply
+//    be added to `.form-control` as it's not specific enough. For details, see
+//    https://github.com/twbs/bootstrap/issues/11586.
+
+[type="search"] {
+  outline-offset: -2px; // 1
+  appearance: textfield; // 2
+}
+
+// Remove the inner padding in Chrome and Safari on macOS.
+
+::-webkit-search-decoration {
+  appearance: none;
+}
+
+// Remove padding around color pickers in webkit browsers
+
+::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+// 1. Change font properties to `inherit` in Safari.
+// 2. Correct the inability to style clickable types in iOS and Safari.
+
+::-webkit-file-upload-button {
+  font: inherit; // 1
+  appearance: button; // 2
+}
+
+// Correct element displays
+
+output {
+  display: inline-block;
+}
+
+// Remove border from iframe
+
+iframe {
+  border: 0;
+}
+
+// Summary
+//
+// 1. Add the correct display in all browsers
+
+summary {
+  display: list-item; // 1
+  cursor: pointer;
+}
+
+// Progress
+//
+// Add the correct vertical alignment in Chrome, Firefox, and Opera.
+
+progress {
+  vertical-align: baseline;
 }

@@ -14,10 +14,10 @@
 // Grid Settings........Hold sitewide breakpoint values.
 
 @import "config";
-@import "globals";
 @import "colors";
-@import "spacing";
 @import "typography";
+@import "spacing";
 @import "breakpoints";
-@import "grid-settings";
+@import "grid";
+@import "container";
 @import "borders";

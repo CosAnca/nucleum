@@ -17,7 +17,7 @@
 
   // Font size
   @each $key, $value in $font-sizes {
-    #{--font-size}-#{$key}: $value;
+    #{--font-size}-#{$key}: convert-to-rem($value);
   }
 
   // Font weight

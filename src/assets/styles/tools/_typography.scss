@@ -114,10 +114,10 @@
     // By default, we set it to the minimum number of lines necessary
     // in order to contain the defined font-size, +2 for some breathing room.
     // This can be modified with the `$modifier` parameter.
-    $lines: ceil(map-get-deep($font-sizes, $font-size) / $global-spacing-base) +
+    $lines: ceil(map-get-deep($font-sizes, $font-size) / $spacing-base) +
       $modifier +
       2;
-    $line-height: $lines * $global-spacing-base;
+    $line-height: $lines * $spacing-base;
 
     line-height: ($line-height / map-get-deep($font-sizes, $font-size))
       $important;

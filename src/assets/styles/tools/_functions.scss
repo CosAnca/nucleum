@@ -90,7 +90,7 @@
 // ------------------------------------
 
 // Converts any `px` or `em` value to `rem`.
-@function convert-to-rem($value, $base-font-size: $global-font-size) {
+@function convert-to-rem($value, $base-font-size: $font-size-base) {
   @if $value == 0 {
     @return $value;
   }
@@ -116,7 +116,7 @@
 // Converts any `px` value to `em`.
 //
 // @param {Number} $px - value to convert
-// @param {Number} $base-font-size ($global-font-size) - `<body>` font size
+// @param {Number} $base-font-size ($font-size-base) - `<body>` font size
 //
 // @example scss
 //  $font-size-in-ems: convert-to-em(16px);
@@ -125,7 +125,7 @@
 // @requires $base-font-size
 // @returns {Number}
 //
-@function convert-to-em($px, $base-font-size: $global-font-size) {
+@function convert-to-em($px, $base-font-size: $font-size-base) {
   @if unitless($px) {
     @warn "Assuming #{$px} to be in pixels, attempting to convert it into pixels.";
     @return convert-to-em($px * 1px, $base-font-size);
