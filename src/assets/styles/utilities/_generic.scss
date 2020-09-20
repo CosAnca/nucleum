@@ -2,9 +2,9 @@
 // UTILITIES / GENERIC
 // ==========================================================================
 
-// stylelint-disable declaration-no-important
-
 // Remove all animations and transitions for people that prefer not to see them
+
+/* stylelint-disable declaration-no-important */
 
 @media (prefers-reduced-motion: reduce) {
   * {

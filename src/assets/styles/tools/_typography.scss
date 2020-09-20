@@ -20,7 +20,7 @@
 // Returns the font size value in `rem`.
 @function font-size($key) {
   $value: map-get-deep($font-sizes, $key);
-  @return convert-to-rem($value);
+  @return rem($value);
 }
 
 // font-weight()

@@ -36,7 +36,7 @@
     right: 0;
     left: 0;
     width: 100%;
-    max-width: convert-to-em($container-max-width);
+    max-width: em($container-max-width);
     height: 100%;
     margin: 0 auto;
     pointer-events: none;
@@ -47,15 +47,16 @@
 // ==============================================
 
 $visual-baseline: false;
-$visual-baseline-color: #ccc;
+$visual-baseline-color: #ff61b1;
 $visual-baseline-opacity: 0.6;
 
 // Custom visual baseline
-@mixin grid-visual-baseline($color: #ccc, $baseline-grid: $visual-baseline) {
-  $_grid-baseline: transparent,
-    transparent ($line-height-base * $font-size-base) - 1,
-    $color ($line-height-base * $font-size-base) - 1,
-    $color $line-height-base * $font-size-base;
+@mixin grid-visual-baseline(
+  $color: rgba($visual-baseline-color, $visual-baseline-opacity),
+  $baseline-grid: $visual-baseline
+) {
+  $_grid-baseline: transparent, transparent ($spacing-base - 1),
+    $color ($spacing-base - 1), $color $spacing-base;
 
   background-image: repeating-linear-gradient(to bottom, $_grid-baseline);
 }

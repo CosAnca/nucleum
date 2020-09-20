@@ -36,23 +36,23 @@
 
 // spacing()
 // ------------------------------------
-// Function to get spacing from $global-spacing-scale instead of using `map-get`.
+// Function to get spacing from $spacings-scale instead of using `map-get`.
 @function spacing($key) {
-  @return convert-to-rem(map-get-deep($global-spacing, $key));
+  @return rem(map-get-deep($spacings, $key));
 }
 
 // border-width()
 // ------------------------------------
 // Function to get border-width from $border-widths instead of using `map-get`.
 @function border-width($key) {
-  @return convert-to-rem(map-get-deep($border-width, $key));
+  @return rem(map-get-deep($border-width, $key));
 }
 
 // border-radius()
 // ------------------------------------
 // Function to get border-radius from $border-radius instead of using `map-get`.
 @function border-radius($key) {
-  @return convert-to-rem(map-get-deep($border-radius, $key));
+  @return rem(map-get-deep($border-radius, $key));
 }
 
 // $colors map reader
@@ -86,11 +86,11 @@
   }
 }
 
-// convert-to-rem()
+// rem()
 // ------------------------------------
 
 // Converts any `px` or `em` value to `rem`.
-@function convert-to-rem($value, $base-font-size: $font-size-base) {
+@function rem($value, $base-font-size: $font-size-base) {
   @if $value == 0 {
     @return $value;
   }
@@ -110,7 +110,7 @@
   }
 }
 
-// convert-to-em()
+// em()
 // ------------------------------------
 //
 // Converts any `px` value to `em`.
@@ -119,16 +119,16 @@
 // @param {Number} $base-font-size ($font-size-base) - `<body>` font size
 //
 // @example scss
-//  $font-size-in-ems: convert-to-em(16px);
-//  p { font-size: convert-to-em(16px); }
+//  $font-size-in-ems: em(16px);
+//  p { font-size: em(16px); }
 //
 // @requires $base-font-size
 // @returns {Number}
 //
-@function convert-to-em($px, $base-font-size: $font-size-base) {
+@function em($px, $base-font-size: $font-size-base) {
   @if unitless($px) {
     @warn "Assuming #{$px} to be in pixels, attempting to convert it into pixels.";
-    @return convert-to-em($px * 1px, $base-font-size);
+    @return em($px * 1px, $base-font-size);
   } @else if unit($px) == em {
     @return $px;
   }

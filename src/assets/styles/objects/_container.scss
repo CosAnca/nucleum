@@ -11,7 +11,7 @@
 
 .o-container {
   width: 100%; // [1]
-  max-width: convert-to-em($container-max-width); // [2]
+  max-width: em($container-max-width); // [2]
   margin-right: auto; // [3]
   margin-left: auto; // [3]
   padding-right: $container-padding-x; // [4]

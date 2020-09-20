@@ -30,7 +30,7 @@
 // Visually hide content, leaving it accessible to screenreaders and ATs.
 // http://snook.ca/archives/html_and_css/hiding-content-for-accessibility
 
-// stylelint-disable declaration-no-important
+/* stylelint-disable declaration-no-important */
 
 @mixin hide-visually {
   // Hiding elements visually overrides any matching property declarations
@@ -51,5 +51,3 @@
   // Hiding elements completely overrides any matching property declarations
   display: none !important;
 }
-
-// stylelint-enable declaration-no-important

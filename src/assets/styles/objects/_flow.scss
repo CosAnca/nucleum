@@ -10,7 +10,7 @@ $flow-directions: (
   "horizontal": left,
 );
 
-$flow-space: convert-to-rem($font-size-base * $line-height-base);
+$flow-space: rem($font-size-base * $line-height-base);
 
 .o-flow > * + * {
   margin-top: $flow-space;

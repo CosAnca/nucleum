@@ -2,6 +2,15 @@
 // ELEMENTS / PAGE
 // =============================================================================
 
+// Root
+//
+// Ability to set the value of the root font size, affecting the value of `rem`.
+// Set to `null` by default (settings/_typography.scss), thus nothing is generated.
+
+:root {
+  font-size: $font-size-root;
+}
+
 // High-level, page-level styling.
 //
 // 1. Fonts on OSX will look more consistent with other systems that do not
@@ -19,16 +28,7 @@
 // 7. Set smooth scrolling as default.
 // 8. Change the default tap highlight to be completely transparent in iOS.
 
-// stylelint-disable property-no-vendor-prefix
-
-// Root
-//
-// Ability to set the value of the root font size, affecting the value of `rem`.
-// null by default, thus nothing is generated.
-
-:root {
-  font-size: $font-size-root;
-}
+/* stylelint-disable property-no-vendor-prefix */
 
 body {
   @include font-smoothing; // [1]
@@ -38,7 +38,7 @@ body {
   background-color: color("white");
   color: color("gray-700");
   font-family: $font-family-base;
-  font-size: convert-to-em($font-size-base); // [5]
+  font-size: em($font-size-base); // [5]
   line-height: $line-height-base; // [5]
   text-size-adjust: 100%; // [6]
   scroll-behavior: smooth; // [7]

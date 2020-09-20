@@ -6,8 +6,8 @@
 
 :root {
   // Spacing
-  @each $spacing, $value in $global-spacing {
-    #{--spacing}-#{$spacing}: if($value == 0, $value, convert-to-rem($value));
+  @each $key, $value in $spacings {
+    #{--spacing}-#{$key}: if($value == 0, $value, rem($value));
   }
 
   // Color
@@ -17,7 +17,7 @@
 
   // Font size
   @each $key, $value in $font-sizes {
-    #{--font-size}-#{$key}: convert-to-rem($value);
+    #{--font-size}-#{$key}: rem($value);
   }
 
   // Font weight
