@@ -1,4 +1,4 @@
-# ![Nucleum](./src/img/nucleum-banner.png)
+# ![Nucleum](./src/assets/images/nucleum-banner.png)
 
 **Nucleum** is an opinionated, performance oriented web development starter kit. It can be used as-is as a static site builder, or can be configured and integrated into many different web development environments and sites or apps structures.
 
