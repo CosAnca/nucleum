@@ -106,11 +106,11 @@ If you'd like to have your code (SCSS and JS) linted before every commit, you ca
   }
 },
 "lint-staged": {
-  "src/js/**/*.js": [
+  "src/assets/js/**/*.js": [
     "eslint --fix",
     "prettier --write"
   ],
-  "src/style/**/*.scss": [
+  "src/assets/style/**/*.scss": [
     "stylelint --fix",
     "prettier --write"
   ]

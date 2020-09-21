@@ -1,5 +1,5 @@
 // =============================================================================
-// OBJECTS / ICONS
+// COMPONENTS / ICONS
 // =============================================================================
 
 // To be used with SVG icons sprite
@@ -39,7 +39,7 @@ $icon-size: 1em; // [1]
 //    after the icon.
 // 2. Prevents the icon size getting smaller when in flex containers.
 
-.o-icon {
+.c-icon {
   @include size($icon-size);
   display: inline-flex; // [1]
   flex-shrink: 0; // [2]

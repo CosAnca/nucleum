@@ -2,20 +2,11 @@
 // OBJECTS / FLOW
 // ==========================================================================
 
-// The Flow object allows us to set consistend and predictable
+// The Flow object allows us to set consistent and predictable
 // vertical and/or horizontal rhythm between elements or components.
-
-$flow-directions: (
-  "vertical": top,
-  "horizontal": left,
-);
 
 $flow-space: rem($font-size-base * $line-height-base);
 
 .o-flow > * + * {
   margin-top: $flow-space;
-}
-
-.o-flow-horizontal > * + * {
-  margin-left: $flow-space;
 }
