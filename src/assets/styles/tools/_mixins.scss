@@ -6,18 +6,21 @@
 // ==============================================
 
 // Generates a consistent outline shadow for use on `:focus` or `.has-focus`.
-@mixin focus-styles($el: link, $color: default, $offset: 2px) {
+@mixin focus-styles(
+  $el: link,
+  $width: 2px,
+  $color: color("info"),
+  $offset: 2px
+) {
   @if ($el == "link") {
-    outline: 3px solid color("info");
+    outline: $width solid $color;
     outline-offset: $offset;
-    text-decoration: none;
   } @else if ($el == "image") {
     outline: none;
-    box-shadow: 0 0 0 3px color("info");
+    box-shadow: 0 0 0 $width $color;
   } @else if ($el == "button") {
     outline: none;
-    box-shadow: 0 0 0 3px color("info");
-    color: color("white");
+    box-shadow: 0 0 0 $width $color;
     text-decoration: none;
   } @else {
     @warn "`#{$el}` is not a valid element. It must be `link`, `image` or `button`.";
