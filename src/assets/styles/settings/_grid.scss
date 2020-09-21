@@ -1,0 +1,22 @@
+// =============================================================================
+// SETTINGS / GRID SETTINGS
+// =============================================================================
+
+// Nucleum core css uses Adaptable (npm.im/adaptable) for its grid system.
+// Check Adaptable's documentation here: https://github.com/CosAnca/adaptable
+
+// Grid settings
+// ====================
+//
+// We define our grid settings by overwriting Adaptable's built in grid object.
+// Our grid will have 12 columns and 1.5rem column gap across
+// all breakpoints. Find more about Adaptable's grid configuration here:
+// https://github.com/CosAnca/adaptable#adaptable-grid
+
+$grid-columns: 12;
+$grid-column-gap: 1.5rem;
+
+$adaptable-grid: (
+  "columns": $grid-columns,
+  "column-gap": $grid-column-gap,
+);

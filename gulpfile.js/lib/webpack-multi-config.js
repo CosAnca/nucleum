@@ -13,7 +13,7 @@ const webpackManifest = require("./webpack-manifest");
 const querystring = require("querystring");
 const TerserPlugin = require("terser-webpack-plugin");
 
-module.exports = function(env) {
+module.exports = function (env) {
   process.env.BABEL_ENV = process.env.BABEL_ENV || process.env.NODE_ENV || env;
 
   const jsSrc = projectPath(PATH_CONFIG.src, PATH_CONFIG.javascripts.src);
@@ -41,22 +41,22 @@ module.exports = function(env) {
     entry: TASK_CONFIG.javascripts.entry,
     mode: process.env.BABEL_ENV,
     module: {
-      rules: [TASK_CONFIG.javascripts.babelLoader]
+      rules: [TASK_CONFIG.javascripts.babelLoader],
     },
     optimization: {
-      minimizer: []
+      minimizer: [],
     },
     output: {
       path: path.normalize(jsDest),
-      filename: rev ? "[name]-[hash].js" : "[name].js",
-      publicPath
+      filename: rev ? "[name]-[contenthash:10].js" : "[name].js",
+      publicPath,
     },
     plugins: [],
     resolve: {
       extensions,
       alias: TASK_CONFIG.javascripts.alias,
-      modules: [jsSrc, projectPath("node_modules")]
-    }
+      modules: [jsSrc, projectPath("node_modules")],
+    },
   };
 
   // Provide global objects to imported modules to resolve dependencies (e.g. jquery)
@@ -141,6 +141,6 @@ module.exports = function(env) {
   }
 
   // Allow full manipulation of the webpack config
-  const { customizeWebpackConfig = w => w } = TASK_CONFIG.javascripts;
+  const { customizeWebpackConfig = (w) => w } = TASK_CONFIG.javascripts;
   return customizeWebpackConfig(webpackConfig, env, webpack);
 };

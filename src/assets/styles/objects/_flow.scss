@@ -1,0 +1,12 @@
+// ==========================================================================
+// OBJECTS / FLOW
+// ==========================================================================
+
+// The Flow object allows us to set consistent and predictable
+// vertical and/or horizontal rhythm between elements or components.
+
+$flow-space: rem($font-size-base * $line-height-base);
+
+.o-flow > * + * {
+  margin-top: $flow-space;
+}

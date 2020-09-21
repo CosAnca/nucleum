@@ -6,12 +6,13 @@ const isEmpty = require("lodash/isEmpty");
 const assetTasks = ["fonts", "iconFont", "images", "svgSprite"];
 const codeTasks = ["html", "stylesheets", "javascripts"];
 
-module.exports = function(env) {
+module.exports = function (env) {
   function matchFilter(task) {
     if (TASK_CONFIG[task]) {
       if (task === "javascripts") {
         task = env === "production" ? "webpack:production" : false;
       }
+
       return task;
     }
   }
@@ -28,6 +29,6 @@ module.exports = function(env) {
 
   return {
     assetTasks: findExistingTasks(assetTasks),
-    codeTasks: findExistingTasks(codeTasks)
+    codeTasks: findExistingTasks(codeTasks),
   };
 };

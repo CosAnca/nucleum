@@ -17,7 +17,7 @@ function browserSyncTask(cb) {
 
   if (typeof proxyConfig === "string") {
     TASK_CONFIG.browserSync.proxy = {
-      target: proxyConfig
+      target: proxyConfig,
     };
   }
 
@@ -33,7 +33,7 @@ function browserSyncTask(cb) {
 
   // Resolve files from project
   if (TASK_CONFIG.browserSync.files) {
-    TASK_CONFIG.browserSync.files = TASK_CONFIG.browserSync.files.map(function(
+    TASK_CONFIG.browserSync.files = TASK_CONFIG.browserSync.files.map(function (
       glob
     ) {
       return projectPath(glob);
@@ -49,9 +49,9 @@ function browserSyncTask(cb) {
       require("webpack-dev-middleware")(compiler, {
         stats: "errors-only",
         watchOptions: TASK_CONFIG.browserSync.watchOptions || {},
-        publicPath: pathToUrl("/", webpackConfig.output.publicPath)
+        publicPath: pathToUrl("/", webpackConfig.output.publicPath),
       }),
-      require("webpack-hot-middleware")(compiler)
+      require("webpack-hot-middleware")(compiler),
     ].concat(server.extraMiddlewares || []);
 
   browserSync.init(TASK_CONFIG.browserSync);

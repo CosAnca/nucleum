@@ -1,0 +1,19 @@
+// ==========================================================================
+// SETTINGS / BORDERS
+// ==========================================================================
+
+$border-width-base: 1px !default;
+$border-radius-base: 0.25rem !default;
+
+$border-width: (
+  "none": 0,
+  "base": $border-width-base,
+) !default;
+
+$border-radius: (
+  "none": 0,
+  "sm": 0.2rem,
+  "base": $border-radius-base,
+  "lg": 0.3rem,
+  "round": 50rem,
+) !default;

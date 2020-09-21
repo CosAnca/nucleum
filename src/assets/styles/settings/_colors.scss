@@ -1,0 +1,28 @@
+// =============================================================================
+// SETTINGS / COLORS
+// =============================================================================
+
+// Brand and project colours are held in maps. Access these colours using:
+//
+//   color($KEY)
+//
+// For example:
+//
+//   .foo {
+//     color: color("success");
+//   }
+
+$colors: (
+  "danger": #f56565,
+  "info": #4299e1,
+  "success": #48bb78,
+  "gray-100": #f7fafc,
+  "gray-200": #edf2f7,
+  "gray-300": #e2e8f0,
+  "gray-400": #cbd5e0,
+  "gray-500": #a0aec0,
+  "gray-600": #718096,
+  "gray-700": #4a5568,
+  "black": #000,
+  "white": #fff,
+) !default;

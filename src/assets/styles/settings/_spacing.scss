@@ -1,0 +1,28 @@
+// =============================================================================
+// SETTINGS / SPACING
+// =============================================================================
+
+// Global spacing settings
+// ===============================================
+//
+// The global spacing configuration is based as a
+// quarter of the global font size
+
+$spacing-base: 4px !default;
+
+// prettier-ignore
+$spacings: (
+  0: 0,
+  1: $spacing-base,
+  2: $spacing-base * 2,
+  3: $spacing-base * 3,
+  4: $spacing-base * 4,
+  5: $spacing-base * 5,
+  6: $spacing-base * 6,
+  8: $spacing-base * 8,
+  10: $spacing-base * 10,
+  12: $spacing-base * 12,
+  14: $spacing-base * 14,
+  18: $spacing-base * 18,
+  32: $spacing-base * 32
+) !default;

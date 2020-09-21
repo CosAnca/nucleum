@@ -1,0 +1,44 @@
+// =============================================================================
+// SETTINGS / BREAKPOINTS
+// =============================================================================
+
+// Sass MQ Configuration
+// ==============================================
+
+// Define our breakpoints for later use with Sass MQ. The key (e.g. `md`)
+// becomes the alias for a breakpoint; the value (e.g. `632px`) is that point at
+// which that breakpoint kicks in. These pixel values will be converted into ems
+// by Sass MQ.
+//
+// Note: Sass MQ's `em` values are calculated via the browser-default HTML
+//       font-size of `16px`, *not* our $font-size-base.
+//       Further reading: https://stackoverflow.com/a/39935188
+//
+// Make use of these breakpoints like so:
+//
+//   .foo {
+//     color: red;
+//
+//     @include mq($from: md) {
+//       color: green;
+//     }
+//
+//   }
+//
+// This will compile to:
+//
+//   .foo {
+//     color: red;
+//   }
+//
+//   @media (min-width: 21em) {
+//     .foo {
+//       color: green;
+//     }
+//   }
+
+$mq-breakpoints: (
+  "md": 640px,
+  "lg": 980px,
+  "xl": 1200px,
+);

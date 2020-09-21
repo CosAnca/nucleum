@@ -1,0 +1,161 @@
+// =============================================================================
+// TOOLS / FUNCTIONS
+// =============================================================================
+
+// Maps
+// ==============================================
+// map-get-deep()
+// ------------------------------------
+// Access nested map values.
+// @author Hugo Giraudel (with modifications)
+@function map-get-deep($map, $keys...) {
+  @if map-has-keys-deep($map, $keys...) {
+    @each $key in $keys {
+      $map: map-get($map, $key);
+    }
+    @return $map;
+  }
+
+  @error "Unknown keys of `#{$keys}` in `#{$map}";
+  @return null;
+}
+
+// map-has-keys-deep()
+// ------------------------------------
+// Check for keys in nested maps.
+// @author Hugo Giraudel
+@function map-has-keys-deep($map, $keys...) {
+  @each $key in $keys {
+    @if not map-has-key($map, $key) {
+      @return false;
+    }
+    $map: map-get($map, $key);
+  }
+  @return true;
+}
+
+// spacing()
+// ------------------------------------
+// Function to get spacing from $spacings-scale instead of using `map-get`.
+@function spacing($key) {
+  @return rem(map-get-deep($spacings, $key));
+}
+
+// border-width()
+// ------------------------------------
+// Function to get border-width from $border-widths instead of using `map-get`.
+@function border-width($key) {
+  @return rem(map-get-deep($border-width, $key));
+}
+
+// border-radius()
+// ------------------------------------
+// Function to get border-radius from $border-radius instead of using `map-get`.
+@function border-radius($key) {
+  @return rem(map-get-deep($border-radius, $key));
+}
+
+// $colors map reader
+// ===========================================
+
+// Function to get color from `$colors` instead of using `map-get`.
+//
+// Usage:
+//
+//   .foo {
+//     color: color(<key>);
+//   }
+//
+@function color($key) {
+  @return map-get-deep($colors, $key);
+}
+
+// Conversion
+// ==============================================
+
+// strip-unit()
+// ------------------------------------
+//
+// Function to remove the unit from a value
+// i.e. strip-unit(20px) would return 20.
+@function strip-unit($num) {
+  @if type_of($num) == number {
+    @return $num / ($num * 0 + 1);
+  } @else {
+    @warn "Value must be a number i.e. 12, 24px etc.";
+  }
+}
+
+// rem()
+// ------------------------------------
+
+// Converts any `px` or `em` value to `rem`.
+@function rem($value, $base-font-size: $font-size-base) {
+  @if $value == 0 {
+    @return $value;
+  }
+
+  @if unit($value) == "rem" {
+    @return $value;
+  }
+
+  @if unit($value) == "px" {
+    @return (strip-unit($value / $base-font-size)) * 1rem;
+  }
+
+  @if unit($value) == "em" {
+    @return strip-unit($value) * 1rem;
+  } @else {
+    @warn "Value must be em or px.";
+  }
+}
+
+// em()
+// ------------------------------------
+//
+// Converts any `px` value to `em`.
+//
+// @param {Number} $px - value to convert
+// @param {Number} $base-font-size ($font-size-base) - `<body>` font size
+//
+// @example scss
+//  $font-size-in-ems: em(16px);
+//  p { font-size: em(16px); }
+//
+// @requires $base-font-size
+// @returns {Number}
+//
+@function em($px, $base-font-size: $font-size-base) {
+  @if unitless($px) {
+    @warn "Assuming #{$px} to be in pixels, attempting to convert it into pixels.";
+    @return em($px * 1px, $base-font-size);
+  } @else if unit($px) == em {
+    @return $px;
+  }
+  @return ($px / $base-font-size) * 1em;
+}
+
+// Misc
+// ===========================================
+
+// Replace `$search` with `$replace` in `$string`
+// @author Hugo Giraudel
+// @param {string} $string - Initial string
+// @param {string} $search - Substring to replace
+// @param {string} $replace ('') - New value
+// @return {string} - Updated string
+// https://css-tricks.com/snippets/sass/str-replace-function/
+@function str-replace($string, $search, $replace: "") {
+  $index: str-index($string, $search);
+
+  @if $index {
+    @return str-slice($string, 1, $index - 1) + $replace +
+      str-replace(
+        str-slice($string, $index + str-length($search)),
+        $search,
+        $replace
+      );
+  }
+
+  @return $string;
+}

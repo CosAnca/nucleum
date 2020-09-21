@@ -8,18 +8,18 @@
   },
 
   "static": {
-    "src": "static",
+    "src": "assets/static",
     "dest": "./"
   },
 
   "javascripts": {
-    "src": "js",
-    "dest": "js"
+    "src": "assets/js",
+    "dest": "assets/js"
   },
 
   "stylesheets": {
-    "src": "style",
-    "dest": "style"
+    "src": "assets/styles",
+    "dest": "assets/css"
   },
 
   "criticalCss": {
@@ -28,17 +28,17 @@
   },
 
   "images": {
-    "src": "img",
-    "dest": "img"
+    "src": "assets/images",
+    "dest": "assets/images"
   },
 
   "fonts": {
-    "src": "fonts",
-    "dest": "fonts"
+    "src": "assets/fonts",
+    "dest": "assets/fonts"
   },
 
   "icons": {
-    "src": "icons",
-    "dest": "img"
+    "src": "assets/icons",
+    "dest": "assets/images"
   }
 }

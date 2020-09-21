@@ -1,0 +1,36 @@
+// ==========================================================================
+// UTILITIES / DISPLAY
+// ==========================================================================
+
+// Generate a suite of utility classes for box model display property.
+
+/* stylelint-disable declaration-no-important */
+
+// prettier-ignore
+$display-values: (
+  none,
+  block,
+  inline-block,
+  flex,
+  inline-flex,
+  table,
+  table-row,
+  table-cell
+);
+
+@mixin _build-display($breakpoint: null) {
+  @each $value in $display-values {
+    .u-#{if($value == "none", "hide", $value)}#{$breakpoint} {
+      display: $value !important;
+    }
+  }
+}
+
+@include _build-display;
+
+// Create box model display classes for each breakpoint
+@each $breakpoint, $value in $mq-breakpoints {
+  @include mq($from: $breakpoint) {
+    @include _build-display(\@#{$breakpoint});
+  }
+}

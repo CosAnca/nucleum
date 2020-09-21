@@ -1,0 +1,19 @@
+// =============================================================================
+// OBJECTS / CONTAINER
+// =============================================================================
+
+// 1. Force the `o-container` to span full width when inside a flex container.
+// 2. The $container-max-width variable is defined in _globals.scss file.
+// 3. Keep the `o-container` in the center of the viewport.
+// 4. Sets x-axis padding on the container equal to the grid gutter
+//    so any non-grid elements don't have a wider width because of their
+//    default 100% width.
+
+.o-container {
+  width: 100%; // [1]
+  max-width: em($container-max-width); // [2]
+  margin-right: auto; // [3]
+  margin-left: auto; // [3]
+  padding-right: $container-padding-x; // [4]
+  padding-left: $container-padding-x; // [4]
+}

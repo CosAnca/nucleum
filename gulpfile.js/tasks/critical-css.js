@@ -14,15 +14,15 @@ function criticalCssTask(cb) {
   const config = TASK_CONFIG.stylesheets.criticalCss.config || {};
   const paths = {
     src: projectPath(PATH_CONFIG.dest, PATH_CONFIG.criticalCss.src),
-    dest: projectPath(PATH_CONFIG.dest, PATH_CONFIG.criticalCss.dest)
+    dest: projectPath(PATH_CONFIG.dest, PATH_CONFIG.criticalCss.dest),
   };
 
   if (pages.length) {
-    return pages.map(page => {
+    return pages.map((page) => {
       config.src = siteUrl + page.url;
       config.target = paths.dest + "/" + page.template + "-critical.css";
 
-      return critical.generate(config, err => {
+      return critical.generate(config, (err) => {
         if (err) {
           handleErrors(err);
         }

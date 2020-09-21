@@ -4,7 +4,7 @@ const PluginError = require("plugin-error");
 const prettifyTime = require("./prettify-time");
 const handleErrors = require("./handle-errors");
 
-module.exports = function(err, stats) {
+module.exports = function (err, stats) {
   if (err) {
     throw new PluginError("webpack", err);
   }
@@ -12,7 +12,7 @@ module.exports = function(err, stats) {
   let statColor = stats.compilation.warnings.length < 1 ? "green" : "yellow";
 
   if (stats.compilation.errors.length > 0) {
-    stats.compilation.errors.forEach(function(error) {
+    stats.compilation.errors.forEach(function (error) {
       handleErrors(error);
       statColor = "red";
     });

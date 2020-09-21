@@ -1,0 +1,107 @@
+// ==========================================================================
+// OBJECTS / MEDIA
+// ==========================================================================
+
+$media-spacing: spacing(6) !default;
+$media-tiny-spacing: spacing(2) !default;
+$media-small-spacing: spacing(4) !default;
+$media-large-spacing: spacing(8) !default;
+$media-huge-spacing: spacing(12) !default;
+
+// Place any image- and text-like content side-by-side, as per:
+// http://www.stubbornella.org/content/2010/06/25/the-media-object-saves-hundreds-of-lines-of-code
+
+.o-media {
+  display: flex;
+}
+
+.o-media__img {
+  margin-right: $media-spacing;
+}
+
+// 1. Explicitly use percentage unit to provide IE support.
+//    https://github.com/philipwalton/flexbugs/blob/6e720da852c3d566a84f3d82eb500e6f53f0a326/README.md#flexbug-4
+
+.o-media__body {
+  flex: 1 1 0%; // [1]
+
+  &,
+  > :last-child {
+    margin-bottom: 0;
+  }
+}
+
+// Vertical alignment modifiers.
+// ==============================================
+
+.o-media--middle {
+  align-items: center;
+}
+
+.o-media--bottom {
+  align-items: flex-end;
+}
+
+// Size variants
+// ==============================================
+
+// Modify the amount of space between our image and our text.
+// We also have reversible options for all available sizes.
+
+.o-media--flush {
+  > .o-media__img {
+    margin-right: 0;
+    margin-left: 0;
+  }
+}
+
+.o-media--tiny {
+  > .o-media__img {
+    margin-right: $media-tiny-spacing;
+  }
+}
+
+.o-media--small {
+  > .o-media__img {
+    margin-right: $media-small-spacing;
+  }
+}
+
+.o-media--large {
+  > .o-media__img {
+    margin-right: $media-large-spacing;
+  }
+}
+
+.o-media--huge {
+  > .o-media__img {
+    margin-right: $media-huge-spacing;
+  }
+}
+
+// Reversed media objects
+// ==============================================
+
+.o-media--reverse {
+  > .o-media__img {
+    order: 1;
+    margin-right: 0;
+    margin-left: $media-spacing;
+  }
+
+  &.o-media--tiny > .o-media__img {
+    margin-left: $media-tiny-spacing;
+  }
+
+  &.o-media--small > .o-media__img {
+    margin-left: $media-small-spacing;
+  }
+
+  &.o-media--large > .o-media__img {
+    margin-left: $media-large-spacing;
+  }
+
+  &.o-media--huge > .o-media__img {
+    margin-left: $media-huge-spacing;
+  }
+}

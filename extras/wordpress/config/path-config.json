@@ -13,19 +13,19 @@
   },
 
   "stylesheets": {
-    "src": "style",
-    "dest": "style"
+    "src": "styles",
+    "dest": "css"
   },
 
   "criticalCss": {
     "siteUrl": "http://localhost",
     "src": "",
-    "dest": "style/critical"
+    "dest": "css/critical"
   },
 
   "images": {
-    "src": "img",
-    "dest": "img"
+    "src": "images",
+    "dest": "images"
   },
 
   "fonts": {
@@ -35,6 +35,6 @@
 
   "icons": {
     "src": "icons",
-    "dest": "img"
+    "dest": "images"
   }
 }

@@ -1,0 +1,110 @@
+// =============================================================================
+// OBJECTS / GRID
+// =============================================================================
+
+// The Grid object provides us with a column-style layout system. This file
+// contains the basic structural elements, but classes should be complemented
+// with grid item modifier classes, for example:
+//
+// <div class="o-container">
+//   <div class="o-grid">
+//     <div class="o-grid__col o-grid__col--6">...</div>
+//     <div class="o-grid__col o-grid__col--6">...</div>
+//   </div>
+// </div>
+//
+// Our grid object also consumes the gutters of its container to allow easier
+// grid nesting.
+//
+// Grid object creates a flexbox grid container using the grid-container mixin.
+//
+// .o-grid {
+//   @include grid-container;
+// }
+//
+// Output
+// .o-grid {
+//   display: flex;
+//   flex: 1 0 calc(100% + 48px);
+//   flex-wrap: wrap;
+//   margin-left: -24px;
+//   margin-right: -24px;
+// }
+
+.o-grid {
+  @include grid-container;
+}
+
+// Grid column creates the basics for the grid column layout
+//
+// .o-grid__col {
+//   @include grid-column;
+// }
+//
+// Output
+// .o-grid__col {
+//   flex-shrink: 0;
+//   width: calc(100% - 48px);
+//   max-width: calc(100% - 48px);
+//   margin-left: 24px;
+// }
+
+.o-grid__col {
+  @include grid-column;
+}
+
+//
+// Tools (Private) - Build grid columns modifier classes
+// ==========================================================================
+//
+// This code will generate our grid system column modifier classes in one go.
+// You shouldn’t need to know the full ins-and-outs of what is going on below,
+// all you really need to know is that we end up with a suite of classes like:
+//
+// .o-grid__col--6 -- spans for 6 columns
+// .o-grid__col--9@md -- spans for 9 columns on medium and up screens
+// .o-grid__col--push-8 -- push an column over to the right by 8 cols
+// .o-grid__col--pull-3@lg -- pull an column to the left by 3 columns
+//                            on large and up screens
+//
+// that you can then use with the main `.o-grid__col` class to modify your
+// grid columns size and position.
+
+@mixin _build-grid-system($breakpoint: null) {
+  // Get the total number of columns defined on our $adaptable-grid object inside
+  // _grid-settings file.
+  $grid-columns: map-get($adaptable-grid, columns);
+
+  // Initiate an empty map so we can push into it
+  // our column widths from the loop below.
+  $column-widths: ();
+
+  // Loop through the number of columns in our grid
+  @for $i from 1 through $grid-columns {
+    // Build a class in the format `.o-grid__col--6[@<breakpoint>]`.
+    .o-grid__col--#{$i}#{$breakpoint} {
+      @include grid-span($i of $grid-columns);
+    }
+
+    // Build a class in the format `.o-grid__col--push-2[@<breakpoint>]`.
+    .o-grid__col--push-#{$i}#{$breakpoint} {
+      @include grid-push($i of $grid-columns);
+    }
+
+    // Build a class in the format `.o-grid__col--pull-2[@<breakpoint>]`.
+    .o-grid__col--pull-#{$i}#{$breakpoint} {
+      @include grid-push(-$i of $grid-columns);
+    }
+  }
+}
+
+// Generate our regular, non-responsive classes.
+@include _build-grid-system;
+
+// Generate our responsive classes by looping over the series of breakpoints
+// held by $mq-breakpoints inside _breakpoint.scss file.
+@each $breakpoint, $value in $mq-breakpoints {
+  @include mq($from: $breakpoint) {
+    @include _build-grid-system(\@#{$breakpoint});
+  }
+}

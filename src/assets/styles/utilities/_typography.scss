@@ -1,0 +1,132 @@
+// =============================================================================
+// UTILITIES / TYPOGRAPHY
+// =============================================================================
+
+// Typography utilities will override any matching property declarations
+
+/* stylelint-disable declaration-no-important */
+
+// Font sizes
+// ==============================================
+
+@mixin _build-font-sizes($breakpoint: null) {
+  // Generate general use font-size classes
+  @each $key, $value in $font-sizes {
+    .u-text-#{$key}#{$breakpoint} {
+      @include font-size($key, $important: true);
+    }
+  }
+}
+
+@include _build-font-sizes;
+
+// Generate responsive font-size classes
+@each $breakpoint, $value in $mq-breakpoints {
+  @include mq($from: $breakpoint) {
+    @include _build-font-sizes(\@#{$breakpoint});
+  }
+}
+
+// Font weights
+// ==============================================
+
+@mixin _build-font-weights($breakpoint: null) {
+  // Generate general use font-weight classes
+  @each $key, $value in $font-weights {
+    .u-font-#{$key}#{$breakpoint} {
+      font-weight: $value !important;
+    }
+  }
+}
+
+@include _build-font-weights;
+
+// Generate responsive font-weight classes
+@each $breakpoint, $value in $mq-breakpoints {
+  @include mq($from: $breakpoint) {
+    @include _build-font-weights(\@#{$breakpoint});
+  }
+}
+
+// Font styles
+// ==============================================
+
+.u-font-not-italic {
+  font-style: normal !important;
+}
+
+.u-font-italic {
+  font-style: italic !important;
+}
+
+// Line heights
+// ==============================================
+
+@mixin _build-line-heights($breakpoint: null) {
+  // Generate general use line-height classes
+  @each $key, $value in $line-heights {
+    .u-line-height-#{$key}#{$breakpoint} {
+      line-height: $value !important;
+    }
+  }
+}
+
+@include _build-line-heights;
+
+// Generate responsive line-height classes
+@each $breakpoint, $value in $mq-breakpoints {
+  @include mq($from: $breakpoint) {
+    @include _build-line-heights(\@#{$breakpoint});
+  }
+}
+
+// Text alignment
+// ==============================================
+
+$text-alignment: (left, center, right, justify);
+
+@mixin _build-text-alignments($breakpoint: null) {
+  // Generate general use text alignment classes
+  @each $alignment in $text-alignment {
+    .u-text-#{$alignment}#{$breakpoint} {
+      text-align: $alignment !important;
+    }
+  }
+}
+
+@include _build-text-alignments;
+
+// Generate responsive text alignment classes
+@each $breakpoint, $value in $mq-breakpoints {
+  @include mq($from: $breakpoint) {
+    @include _build-text-alignments(\@#{$breakpoint});
+  }
+}
+
+// Text decoration
+// ==============================================
+
+@each $decoration in underline, line-through, none {
+  .u-text-#{if($decoration == "none", "no-underline", $decoration)} {
+    text-decoration: $decoration !important;
+  }
+}
+
+// Text transformation
+// ==============================================
+
+@each $transformation in lowercase, uppercase, capitalize {
+  .u-text-#{$transformation} {
+    text-transform: $transformation !important;
+  }
+}
+
+// Misc
+// ==============================================
+
+// Text utility to constrain text to a maximum of 75 characters per line,
+// regardless of the text’s `font-size`.
+
+.u-text-constrain {
+  max-width: 75ch !important;
+}

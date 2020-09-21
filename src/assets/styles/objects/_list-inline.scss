@@ -1,0 +1,12 @@
+// =============================================================================
+// OBJECTS / LIST-INLINE
+// =============================================================================
+
+// The list-inline object displays any list of items as a single line.
+
+// [ul|ol]
+.o-list-inline {
+  display: flex;
+  margin-left: 0;
+  list-style: none;
+}

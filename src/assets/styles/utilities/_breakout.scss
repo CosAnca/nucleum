@@ -1,0 +1,20 @@
+// ==========================================================================
+// UTILITIES / BREAKOUT
+// ==========================================================================
+//
+// Allows components to break out of their container and span across the
+// full width of the viewport.
+
+/* stylelint-disable declaration-no-important */
+
+.u-breakout {
+  width: 100vw !important;
+  margin-left: calc(50% - 50vw) !important;
+}
+
+.u-breakout\@small {
+  @include mq($until: md) {
+    width: 100vw !important;
+    margin-left: calc(50% - 50vw) !important;
+  }
+}

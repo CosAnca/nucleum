@@ -1,0 +1,43 @@
+// ==========================================================================
+// UTILITIES / SIZING
+// ==========================================================================
+
+// Generate a suite of utility classes for width and height properties to
+// easily make an element as wide or as tall.
+
+/* stylelint-disable declaration-no-important */
+
+// prettier-ignore
+$size-values: (
+  "25": 25%,
+  "50": 50%,
+  "75": 75%,
+  "100": 100%,
+  "auto": auto
+);
+
+@mixin _build-sizes($breakpoint: null) {
+  @each $value, $size in $size-values {
+    .u-w-#{$value}#{$breakpoint} {
+      width: $size !important;
+    }
+
+    .u-h-#{$value}#{$breakpoint} {
+      height: $size !important;
+    }
+  }
+}
+
+@include _build-sizes;
+
+@each $breakpoint, $value in $mq-breakpoints {
+  @include mq($from: $breakpoint) {
+    @include _build-sizes(\@#{$breakpoint});
+  }
+}
+
+// Full viewport min-height
+
+.u-min-h-screen {
+  min-height: 100vh !important;
+}

@@ -8,20 +8,20 @@ const revdel = require("gulp-rev-delete-original");
 function revAssetsTask() {
   // Ignore files that may reference assets. We'll rev them next.
   const ignoreThese =
-    "!" + projectPath(PATH_CONFIG.dest, "**/*+(css|js|json|html)");
+    "!" + projectPath(PATH_CONFIG.dest, "**/*+(css|js|json|html|xml)");
 
   return gulp
     .src([projectPath(PATH_CONFIG.dest, "**/*"), ignoreThese])
     .pipe(rev())
-    .pipe(gulp.dest(PATH_CONFIG.dest))
+    .pipe(gulp.dest(projectPath(PATH_CONFIG.dest)))
     .pipe(revdel())
     .pipe(
       rev.manifest(projectPath(PATH_CONFIG.dest, "rev-manifest.json"), {
         base: projectPath(PATH_CONFIG.dest),
-        merge: true
+        merge: true,
       })
     )
-    .pipe(gulp.dest(PATH_CONFIG.dest));
+    .pipe(gulp.dest(projectPath(PATH_CONFIG.dest)));
 }
 
 revAssetsTask.displayName = "rev-assets";

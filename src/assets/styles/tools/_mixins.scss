@@ -1,0 +1,56 @@
+// =============================================================================
+// TOOLS / MIXINS
+// =============================================================================
+
+// @include focus-styles()
+// ==============================================
+
+// Generates a consistent outline shadow for use on `:focus` or `.has-focus`.
+@mixin focus-styles(
+  $el: link,
+  $width: 2px,
+  $color: color("info"),
+  $offset: 2px
+) {
+  @if ($el == "link") {
+    outline: $width solid $color;
+    outline-offset: $offset;
+  } @else if ($el == "image") {
+    outline: none;
+    box-shadow: 0 0 0 $width $color;
+  } @else if ($el == "button") {
+    outline: none;
+    box-shadow: 0 0 0 $width $color;
+    text-decoration: none;
+  } @else {
+    @warn "`#{$el}` is not a valid element. It must be `link`, `image` or `button`.";
+  }
+}
+
+// Removing elements from view and/or ATs
+// ===========================================
+
+// Visually hide content, leaving it accessible to screenreaders and ATs.
+// http://snook.ca/archives/html_and_css/hiding-content-for-accessibility
+
+/* stylelint-disable declaration-no-important */
+
+@mixin hide-visually {
+  // Hiding elements visually overrides any matching property declarations
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  margin: -1px !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  border: 0 !important;
+  white-space: nowrap !important;
+}
+
+// Completely hide content both visually from the screen, and from screenreaders
+// and ATs.
+@mixin hide-completely {
+  // Hiding elements completely overrides any matching property declarations
+  display: none !important;
+}

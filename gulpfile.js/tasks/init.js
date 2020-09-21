@@ -39,7 +39,7 @@ function initTask() {
   };
 
   // Setup browserslist config
-  pkg.browserslist = [">0.2%", "not dead", "ie >= 11", "not op_mini all"];
+  pkg.browserslist = [">0.5%", "not dead", "ie >= 11", "not op_mini all"];
 
   // Update the package.json file
   fs.writeFileSync(

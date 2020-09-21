@@ -1,0 +1,46 @@
+// =============================================================================
+// COMPONENTS / ICONS
+// =============================================================================
+
+// To be used with SVG icons sprite
+//
+// If an inline (encoded) icons is required for your css, make sure your exported
+// icons are set like this:
+//
+// <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+//   <path style="fill: currentColor; fill: var(--icon-fill-color, currentColor)" d="..."/>
+// </svg>
+//
+// Then in your `.scss` file, reference the icon like this
+// (#icon-info is the sprite symbol id / SVG source file name):
+//
+// .icon {
+//   background-image: url("icons#icon-info" param(--icon-fill-color color("success")));
+// }
+//
+// This will output:
+//
+// .icon {
+//   background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg ... /svg%3E");
+// }
+
+// Settings
+// ============================================
+//
+// 1. We set the size of the icons in `em`s so it will
+//    scale more easily based on parent's font-size;
+
+$icon-size: 1em; // [1]
+
+// Base
+// ============================================
+//
+// 1. Allows easier vertical alignment and prevents any white-space before or
+//    after the icon.
+// 2. Prevents the icon size getting smaller when in flex containers.
+
+.c-icon {
+  @include size($icon-size);
+  display: inline-flex; // [1]
+  flex-shrink: 0; // [2]
+}

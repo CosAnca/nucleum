@@ -1,0 +1,16 @@
+{# Import the macro using the `from` syntax
+{% from "_macros.njk" import icon %}
+
+Use it like:
+{{ icon("info", "u-mr-6", {
+  "width": "1em",
+  "height": "1em",
+  "aria-hidden": "true",
+  "focusable": "false"
+}) }} #}
+
+{% macro icon(name, classes, attributes) %}
+  <svg class="c-icon {{ classes }}" {%- for attribute, value in attributes %} {{ attribute }}="{{ value }}"{% endfor -%}>
+    <use xlink:href="/assets/images/icons.svg#{{ name }}"></use>
+  </svg>
+{% endmacro %}

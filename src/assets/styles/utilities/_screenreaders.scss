@@ -1,0 +1,10 @@
+// =============================================================================
+// UTILITIES / HIDE VISUALLY
+// =============================================================================
+
+// Generates the appropriate declarations for hidding element only visually
+// while keeping them accessible to ATs.
+
+.u-sr-only {
+  @include hide-visually;
+}

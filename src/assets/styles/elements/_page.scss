@@ -1,0 +1,46 @@
+// =============================================================================
+// ELEMENTS / PAGE
+// =============================================================================
+
+// Root
+//
+// Ability to set the value of the root font size, affecting the value of `rem`.
+// Set to `null` by default (settings/_typography.scss), thus nothing is generated.
+
+:root {
+  font-size: $font-size-root;
+}
+
+// High-level, page-level styling.
+//
+// 1. Fonts on OSX will look more consistent with other systems that do not
+//    render text using sub-pixel anti-aliasing.
+// 2. Ensure the page always fills at least the entire height of the viewport.
+// 3. As browsers interpret `vw` differently, some of our full-width (`100vw`) UI
+//    components cause unwanted horizontal scrolling.
+// 4. Force vertical scrollbars to always be visible to prevent awkward ‘jumps’
+//    when navigating between pages that do/do not have enough content to
+//    produce scrollbars naturally.
+// 5. Set the default `font-size` and `line-height` for the entire project,
+//    sourced from our default variables. The `font-size` is calculated to exist
+//    in ems, the `line-height` is calculated to exist unitlessly.
+// 6. Prevent adjustments of font size after orientation changes in iOS.
+// 7. Set smooth scrolling as default.
+// 8. Change the default tap highlight to be completely transparent in iOS.
+
+/* stylelint-disable property-no-vendor-prefix */
+
+body {
+  @include font-smoothing; // [1]
+  min-height: 100%; // [2]
+  overflow-x: hidden; // [3]
+  overflow-y: scroll; // [4]
+  background-color: color("white");
+  color: color("gray-700");
+  font-family: $font-family-base;
+  font-size: em($font-size-base); // [5]
+  line-height: $line-height-base; // [5]
+  text-size-adjust: 100%; // [6]
+  scroll-behavior: smooth; // [7]
+  -webkit-tap-highlight-color: rgba(color("black"), 0); // [8]
+}

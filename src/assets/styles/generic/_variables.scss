@@ -1,0 +1,27 @@
+// =============================================================================
+// GENERIC / VARIABLES
+// =============================================================================
+//
+// Use this file to output your SCSS settings as :root CSS variables.
+
+:root {
+  // Spacing
+  @each $key, $value in $spacings {
+    #{--spacing}-#{$key}: if($value == 0, $value, rem($value));
+  }
+
+  // Color
+  @each $color, $value in $colors {
+    #{--color}-#{$color}: $value;
+  }
+
+  // Font size
+  @each $key, $value in $font-sizes {
+    #{--font-size}-#{$key}: rem($value);
+  }
+
+  // Font weight
+  @each $key, $value in $font-weights {
+    #{--font-weight}-#{$key}: $value;
+  }
+}

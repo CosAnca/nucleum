@@ -1,0 +1,86 @@
+// =============================================================================
+// UTILITIES / DEBUG
+// =============================================================================
+//
+// Enabling debugging mode will point out various errors and mistakes in our HTML.
+
+// Layout debugging
+// ==============================================
+
+@if (config(debug) == true) {
+  $debug-color: #f00;
+  $visual-grid-color: #00d4ff;
+  $visual-grid-opacity: 0.3;
+
+  // Warn when trying to use layout items outside of a layout context.
+
+  .o-grid__col {
+    outline: 10px solid $debug-color;
+
+    .o-grid > & {
+      outline: none;
+    }
+  }
+
+  // Apply a visual grid to the body for grid debugging.
+
+  body::before {
+    @include grid-debug(
+      rgba($visual-grid-color, $visual-grid-opacity),
+      $adaptable-grid
+    );
+    content: "";
+    display: inline-block;
+    position: fixed;
+    z-index: 10;
+    right: 0;
+    left: 0;
+    width: 100%;
+    max-width: em($container-max-width);
+    height: 100%;
+    margin: 0 auto;
+    pointer-events: none;
+  }
+}
+
+// Baseline debugging (for vertical rhythm)
+// ==============================================
+
+$visual-baseline: false;
+$visual-baseline-color: #ff61b1;
+$visual-baseline-opacity: 0.6;
+
+// Custom visual baseline
+@mixin grid-visual-baseline(
+  $color: rgba($visual-baseline-color, $visual-baseline-opacity),
+  $baseline-grid: $visual-baseline
+) {
+  $_grid-baseline: transparent, transparent ($spacing-base - 1),
+    $color ($spacing-base - 1), $color $spacing-base;
+
+  background-image: repeating-linear-gradient(to bottom, $_grid-baseline);
+}
+
+// Here we apply the visual baseline to the after pseudo-element of body
+@if variable-exists(visual-baseline) and $visual-baseline == true {
+  body {
+    position: relative;
+
+    &::after {
+      @include grid-visual-baseline(
+        rgba($visual-baseline-color, $visual-baseline-opacity),
+        $visual-baseline
+      );
+      content: "";
+      display: block;
+      position: absolute;
+      z-index: 10;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      min-height: 100vh;
+      pointer-events: none;
+    }
+  }
+}

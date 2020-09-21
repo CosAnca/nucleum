@@ -1,0 +1,32 @@
+// ==========================================================================
+// UTILITIES / POSITION
+// ==========================================================================
+
+// Utility classes to position an element
+
+/* stylelint-disable declaration-no-important */
+
+// prettier-ignore
+$position-values: (
+  static,
+  relative,
+  absolute,
+  sticky,
+  fixed
+);
+
+@mixin _build-position($breakpoint: null) {
+  @each $value in $position-values {
+    .u-#{$value}#{$breakpoint} {
+      position: $value !important;
+    }
+  }
+}
+
+@include _build-position;
+
+@each $breakpoint, $value in $mq-breakpoints {
+  @include mq($from: $breakpoint) {
+    @include _build-position(\@#{$breakpoint});
+  }
+}

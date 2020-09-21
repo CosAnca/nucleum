@@ -1,0 +1,16 @@
+// ==========================================================================
+// UTILITIES / GENERIC
+// ==========================================================================
+
+// Remove all animations and transitions for people that prefer not to see them
+
+/* stylelint-disable declaration-no-important */
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition-duration: 0.01s !important;
+    animation-duration: 0.01s !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}

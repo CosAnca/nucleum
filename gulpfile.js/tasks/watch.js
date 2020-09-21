@@ -2,7 +2,6 @@
 const gulp = require("gulp");
 const path = require("path");
 const projectPath = require("../lib/project-path");
-const watch = require("gulp-watch");
 
 function watchTask(cb) {
   const watchableTasks = [
@@ -11,7 +10,7 @@ function watchTask(cb) {
     "svgSprite",
     "html",
     "stylesheets",
-    "static"
+    "static",
   ];
 
   function getTaskPathFor(taskName) {
@@ -27,7 +26,7 @@ function watchTask(cb) {
     }
   }
 
-  watchableTasks.forEach(function(taskName) {
+  watchableTasks.forEach(function (taskName) {
     const taskConfig = TASK_CONFIG[taskName];
     const taskPath = getTaskPathFor(taskName);
     let watchConfig = {};
@@ -45,9 +44,12 @@ function watchTask(cb) {
         (taskConfig.extensions
           ? ".{" + taskConfig.extensions.join(",") + "}"
           : "");
-      watch(path.join(srcPath, globPattern), watchConfig, function() {
-        require("./" + taskName)();
-      });
+
+      gulp.watch(
+        path.join(srcPath, globPattern),
+        watchConfig,
+        gulp.series(taskName)
+      );
     }
   });
   cb();

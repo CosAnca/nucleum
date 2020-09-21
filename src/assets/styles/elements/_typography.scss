@@ -1,0 +1,57 @@
+// =============================================================================
+// ELEMENTS / TYPOGRAPHY
+// =============================================================================
+
+// Headings
+// ===========================================
+
+// Simple default styles for headings 1 through 6. Anything more opinionated
+// than simple font-size changes should likely be applied via classes (see:
+// http://csswizardry.com/2016/02/managing-typography-on-large-apps/).
+
+h1 {
+  @include font-size("4xl");
+}
+
+h2 {
+  @include font-size("3xl");
+}
+
+h3 {
+  @include font-size("2xl");
+}
+
+h4 {
+  @include font-size("xl");
+}
+
+h5 {
+  @include font-size("lg");
+}
+
+h6 {
+  @include font-size("base");
+}
+
+// Other text-level elements
+// ===========================================
+
+small {
+  font-size: 75%;
+}
+
+sub,
+sup {
+  position: relative;
+  font-size: 75%;
+  line-height: 0;
+  vertical-align: baseline;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+sup {
+  top: -0.5em;
+}

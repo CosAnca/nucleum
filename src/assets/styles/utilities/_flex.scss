@@ -1,0 +1,175 @@
+// ==========================================================================
+// UTILITIES / FLEX
+// ==========================================================================
+
+// Utility classes for flexbox properties
+
+/* stylelint-disable declaration-no-important */
+
+// Flex direction
+// -------------------------------------------
+//
+// Use `.u-flex-row` to position flex items horizontally in the same direction
+// as text
+//
+// Use `.u-flex-row-reverse` to position flex items horizontally in the
+// opposite direction
+//
+// Use `.u-flex-col` to position flex items vertically
+//
+// Use `.u-flex-col-reverse` to position flex items vertically in the
+// opposite direction
+
+$flex-direction: (row, row-reverse, column, column-reverse);
+
+@mixin _build-flex-direction($breakpoint: null) {
+  @each $value in $flex-direction {
+    .u-flex-#{if(str-index($value, "column"), str-replace($value, "column", "col"), $value)}#{$breakpoint} {
+      flex-direction: $value !important;
+    }
+  }
+}
+
+@include _build-flex-direction;
+
+@each $breakpoint, $value in $mq-breakpoints {
+  @include mq($from: $breakpoint) {
+    @include _build-flex-direction(\@#{$breakpoint});
+  }
+}
+
+// Align Items
+// -------------------------------------------
+
+$item-alignments: (stretch, start, center, end, baseline);
+
+@mixin _build-flex-items-alignment($breakpoint: null) {
+  @each $alignment in $item-alignments {
+    .u-align-items-#{$alignment}#{$breakpoint} {
+      align-items: $alignment !important;
+    }
+  }
+}
+
+@include _build-flex-items-alignment;
+
+@each $breakpoint, $value in $mq-breakpoints {
+  @include mq($from: $breakpoint) {
+    @include _build-flex-items-alignment(\@#{$breakpoint});
+  }
+}
+
+// Align Self
+// -------------------------------------------
+
+$selft-alignments: (stretch, start, center, end, baseline);
+
+@mixin _build-flex-self-alignment($breakpoint: null) {
+  @each $self-alignment in $selft-alignments {
+    .u-align-self-#{$self-alignment}#{$breakpoint} {
+      align-self: $self-alignment !important;
+    }
+  }
+}
+
+@include _build-flex-self-alignment;
+
+@each $breakpoint, $value in $mq-breakpoints {
+  @include mq($from: $breakpoint) {
+    @include _build-flex-self-alignment(\@#{$breakpoint});
+  }
+}
+
+// Justify Content
+// -------------------------------------------
+
+$justifications: (
+  start,
+  flex-start,
+  center,
+  end,
+  flex-end,
+  space-between,
+  space-around
+);
+
+@mixin _build-flex-justify($breakpoint: null) {
+  @each $justification in $justifications {
+    .u-justify-content-#{$justification}#{$breakpoint} {
+      justify-content: $justification !important;
+    }
+  }
+}
+
+@include _build-flex-justify;
+
+@each $breakpoint, $value in $mq-breakpoints {
+  @include mq($from: $breakpoint) {
+    @include _build-flex-justify(\@#{$breakpoint});
+  }
+}
+
+// Flex wrap
+// -------------------------------------------
+//
+// Use `.u-flex-wrap` to allow flex items to wrap.
+//
+// Use `.u-flex-no-wrap` to prevent flex items from wrapping,
+// causing inflexible items to overflow the container if necessary.
+//
+// Use `.u-flex-wrap-reverse` to wrap flex items in the reverse direction.
+
+$flex-wrap: (wrap, nowrap, wrap-reverse);
+
+@mixin _build-flex-wrap($breakpoint: null) {
+  @each $value in $flex-wrap {
+    .u-flex-#{if($value == "nowrap", "no-wrap", $value)}#{$breakpoint} {
+      flex-wrap: $value !important;
+    }
+  }
+}
+
+@include _build-flex-wrap;
+
+@each $breakpoint, $value in $mq-breakpoints {
+  @include mq($from: $breakpoint) {
+    @include _build-flex-wrap(\@#{$breakpoint});
+  }
+}
+
+// Misc
+// -------------------------------------------
+
+// Flex initial
+// Use `.u-flex-initial` to allow a flex item to shrink but not grow,
+// taking into account its initial size.
+
+.u-flex-initial {
+  flex: 0 1 auto !important;
+}
+
+// Flex 1
+// Use `.u-flex-1` to allow a flex item to grow and shrink as needed,
+// ignoring its initial size.
+
+.u-flex-1 {
+  flex: 1 1 0% !important;
+}
+
+// Flex auto
+// Use `.u-flex-auto` to allow a flex item to grow and shrink,
+// taking into account its initial size.
+// When used on a series of sibling elements it forces them into
+// widths equal to their content (or equal widths if their content does not
+// surpass their border-boxes) while taking up all available horizontal space.
+
+.u-flex-auto {
+  flex: 1 1 auto !important;
+}
+
+// Flex none
+// Use `.u-flex-none` to prevent a flex item from growing or shrinking.
+
+.u-flex-none {
+  flex: none !important;
+}

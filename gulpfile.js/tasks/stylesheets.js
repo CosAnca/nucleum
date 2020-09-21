@@ -62,7 +62,7 @@ function stylesheetsTask() {
     purgecssConfig.defaultExtractor = nucleumPurgeCssDefaultExtractor;
   }
 
-  const postCssPlugins = [
+  const postcssPlugins = [
     postcssNormalize(postcssNormalizeConfig),
     postcssPresetEnv(postcssPresetEnvConfig),
     postcssSVG({
@@ -75,8 +75,8 @@ function stylesheetsTask() {
   ].filter(Boolean);
 
   // Add defined plugins
-  if (TASK_CONFIG.stylesheets.postCssPlugins) {
-    postCssPlugins.concat(TASK_CONFIG.stylesheets.postCssPlugins || []);
+  if (TASK_CONFIG.stylesheets.postcssPlugins) {
+    postcssPlugins.concat(TASK_CONFIG.stylesheets.postcssPlugins || []);
   }
 
   return gulp
@@ -84,7 +84,7 @@ function stylesheetsTask() {
     .pipe(gulpif(!global.production, sourcemaps.init()))
     .pipe(sass(TASK_CONFIG.stylesheets.sass))
     .on("error", handleErrors)
-    .pipe(postcss(postCssPlugins))
+    .pipe(postcss(postcssPlugins))
     .pipe(gulpif(!global.production, sourcemaps.write()))
     .pipe(gulp.dest(paths.dest))
     .pipe(browserSync.stream());
