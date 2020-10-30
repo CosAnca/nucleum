@@ -21,7 +21,6 @@ module.exports = function (eleventyConfig) {
       let beautifyHTML = beautify.html(content, {
         indent_size: 2,
         indent_scripts: "keep",
-        unformatted: [],
       });
 
       return beautifyHTML;
