@@ -82,7 +82,7 @@
     "sass-mq": "^5.0.1",
     "simply-beautiful": "^0.2.9",
     "stylelint": "^13.7.2",
-    "stylelint-config-nucleum": "^1.0.1",
+    "stylelint-config-nucleum": "^1.0.2",
     "terser-webpack-plugin": "^4.2.2",
     "webpack": "^4.44.2",
     "webpack-cli": "^3.3.12",
