@@ -16,14 +16,11 @@ $font-faces: (
 );
 
 @each $font-face, $val in $font-faces {
-  $local-font-name: str-replace($font-face, "-", " ");
-
   @font-face {
     font-family: map-get-deep($val, family);
     font-style: map-get-deep($val, style);
     font-weight: map-get-deep($val, weight);
-    src: local($local-font-name), local($font-face),
-      url("../fonts/#{$font-face}.woff2") format("woff2"),
+    src: url("../fonts/#{$font-face}.woff2") format("woff2"),
       url("../fonts/#{$font-face}.woff") format("woff");
     font-display: swap;
   }

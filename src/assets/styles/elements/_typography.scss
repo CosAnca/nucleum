@@ -5,32 +5,21 @@
 // Headings
 // ===========================================
 
-// Simple default styles for headings 1 through 6. Anything more opinionated
-// than simple font-size changes should likely be applied via classes (see:
-// http://csswizardry.com/2016/02/managing-typography-on-large-apps/).
+// All heading elements are completely unstyled by default,
+// and have the same font-size and font-weight as normal text.
+//
+// Anything more opinionated than simple font-size changes should likely
+// be applied via classes
+// (see: http://csswizardry.com/2016/02/managing-typography-on-large-apps/).
 
-h1 {
-  @include font-size("4xl");
-}
-
-h2 {
-  @include font-size("3xl");
-}
-
-h3 {
-  @include font-size("2xl");
-}
-
-h4 {
-  @include font-size("xl");
-}
-
-h5 {
-  @include font-size("lg");
-}
-
+h1,
+h2,
+h3,
+h4,
+h5,
 h6 {
-  @include font-size("base");
+  font-size: inherit;
+  font-weight: inherit;
 }
 
 // Other text-level elements

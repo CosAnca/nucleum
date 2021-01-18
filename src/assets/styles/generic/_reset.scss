@@ -2,10 +2,9 @@
 // GENERIC / RESET
 // =============================================================================
 
-// As well as using Normalize.css, it is often advantageous to remove all
-// margins from certain elements.
-
 /* stylelint-disable property-no-vendor-prefix */
+
+// Remove margin and padding from appropriate elements in all browsers.
 
 body,
 h1,
@@ -34,6 +33,36 @@ hr {
   padding: 0;
 }
 
+//
+// Add the correct font weight in Edge and Safari.
+//
+
+b,
+strong {
+  font-weight: bolder;
+}
+
+//
+// 1. Remove default `1px` height, and common `overflow: hidden`
+// 2. Solid, thin horizontal rules
+// 3. Remove Firefox `color: gray`
+//
+
+hr {
+  height: 0; // [1]
+  overflow: visible; // [1]
+  border-width: 1px 0 0; // [2]
+  border-style: solid; // [2]
+  color: inherit; // [3]
+}
+
+// Remove list styles.
+
+ol,
+ul {
+  list-style: none;
+}
+
 // Remove trailing margins from nested lists.
 
 li > {
@@ -43,11 +72,19 @@ li > {
   }
 }
 
-// Remove default table spacing.
+//
+// 1. Remove default table spacing.
+// 2. Remove text indentation from table contents in Chrome and Safari.
+// (https://bugs.chromium.org/p/chromium/issues/detail?id=999088, https://bugs.webkit.org/show_bug.cgi?id=201297)
+// 3. Correct table border color inheritance in all Chrome and Safari.
+// (https://bugs.chromium.org/p/chromium/issues/detail?id=935729, https://bugs.webkit.org/show_bug.cgi?id=195016)
+//
 
 table {
-  border-spacing: 0;
-  border-collapse: collapse;
+  border-spacing: 0; // [1]
+  border-collapse: collapse; // [1]
+  border-color: inherit; // [2]
+  text-indent: 0; // [3]
 }
 
 // 1. Matches default `<td>` alignment by inheriting `text-align`.
@@ -92,8 +129,16 @@ input,
 optgroup,
 select,
 textarea {
-  margin: 0;
+  margin: 0; // [1]
+  padding: 0;
+  color: inherit;
   font: inherit;
+  line-height: inherit;
+}
+
+button,
+[role="button"] {
+  cursor: pointer;
 }
 
 // Show the overflow in Edge
@@ -151,10 +196,7 @@ textarea {
 }
 
 // 1. Correct the outline style in Safari.
-// 2. This overrides the extra rounded corners on search inputs in iOS so that our
-//    `.form-control` class can properly style them. Note that this cannot simply
-//    be added to `.form-control` as it's not specific enough. For details, see
-//    https://github.com/twbs/bootstrap/issues/11586.
+// 2. This overrides the extra rounded corners on search inputs in iOS.
 
 [type="search"] {
   outline-offset: -2px; // 1

@@ -2,17 +2,44 @@
 // ELEMENTS / IMAGES
 // =============================================================================
 
-// 1. Fluid images for responsive purposes.
-// 2. Offset `alt` text from surrounding copy.
-// 3. Setting `vertical-align` removes the whitespace that appears under `img`
-//    elements when they are dropped into a page as-is. Safer alternative to
-//    using `display: block;`.
+// Embedded Elements
+
+//
+// 1. Block display is usually what we want
+// 2. Responsive by default
+// 3. Remove strange space-below when inline
+//
 
 img,
-picture,
-svg {
-  max-width: 100%; // [1]
-  height: auto; // [1]
-  font-style: italic; // [2]
+svg,
+video,
+canvas,
+audio,
+iframe,
+embed,
+object {
+  display: block; // [1]
+  max-width: 100%; // [2]
   vertical-align: middle; // [3]
+}
+
+//
+// Maintain intrinsic aspect ratios when `max-width` is applied
+// (iframe, embed, and object have no intrinsic ratio, set height explicitly)
+//
+
+img,
+svg,
+video,
+canvas {
+  height: auto;
+}
+
+//
+// There is no good reason elements default to 300px,
+// and audio files are unlikely to come with a width attribute
+//
+
+audio {
+  width: 100%;
 }

@@ -2,12 +2,11 @@
 // ELEMENTS / LINKS
 // =============================================================================
 
-// Our basic A elements only need very minimal styling. Anything more
-// opinionated (e.g. buttons, calls-to-action, etc.) will need a class defining
-// in the Components layer.
+// Our basic A elements are set to inherit its parent style by default.
+// Anything more opinionated (e.g. buttons, calls-to-action, etc.)
+// will need a class defining in the Components layer.
 
 a {
-  color: color("info");
-  text-decoration: underline;
-  cursor: pointer;
+  color: inherit;
+  text-decoration: inherit;
 }
