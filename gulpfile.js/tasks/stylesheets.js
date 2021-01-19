@@ -6,7 +6,7 @@ if (!TASK_CONFIG.stylesheets) {
 const gulp = require("gulp");
 const gulpif = require("gulp-if");
 const browserSync = require("browser-sync");
-const sass = require("gulp-sass");
+const sass = require("gulp-dart-sass");
 const sourcemaps = require("gulp-sourcemaps");
 const handleErrors = require("../lib/handle-errors");
 const projectPath = require("../lib/project-path");
