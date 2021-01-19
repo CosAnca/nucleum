@@ -1,4 +1,4 @@
-/* global PATH_CONFIG, TASK_CONFIG */
+/* global TASK_CONFIG */
 const gulp = require("gulp");
 const path = require("path");
 const projectPath = require("../lib/project-path");
@@ -7,7 +7,7 @@ function watchTask(cb) {
   const watchableTasks = [
     "fonts",
     "images",
-    "svgSprite",
+    "icons",
     "html",
     "stylesheets",
     "static",
@@ -15,14 +15,14 @@ function watchTask(cb) {
 
   function getTaskPathFor(taskName) {
     switch (taskName) {
-      case "svgSprite":
-        return PATH_CONFIG.icons;
+      case "icons":
+        return TASK_CONFIG.icons;
       case "html":
-        return PATH_CONFIG.html;
+        return TASK_CONFIG.html;
       case "static":
-        return PATH_CONFIG.static;
+        return TASK_CONFIG.static;
       default:
-        return PATH_CONFIG[taskName];
+        return TASK_CONFIG[taskName];
     }
   }
 
@@ -38,7 +38,7 @@ function watchTask(cb) {
     }
 
     if (taskConfig) {
-      const srcPath = projectPath(PATH_CONFIG.src, taskPath.src);
+      const srcPath = projectPath(TASK_CONFIG.basePaths.src, taskPath.src);
       const globPattern =
         "**/*" +
         (taskConfig.extensions

@@ -1,4 +1,4 @@
-/* global PATH_CONFIG */
+/* global TASK_CONFIG */
 const gulp = require("gulp");
 const projectPath = require("../../lib/project-path");
 const rev = require("gulp-rev");
@@ -8,17 +8,20 @@ const revdel = require("gulp-rev-delete-original");
 //    referenced asset hash changes, the parent hash will change as well
 function revCSSTask() {
   return gulp
-    .src(projectPath(PATH_CONFIG.dest, "**/*.css"))
+    .src(projectPath(TASK_CONFIG.basePaths.dest, "**/*.css"))
     .pipe(rev())
-    .pipe(gulp.dest(projectPath(PATH_CONFIG.dest)))
+    .pipe(gulp.dest(projectPath(TASK_CONFIG.basePaths.dest)))
     .pipe(revdel())
     .pipe(
-      rev.manifest(projectPath(PATH_CONFIG.dest, "rev-manifest.json"), {
-        base: projectPath(PATH_CONFIG.dest),
-        merge: true,
-      })
+      rev.manifest(
+        projectPath(TASK_CONFIG.basePaths.dest, "rev-manifest.json"),
+        {
+          base: projectPath(TASK_CONFIG.basePaths.dest),
+          merge: true,
+        }
+      )
     )
-    .pipe(gulp.dest(projectPath(PATH_CONFIG.dest)));
+    .pipe(gulp.dest(projectPath(TASK_CONFIG.basePaths.dest)));
 }
 
 revCSSTask.displayName = "rev-css";

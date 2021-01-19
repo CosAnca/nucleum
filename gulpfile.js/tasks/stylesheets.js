@@ -1,4 +1,4 @@
-/* global PATH_CONFIG TASK_CONFIG */
+/* global TASK_CONFIG */
 if (!TASK_CONFIG.stylesheets) {
   return;
 }
@@ -23,11 +23,11 @@ function stylesheetsTask() {
 
   const paths = {
     src: projectPath(
-      PATH_CONFIG.src,
-      PATH_CONFIG.stylesheets.src,
+      TASK_CONFIG.basePaths.src,
+      TASK_CONFIG.stylesheets.src,
       "**/*.{" + TASK_CONFIG.stylesheets.extensions + "}"
     ),
-    dest: projectPath(PATH_CONFIG.dest, PATH_CONFIG.stylesheets.dest),
+    dest: projectPath(TASK_CONFIG.basePaths.dest, TASK_CONFIG.stylesheets.dest),
   };
 
   if (
@@ -46,7 +46,10 @@ function stylesheetsTask() {
   const postcssPresetEnvConfig = TASK_CONFIG.stylesheets.presetEnv || {};
   postcssPresetEnvConfig.stage = postcssPresetEnvConfig.stage || 0;
 
-  const postcssSVGPath = projectPath(PATH_CONFIG.dest, PATH_CONFIG.images.dest);
+  const postcssSVGPath = projectPath(
+    TASK_CONFIG.basePaths.dest,
+    TASK_CONFIG.images.dest
+  );
 
   const cssnanoConfig = TASK_CONFIG.stylesheets.cssnano || {};
   cssnanoConfig.autoprefixer = false; // this should always be false, since we're autoprefixing separately

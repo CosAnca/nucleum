@@ -3,7 +3,7 @@ module.exports = {
   images: true,
   fonts: true,
   static: true,
-  svgSprite: true,
+  icons: true,
   stylesheets: {
     criticalCss: {
       config: {
@@ -21,15 +21,16 @@ module.exports = {
   javascripts: {
     entry: {
       // files paths are relative to
-      // javascripts.dest in path-config.json
+      // javascripts.dest
       app: ["./app.js"],
     },
   },
 
   browserSync: {
+    open: false,
     server: {
-      // should match `dest` in
-      // path-config.json
+      // should match `dest`
+      // from `basePaths` object
       baseDir: "public",
     },
   },

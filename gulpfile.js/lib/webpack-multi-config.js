@@ -1,4 +1,4 @@
-/* global PATH_CONFIG TASK_CONFIG */
+/* global TASK_CONFIG */
 "use strict";
 
 if (!TASK_CONFIG.javascripts) {
@@ -16,10 +16,16 @@ const TerserPlugin = require("terser-webpack-plugin");
 module.exports = function (env) {
   process.env.BABEL_ENV = process.env.BABEL_ENV || process.env.NODE_ENV || env;
 
-  const jsSrc = projectPath(PATH_CONFIG.src, PATH_CONFIG.javascripts.src);
-  const jsDest = projectPath(PATH_CONFIG.dest, PATH_CONFIG.javascripts.dest);
+  const jsSrc = projectPath(
+    TASK_CONFIG.basePaths.src,
+    TASK_CONFIG.javascripts.src
+  );
+  const jsDest = projectPath(
+    TASK_CONFIG.basePaths.dest,
+    TASK_CONFIG.javascripts.dest
+  );
   const publicPath = pathToUrl(
-    TASK_CONFIG.javascripts.publicPath || PATH_CONFIG.javascripts.dest,
+    TASK_CONFIG.javascripts.publicPath || TASK_CONFIG.javascripts.dest,
     "/"
   );
   const rev = TASK_CONFIG.production.rev && env === "production";
@@ -100,7 +106,10 @@ module.exports = function (env) {
   if (env === "production") {
     if (rev) {
       webpackConfig.plugins.push(
-        new webpackManifest(PATH_CONFIG.javascripts.dest, PATH_CONFIG.dest)
+        new webpackManifest(
+          TASK_CONFIG.javascripts.dest,
+          TASK_CONFIG.basePaths.dest
+        )
       );
     }
 

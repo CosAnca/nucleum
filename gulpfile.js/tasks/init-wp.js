@@ -1,4 +1,4 @@
-/* global PATH_CONFIG */
+/* global TASK_CONFIG */
 const fs = require("fs");
 const gulp = require("gulp");
 const log = require("fancy-log");
@@ -25,12 +25,12 @@ function initWPTask() {
 
   const srcStream = gulp
     .src(["src/**/*", "*.gitkeep"])
-    .pipe(gulp.dest(projectPath(PATH_CONFIG.src)));
+    .pipe(gulp.dest(projectPath(TASK_CONFIG.basePaths.src)));
 
   // Setup the script rules
   pkg.scripts = {
-    start: "yarn run nucleum",
-    build: "yarn run nucleum build",
+    start: "yarn nucleum",
+    build: "yarn nucleum build",
   };
 
   // Setup browserslist config
@@ -59,7 +59,7 @@ function initWPTask() {
       1. Run ${colors.magenta("docker-compose up")}.
       2. Run ${colors.magenta(
         "sh bin/setup.sh"
-      )} and add follow the command line steps.
+      )} and follow the command line steps.
     `
     )
   );

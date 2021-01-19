@@ -1,4 +1,4 @@
-/* global PATH_CONFIG, TASK_CONFIG */
+/* global TASK_CONFIG */
 if (!TASK_CONFIG.images) {
   return;
 }
@@ -11,11 +11,11 @@ const projectPath = require("../lib/project-path");
 function imagesTask() {
   const paths = {
     src: projectPath(
-      PATH_CONFIG.src,
-      PATH_CONFIG.images.src,
+      TASK_CONFIG.basePaths.src,
+      TASK_CONFIG.images.src,
       "**/*.{" + TASK_CONFIG.images.extensions + "}"
     ),
-    dest: projectPath(PATH_CONFIG.dest, PATH_CONFIG.images.dest)
+    dest: projectPath(TASK_CONFIG.basePaths.dest, TASK_CONFIG.images.dest),
   };
 
   return gulp

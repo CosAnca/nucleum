@@ -32,7 +32,7 @@
     "nucleum": "bin/nucleum.js"
   },
   "scripts": {
-    "start": "gulp",
+    "dev": "gulp",
     "gulp": "gulp",
     "build": "gulp build",
     "dev:test": "mocha ./gulpfile.js/**/*.test.js"
@@ -95,5 +95,8 @@
   },
   "resolutions": {
     "graceful-fs": "^4.1.11"
+  },
+  "peerDependencies": {
+    "postcss": "^8.2.4"
   }
 }

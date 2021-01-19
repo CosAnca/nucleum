@@ -5,14 +5,10 @@ const projectPath = require("../lib/project-path");
 
 function initConfigTask() {
   const configStream = gulp
-    .src(["gulpfile.js/path-config.json", "gulpfile.js/task-config.js"])
-    .pipe(gulp.dest(projectPath("config")));
+    .src(["gulpfile.js/nucleum.config.js"])
+    .pipe(gulp.dest(projectPath()));
 
-  log(
-    colors.green(
-      "Adding default path-config.json and task-config.js files to ./config/"
-    )
-  );
+  log(colors.green("Adding default nucleum.config.js file"));
 
   return configStream;
 }

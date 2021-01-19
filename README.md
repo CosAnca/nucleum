@@ -18,18 +18,18 @@ The [extras](./extras) folder contains configuration details for **WordPress** p
 ```zsh
 yarn init
 yarn add nucleum
-yarn run nucleum init
+yarn nucleum init
 ```
 
-This will create default `src` and `config` files in your project directory.
+This will create the default `src` directory and `nucleum.config.ja` file in your project directory.
 
-The `init` command also updates your `package.json` file to include `start` and `build` scripts for Nucleum:
+The `init` command also updates your `package.json` file to include `dev` and `build` scripts for Nucleum:
 
 ```js
 // package.json
 "scripts": {
-  "start": "yarn run nucleum",
-  "build": "yarn run nucleum build"
+  "dev": "yarn nucleum",
+  "build": "yarn nucleum build"
 }
 ```
 
@@ -37,7 +37,7 @@ which you can then use on the command line:
 
 ```zsh
 # command line
-yarn start
+yarn dev
 yarn build
 ```
 
@@ -59,10 +59,10 @@ You can find more details about browserslist and the type of queries its configu
 
 ## Adding to an existing project?
 
-You can generate basic _config_ files with:
+You can generate basic `nucleum.config.js` file with:
 
 ```zsh
-yarn run nucleum init-config
+yarn nucleum init-config
 ```
 
 Then edit the configs to match the needs of your project.
@@ -119,10 +119,10 @@ If you'd like to have your code (SCSS and JS) linted before every commit, you ca
 
 # Commands
 
-All commands should be run through `yarn run`.
+All commands should be run through `yarn`.
 
 ```zsh
-yarn start
+yarn dev
 ```
 
 This is where the magic happens. The perfect workflow. This runs the development task, which starts compiling, watching, and live updating all our files as we change them. BrowserSync will start a server on port 3000, or do whatever you've configured it to do. You'll be able to see live changes in all connected browsers. Don't forget about the additional BrowserSync tools available on port 3001!
@@ -131,17 +131,17 @@ This is where the magic happens. The perfect workflow. This runs the development
 yarn build
 ```
 
-Compiles files for production to your destination directory. JS files are built using Webpack with standard production optimisations (Uglify, etc.). CSS is run through CSSNano and PurgeCSS. If `rev` is set to `true` in your `task-config.js` file, filenames will be hashed (file.css -> file-a8908d9io20.css) so your server may cache them indefinitely.
+Compiles files for production to your destination directory. JS files are built using Webpack with standard production optimisations (Uglify, etc.). CSS is run through CSSNano and PurgeCSS. If `rev` is set to `true` in your `nucleum.config.js` file, filenames will be hashed (file.css -> file-a8908d9io20.css) so your server may cache them indefinitely.
 
 # Configuration
 
-You may override the default configuration by creating a `config` folder with the following two files in it: `path-config.json` and `task-config.js`. These files will be created by any of the `init` tasks, or you can generate _only_ the config files with the following command:
+You may override the default configuration by creating a `nucleum.config.js` file. The file will be created by any of the `init` tasks, or you can generate _only_ the config file with the following command:
 
 ```zsh
-yarn run nucleum init-config
+yarn nucleum init-config
 ```
 
-By default, Nucleum expects these files to live in a `./config` at the root of your project. You may specify an alternative relative location by setting an environment variable:
+By default, Nucleum expects the config file to live at the root of your project. You may specify an alternative relative location by setting an environment variable:
 
 ```js
 // package.json
@@ -152,27 +152,23 @@ By default, Nucleum expects these files to live in a `./config` at the root of y
 
 ```zsh
 # command line
-yarn run nucleum
+yarn nucleum
 ```
 
-The files must be named `path-config.json` and `task-config.js`.
+The file must be named `nucleum.config.js`.
 
-### Configuring file structure
+### Configuring files structure and tasks
 
-`path-config.json`
+`nucleum.config.js`
 
-This file specifies the `src` and `dest` root directories, and `src` and `dest` for each task, relative to the configured root. For example, if your source files live in a folder called `app`, and your compiled files should be output to a folder called `static`, you'd update the `src` and `dest` properties here to reflect that.
+This file specifies the `src` and `dest` root directories under a `basePats` object, and `src` and `dest` for each task, relative to the configured base paths. For example, if your source files live in a folder called `app`, and your compiled files should be output to a folder called `static`, you'd update the base paths `src` and `dest` properties here to reflect that.
 
-### Configuring tasks
+This file also exposes per-task configuration and overrides. At minimum, you just need to set the task to `true` to enable the task with its default configuration. If you wish to configure a task, provide a configuration object instead.
 
-`task-config.js`
-
-This file exposes per-task configuration and overrides. At minimum, you just need to set the task to `true` to enable the task with its default configuration. If you wish to configure a task, provide a configuration object instead.
-
-- Any task may be disabled by setting the value to `false`. For example, if your project has its own handling HTML and template engine (WordPress, Craft, etc), you'll want to set `html` to `false` in your task-config.
+- Any task may be disabled by setting the value to `false`. For example, if your project has its own handling of HTML and template engine (WordPress, Craft, etc), you'll want to set `html` to `false` in your config file.
 - All asset tasks have an `extensions` option that can be used to overwrite the ones that are processed and watched.
 
-See [task config defaults](./gulpfile.js/lib/task-defaults.js) for a closer look. All configuration objects will be merged with these defaults. Note that `array` options are replaced rather than merged or concatenated.
+See [config defaults](./gulpfile.js/lib/config-defaults.js) for a closer look. All configuration objects will be merged with these defaults. Note that `array` options are replaced rather than merged or concatenated.
 
 ### browserSync
 
@@ -242,7 +238,7 @@ Discrete js bundle entry points. A js file will be bundled for each item. Paths 
 
 #### `publicPath`
 
-The public path to your assets on your server. Only needed if this differs from the result of `path.join(PATH_CONFIG.dest, PATH_CONFIG.javascripts.dest)`. Maps directly to `webpackConfig.publicPath`
+The public path to your assets on your server. Only needed if this differs from the result of `path.join(TASK_CONFIG.basePaths.dest, TASK_CONFIG.javascripts.dest)`. Maps directly to `webpackConfig.publicPath`
 
 #### `devtool`
 
@@ -311,7 +307,7 @@ production: {
 }
 ```
 
-By default, the `env` will be `"development"` when running `yarn run nucleum`, and `"production"` when running `yarn run nucleum build`.
+By default, the `env` will be `"development"` when running `yarn nucleum`, and `"production"` when running `yarn nucleum build`.
 
 #### `hot`
 
@@ -332,7 +328,7 @@ hot: {
 
 #### `customizeWebpackConfig`
 
-In the event that an option you need is not exposed, you may access, modify and return a further customized webpackConfig by providing this option as a function. The function will receive the Nucleum `webpackConfig`, `env` and `webpack` as params. The `env` value will be either `development` (`yarn run nucleum`) or `production` (`yarn run nucleum build`).
+In the event that an option you need is not exposed, you may access, modify and return a further customized webpackConfig by providing this option as a function. The function will receive the Nucleum `webpackConfig`, `env` and `webpack` as params. The `env` value will be either `development` (`yarn nucleum`) or `production` (`yarn nucleum build`).
 
 ```js
 customizeWebpackConfig: function (webpackConfig, env, webpack) {
@@ -369,7 +365,7 @@ stylesheets: {
 #### `normalize`
 
 [PostCSS Normalize](https://github.com/csstools/postcss-normalize) lets you use the parts of normalize.css you need from your `browserslist`. Please read more about postcssNormalize configuration option on their repo page https://github.com/csstools/postcss-normalize#options.
-By default this option is disabled in Nucleum but you can enable it either by setting the `forceImport` option to `true` under `stylesheets.normalize` object in task-config.js without having to specifically include the library at the beginning of our sass file, or by importing the library in your main sass file.
+By default this option is disabled in Nucleum but you can enable it either by setting the `forceImport` option to `true` under `stylesheets.normalize` object in `nucleum.config.js` without having to specifically include the library at the beginning of our sass file, or by importing the library in your main sass file.
 
 #### `cssnano`
 
@@ -410,22 +406,22 @@ Defaults to `{ includePaths: ["./node_modules"] }` so you can `@import` files in
 
 We use [critical](https://github.com/addyosmani/critical) to extract and inline critical-path (above-the-fold) CSS from HTML.
 
-**IMPORTANT** Use the `path-config.json` file (`criticalCss` property) to set critical `src` and `dest`. _Setting these properties inside `criticalCss.config` will not work_.
+**IMPORTANT** Use the `criticalCss` object inside `nucleum.config.js` file to set the critical `src` and `dest`. _Setting these properties inside `criticalCss.config` will not work_.
 
 There are two ways of generating critical CSS.
 
 1. Running the gulp task through all the templates generated at the root of the public folder.
 
 ```js
-// path-config.json
-"criticalCss": {
-  "src": "./**/*.html",
-  "dest": "./"
+// nucleum.config.js
+criticalCss: {
+  src: "./**/*.html",
+  dest: "./"
 }
 ```
 
 ```js
-// task-config.js
+// nucleum.config.js
 criticalCss: {
   siteUrl: "",
   config: {
@@ -440,15 +436,15 @@ criticalCss: {
 2. Creating a `pages` array where each page object sets an `url` and a `template` property. This is useful for generating critical CSS when the templates are generated by CMSs or other tools.
 
 ```js
-// path-config.json
-"criticalCss": {
-  "src": "", // this should be empty because the src is set per page in task-config.js
-  "dest": "style/critical"
+// nucleum.config.js
+criticalCss: {
+  src: "", // this should be empty because the src is set per page in nucleum.config.js
+  dest: "style/critical"
 }
 ```
 
 ```js
-// task-config.js
+// nucleum.config.js
 criticalCss: {
   siteUrl: "http://localhost",
   config: {
@@ -472,7 +468,7 @@ Setting the `config` object, you can create the necessary configuration for [cri
 
 ### html
 
-**Note:** If you are on a platform that's already handling html, like a CMS (WordPress, Craft, etc.), set `html: false` or delete the configuration object completely from `task-config.js`. If that's the case, don't forget to use the BrowserSync [`files` option](https://browsersync.io/docs/options#option-file) in the `browserSync` config object to start watching your templates folder.
+**Note:** If you are on a platform that's already handling html, like a CMS (WordPress, Craft, etc.), set `html: false` or delete the configuration object completely from `nucleum.config.js`. If that's the case, don't forget to use the BrowserSync [`files` option](https://browsersync.io/docs/options#option-file) in the `browserSync` config object to start watching your templates folder.
 
 Nucleum is using [Eleventy] under the hood to generate static HTML files.
 
@@ -480,7 +476,7 @@ We use [Nunjucks] as the default templating engine but you can change that to an
 
 You can change or extend Eleventy's configuration through the [.eleventy.js](./.eleventy.js) file.
 
-If you ever need a more verbose error output for Eleventy, run your project with the following command: `DEBUG=Eleventy* yarn start`.
+If you ever need a more verbose error output for Eleventy, run your project with the following command: `DEBUG=Eleventy* yarn dev`.
 
 ### static
 
@@ -500,9 +496,9 @@ static: {
 
 ### fonts, images
 
-These tasks simply copy files from `src` to `dest` configured in `path-config.json`. Nothing to configure here other that specifying extensions or disabling the task.
+These tasks simply copy files from `src` to `dest` configured in `nucleum.config.js`. Nothing to configure here other that specifying extensions or disabling the task.
 
-### svgSprite
+### icons
 
 Generates an SVG Sprite from `.svg` files in `src/icons`. You can either include the created SVG directly on the page and reference the icon by id like this:
 
@@ -528,8 +524,6 @@ Nucleum includes a macro inside `src/includes/_macros.njk` which generates the r
 {{ icon("my-icon") }}
 ```
 
-For advanced usage, see the example at the top of the `src/includes/_macros.njk` file.
-
 Which outputs:
 
 ```html
@@ -537,6 +531,8 @@ Which outputs:
   <use xlink:href="/assets/images/icons.svg#my-icon"></use>
 </svg>
 ```
+
+For advanced usage, see the example at the top of the `src/includes/_macros.njk` file.
 
 This particular setup allows styling 2 different colors from your CSS. You can have unlimited colors hard coded into your svg.
 
@@ -599,7 +595,7 @@ The first `fill` property is a fallback for Internet Explorer while the second o
 In our SCSS file, when we need an inline icon we can just reference the symbol id from the SVG sprite or the SVG file path, like this:
 
 ```scss
-.o-icon {
+.c-icon {
   background-image: url("icons#icon-info"param(--icon-fill-color color("success")));
 }
 ```
@@ -609,8 +605,8 @@ In our SCSS file, when we need an inline icon we can just reference the symbol i
 ```js
 clean: {
   patterns: [
-    path.resolve(process.env.PWD, "dist/assets"),
-    path.resolve(process.env.PWD, "dist/templates"),
+    path.resolve(process.env.INIT_CWD, "dist/assets"),
+    path.resolve(process.env.INIT_CWD, "dist/templates"),
   ];
 }
 ```
@@ -633,7 +629,7 @@ If you wish to define additional gulp tasks, and have them run at a certain poin
 
 ```js
 additionalTasks: {
-  initialize(gulp, PATH_CONFIG, TASK_CONFIG) {
+  initialize(gulp, TASK_CONFIG) {
     // Add gulp tasks here
   },
   development: {
@@ -653,7 +649,7 @@ For example, say you had a sprite task you wanted to run before your css compile
 
 ```js
 additionalTasks: {
-  initialize(gulp, PATH_CONFIG, TASK_CONFIG) {
+  initialize(gulp, TASK_CONFIG) {
     gulp.task("createPngSprite", function() {
       // do stuff
     })
