@@ -1,19 +1,19 @@
-var assert = require("chai").assert;
+/* globals describe, expect, it */
 var pathToUrl = require("../path-to-url");
 
-describe("pathToUrl", function() {
-  it("converts Windows paths to a url path", function() {
+describe("pathToUrl", function () {
+  it("converts Windows paths to a url path", function () {
     var urlPath = pathToUrl("\\Foo\\bar\\baz");
-    assert.equal(urlPath, "/Foo/bar/baz");
+    expect(urlPath).toEqual("/Foo/bar/baz");
   });
 
-  it("does not affect unix paths", function() {
+  it("does not affect unix paths", function () {
     var unixPath = pathToUrl("/Foo/bar/baz/");
-    assert.equal(unixPath, "/Foo/bar/baz/");
+    expect(unixPath).toEqual("/Foo/bar/baz/");
   });
 
-  it("normalizes path segments", function() {
+  it("normalizes path segments", function () {
     var joinedPath = pathToUrl("/", "//Foo", "bar", "baz/");
-    assert.equal(joinedPath, "/Foo/bar/baz/");
+    expect(joinedPath).toEqual("/Foo/bar/baz/");
   });
 });

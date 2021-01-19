@@ -1,4 +1,4 @@
-var assert = require("chai").assert;
+/* globals describe, expect, it, beforeEach, TASK_CONFIG, ENV */
 var forEach = require("lodash/forEach");
 var getEnabledTasks = require("../get-enabled-tasks");
 var keys = require("lodash/keys");
@@ -20,7 +20,7 @@ describe("getEnabledTasks", function () {
 
       it("returns all tasks when none disabled", function () {
         var tasks = getEnabledTasks(ENV);
-        assert.deepEqual(tasks.assetTasks, ["fonts", "images", "icons"]);
+        expect(tasks.assetTasks).toEqual(["fonts", "images", "icons"]);
       });
 
       it("returns only enabled task when some disabled", function () {
@@ -28,7 +28,7 @@ describe("getEnabledTasks", function () {
         TASK_CONFIG["images"] = false;
 
         var tasks = getEnabledTasks(ENV);
-        assert.deepEqual(tasks.assetTasks, ["icons"]);
+        expect(tasks.assetTasks).toEqual(["icons"]);
       });
 
       it("returns false when all disabled", function () {
@@ -37,7 +37,7 @@ describe("getEnabledTasks", function () {
         });
 
         var tasks = getEnabledTasks(ENV);
-        assert.equal(tasks.assetTasks, false);
+        expect(tasks.assetTasks).toEqual(false);
       });
     });
 
@@ -52,14 +52,14 @@ describe("getEnabledTasks", function () {
 
       it("returns all except javascripts when none disabled", function () {
         var tasks = getEnabledTasks(ENV);
-        assert.deepEqual(tasks.codeTasks, ["html", "stylesheets"]);
+        expect(tasks.codeTasks).toEqual(["html", "stylesheets"]);
       });
 
       it("returns only enabled except javascripts task when some disabled", function () {
         TASK_CONFIG["stylesheets"] = false;
 
         var tasks = getEnabledTasks(ENV);
-        assert.deepEqual(tasks.codeTasks, ["html"]);
+        expect(tasks.codeTasks).toEqual(["html"]);
       });
 
       it("returns false when all disabled", function () {
@@ -68,7 +68,7 @@ describe("getEnabledTasks", function () {
         });
 
         var tasks = getEnabledTasks(ENV);
-        assert.equal(tasks.codeTasks, false);
+        expect(tasks.codeTasks).toEqual(false);
       });
     });
   });
@@ -89,7 +89,7 @@ describe("getEnabledTasks", function () {
 
       it("returns all tasks when none disabled", function () {
         var tasks = getEnabledTasks(ENV);
-        assert.deepEqual(tasks.assetTasks, ["fonts", "images", "icons"]);
+        expect(tasks.assetTasks).toEqual(["fonts", "images", "icons"]);
       });
 
       it("returns only enabled task when some disabled", function () {
@@ -97,7 +97,7 @@ describe("getEnabledTasks", function () {
         TASK_CONFIG["icons"] = false;
 
         var tasks = getEnabledTasks(ENV);
-        assert.deepEqual(tasks.assetTasks, ["images"]);
+        expect(tasks.assetTasks).toEqual(["images"]);
       });
 
       it("returns false when all disabled", function () {
@@ -106,7 +106,7 @@ describe("getEnabledTasks", function () {
         });
 
         var tasks = getEnabledTasks(ENV);
-        assert.equal(tasks.assetTasks, false);
+        expect(tasks.assetTasks).toEqual(false);
       });
     });
 
@@ -121,7 +121,7 @@ describe("getEnabledTasks", function () {
 
       it("returns all and convert javascripts task when none disabled", function () {
         var tasks = getEnabledTasks(ENV);
-        assert.deepEqual(tasks.codeTasks, [
+        expect(tasks.codeTasks).toEqual([
           "html",
           "stylesheets",
           "webpack:production",
@@ -132,14 +132,14 @@ describe("getEnabledTasks", function () {
         TASK_CONFIG["stylesheets"] = false;
 
         var tasks = getEnabledTasks(ENV);
-        assert.deepEqual(tasks.codeTasks, ["html", "webpack:production"]);
+        expect(tasks.codeTasks).toEqual(["html", "webpack:production"]);
       });
 
       it("still correctly disable javascripts task when disabled", function () {
         TASK_CONFIG["javascripts"] = false;
 
         var tasks = getEnabledTasks(ENV);
-        assert.deepEqual(tasks.codeTasks, ["html", "stylesheets"]);
+        expect(tasks.codeTasks).toEqual(["html", "stylesheets"]);
       });
 
       it("returns false when all disabled", function () {
@@ -148,7 +148,7 @@ describe("getEnabledTasks", function () {
         });
 
         var tasks = getEnabledTasks(ENV);
-        assert.equal(tasks.codeTasks, false);
+        expect(tasks.codeTasks).toEqual(false);
       });
     });
   });
