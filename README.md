@@ -21,7 +21,7 @@ yarn add nucleum
 yarn nucleum init
 ```
 
-This will create the default `src` directory and `nucleum.config.ja` file in your project directory.
+This will create the default `src` directory and `nucleum.config.js` file in your project directory.
 
 The `init` command also updates your `package.json` file to include `dev` and `build` scripts for Nucleum:
 
@@ -161,7 +161,7 @@ The file must be named `nucleum.config.js`.
 
 `nucleum.config.js`
 
-This file specifies the `src` and `dest` root directories under a `basePats` object, and `src` and `dest` for each task, relative to the configured base paths. For example, if your source files live in a folder called `app`, and your compiled files should be output to a folder called `static`, you'd update the base paths `src` and `dest` properties here to reflect that.
+This file specifies the `src` (default to _"./src"_) and `dest` (default to _"./public"_) root directories under a `basePats` object, and `src` and `dest` for each task, relative to the configured base paths. For example, if your source files live in a folder called `app`, and your compiled files should be output to a folder called `static`, you'd update the base paths `src` and `dest` properties here to reflect that.
 
 This file also exposes per-task configuration and overrides. At minimum, you just need to set the task to `true` to enable the task with its default configuration. If you wish to configure a task, provide a configuration object instead.
 
@@ -231,6 +231,14 @@ browserSync: {
 ### javascripts
 
 Under the hood, JS is compiled with Webpack with a heavily customized Webpack file to get you up and running with little to no configuration. An API for configuring some of the most commonly accessed options are exposed, along with some other helpers for scoping to environment. Additionally, you can get full access to modify Nucleum's `webpackConfig` via the [`customizeWebpackConfig`](#customizeWebpackConfig) option.
+
+#### `src`
+
+This is the source path, relative to the src base path for the JavaScript files. Default to _"assets/js"_.
+
+#### `dest`
+
+This is the destination path, relative to the dest base path for the compiled JavaScript files. Default to _"assets/js"_.
 
 #### `entry` (required)
 
@@ -343,6 +351,14 @@ customizeWebpackConfig: function (webpackConfig, env, webpack) {
 **CAUTION!** Avoid overwriting `webpackConfig.entry` or `webpackConfig.plugins` via this function, and rely on the `entry` and `plugins` options above to avoid breaking Nucleum's hot-loading and file revisioning setup ([view source](./gulpfile.js/lib/webpack-multi-config.js)).
 
 ### stylesheets
+
+#### `src`
+
+This is the source path, relative to the src base path for the Sass files. Default to _"assets/styles"_.
+
+#### `dest`
+
+This is the destination path, relative to the dest base path for the compiled CSS files. Default to _"assets/css"_.
 
 #### `presetEnv`
 
@@ -468,6 +484,14 @@ Setting the `config` object, you can create the necessary configuration for [cri
 
 ### html
 
+#### `src`
+
+This is the source path, relative to the src base path for the template languages files. Default to _"views"_.
+
+#### `dest`
+
+This is the destination path, relative to the dest base path for the compiled template files. Default to _"./"_.
+
 **Note:** If you are on a platform that's already handling html, like a CMS (WordPress, Craft, etc.), set `html: false` or delete the configuration object completely from `nucleum.config.js`. If that's the case, don't forget to use the BrowserSync [`files` option](https://browsersync.io/docs/options#option-file) in the `browserSync` config object to start watching your templates folder.
 
 Nucleum is using [Eleventy] under the hood to generate static HTML files.
@@ -475,6 +499,8 @@ Nucleum is using [Eleventy] under the hood to generate static HTML files.
 We use [Nunjucks] as the default templating engine but you can change that to any other Eleventy [supported template languages](https://www.11ty.dev/docs/languages/). Also, by default the HTML output is beautified rather than minified. If you'd like to change that behaviour, you'll have to add a new transform to minify the output. Find out more in the [Eleventy Documentation](https://www.11ty.dev/docs/config/#transforms-example-minify-html-output).
 
 You can change or extend Eleventy's configuration through the [.eleventy.js](./.eleventy.js) file.
+
+**IMPORTANT** If you change the html src and dest paths make sure the paths under the dir object in .eleventy.js file are updated accordingly.
 
 If you ever need a more verbose error output for Eleventy, run your project with the following command: `DEBUG=Eleventy* yarn dev`.
 
@@ -496,9 +522,25 @@ static: {
 
 ### fonts, images
 
+#### `src`
+
+This is the source path, relative to the src base path for the fonts or images files. Default to _"assets/fonts"_ and _"assets/fonts"_.
+
+#### `dest`
+
+This is the destination path, relative to the dest base path for the fonts or images files. Default to _"assets/images"_ and _"assets/images"_.
+
 These tasks simply copy files from `src` to `dest` configured in `nucleum.config.js`. Nothing to configure here other that specifying extensions or disabling the task.
 
 ### icons
+
+#### `src`
+
+This is the source path, relative to the src base path for the icon files. Default to _"assets/icons"_.
+
+#### `dest`
+
+This is the destination path, relative to the dest base path for the compiled SVG sprite file. Default to _"assets/images"_.
 
 Generates an SVG Sprite from `.svg` files in `src/icons`. You can either include the created SVG directly on the page and reference the icon by id like this:
 
