@@ -13,7 +13,6 @@ describe("getEnabledTasks", function () {
       beforeEach(function () {
         TASK_CONFIG = {
           fonts: true,
-          iconFont: true,
           images: true,
           icons: true,
         };
@@ -21,20 +20,15 @@ describe("getEnabledTasks", function () {
 
       it("returns all tasks when none disabled", function () {
         var tasks = getEnabledTasks(ENV);
-        assert.deepEqual(tasks.assetTasks, [
-          "fonts",
-          "iconFont",
-          "images",
-          "icons",
-        ]);
+        assert.deepEqual(tasks.assetTasks, ["fonts", "images", "icons"]);
       });
 
       it("returns only enabled task when some disabled", function () {
-        TASK_CONFIG["iconFont"] = false;
-        TASK_CONFIG["icons"] = false;
+        TASK_CONFIG["fonts"] = false;
+        TASK_CONFIG["images"] = false;
 
         var tasks = getEnabledTasks(ENV);
-        assert.deepEqual(tasks.assetTasks, ["fonts", "images"]);
+        assert.deepEqual(tasks.assetTasks, ["icons"]);
       });
 
       it("returns false when all disabled", function () {
@@ -88,7 +82,6 @@ describe("getEnabledTasks", function () {
       beforeEach(function () {
         TASK_CONFIG = {
           fonts: true,
-          iconFont: true,
           images: true,
           icons: true,
         };
@@ -96,20 +89,15 @@ describe("getEnabledTasks", function () {
 
       it("returns all tasks when none disabled", function () {
         var tasks = getEnabledTasks(ENV);
-        assert.deepEqual(tasks.assetTasks, [
-          "fonts",
-          "iconFont",
-          "images",
-          "icons",
-        ]);
+        assert.deepEqual(tasks.assetTasks, ["fonts", "images", "icons"]);
       });
 
       it("returns only enabled task when some disabled", function () {
-        TASK_CONFIG["iconFont"] = false;
+        TASK_CONFIG["fonts"] = false;
         TASK_CONFIG["icons"] = false;
 
         var tasks = getEnabledTasks(ENV);
-        assert.deepEqual(tasks.assetTasks, ["fonts", "images"]);
+        assert.deepEqual(tasks.assetTasks, ["images"]);
       });
 
       it("returns false when all disabled", function () {
