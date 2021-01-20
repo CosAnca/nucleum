@@ -6,12 +6,13 @@
   },
   "extends": ["eslint:recommended", "plugin:prettier/recommended"],
   "parserOptions": {
-    "ecmaVersion": 2017,
+    "ecmaVersion": 2020,
     "sourceType": "module"
   },
   "rules": {
     "array-callback-return": "error",
     "class-methods-use-this": "error",
-    "no-loop-func": "error"
+    "no-loop-func": "error",
+    "no-console": "error"
   }
 }
