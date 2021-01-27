@@ -1,6 +1,6 @@
 # Stylesheet Assets (Sass)
 
-Sass is the greatest, and libsass (via node-sass) is the fastest! Put your Sass here.
+Sass is the greatest! Put your Sass here.
 
 Included Sass libraries:
 
@@ -15,7 +15,7 @@ Included PostCSS plugins:
 - [postcss-preset-env](https://github.com/csstools/postcss-preset-env)
 - [postcss-svg](https://github.com/Pavliko/postcss-svg)
 
-- To use [Normalize.css](https://github.com/necolas/normalize.css) via [postcss-normalize](https://github.com/csstools/postcss-normalize) you have to included it either through `task-config.js` file or using the default import directive `@import-normalize` in the main `style.scss` file.
+- To use [Normalize.css](https://github.com/necolas/normalize.css) via [postcss-normalize](https://github.com/csstools/postcss-normalize) you have to include it either through `nucleum.config.js` file or using the default import directive `@import-normalize` in the main `style.scss` file.
 
 ### Architecture
 
@@ -23,19 +23,21 @@ Project stylesheets should be structured following closely to the principles of 
 
 1. **Settings** - Global configuration and variables.
 2. **Tools** - Mixins and functions.
-3. **Generic** - High-level styles such as resets and [normalize.css](https://github.com/necolas/normalize.css).
+3. **Generic** - High-level styles such as resets.
 4. **Elements** - Base HTML styling.
-5. **Objects** - Common non-cosmetic structural design patterns.
+5. **Objects** - Common non-cosmetic, structural design patterns.
 6. **Components** - Specific cosmetic elements of UI.
 7. **Utilities** - Helpers and overrides.
 
-### Tasks and Files
+In case you need to extend this structure with other directories, make sure you import them in the correct order that doesn't deviate from the core principle.
 
-```
-gulpfile.js/tasks/stylesheets
-```
+### Default config
+
+Sass files are compiled and copied from `./src/assets/styles` to `./public/assets/css`.
 
 Your Sass gets run through Autoprefixer, so don't prefix!
 In the `production` task, output is minified with [cssnano](https://github.com/ben-eb/cssnano).
 
-You may also provide additional [`node-sass` options](https://github.com/sass/node-sass#options) to the `sass` property in css task config in `config.json`. By default, we've disabled `indentedSyntax` and added the paths to Bourbon and Adaptable via the `includePaths` option.
+You may also provide additional [`node-sass` options](https://github.com/sass/node-sass#options) to the `sass` property in css task config in `nucleum.config.json`. By default, we've disabled `indentedSyntax` and added the path to node_modules via the `includePaths` option so you can import any Sass or CSS module installed via yarn directly into your main scss file.
+
+Learn more about Sass configuration and available options through Nucleum [documentation](https://github.com/CosAnca/nucleum#stylesheets).

@@ -1,4 +1,4 @@
-/* global PATH_CONFIG, TASK_CONFIG */
+/* global TASK_CONFIG */
 if (!TASK_CONFIG.fonts) {
   return;
 }
@@ -11,11 +11,11 @@ const projectPath = require("../lib/project-path");
 function fontsTask() {
   const paths = {
     src: projectPath(
-      PATH_CONFIG.src,
-      PATH_CONFIG.fonts.src,
+      TASK_CONFIG.basePaths.src,
+      TASK_CONFIG.fonts.src,
       "**/*.{" + TASK_CONFIG.fonts.extensions + "}"
     ),
-    dest: projectPath(PATH_CONFIG.dest, PATH_CONFIG.fonts.dest)
+    dest: projectPath(TASK_CONFIG.basePaths.dest, TASK_CONFIG.fonts.dest),
   };
 
   return gulp

@@ -1,4 +1,4 @@
-/* global PATH_CONFIG TASK_CONFIG */
+/* global TASK_CONFIG */
 if (!TASK_CONFIG.stylesheets.criticalCss) {
   return;
 }
@@ -13,8 +13,14 @@ function criticalCssTask(cb) {
   const pages = TASK_CONFIG.stylesheets.criticalCss.pages || [];
   const config = TASK_CONFIG.stylesheets.criticalCss.config || {};
   const paths = {
-    src: projectPath(PATH_CONFIG.dest, PATH_CONFIG.criticalCss.src),
-    dest: projectPath(PATH_CONFIG.dest, PATH_CONFIG.criticalCss.dest),
+    src: projectPath(
+      TASK_CONFIG.basePaths.dest,
+      TASK_CONFIG.stylesheets.criticalCss.src
+    ),
+    dest: projectPath(
+      TASK_CONFIG.basePaths.dest,
+      TASK_CONFIG.stylesheets.criticalCss.dest
+    ),
   };
 
   if (pages.length) {

@@ -7,17 +7,16 @@
   automatically required below.
 */
 
-/* global PATH_CONFIG, TASK_CONFIG */
+/* global TASK_CONFIG */
 
 const gulp = require("gulp");
 const requireDir = require("require-dir");
 
-// Globally expose config objects
-global.PATH_CONFIG = require("./lib/get-path-config");
+// Globally expose config object
 global.TASK_CONFIG = require("./lib/get-task-config");
 
 // Require all tasks in gulpfile.js/tasks, including subfolders
 requireDir("./tasks", { recurse: true });
 
 // Initialize any additional user-provided tasks
-TASK_CONFIG.additionalTasks.initialize(gulp, PATH_CONFIG, TASK_CONFIG);
+TASK_CONFIG.additionalTasks.initialize(gulp, TASK_CONFIG);

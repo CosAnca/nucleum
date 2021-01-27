@@ -26,9 +26,6 @@
 //    in ems, the `line-height` is calculated to exist unitlessly.
 // 6. Prevent adjustments of font size after orientation changes in iOS.
 // 7. Set smooth scrolling as default.
-// 8. Change the default tap highlight to be completely transparent in iOS.
-
-/* stylelint-disable property-no-vendor-prefix */
 
 body {
   @include font-smoothing; // [1]
@@ -42,5 +39,4 @@ body {
   line-height: $line-height-base; // [5]
   text-size-adjust: 100%; // [6]
   scroll-behavior: smooth; // [7]
-  -webkit-tap-highlight-color: rgba(color("black"), 0); // [8]
 }

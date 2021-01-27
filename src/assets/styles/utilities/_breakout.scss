@@ -12,7 +12,7 @@
   margin-left: calc(50% - 50vw) !important;
 }
 
-.u-breakout\@small {
+.u-breakout\@sm {
   @include mq($until: md) {
     width: 100vw !important;
     margin-left: calc(50% - 50vw) !important;

@@ -1,5 +1,11 @@
 module.exports = {
+  basePaths: {
+    src: "./src",
+    dest: "./public",
+  },
   javascripts: {
+    src: "assets/js",
+    dest: "assets/js",
     extensions: ["js", "jsx"],
     hot: {
       reload: true,
@@ -29,27 +35,46 @@ module.exports = {
     },
   },
 
+  static: {
+    src: "assets/static",
+    dest: "./",
+  },
+
   stylesheets: {
+    src: "assets/styles",
+    dest: "assets/css",
     sass: {
       includePaths: ["./node_modules"],
     },
     extensions: ["sass", "scss", "css"],
+    criticalCss: {
+      src: "./**/*.html",
+      dest: "./",
+    },
   },
 
   html: {
+    src: "views",
+    dest: "./",
     extensions: ["pug", "njk", "md", "json", "js"],
   },
 
   images: {
+    src: "assets/images",
+    dest: "assets/images",
     extensions: ["jpg", "png", "svg", "gif", "webp", "avif"],
   },
 
-  fonts: {
-    extensions: ["woff2", "woff", "eot", "ttf", "svg"],
+  icons: {
+    src: "assets/icons",
+    dest: "assets/images",
+    svgstore: {},
   },
 
-  svgSprite: {
-    svgstore: {},
+  fonts: {
+    src: "assets/fonts",
+    dest: "assets/fonts",
+    extensions: ["woff2", "woff", "eot", "ttf", "svg"],
   },
 
   production: {
@@ -58,7 +83,7 @@ module.exports = {
 
   additionalTasks: {
     // eslint-disable-next-line
-    initialize(gulp, PATH_CONFIG, TASK_CONFIG) {
+    initialize(gulp, TASK_CONFIG) {
       // gulp.task('myTask', function() { })
     },
     development: {

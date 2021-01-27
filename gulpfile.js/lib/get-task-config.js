@@ -1,33 +1,33 @@
 const fs = require("fs");
 const projectPath = require("./project-path");
-const taskDefaults = require("./task-defaults");
+const configDefaults = require("./config-defaults");
 const mergeWith = require("lodash/mergeWith");
 
-function getTaskConfig() {
+function getConfig() {
   if (process.env.NUCLEUM_CONFIG_PATH) {
     return require(projectPath(
       process.env.NUCLEUM_CONFIG_PATH,
-      "task-config.js"
+      "nucleum.config.js"
     ));
   }
 
-  const defaultConfigPath = projectPath("config/task-config.js");
+  const defaultConfigPath = projectPath("nucleum.config.js");
 
   if (fs.existsSync(defaultConfigPath)) {
     return require(defaultConfigPath);
   }
 
-  return require("../task-config");
+  return require("../nucleum.config.js");
 }
 
 function withDefaults(taskConfig) {
-  Object.keys(taskDefaults).reduce((config, key) => {
+  Object.keys(configDefaults).reduce((config, key) => {
     if (taskConfig[key] !== false) {
       // if true, use default, else merge objects
       config[key] =
-        taskDefaults[key] === true
-          ? taskDefaults[key]
-          : mergeWith(taskDefaults[key], config[key] || {}, replaceArrays);
+        configDefaults[key] === true
+          ? configDefaults[key]
+          : mergeWith(configDefaults[key], config[key] || {}, replaceArrays);
     }
     return config;
   }, taskConfig);
@@ -41,6 +41,6 @@ function replaceArrays(objValue, srcValue) {
   }
 }
 
-const taskConfig = withDefaults(getTaskConfig());
+const taskConfig = withDefaults(getConfig());
 
 module.exports = taskConfig;

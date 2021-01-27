@@ -1,4 +1,4 @@
-/* global PATH_CONFIG */
+/* global TASK_CONFIG */
 const fs = require("fs");
 const gulp = require("gulp");
 const log = require("fancy-log");
@@ -25,17 +25,17 @@ function initTask() {
     .pipe(gulp.dest(projectPath()));
 
   const configStream = gulp
-    .src(["gulpfile.js/path-config.json", "gulpfile.js/task-config.js"])
-    .pipe(gulp.dest(projectPath("config")));
+    .src(["gulpfile.js/nucleum.config.js"])
+    .pipe(gulp.dest(projectPath()));
 
   const srcStream = gulp
     .src(["src/**/*", "*.gitkeep"])
-    .pipe(gulp.dest(projectPath(PATH_CONFIG.src)));
+    .pipe(gulp.dest(projectPath(TASK_CONFIG.basePaths.src)));
 
   // Setup the script rules
   pkg.scripts = {
-    start: "yarn run nucleum",
-    build: "yarn run nucleum build",
+    dev: "yarn nucleum",
+    build: "yarn nucleum build",
   };
 
   // Setup browserslist config
@@ -53,7 +53,7 @@ function initTask() {
     To start the dev server run:
   `),
     colors.magenta(`
-    yarn start
+    yarn dev
   `)
   );
 

@@ -116,6 +116,6 @@ fi
 printf "${BRN}========== WordPress setup finished ==========${NC}\n"
 printf "${BLU}Your website is available at: ${PRL}http://localhost${NC}\n"
 printf "${BLU}To enable watch mode and start static assets compilation please first update${NC}\n"
-printf "${BLU}the theme name on the paths inside ${PRL}config/path-config.json${BLU} and ${PRL}config/task-config.js${BLU} files${NC}\n"
-printf "${BLU}and then run: ${PRL}yarn start${NC}\n"
+printf "${BLU}the theme name on the paths inside ${PRL}nucleum.config.js${BLU} file${NC}\n"
+printf "${BLU}and then run: ${PRL}yarn dev${NC}\n"
 printf "${BRN}=============== Happy Coding! ================${NC}\n"

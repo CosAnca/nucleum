@@ -1,11 +1,14 @@
-/* global PATH_CONFIG */
+/* global TASK_CONFIG */
 const gulp = require("gulp");
 const sizereport = require("gulp-sizereport");
 const projectPath = require("../lib/project-path");
 
 function sizeReportTask() {
   return gulp
-    .src([projectPath(PATH_CONFIG.dest, "**/*"), "*!rev-manifest.json"])
+    .src([
+      projectPath(TASK_CONFIG.basePaths.dest, "**/*"),
+      "*!rev-manifest.json",
+    ])
     .pipe(
       sizereport({
         gzip: true,

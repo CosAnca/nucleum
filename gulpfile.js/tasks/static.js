@@ -1,4 +1,4 @@
-/* global PATH_CONFIG, TASK_CONFIG */
+/* global TASK_CONFIG */
 if (!TASK_CONFIG.static) {
   return;
 }
@@ -9,7 +9,10 @@ const path = require("path");
 const projectPath = require("../lib/project-path");
 
 function staticTask() {
-  const srcPath = projectPath(PATH_CONFIG.src, PATH_CONFIG.static.src);
+  const srcPath = projectPath(
+    TASK_CONFIG.basePaths.src,
+    TASK_CONFIG.static.src
+  );
   const defaultSrcOptions = { dot: true };
   const options = Object.assign(
     defaultSrcOptions,
@@ -18,7 +21,7 @@ function staticTask() {
 
   const paths = {
     src: path.join(srcPath, "**/*"),
-    dest: projectPath(PATH_CONFIG.dest, PATH_CONFIG.static.dest)
+    dest: projectPath(TASK_CONFIG.basePaths.dest, TASK_CONFIG.static.dest),
   };
 
   return gulp.src(paths.src, options).pipe(gulp.dest(paths.dest));
