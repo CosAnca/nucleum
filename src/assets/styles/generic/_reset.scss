@@ -34,45 +34,6 @@ hr {
 }
 
 //
-// Add the correct font weight in Edge and Safari.
-//
-
-b,
-strong {
-  font-weight: bolder;
-}
-
-//
-// 1. Remove default `1px` height, and common `overflow: hidden`
-// 2. Solid, thin horizontal rules
-// 3. Remove Firefox `color: gray`
-//
-
-hr {
-  height: 0; // [1]
-  overflow: visible; // [1]
-  border-width: 1px 0 0; // [2]
-  border-style: solid; // [2]
-  color: inherit; // [3]
-}
-
-// Remove list styles.
-
-ol,
-ul {
-  list-style: none;
-}
-
-// Remove trailing margins from nested lists.
-
-li > {
-  ul,
-  ol {
-    margin-bottom: 0;
-  }
-}
-
-//
 // 1. Remove default table spacing.
 // 2. Remove text indentation from table contents in Chrome and Safari.
 // (https://bugs.chromium.org/p/chromium/issues/detail?id=999088, https://bugs.webkit.org/show_bug.cgi?id=201297)

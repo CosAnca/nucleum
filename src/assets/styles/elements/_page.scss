@@ -11,17 +11,6 @@
   font-size: $font-size-root;
 }
 
-//
-// 1. Correct the line height in all browsers.
-// 2. Prevent adjustments of font size after orientation changes in iOS.
-//
-
-html {
-  line-height: 1.15; // [1]
-  /* stylelint-disable-next-line property-no-vendor-prefix */
-  -webkit-text-size-adjust: 100%; // [2]
-}
-
 // High-level, page-level styling.
 //
 // 1. Fonts on OSX will look more consistent with other systems that do not

@@ -4,12 +4,10 @@ If you are providing web font files, this is the place to put them. The fonts ta
 
 If you don't plan using web fonts, or are relying on an external service like Google Fonts, feel free to delete this folder and set the `fonts` to false in `nucleum.config.js`.
 
-### Tasks and Files
+### Default config
 
-```
-gulpfile.js/tasks/fonts
-```
+Font files are copied from `./src/assets/fonts` to `./public/assets/fonts`.
 
-All this task does is copy fonts from `./src/fonts` to `./public/fonts`.
+### Utils
 
 A sass `@include font-face` mixin is available via [Bourbon](http://bourbon.io/docs/#font-face).

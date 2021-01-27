@@ -25,6 +25,15 @@ h6 {
 // Other text-level elements
 // ===========================================
 
+//
+// Add the correct font weight in Edge and Safari for b and strong.
+//
+
+b,
+strong {
+  font-weight: bolder;
+}
+
 small {
   font-size: 75%;
 }
@@ -43,4 +52,18 @@ sub {
 
 sup {
   top: -0.5em;
+}
+
+//
+// 1. Remove default `1px` height, and common `overflow: hidden`
+// 2. Solid, thin horizontal rules
+// 3. Remove Firefox `color: gray`
+//
+
+hr {
+  height: 0; // [1]
+  overflow: visible; // [1]
+  border-width: 1px 0 0; // [2]
+  border-style: solid; // [2]
+  color: inherit; // [3]
 }
