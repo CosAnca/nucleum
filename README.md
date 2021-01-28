@@ -1,24 +1,35 @@
 # ![Nucleum](./src/assets/images/nucleum-banner.png)
 
-**Nucleum** is an opinionated, performance oriented web development starter kit. It can be used as-is as a static site builder, or can be configured and integrated into many different web development environments and sites or apps structures.
+**Nucleum** is an opinionated, performance oriented web development starter kit. It can be used as-is as a static site generator, or can be configured and integrated into many different web development environments and sites or apps structures.
 
 The [extras](./extras) folder contains configuration details for **WordPress** projects. Check the [WordPress with Nucleum](./extras/wordpress/README-WP.md) documentation to learn more about how to set up Nucleum for WordPress based projects.
 
-## Dependencies
-
-- Front-end stack
-  - [yarn]
-
-[yarn]: https://yarnpkg.com/lang/en/
-
 ## Quick start on a fresh project (empty directory)
+
+### Setup
+
+The best way to start on a fresh Nucleum based project is by using our CLI tool `create-nucleum-project`, which sets up everything automatically for you. To create a project, run:
+
+```zsh
+yarn create nucleum-project
+# or
+npx create-nucleum-project
+```
+
+After the installation is complete, follow the instructions to start the development server. Try editing `src/views/pages/index.njk` and see the result on your browser.
+
+For more information on how to use `create-nucleum-project`, you can review the [`create-nucleum-project` documentation](https://github.com/CosAnca/create-nucleum-project).
+
+### Manual Setup
 
 **Nucleum** is published as an npm package which allows us to start a new project in a only a few steps:
 
 ```zsh
-yarn init
 yarn add nucleum
 yarn nucleum init
+# or
+npm install nucleum
+npm run nucleum init
 ```
 
 This will create the default `src` directory and `nucleum.config.js` file in your project directory.
@@ -36,12 +47,14 @@ The `init` command also updates your `package.json` file to include `dev` and `b
 which you can then use on the command line:
 
 ```zsh
-# command line
 yarn dev
 yarn build
+# or
+npm run dev
+npm run build
 ```
 
-and also adds a `browserslist` configuration that you can customize based on your project needs.
+A default `browserslist` configuration is added as well into the `package.json` file. You can customize it based on your project needs.
 
 ```js
 // package.json
@@ -59,23 +72,21 @@ You can find more details about browserslist and the type of queries its configu
 
 ## Adding to an existing project?
 
-You can generate basic `nucleum.config.js` file with:
+If you want to use Nucleum as a front-end build tool in an existing project, you can generate a basic `nucleum.config.js` file with:
 
 ```zsh
 yarn nucleum init-config
+# or
+npm run nucleum init-config
 ```
 
-Then edit the configs to match the needs of your project.
+Then edit the configs to match the needs of your project. To understand better how you can customize each config object, take a look at our [`config-defaults`](gulpfile.js/lib/config-defaults.js) file.
 
 ## Recommended Setup
 
-#### [Node Version Manager](https://github.com/creationix/nvm)
+To benefit even further of Nucleum's capabilities, we recommend you install some dev dependencies that can help you lint your SCSS and JavaScript files.
 
-**Nucleum requires at least Node 10.20.1**. While you can install Node a variety of ways, we highly recommend using [nvm](https://github.com/creationix/nvm) to install and manage Node versions.
-
-#### [Yarn](https://yarnpkg.com/en/docs/install)
-
-We recommend `yarn` over `npm` mainly for its [`yarn run`](https://yarnpkg.com/en/docs/cli/run) command which allows us to run `package.json` `scripts` and `node_modules/.bin` executables in a nice convenience.
+Nucleum automatically generates config files for eslint and stylelint that you can either use as they are or change them based on your project needs.
 
 #### Additional dev dependencies
 
@@ -93,9 +104,9 @@ You can install them all at once by running the following command in your Termin
 
 ```zsh
 yarn add -D eslint eslint-config-prettier eslint-plugin-compat eslint-plugin-prettier husky lint-staged prettier stylelint stylelint-config-nucleum
+# or
+npm install -D eslint eslint-config-prettier eslint-plugin-compat eslint-plugin-prettier husky lint-staged prettier stylelint stylelint-config-nucleum
 ```
-
-Nucleum automatically generates config files for eslint and stylelint that you can either use as they are or change.
 
 If you'd like to have your code (SCSS and JS) linted before every commit, you can add the following configuraiton objects into your `package.json` file:
 
@@ -119,16 +130,18 @@ If you'd like to have your code (SCSS and JS) linted before every commit, you ca
 
 # Commands
 
-All commands should be run through `yarn`.
-
 ```zsh
 yarn dev
+# or
+npm run dev
 ```
 
 This is where the magic happens. The perfect workflow. This runs the development task, which starts compiling, watching, and live updating all our files as we change them. BrowserSync will start a server on port 3000, or do whatever you've configured it to do. You'll be able to see live changes in all connected browsers. Don't forget about the additional BrowserSync tools available on port 3001!
 
 ```zsh
 yarn build
+# or
+npm run build
 ```
 
 Compiles files for production to your destination directory. JS files are built using Webpack with standard production optimisations (Uglify, etc.). CSS is run through CSSNano and PurgeCSS. If `rev` is set to `true` in your `nucleum.config.js` file, filenames will be hashed (file.css -> file-a8908d9io20.css) so your server may cache them indefinitely.
@@ -139,6 +152,8 @@ You may override the default configuration by creating a `nucleum.config.js` fil
 
 ```zsh
 yarn nucleum init-config
+# or
+npm run nucleum init-config
 ```
 
 By default, Nucleum expects the config file to live at the root of your project. You may specify an alternative relative location by setting an environment variable:
@@ -153,6 +168,8 @@ By default, Nucleum expects the config file to live at the root of your project.
 ```zsh
 # command line
 yarn nucleum
+# or
+npm run nucleum
 ```
 
 The file must be named `nucleum.config.js`.
@@ -332,11 +349,11 @@ hot: {
 }
 ```
 
-**If you're using React** `yarn add react-hot-loader` and set `react: true` to enable [react-hot-loader](https://github.com/gaearon/react-hot-loader). [Follow the docs](https://github.com/gaearon/react-hot-loader) and update your React app to take advantage. Also install `@babel/preset-react` and add it to the babel presets configuration.
+**If you're using React** `yarn add react-hot-loader` or `npm install react-hot-loader` and set `react: true` to enable [react-hot-loader](https://github.com/gaearon/react-hot-loader). [Follow the docs](https://github.com/gaearon/react-hot-loader) and update your React app to take advantage. Also install `@babel/preset-react` and add it to the babel presets configuration.
 
 #### `customizeWebpackConfig`
 
-In the event that an option you need is not exposed, you may access, modify and return a further customized webpackConfig by providing this option as a function. The function will receive the Nucleum `webpackConfig`, `env` and `webpack` as params. The `env` value will be either `development` (`yarn nucleum`) or `production` (`yarn nucleum build`).
+In the event that an option you need is not exposed, you may access, modify and return a further customized webpackConfig by providing this option as a function. The function will receive the Nucleum `webpackConfig`, `env` and `webpack` as params. The `env` value will be either `development` or `production`.
 
 ```js
 customizeWebpackConfig: function (webpackConfig, env, webpack) {
