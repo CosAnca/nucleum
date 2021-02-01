@@ -8,7 +8,7 @@ The [extras](./extras) folder contains configuration details for **WordPress** p
 
 ### Setup
 
-The best way to start on a fresh Nucleum based project is by using our CLI tool `create-nucleum-project`, which sets up everything automatically for you. To create a project, run:
+The easiest way to get started with Nucleum is by using `create-nucleum-project`. This simple CLI tool enables you to quickly start building a new Nucleum project, with everything set up for you. To get started, use the following command:
 
 ```zsh
 yarn create nucleum-project
