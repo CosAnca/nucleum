@@ -271,7 +271,18 @@ Sets the webpack devtool option in development mode. Defaults to `eval-cheap-mod
 
 #### `babel`
 
-Object to overwrite the default Babel loader config object. This defaults to `{ presets: [["@babel/preset-env", { "modules": false }] }`. Same format as a `.babelrc` file.
+Object to overwrite the default Babel loader config object. Set by default to:
+
+```js
+presets: [["@babel/preset-env", { modules: false }]],
+plugins: [
+  ["@babel/plugin-proposal-class-properties", { loose: true }],
+  "@babel/plugin-syntax-dynamic-import",
+  "@babel/plugin-transform-runtime",
+],
+```
+
+Same format as a `.babelrc` file.
 
 #### `babelLoader`
 
