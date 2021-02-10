@@ -51,10 +51,12 @@ module.exports = function (env) {
     },
     optimization: {
       minimizer: [],
+      moduleIds: "hashed",
     },
     output: {
       path: path.normalize(jsDest),
-      filename: rev ? "[name]-[contenthash:10].js" : "[name].js",
+      filename: rev ? "[name]-[contenthash:6].js" : "[name].js",
+      chunkFilename: rev ? "[name]-[contenthash:6].js" : "[name].js",
       publicPath,
     },
     plugins: [],
