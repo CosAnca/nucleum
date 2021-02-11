@@ -7,6 +7,7 @@ function sizeReportTask() {
   return gulp
     .src([
       projectPath(TASK_CONFIG.basePaths.dest, "**/*"),
+      "!" + projectPath(TASK_CONFIG.basePaths.dest, "**/_*{,/**/*}"),
       "*!rev-manifest.json",
     ])
     .pipe(
