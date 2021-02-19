@@ -3,15 +3,10 @@
 // =============================================================================
 
 $font-faces: (
-  "Font-filename": (
-    "family": "Font-family",
+  "Overpass-Regular": (
+    "family": "Overpass",
     "style": normal,
     "weight": font-weight("normal"),
-  ),
-  "Font-filename-Bold": (
-    "family": "Font-family",
-    "style": normal,
-    "weight": font-weight("bold"),
   ),
 );
 
@@ -20,8 +15,8 @@ $font-faces: (
     font-family: map-get-deep($val, family);
     font-style: map-get-deep($val, style);
     font-weight: map-get-deep($val, weight);
-    src: url("../fonts/#{$font-face}.woff2") format("woff2"),
-      url("../fonts/#{$font-face}.woff") format("woff");
+    src: url("/assets/fonts/#{$font-face}.woff2") format("woff2"),
+      url("/assets/fonts/#{$font-face}.woff") format("woff");
     font-display: swap;
   }
 }

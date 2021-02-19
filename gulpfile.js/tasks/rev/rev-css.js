@@ -4,7 +4,7 @@ const projectPath = require("../../lib/project-path");
 const rev = require("gulp-rev");
 const revdel = require("gulp-rev-delete-original");
 
-// 3) Rev and compress CSS and JS files (this is done after assets, so that if a
+// 3) Rev and compress CSS files (this is done after assets, so that if a
 //    referenced asset hash changes, the parent hash will change as well
 function revCSSTask() {
   return gulp

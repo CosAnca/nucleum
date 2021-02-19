@@ -12,7 +12,7 @@ function revUpdateReferencesTask() {
   return gulp
     .src(projectPath(TASK_CONFIG.basePaths.dest, "**/*.{css,js}"))
     .pipe(revReplace({ manifest }))
-    .pipe(gulp.dest(TASK_CONFIG.basePaths.dest));
+    .pipe(gulp.dest(projectPath(TASK_CONFIG.basePaths.dest)));
 }
 
 revUpdateReferencesTask.displayName = "rev-update-references";

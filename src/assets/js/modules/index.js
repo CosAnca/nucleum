@@ -5,7 +5,7 @@
 
 const moduleElements = Array.from(document.querySelectorAll("[data-module]"));
 
-if ("IntesectionObserver" in window) {
+if ("IntersectionObserver" in window) {
   const lazyModulesObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
