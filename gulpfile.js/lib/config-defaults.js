@@ -52,10 +52,6 @@ module.exports = {
       includePaths: ["./node_modules"],
     },
     extensions: ["sass", "scss", "css"],
-    criticalCss: {
-      src: "./**/*.html",
-      dest: "./",
-    },
   },
 
   html: {

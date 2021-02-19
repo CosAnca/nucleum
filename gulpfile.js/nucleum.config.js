@@ -6,6 +6,8 @@ module.exports = {
   icons: true,
   stylesheets: {
     criticalCss: {
+      src: "./**/*.html",
+      dest: "./",
       config: {
         base: "./public",
         inline: true,
