@@ -14,14 +14,28 @@ function revCSSTask() {
     .pipe(revdel())
     .pipe(
       rev.manifest(
-        projectPath(TASK_CONFIG.basePaths.dest, "rev-manifest.json"),
+        projectPath(
+          TASK_CONFIG.basePaths.dest,
+          TASK_CONFIG.production.rev.manifestDir,
+          "rev-manifest.json"
+        ),
         {
-          base: projectPath(TASK_CONFIG.basePaths.dest),
+          base: projectPath(
+            TASK_CONFIG.basePaths.dest,
+            TASK_CONFIG.production.rev.manifestDir
+          ),
           merge: true,
         }
       )
     )
-    .pipe(gulp.dest(projectPath(TASK_CONFIG.basePaths.dest)));
+    .pipe(
+      gulp.dest(
+        projectPath(
+          TASK_CONFIG.basePaths.dest,
+          TASK_CONFIG.production.rev.manifestDir
+        )
+      )
+    );
 }
 
 revCSSTask.displayName = "rev-css";

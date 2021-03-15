@@ -6,7 +6,11 @@ const revReplace = require("gulp-rev-replace");
 // 2) Update asset references with reved filenames in compiled css + js
 function revUpdateReferencesTask() {
   const manifest = gulp.src(
-    projectPath(TASK_CONFIG.basePaths.dest, "rev-manifest.json")
+    projectPath(
+      TASK_CONFIG.basePaths.dest,
+      TASK_CONFIG.production.rev.manifestDir,
+      "rev-manifest.json"
+    )
   );
 
   return gulp

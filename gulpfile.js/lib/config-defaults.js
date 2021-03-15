@@ -79,7 +79,9 @@ module.exports = {
   },
 
   production: {
-    rev: true,
+    rev: {
+      manifestDir: "assets",
+    },
   },
 
   additionalTasks: {

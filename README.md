@@ -672,11 +672,23 @@ By default, the entire `dest` directory is deleted before each build. By setting
 
 ### production
 
-Filenames can be revisioned when running the production `build` task. If you want to enable this behaviour, you can set `rev` to true.
+Filenames are revisioned when running the production `build` task. If you want to disable this behaviour, you can set `rev` to false.
 
 ```js
 production: {
   rev: true;
+}
+```
+
+The default directory where the `rev-manifest.json` file is generated is `assets`. If you want to output your compiled files into a different directory, you can also ensure the `rev-manifest.json` file is generated as part of the same directory by using the `manifestDir` property.
+
+For example, in a project where you only need to handle the CSS and JS compilation and bundling and in your `nucleum.config.js` file you set the `dist` path directly to your assets destination folder, you can set the `manifestDir` to an empty string.
+
+```js
+production: {
+  rev: {
+    manifestDir: "";
+  }
 }
 ```
 

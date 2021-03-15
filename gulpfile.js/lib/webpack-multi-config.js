@@ -110,7 +110,9 @@ module.exports = function (env) {
       webpackConfig.plugins.push(
         new webpackManifest(
           TASK_CONFIG.javascripts.dest,
-          TASK_CONFIG.basePaths.dest
+          TASK_CONFIG.basePaths.dest +
+            "/" +
+            TASK_CONFIG.production.rev.manifestDir
         )
       );
     }

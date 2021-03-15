@@ -36,8 +36,4 @@ module.exports = {
       baseDir: "public",
     },
   },
-
-  production: {
-    rev: true,
-  },
 };
