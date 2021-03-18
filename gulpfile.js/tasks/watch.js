@@ -46,7 +46,7 @@ function watchTask(cb) {
           : "");
 
       gulp.watch(
-        path.join(srcPath, globPattern),
+        path.join(srcPath, globPattern).replace(/\\/g, "/"),
         watchConfig,
         gulp.series(taskName)
       );
