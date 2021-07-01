@@ -34,11 +34,10 @@ function stylesheetsTask() {
     TASK_CONFIG.stylesheets.sass &&
     TASK_CONFIG.stylesheets.sass.includePaths
   ) {
-    TASK_CONFIG.stylesheets.sass.includePaths = TASK_CONFIG.stylesheets.sass.includePaths.map(
-      function (includePath) {
+    TASK_CONFIG.stylesheets.sass.includePaths =
+      TASK_CONFIG.stylesheets.sass.includePaths.map(function (includePath) {
         return projectPath(includePath);
-      }
-    );
+      });
   }
 
   const postcssNormalizeConfig = TASK_CONFIG.stylesheets.normalize || {};
@@ -65,7 +64,7 @@ function stylesheetsTask() {
     purgecssConfig.defaultExtractor = nucleumPurgeCssDefaultExtractor;
   }
 
-  const postcssPlugins = [
+  let postcssPlugins = [
     postcssNormalize(postcssNormalizeConfig),
     postcssPresetEnv(postcssPresetEnvConfig),
     postcssSVG({
@@ -79,7 +78,9 @@ function stylesheetsTask() {
 
   // Add defined plugins
   if (TASK_CONFIG.stylesheets.postcssPlugins) {
-    postcssPlugins.concat(TASK_CONFIG.stylesheets.postcssPlugins || []);
+    postcssPlugins = postcssPlugins.concat(
+      TASK_CONFIG.stylesheets.postcssPlugins || []
+    );
   }
 
   return gulp
