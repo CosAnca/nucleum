@@ -1,0 +1,17 @@
+// ==========================================================================
+// SETTINGS / FONT SIZES
+// ==========================================================================
+
+@use "globals";
+
+$font-size-xs: globals.$font-size-base * 0.75 !default; // [12px]
+$font-size-sm: globals.$font-size-base * 0.875 !default; // [14px]
+$font-size-md: globals.$font-size-base !default; // [16px]
+$font-size-lg: globals.$font-size-base * 1.125 !default; // [18px]
+$font-size-xl: globals.$font-size-base * 1.25 !default; // [20px]
+$font-size-2xl: globals.$font-size-base * 1.5 !default; // [24px]
+$font-size-3xl: globals.$font-size-base * 1.75 !default; // [28px]
+$font-size-4xl: globals.$font-size-base * 2 !default; // [32px]
+$font-size-5xl: globals.$font-size-base * 2.5 !default; // [40px]
+$font-size-6xl: globals.$font-size-base * 3 !default; // [48px]
+$font-size-7xl: globals.$font-size-base * 4 !default; // [64px]

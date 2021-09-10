@@ -9,6 +9,8 @@ html {
   box-sizing: border-box;
 }
 
+/*! purgecss start ignore */
+
 * {
   &,
   &::before,
@@ -16,3 +18,5 @@ html {
     box-sizing: inherit;
   }
 }
+
+/*! purgecss end ignore */

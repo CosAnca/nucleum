@@ -1,0 +1,60 @@
+// ==========================================================================
+// UTILITIES / GAP
+// ==========================================================================
+
+@use "sass-mq/mq";
+@use "../settings" as *;
+@use "../tools";
+
+/* stylelint-disable declaration-no-important */
+
+// Settings
+// ==============================================
+
+$gap-directions: (
+  "null": null,
+  "x": column,
+  "y": row,
+);
+
+// Tools (Private / Framework Only)
+// ==============================================
+
+@mixin _build-gap($breakpoint: null) {
+  @each $direction-alias, $direction in $gap-directions {
+    @each $size, $value in $spacings {
+      $size-number: tools.str-replace($size, "spacing-", "");
+      $rem-value: null;
+
+      @if ($value == 0) {
+        $rem-value: 0;
+      } @else {
+        $rem-value: tools.rem($value);
+      }
+
+      @if ($direction != null) {
+        .u-g#{$direction-alias}-#{$size-number}#{$breakpoint} {
+          #{$direction}-gap: $rem-value !important;
+        }
+      } @else {
+        .u-g-#{$size-number}#{$breakpoint} {
+          gap: $rem-value !important;
+        }
+      }
+    }
+  }
+}
+
+// Base
+// ==============================================
+
+// Generate our regular, non-responsive classes.
+@include _build-gap;
+
+// Generate our responsive classes by looping over the series of breakpoints
+// held by $breakpoints inside _breakpoint.scss file.
+@each $breakpoint, $value in $breakpoints {
+  @include mq.mq($from: $breakpoint) {
+    @include _build-gap(\@#{$breakpoint});
+  }
+}

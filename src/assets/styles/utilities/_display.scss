@@ -2,6 +2,9 @@
 // UTILITIES / DISPLAY
 // ==========================================================================
 
+@use "sass-mq/mq";
+@use "../settings" as *;
+
 // Generate a suite of utility classes for box model display property.
 
 /* stylelint-disable declaration-no-important */
@@ -29,8 +32,8 @@ $display-values: (
 @include _build-display;
 
 // Create box model display classes for each breakpoint
-@each $breakpoint, $value in $mq-breakpoints {
-  @include mq($from: $breakpoint) {
+@each $breakpoint, $value in $breakpoints {
+  @include mq.mq($from: $breakpoint) {
     @include _build-display(\@#{$breakpoint});
   }
 }

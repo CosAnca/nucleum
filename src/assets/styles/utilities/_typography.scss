@@ -2,6 +2,10 @@
 // UTILITIES / TYPOGRAPHY
 // =============================================================================
 
+@use "sass-mq/mq";
+@use "../settings" as *;
+@use "../tools";
+
 // Typography utilities will override any matching property declarations
 
 /* stylelint-disable declaration-no-important */
@@ -12,8 +16,10 @@
 @mixin _build-font-sizes($breakpoint: null) {
   // Generate general use font-size classes
   @each $key, $value in $font-sizes {
-    .u-text-#{$key}#{$breakpoint} {
-      @include font-size($key, $important: true);
+    $font-size-key: tools.str-replace($key, "font-size-", "");
+
+    .u-text-#{$font-size-key}#{$breakpoint} {
+      @include tools.font-size($key, $important: true);
     }
   }
 }
@@ -21,8 +27,8 @@
 @include _build-font-sizes;
 
 // Generate responsive font-size classes
-@each $breakpoint, $value in $mq-breakpoints {
-  @include mq($from: $breakpoint) {
+@each $breakpoint, $value in $breakpoints {
+  @include mq.mq($from: $breakpoint) {
     @include _build-font-sizes(\@#{$breakpoint});
   }
 }
@@ -33,7 +39,9 @@
 @mixin _build-font-weights($breakpoint: null) {
   // Generate general use font-weight classes
   @each $key, $value in $font-weights {
-    .u-font-#{$key}#{$breakpoint} {
+    $font-weight-key: tools.str-replace($key, "font-weight-", "");
+
+    .u-font-#{$font-weight-key}#{$breakpoint} {
       font-weight: $value !important;
     }
   }
@@ -42,8 +50,8 @@
 @include _build-font-weights;
 
 // Generate responsive font-weight classes
-@each $breakpoint, $value in $mq-breakpoints {
-  @include mq($from: $breakpoint) {
+@each $breakpoint, $value in $breakpoints {
+  @include mq.mq($from: $breakpoint) {
     @include _build-font-weights(\@#{$breakpoint});
   }
 }
@@ -65,7 +73,9 @@
 @mixin _build-line-heights($breakpoint: null) {
   // Generate general use line-height classes
   @each $key, $value in $line-heights {
-    .u-line-height-#{$key}#{$breakpoint} {
+    $line-height-key: tools.str-replace($key, "line-height-", "");
+
+    .u-line-height-#{$line-height-key}#{$breakpoint} {
       line-height: $value !important;
     }
   }
@@ -74,8 +84,8 @@
 @include _build-line-heights;
 
 // Generate responsive line-height classes
-@each $breakpoint, $value in $mq-breakpoints {
-  @include mq($from: $breakpoint) {
+@each $breakpoint, $value in $breakpoints {
+  @include mq.mq($from: $breakpoint) {
     @include _build-line-heights(\@#{$breakpoint});
   }
 }
@@ -97,8 +107,8 @@ $text-alignment: (left, center, right, justify);
 @include _build-text-alignments;
 
 // Generate responsive text alignment classes
-@each $breakpoint, $value in $mq-breakpoints {
-  @include mq($from: $breakpoint) {
+@each $breakpoint, $value in $breakpoints {
+  @include mq.mq($from: $breakpoint) {
     @include _build-text-alignments(\@#{$breakpoint});
   }
 }

@@ -2,5 +2,8 @@
 // SETTINGS / CONTAINER
 // =============================================================================
 
+@use "sass:math";
+@use "grid";
+
 $container-max-width: 1200px !default;
-$container-padding-x: $grid-column-gap / 2 !default;
+$container-padding-x: math.div(grid.$grid-column-gap, 2) !default;

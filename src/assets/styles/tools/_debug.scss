@@ -4,13 +4,13 @@
 //
 // Enabling debugging mode will point out various errors and mistakes in our HTML.
 
+@use "../settings" as *;
+
 // Layout debugging
 // ==============================================
 
 @if (config(debug) == true) {
   $debug-color: #f00;
-  $visual-grid-color: #00d4ff;
-  $visual-grid-opacity: 0.3;
 
   // Warn when trying to use layout items outside of a layout context.
 
@@ -20,26 +20,6 @@
     .o-grid > & {
       outline: none;
     }
-  }
-
-  // Apply a visual grid to the body for grid debugging.
-
-  body::before {
-    @include grid-debug(
-      rgba($visual-grid-color, $visual-grid-opacity),
-      $adaptable-grid
-    );
-    content: "";
-    display: inline-block;
-    position: fixed;
-    z-index: 10;
-    right: 0;
-    left: 0;
-    width: 100%;
-    max-width: em($container-max-width);
-    height: 100%;
-    margin: 0 auto;
-    pointer-events: none;
   }
 }
 
@@ -55,8 +35,8 @@ $visual-baseline-opacity: 0.6;
   $color: rgba($visual-baseline-color, $visual-baseline-opacity),
   $baseline-grid: $visual-baseline
 ) {
-  $_grid-baseline: transparent, transparent ($spacing-base - 1),
-    $color ($spacing-base - 1), $color $spacing-base;
+  $_grid-baseline: transparent, transparent calc(#{$spacing-base * 6} - 1px),
+    $color calc(#{$spacing-base * 6} - 1px), $color $spacing-base * 6;
 
   background-image: repeating-linear-gradient(to bottom, $_grid-baseline);
 }

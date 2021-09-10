@@ -2,6 +2,9 @@
 // ELEMENTS / PAGE
 // =============================================================================
 
+@use "../settings" as *;
+@use "../tools";
+
 // Root
 //
 // Ability to set the value of the root font size, affecting the value of `rem`.
@@ -28,15 +31,15 @@
 // 7. Set smooth scrolling as default.
 
 body {
-  @include font-smoothing; // [1]
+  @include tools.font-smoothing; // [1]
   min-height: 100%; // [2]
   overflow-x: hidden; // [3]
   overflow-y: scroll; // [4]
-  background-color: color("white");
-  color: color("gray-700");
-  font-family: $font-family-base;
-  font-size: em($font-size-base); // [5]
-  line-height: $line-height-base; // [5]
+  background-color: var(--body-bg-color);
+  color: var(--body-text-color);
+  font-family: var(--body-font-family);
+  font-size: var(--body-font-size); // [5]
+  line-height: var(--body-line-height); // [5]
   text-size-adjust: 100%; // [6]
   scroll-behavior: smooth; // [7]
 }

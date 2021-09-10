@@ -1,0 +1,22 @@
+{
+  "css.validate": false,
+  "editor.autoClosingBrackets": "always",
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": true,
+  "editor.formatOnType": true,
+  "emmet.includeLanguages": {
+    "njk": "html"
+  },
+  "eslint.alwaysShowStatus": true,
+  "eslint.packageManager": "yarn",
+  "files.associations": {
+    "*.html": "html"
+  },
+  "problems.showCurrentInStatus": true,
+  "scss.validate": false,
+  "twig-language-2.quoteConvert": "double"
+}

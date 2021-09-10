@@ -2,11 +2,13 @@
 // OBJECTS / BOX
 // ==========================================================================
 
-$box-padding: spacing(6) !default;
-$box-tiny-padding: spacing(2) !default;
-$box-small-padding: spacing(4) !default;
-$box-large-padding: spacing(8) !default;
-$box-huge-padding: spacing(12) !default;
+@use "../settings" as *;
+
+$box-padding: $spacing-6 !default;
+$box-padding-tiny: $spacing-2 !default;
+$box-padding-small: $spacing-4 !default;
+$box-padding-large: $spacing-8 !default;
+$box-padding-huge: $spacing-12 !default;
 
 // The box object simply boxes off content.
 // Extend with cosmetic styles in the Components layer.
@@ -14,12 +16,9 @@ $box-huge-padding: spacing(12) !default;
 // 1. So we can apply the `.o-box` class to naturally-inline elements.
 
 .o-box {
+  --box-padding: #{$box-padding};
   display: block; // [1]
-  padding: $box-padding;
-
-  > :last-child {
-    margin-bottom: 0;
-  }
+  padding: var(--box-padding, $box-padding);
 }
 
 // Size variants
@@ -30,17 +29,17 @@ $box-huge-padding: spacing(12) !default;
 }
 
 .o-box--tiny {
-  padding: $box-tiny-padding;
+  --box-padding: $box-padding-tiny;
 }
 
 .o-box--small {
-  padding: $box-small-padding;
+  --box-padding: $box-padding-small;
 }
 
 .o-box--large {
-  padding: $box-large-padding;
+  --box-padding: $box-padding-large;
 }
 
 .o-box--huge {
-  padding: $box-huge-padding;
+  --box-padding: $box-padding-huge;
 }

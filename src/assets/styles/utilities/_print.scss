@@ -22,12 +22,8 @@
     text-decoration: underline;
   }
 
-  a[href]::after {
+  a[href^="http"]::after {
     content: " (" attr(href) ")";
-  }
-
-  abbr[title]::after {
-    content: " (" attr(title) ")";
   }
 
   // Don't show links that are fragment identifiers,
@@ -36,6 +32,10 @@
   a[href^="#"]::after,
   a[href^="javascript:"]::after {
     content: "";
+  }
+
+  abbr[title]::after {
+    content: " (" attr(title) ")";
   }
 
   pre {
@@ -70,5 +70,9 @@
   h2,
   h3 {
     page-break-after: avoid;
+  }
+
+  .u-no-print {
+    display: none;
   }
 }

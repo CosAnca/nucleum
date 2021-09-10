@@ -4,6 +4,8 @@
 
 // Config-level settings (environment switches, debugging modes, etc.).
 
+@use "sass:map";
+
 $config: (
   "env": dev,
   "debug": false,
@@ -16,5 +18,5 @@ $config: (
 //   }
 //
 @function config($key) {
-  @return map-get($config, $key);
+  @return map.get($config, $key);
 }

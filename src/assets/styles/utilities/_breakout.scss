@@ -5,6 +5,8 @@
 // Allows components to break out of their container and span across the
 // full width of the viewport.
 
+@use "sass-mq/mq";
+
 /* stylelint-disable declaration-no-important */
 
 .u-breakout {
@@ -13,7 +15,7 @@
 }
 
 .u-breakout\@sm {
-  @include mq($until: md) {
+  @include mq.mq($until: md) {
     width: 100vw !important;
     margin-left: calc(50% - 50vw) !important;
   }

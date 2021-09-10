@@ -1,0 +1,9 @@
+// ==========================================================================
+// SETTINGS / LINE HEIGHTS
+// ==========================================================================
+
+@use "globals";
+
+$line-height-none: 1 !default;
+$line-height-tight: 1.25 !default;
+$line-height-normal: globals.$line-height-base !default;

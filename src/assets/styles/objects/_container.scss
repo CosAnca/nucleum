@@ -2,6 +2,10 @@
 // OBJECTS / CONTAINER
 // =============================================================================
 
+@use "sass-mq/mq";
+@use "../settings" as *;
+@use "../tools";
+
 // 1. Force the `o-container` to span full width when inside a flex container.
 // 2. The $container-max-width variable is defined in _globals.scss file.
 // 3. Keep the `o-container` in the center of the viewport.
@@ -11,9 +15,15 @@
 
 .o-container {
   width: 100%; // [1]
-  max-width: em($container-max-width); // [2]
+  max-width: tools.em($container-max-width); // [2]
   margin-right: auto; // [3]
   margin-left: auto; // [3]
-  padding-right: $container-padding-x; // [4]
-  padding-left: $container-padding-x; // [4]
+  padding-right: var(--container-padding-x, $container-padding-x); // [4]
+  padding-left: var(--container-padding-x, $container-padding-x); // [4]
+
+  @each $breakpoint, $value in $breakpoints {
+    @include mq.mq($from: $breakpoint) {
+      max-width: tools.em($value);
+    }
+  }
 }

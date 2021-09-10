@@ -2,6 +2,11 @@
 // UTILITIES / FLEX
 // ==========================================================================
 
+@use "sass:string";
+@use "sass-mq/mq";
+@use "../settings" as *;
+@use "../tools";
+
 // Utility classes for flexbox properties
 
 /* stylelint-disable declaration-no-important */
@@ -24,7 +29,7 @@ $flex-direction: (row, row-reverse, column, column-reverse);
 
 @mixin _build-flex-direction($breakpoint: null) {
   @each $value in $flex-direction {
-    .u-flex-#{if(str-index($value, "column"), str-replace($value, "column", "col"), $value)}#{$breakpoint} {
+    .u-flex-#{if(string.index($value, "column"), tools.str-replace($value, "column", "col"), $value)}#{$breakpoint} {
       flex-direction: $value !important;
     }
   }
@@ -32,8 +37,8 @@ $flex-direction: (row, row-reverse, column, column-reverse);
 
 @include _build-flex-direction;
 
-@each $breakpoint, $value in $mq-breakpoints {
-  @include mq($from: $breakpoint) {
+@each $breakpoint, $value in $breakpoints {
+  @include mq.mq($from: $breakpoint) {
     @include _build-flex-direction(\@#{$breakpoint});
   }
 }
@@ -53,8 +58,8 @@ $item-alignments: (stretch, start, center, end, baseline);
 
 @include _build-flex-items-alignment;
 
-@each $breakpoint, $value in $mq-breakpoints {
-  @include mq($from: $breakpoint) {
+@each $breakpoint, $value in $breakpoints {
+  @include mq.mq($from: $breakpoint) {
     @include _build-flex-items-alignment(\@#{$breakpoint});
   }
 }
@@ -74,8 +79,8 @@ $selft-alignments: (stretch, start, center, end, baseline);
 
 @include _build-flex-self-alignment;
 
-@each $breakpoint, $value in $mq-breakpoints {
-  @include mq($from: $breakpoint) {
+@each $breakpoint, $value in $breakpoints {
+  @include mq.mq($from: $breakpoint) {
     @include _build-flex-self-alignment(\@#{$breakpoint});
   }
 }
@@ -103,8 +108,8 @@ $justifications: (
 
 @include _build-flex-justify;
 
-@each $breakpoint, $value in $mq-breakpoints {
-  @include mq($from: $breakpoint) {
+@each $breakpoint, $value in $breakpoints {
+  @include mq.mq($from: $breakpoint) {
     @include _build-flex-justify(\@#{$breakpoint});
   }
 }
@@ -131,8 +136,8 @@ $flex-wrap: (wrap, nowrap, wrap-reverse);
 
 @include _build-flex-wrap;
 
-@each $breakpoint, $value in $mq-breakpoints {
-  @include mq($from: $breakpoint) {
+@each $breakpoint, $value in $breakpoints {
+  @include mq.mq($from: $breakpoint) {
     @include _build-flex-wrap(\@#{$breakpoint});
   }
 }

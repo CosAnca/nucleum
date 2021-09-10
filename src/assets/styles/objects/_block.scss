@@ -2,11 +2,13 @@
 // OBJECTS / BLOCK
 // ==========================================================================
 
-$block-spacing: spacing(6) !default;
-$block-tiny-spacing: spacing(2) !default;
-$block-small-spacing: spacing(4) !default;
-$block-large-spacing: spacing(8) !default;
-$block-huge-spacing: spacing(12) !default;
+@use "../settings" as *;
+
+$block-spacing: $spacing-6 !default;
+$block-spacing-tiny: $spacing-2 !default;
+$block-spacing-small: $spacing-4 !default;
+$block-spacing-large: $spacing-8 !default;
+$block-spacing-huge: $spacing-12 !default;
 
 // Stacked image-with-text object.
 // A simple abstraction to cover a very cmmonly occurring design pattern.
@@ -16,8 +18,9 @@ $block-huge-spacing: spacing(12) !default;
   text-align: center;
 }
 
-.o-block__img {
-  margin-bottom: $block-spacing;
+.o-block__image {
+  --block-image-spacing: #{$block-spacing};
+  margin-bottom: var(--block-image-spacing, $block-spacing);
 
   // Size variants
   // ============================================
@@ -27,19 +30,19 @@ $block-huge-spacing: spacing(12) !default;
   }
 
   .o-block--tiny > & {
-    margin-bottom: $block-tiny-spacing;
+    --block-image-spacing: #{$block-spacing-tiny};
   }
 
   .o-block--small > & {
-    margin-bottom: $block-small-spacing;
+    --block-image-spacing: #{$block-spacing-small};
   }
 
   .o-block--large > & {
-    margin-bottom: $block-large-spacing;
+    --block-image-spacing: #{$block-spacing-large};
   }
 
   .o-block--huge > & {
-    margin-bottom: $block-huge-spacing;
+    --block-image-spacing: #{$block-spacing-huge};
   }
 }
 

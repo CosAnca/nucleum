@@ -4,24 +4,48 @@
 //
 // Use this file to output your SCSS settings as :root CSS variables.
 
+@use "sass:meta";
+@use "../settings" as *;
+@use "../tools";
+
 :root {
   // Spacing
   @each $key, $value in $spacings {
-    #{--spacing}-#{$key}: if($value == 0, $value, rem($value));
+    $spacing-key: tools.str-replace($key, "spacing-", "");
+    --spacing-#{$spacing-key}: #{if($value == 0, $value, tools.rem($value))};
   }
 
   // Color
   @each $color, $value in $colors {
-    #{--color}-#{$color}: $value;
+    $color-key: tools.str-replace($color, "color-", "");
+    --color-#{$color-key}: #{$value};
+  }
+
+  // Color (RGB values)
+  // Referenced in color and background utility classes.
+  @each $color, $value in $colors {
+    $color-key: tools.str-replace($color, "color-", "");
+    --color-#{$color-key}-rgb: #{tools.to-rgb($value)};
   }
 
   // Font size
   @each $key, $value in $font-sizes {
-    #{--font-size}-#{$key}: rem($value);
+    $font-size-key: tools.str-replace($key, "font-size-", "");
+    --font-size-#{$font-size-key}: #{tools.rem($value)};
   }
 
   // Font weight
   @each $key, $value in $font-weights {
-    #{--font-weight}-#{$key}: $value;
+    $font-weight-key: tools.str-replace($key, "font-weight-", "");
+    --font-weight-#{$font-weight-key}: #{$value};
   }
+
+  @if $font-size-root != null {
+    --root-font-size: #{$font-size-root};
+  }
+  --body-font-family: #{$font-family-base};
+  --body-font-size: #{$font-size-base};
+  --body-line-height: #{$line-height-base};
+  --body-text-color: #{$body-text-color};
+  --body-bg-color: #{$body-bg-color};
 }

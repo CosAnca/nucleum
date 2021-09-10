@@ -24,6 +24,8 @@
 //   background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg ... /svg%3E");
 // }
 
+@use "bourbon/core/bourbon";
+
 // Settings
 // ============================================
 //
@@ -40,7 +42,7 @@ $icon-size: 1em; // [1]
 // 2. Prevents the icon size getting smaller when in flex containers.
 
 .c-icon {
-  @include size($icon-size);
+  @include bourbon.size($icon-size);
   display: inline-flex; // [1]
   flex-shrink: 0; // [2]
 }

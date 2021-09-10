@@ -11,7 +11,7 @@
 // Debug................Enabling debugging mode will point out various errors
 //                      and mistakes in our HTML.
 
-@import "functions";
-@import "mixins";
-@import "typography";
-@import "debug";
+@forward "functions";
+@forward "mixins";
+@forward "typography";
+@forward "debug";

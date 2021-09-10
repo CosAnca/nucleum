@@ -13,11 +13,15 @@
 // Breakpoints..........Define generic breakpoints for media queries.
 // Grid Settings........Hold sitewide breakpoint values.
 
-@import "config";
-@import "colors";
-@import "typography";
-@import "spacing";
-@import "breakpoints";
-@import "grid";
-@import "container";
-@import "borders";
+@forward "borders";
+@forward "breakpoints";
+@forward "colors";
+@forward "config";
+@forward "container";
+@forward "font-sizes";
+@forward "font-weights";
+@forward "globals";
+@forward "grid";
+@forward "line-heights";
+@forward "spacing";
+@forward "maps";

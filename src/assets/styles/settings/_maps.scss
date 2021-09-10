@@ -1,0 +1,20 @@
+// ==========================================================================
+// SETTINGS / MAPS
+// ==========================================================================
+
+// Generate maps from other settings using the `module-variables` method
+// built into sass:meta module.
+// https://sass-lang.com/documentation/modules/meta#module-variables
+
+@use "sass:meta";
+@use "colors";
+@use "font-sizes";
+@use "font-weights";
+@use "line-heights";
+@use "spacing";
+
+$colors: meta.module-variables("colors");
+$font-sizes: meta.module-variables("font-sizes");
+$font-weights: meta.module-variables("font-weights");
+$line-heights: meta.module-variables("line-heights");
+$spacings: meta.module-variables("spacing");

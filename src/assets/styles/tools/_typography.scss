@@ -2,6 +2,12 @@
 // TOOLS / TYPOGRAPHY
 // =============================================================================
 
+@use "sass:map";
+@use "sass:math";
+@use "sass:meta";
+@use "../settings" as *;
+@use "functions";
+
 // Functions
 // ==============================================
 
@@ -10,7 +16,7 @@
 
 // Function to get font-family from `$global-font-families` map.
 @function font-family($key) {
-  @return map-get-deep($global-font-stack, $key);
+  @return map.get($global-font-stack, $key);
 }
 
 // font-size()
@@ -19,8 +25,8 @@
 // Function to get font-size from `$font-sizes` map.
 // Returns the font size value in `rem`.
 @function font-size($key) {
-  $value: map-get-deep($font-sizes, $key);
-  @return rem($value);
+  $value: map.get($font-sizes, $key);
+  @return functions.rem($value);
 }
 
 // font-weight()
@@ -28,7 +34,7 @@
 
 // Function to get font-weight from `$font-weights` map.
 @function font-weight($key) {
-  @return map-get-deep($font-weights, $key);
+  @return map.get($font-weights, $key);
 }
 
 // line-height()
@@ -36,7 +42,7 @@
 
 // Function to get line-height from `$line-height` map.
 @function line-height($key) {
-  @return map-get-deep($line-heights, $key);
+  @return map.get($line-heights, $key);
 }
 
 // Mixins
@@ -61,21 +67,25 @@
 // ------------------------------------
 
 // Generates a rem font-size and a baseline-compatible unitless line-height
-// from a pixel font-size value held in "settings/_typography.scss"
-// `$font-size` map.
+// from a font-size value held in "settings/_font-sizes.scss".
 //
 // Basic usage is simply:
+//   @use "../tools";
 //
-//   @include font-size("base");
+//   @include tools.font-size("font-size-md");
 //
 // You can force a specific line-height by passing it as the second argument:
 //
-//   @include font-size("base", 1);
+//   @include tools.font-size("font-size-md", 1);
+//
+//   or (by referencing a line-height from `settings/_line-heights.scss` file)
+//
+//   @include tools.font-size("font-size-md", "line-height-tight");
 //
 // You can prevent a line-height declaration output by setting the second
 // argument to `false`.
 //
-//   @include font-size("base", false);
+//   @include tools.font-size("font-size-md", false);
 //
 // You can also modify the line-height by increments, while staying in the
 // baseline grid, by setting the `$modifier` parameter. It takes a positive
@@ -84,10 +94,10 @@
 // an absolute value. i.e.:
 //
 //   // add 2 lines:
-//   @include font-size("2xl", $modifier: +2);
+//   @include tools.font-size("font-size-2xl", $modifier: +2);
 //
 //   // subtract 1 line:
-//   @include font-size("2xl", $modifier: -1);
+//   @include tools.font-size("font-size-2xl", $modifier: -1);
 
 @mixin font-size(
   $font-size,
@@ -95,8 +105,8 @@
   $modifier: 0,
   $important: false
 ) {
-  @if not(map-has-keys-deep($font-sizes, $font-size)) {
-    @error "`#{$font-size}` is not a valid key in `$font-sizes` map (settings/_typography.scss).";
+  @if not(map.has-key($font-sizes, $font-size)) {
+    @error "`#{$font-size}` is not a valid key in `settings/_font-sizes.scss`.";
   }
 
   @if ($important == true) {
@@ -114,18 +124,18 @@
     // By default, we set it to the minimum number of lines necessary
     // in order to contain the defined font-size, +2 for some breathing room.
     // This can be modified with the `$modifier` parameter.
-    $lines: ceil(map-get-deep($font-sizes, $font-size) / $spacing-base) +
+    $lines: ceil(math.div(map.get($font-sizes, $font-size), $spacing-base)) +
       $modifier +
       2;
     $line-height: $lines * $spacing-base;
 
-    line-height: ($line-height / map-get-deep($font-sizes, $font-size))
+    line-height: (math.div($line-height, map.get($font-sizes, $font-size)))
       $important;
   } @else {
-    @if (map-has-keys-deep($line-heights, $line-height)) {
+    @if (map.has-key($line-heights, $line-height)) {
       line-height: line-height($line-height) $important;
     } @else if ($line-height != false) {
-      @error "`#{$line-height}` is not a valid key in `$line-heights` map (settings/_typography.scss).";
+      @error "`#{$line-height}` is not a valid key in `settings/_line-heights.scss`.";
     }
   }
 }

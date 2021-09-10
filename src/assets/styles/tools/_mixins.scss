@@ -2,29 +2,79 @@
 // TOOLS / MIXINS
 // =============================================================================
 
+@use "../settings" as *;
+
+// @include hover()
+// ==============================================
+
+@mixin hover() {
+  @media (hover: hover),
+    all and (-ms-high-contrast: none),
+    (-ms-high-contrast: active) {
+    &:hover {
+      @content;
+    }
+  }
+}
+
 // @include focus-styles()
 // ==============================================
 
 // Generates a consistent outline shadow for use on `:focus` or `.has-focus`.
+//
+// 1. Fallback for Forced Colors or High Contrast Mode.
+
+/* stylelint-disable length-zero-no-unit */
+
 @mixin focus-styles(
-  $el: link,
-  $width: 2px,
-  $color: color("info"),
-  $offset: 2px
+  $width: $focus-ring-width,
+  $color: $focus-ring-color,
+  $offset-width: 0px,
+  $offset-color: $color-white
 ) {
-  @if ($el == "link") {
-    outline: $width solid $color;
-    outline-offset: $offset;
-  } @else if ($el == "image") {
-    outline: none;
-    box-shadow: 0 0 0 $width $color;
-  } @else if ($el == "button") {
-    outline: none;
-    box-shadow: 0 0 0 $width $color;
-    text-decoration: none;
-  } @else {
-    @warn "`#{$el}` is not a valid element. It must be `link`, `image` or `button`.";
+  --focus-ring-offset-width: #{$offset-width};
+  --focus-ring-offset-color: #{$offset-color};
+  --focus-ring-color: #{$color};
+  --focus-ring-offset-shadow: var(--inset, /*!*/ /*!*/) 0 0 0
+    var(--focus-ring-offset-width) var(--focus-ring-offset-color);
+  --focus-ring-shadow: var(--inset, /*!*/ /*!*/) 0 0 0
+    calc(#{$focus-ring-width} + var(--focus-ring-offset-width))
+    var(--focus-ring-color);
+
+  outline: $focus-ring-width solid transparent; // [1]
+  outline-offset: $offset-width; // [1]
+  box-shadow: var(--focus-ring-offset-shadow), var(--focus-ring-shadow),
+    var(--base-shadow, 0 0 #{$color-black});
+
+  @at-root &:not(:focus-visible) {
+    box-shadow: none;
   }
+}
+
+/* stylelint-enable length-zero-no-unit */
+
+// Scrollbar
+@mixin scrollbar(
+  $size: 10px,
+  $track-color: $color-white,
+  $thumb-color: $color-gray-600
+) {
+  &::-webkit-scrollbar {
+    width: $size;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: $track-color;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border: 4px solid $track-color;
+    border-radius: 0;
+    background-color: $thumb-color;
+  }
+
+  scrollbar-width: thin;
+  scrollbar-color: $thumb-color $track-color;
 }
 
 // Removing elements from view and/or ATs
@@ -35,17 +85,29 @@
 
 /* stylelint-disable declaration-no-important */
 
-@mixin hide-visually {
-  // Hiding elements visually overrides any matching property declarations
-  position: absolute !important;
-  width: 1px !important;
-  height: 1px !important;
-  margin: -1px !important;
-  padding: 0 !important;
-  overflow: hidden !important;
-  clip: rect(0 0 0 0) !important;
-  border: 0 !important;
-  white-space: nowrap !important;
+@mixin hide-visually($toggle: "hide") {
+  @if not index("hide" "unhide", $toggle) {
+    @error "`#{$toggle}` is not a valid value for the `$toggle` argument in " +
+      "the `hide-visually` mixin. Must be either `hide` or `unhide`.";
+  } @else if $toggle == "hide" {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    clip: rect(0 0 0 0) !important;
+    border: 0 !important;
+    clip-path: inset(100%) !important;
+    white-space: nowrap !important;
+  } @else if $toggle == "unhide" {
+    position: static !important;
+    width: auto !important;
+    height: auto !important;
+    overflow: visible !important;
+    clip: auto !important;
+    clip-path: none !important;
+    white-space: inherit !important;
+  }
 }
 
 // Completely hide content both visually from the screen, and from screenreaders

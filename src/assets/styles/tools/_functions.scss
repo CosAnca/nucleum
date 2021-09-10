@@ -2,63 +2,37 @@
 // TOOLS / FUNCTIONS
 // =============================================================================
 
-// Maps
-// ==============================================
-// map-get-deep()
-// ------------------------------------
-// Access nested map values.
-// @author Hugo Giraudel (with modifications)
-@function map-get-deep($map, $keys...) {
-  @if map-has-keys-deep($map, $keys...) {
-    @each $key in $keys {
-      $map: map-get($map, $key);
-    }
-    @return $map;
-  }
-
-  @error "Unknown keys of `#{$keys}` in `#{$map}";
-  @return null;
-}
-
-// map-has-keys-deep()
-// ------------------------------------
-// Check for keys in nested maps.
-// @author Hugo Giraudel
-@function map-has-keys-deep($map, $keys...) {
-  @each $key in $keys {
-    @if not map-has-key($map, $key) {
-      @return false;
-    }
-    $map: map-get($map, $key);
-  }
-  @return true;
-}
+@use "sass:map";
+@use "sass:math";
+@use "sass:meta";
+@use "sass:string";
+@use "../settings" as *;
 
 // spacing()
 // ------------------------------------
-// Function to get spacing from $spacings-scale instead of using `map-get`.
+// Function to get spacing from $spacings-scale instead of using `map.get`.
 @function spacing($key) {
-  @return rem(map-get-deep($spacings, $key));
+  @return rem(map.get($spacings, $key));
 }
 
 // border-width()
 // ------------------------------------
-// Function to get border-width from $border-widths instead of using `map-get`.
+// Function to get border-width from $border-widths instead of using `map.get`.
 @function border-width($key) {
-  @return rem(map-get-deep($border-width, $key));
+  @return rem(map.get($border-width, $key));
 }
 
 // border-radius()
 // ------------------------------------
-// Function to get border-radius from $border-radius instead of using `map-get`.
+// Function to get border-radius from $border-radius instead of using `map.get`.
 @function border-radius($key) {
-  @return rem(map-get-deep($border-radius, $key));
+  @return rem(map.get($border-radius, $key));
 }
 
 // $colors map reader
 // ===========================================
 
-// Function to get color from `$colors` instead of using `map-get`.
+// Function to get color from `$colors` instead of using `map.get`.
 //
 // Usage:
 //
@@ -67,11 +41,19 @@
 //   }
 //
 @function color($key) {
-  @return map-get-deep($colors, $key);
+  @return map.get($colors, $key);
 }
 
 // Conversion
 // ==============================================
+
+// to-rgb()
+// ------------------------------------
+//
+// Function to convert a HEX color value to RGB.
+@function to-rgb($value) {
+  @return red($value), green($value), blue($value);
+}
 
 // strip-unit()
 // ------------------------------------
@@ -79,8 +61,8 @@
 // Function to remove the unit from a value
 // i.e. strip-unit(20px) would return 20.
 @function strip-unit($num) {
-  @if type_of($num) == number {
-    @return $num / ($num * 0 + 1);
+  @if meta.type-of($num) == number {
+    @return math.div($num, $num * 0 + 1);
   } @else {
     @warn "Value must be a number i.e. 12, 24px etc.";
   }
@@ -90,7 +72,7 @@
 // ------------------------------------
 
 // Converts any `px` or `em` value to `rem`.
-@function rem($value, $base-font-size: $font-size-base) {
+@function rem($value, $base-font-size: 16px) {
   @if $value == 0 {
     @return $value;
   }
@@ -100,7 +82,7 @@
   }
 
   @if unit($value) == "px" {
-    @return (strip-unit($value / $base-font-size)) * 1rem;
+    @return (strip-unit(math.div($value, $base-font-size))) * 1rem;
   }
 
   @if unit($value) == "em" {
@@ -125,14 +107,22 @@
 // @requires $base-font-size
 // @returns {Number}
 //
-@function em($px, $base-font-size: $font-size-base) {
-  @if unitless($px) {
-    @warn "Assuming #{$px} to be in pixels, attempting to convert it into pixels.";
-    @return em($px * 1px, $base-font-size);
-  } @else if unit($px) == em {
-    @return $px;
+@function em($value, $base-font-size: 16px) {
+  @if $value == 0 {
+    @return $value;
   }
-  @return ($px / $base-font-size) * 1em;
+
+  @if math.is-unitless($value) {
+    @warn "Assuming #{$value} to be in pixels, attempting to convert it into pixels.";
+    @return em($value * 1px);
+  }
+
+  // if $value is compatible with em units then return value unchanged
+  @if math.compatible($value, 1em) {
+    @return $value;
+  }
+
+  @return math.div($value, $base-font-size) * 1em;
 }
 
 // Misc
@@ -146,12 +136,12 @@
 // @return {string} - Updated string
 // https://css-tricks.com/snippets/sass/str-replace-function/
 @function str-replace($string, $search, $replace: "") {
-  $index: str-index($string, $search);
+  $index: string.index($string, $search);
 
   @if $index {
-    @return str-slice($string, 1, $index - 1) + $replace +
+    @return string.slice($string, 1, $index - 1) + $replace +
       str-replace(
-        str-slice($string, $index + str-length($search)),
+        string.slice($string, $index + string.length($search)),
         $search,
         $replace
       );

@@ -2,9 +2,15 @@
 // UTILITIES / HIDE VISUALLY
 // =============================================================================
 
+@use "../tools";
+
 // Generates the appropriate declarations for hidding element only visually
 // while keeping them accessible to ATs.
 
 .u-sr-only {
-  @include hide-visually;
+  @include tools.hide-visually;
+}
+
+.u-not-sr-only {
+  @include tools.hide-visually("unhide");
 }

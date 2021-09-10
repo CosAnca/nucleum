@@ -2,6 +2,12 @@
 // UTILITIES / SPACING
 // =============================================================================
 
+@use "sass:meta";
+@use "sass:string";
+@use "sass-mq/mq";
+@use "../settings" as *;
+@use "../tools";
+
 // Utility classes to put specific spacing values onto elements, overriding any
 // existing matching property declarations
 
@@ -67,23 +73,24 @@ $spacing-directions: (
   @each $property-alias, $property in $spacing-properties {
     @each $direction-alias, $direction in $spacing-directions {
       @each $size, $value in $spacings {
+        $size-number: tools.str-replace($size, "spacing-", "");
         $rem-value: null;
 
         @if ($value == 0) {
           $rem-value: 0;
         } @else {
-          $rem-value: rem($value);
+          $rem-value: tools.rem($value);
         }
 
         @include _global-spacing-selector(
           $property-alias,
           $direction-alias,
-          $size,
+          $size-number,
           $breakpoint
         ) {
           // If the `$direction-key` has nested values, loop through them too
           // prettier-ignore
-          @if type-of($direction) == map {
+          @if meta.type-of($direction) == map {
             @each $direction-key, $direction-value in $direction {
               @each $direction-value-key in $direction-value {
                 @include _global-spacing-declaration($property, $direction-value-key, $rem-value);
@@ -108,15 +115,15 @@ $spacing-directions: (
         @if ($direction != null) {
           .u-#{$property-alias}#{$direction-alias}-auto#{if($breakpoint != null, $breakpoint, null)} {
             // prettier-ignore
-            @if type-of($direction) == map {
+            @if meta.type-of($direction) == map {
               @each $direction-key, $direction-value in $direction {
                 @each $direction-value-key in $direction-value {
-                  @include _global-spacing-declaration($property, $direction-value-key, unquote("auto"));
+                  @include _global-spacing-declaration($property, $direction-value-key, string.unquote("auto"));
                 }
               }
             } @else {
               // prettier-ignore
-              @include _global-spacing-declaration($property, $direction, unquote("auto"));
+              @include _global-spacing-declaration($property, $direction, string.unquote("auto"));
             }
           }
         } @else {
@@ -135,7 +142,7 @@ $spacing-directions: (
 // The below loop will generate us a suite of classes:
 //   .u-p-s {} // Applies padding: [small-spacing-value];
 //   .u-mt-m {} // Applies margin-top: [medium-spacing-value];
-//   .u-pl-l\@medium {} // Applies padding-left: [large-spacing-value] on medium viewports;
+//   .u-pl-l\@md {} // Applies padding-left: [large-spacing-value] on medium viewports;
 //   .u-mx-s {} // Applies top and bottom small margin.
 
 // Generate our regular, non-responsive classes.
@@ -143,8 +150,8 @@ $spacing-directions: (
 
 // Generate our responsive classes by looping over the series of breakpoints
 // held by $mq-breakpoints inside _breakpoint.scss file.
-@each $breakpoint, $value in $mq-breakpoints {
-  @include mq($from: $breakpoint) {
+@each $breakpoint, $value in $breakpoints {
+  @include mq.mq($from: $breakpoint) {
     @include _build-spacing(\@#{$breakpoint});
   }
 }

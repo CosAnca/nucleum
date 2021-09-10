@@ -2,6 +2,9 @@
 // UTILITIES / POSITION
 // ==========================================================================
 
+@use "sass-mq/mq";
+@use "../settings" as *;
+
 // Utility classes to position an element
 
 /* stylelint-disable declaration-no-important */
@@ -25,8 +28,8 @@ $position-values: (
 
 @include _build-position;
 
-@each $breakpoint, $value in $mq-breakpoints {
-  @include mq($from: $breakpoint) {
+@each $breakpoint, $value in $breakpoints {
+  @include mq.mq($from: $breakpoint) {
     @include _build-position(\@#{$breakpoint});
   }
 }

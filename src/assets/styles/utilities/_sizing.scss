@@ -2,6 +2,9 @@
 // UTILITIES / SIZING
 // ==========================================================================
 
+@use "sass-mq/mq";
+@use "../settings" as *;
+
 // Generate a suite of utility classes for width and height properties to
 // easily make an element as wide or as tall.
 
@@ -30,8 +33,8 @@ $size-values: (
 
 @include _build-sizes;
 
-@each $breakpoint, $value in $mq-breakpoints {
-  @include mq($from: $breakpoint) {
+@each $breakpoint, $value in $breakpoints {
+  @include mq.mq($from: $breakpoint) {
     @include _build-sizes(\@#{$breakpoint});
   }
 }

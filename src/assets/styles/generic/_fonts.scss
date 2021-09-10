@@ -2,19 +2,22 @@
 // GENERIC / FONT-FACE
 // =============================================================================
 
+@use "sass:map";
+@use "../settings" as *;
+
 $font-faces: (
   "Overpass-Regular": (
     "family": "Overpass",
     "style": normal,
-    "weight": font-weight("normal"),
+    "weight": $font-weight-normal,
   ),
 );
 
 @each $font-face, $val in $font-faces {
   @font-face {
-    font-family: map-get-deep($val, family);
-    font-style: map-get-deep($val, style);
-    font-weight: map-get-deep($val, weight);
+    font-family: map.get($font-faces, $font-face, "family");
+    font-style: map.get($font-faces, $font-face, "style");
+    font-weight: map.get($font-faces, $font-face, "weight");
     src: url("/assets/fonts/#{$font-face}.woff2") format("woff2"),
       url("/assets/fonts/#{$font-face}.woff") format("woff");
     font-display: swap;

@@ -2,16 +2,33 @@
 // UTILITIES / COLORS
 // =============================================================================
 
+@use "../settings" as *;
+@use "../tools";
+
 // Generate a suite of utility classes that map directly to our colour palette.
 
 /* stylelint-disable declaration-no-important */
 
 @each $name, $value in $colors {
-  .u-color-#{$name} {
-    color: $value !important;
+  $color-key: tools.str-replace($name, "color-", "");
+
+  .u-color-#{$color-key} {
+    --color-opacity: 1;
+    color: rgba(
+      var(#{--color}-#{$color-key}-rgb),
+      var(--color-opacity)
+    ) !important;
   }
 
-  .u-bg-#{$name} {
-    background-color: $value !important;
+  .u-bg-#{$color-key} {
+    --bg-opacity: 1;
+    background-color: rgba(
+      var(#{--color}-#{$color-key}-rgb),
+      var(--bg-opacity)
+    ) !important;
   }
+}
+
+.u-bg-transparent {
+  background-color: transparent !important;
 }

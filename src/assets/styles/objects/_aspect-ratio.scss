@@ -5,56 +5,58 @@
 // Forces elements to maintain their aspect ratio throughout different
 // viewport widths.
 
+@use "sass:math";
+@use "sass:string";
+@use "bourbon/core/bourbon";
+@use "../settings" as *;
+@use "../tools";
+
+$aspect-ratios: (
+  "1/1": 100%,
+  "4/3": percentage(math.div(3, 4)),
+  "16/9": percentage(math.div(9, 16)),
+  "21/9": percentage(math.div(9, 21)),
+) !default;
+
 // Base
 // ====================================
 
 .o-aspect-ratio {
-  display: block;
-  position: relative;
-  width: 100%;
-  padding: 0;
-  overflow: hidden;
+  --aspect-ratio: auto;
+  aspect-ratio: var(--aspect-ratio);
 
-  &::before {
-    content: "";
+  @supports not (aspect-ratio: 1 / 1) {
     display: block;
-  }
+    position: relative;
+    width: 100%;
+    padding: 0;
+    overflow: hidden;
 
-  .o-aspect-ratio__item,
-  iframe,
-  embed,
-  object,
-  video {
-    @include position(absolute, 0 null 0 0);
-    @include size(100%);
-    border: 0;
-    object-fit: cover;
+    &::before {
+      content: "";
+      display: block;
+    }
+
+    > * {
+      @include bourbon.position(absolute, 0 null 0 0);
+      @include bourbon.size(100%);
+    }
   }
 }
 
 // Modifiers (Size)
 // ====================================
 
-.o-aspect-ratio--16\:9 {
-  &::before {
-    padding-top: percentage(9 / 16);
-  }
-}
+@each $ratio, $value in $aspect-ratios {
+  $ratio-suffix: tools.str-replace($ratio, "/", "\\/");
 
-.o-aspect-ratio--4\:3 {
-  &::before {
-    padding-top: percentage(3 / 4);
-  }
-}
+  .o-aspect-ratio--#{$ratio-suffix} {
+    --aspect-ratio: #{string.unquote($ratio)};
 
-.o-aspect-ratio--3\:4 {
-  &::before {
-    padding-top: percentage(4 / 3);
-  }
-}
-
-.o-aspect-ratio--1\:1 {
-  &::before {
-    padding-top: percentage(1 / 1);
+    @supports not (aspect-ratio: 1 / 1) {
+      &::before {
+        padding-top: $value;
+      }
+    }
   }
 }
