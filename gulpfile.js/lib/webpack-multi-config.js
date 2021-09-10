@@ -10,7 +10,7 @@ const pathToUrl = require("./path-to-url");
 const projectPath = require("./project-path");
 const webpack = require("webpack");
 const webpackManifest = require("./webpack-manifest");
-const querystring = require("querystring");
+const { URLSearchParams } = require("url");
 const TerserPlugin = require("terser-webpack-plugin");
 
 module.exports = function (env) {
@@ -51,7 +51,7 @@ module.exports = function (env) {
     },
     optimization: {
       minimizer: [],
-      moduleIds: "hashed",
+      moduleIds: "deterministic",
     },
     output: {
       path: path.normalize(jsDest),
@@ -79,6 +79,8 @@ module.exports = function (env) {
       TASK_CONFIG.javascripts.devtool || "eval-cheap-module-source-map";
     webpackConfig.output.pathinfo = true;
 
+    webpackConfig.watchOptions = TASK_CONFIG.browserSync.watchOptions || {};
+
     // Create new entry object with webpack-hot-middleware and react-hot-loader (if enabled)
     if (
       !TASK_CONFIG.javascripts.hot ||
@@ -87,9 +89,11 @@ module.exports = function (env) {
       for (let key in TASK_CONFIG.javascripts.entry) {
         const entry = [];
 
-        const hotMiddleware = `webpack-hot-middleware/client?${querystring.stringify(
+        const hotMiddlewareParams = new URLSearchParams(
           TASK_CONFIG.javascripts.hot
-        )}`;
+        ).toString();
+
+        const hotMiddleware = `webpack-hot-middleware/client?${hotMiddlewareParams}`;
 
         if (TASK_CONFIG.javascripts.hot.react) {
           entry.push("react-hot-loader/patch");
