@@ -43,6 +43,7 @@ $icon-size: 1em; // [1]
 
 .c-icon {
   @include bourbon.size($icon-size);
+
   display: inline-flex; // [1]
   flex-shrink: 0; // [2]
 }
