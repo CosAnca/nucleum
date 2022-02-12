@@ -38,6 +38,11 @@
     "not op_mini all",
     "not UCAndroid > 0"
   ],
+  "jest": {
+    "transform": {
+      "^.+\\.(js|jsx|ts|tsx)$": "babel-jest"
+    }
+  },
   "scripts": {
     "dev": "gulp",
     "gulp": "gulp",
@@ -104,6 +109,7 @@
     "webpack-hot-middleware": "^2.25.1"
   },
   "devDependencies": {
+    "babel-jest": "^27.5.1",
     "jest": "^27.5.1"
   },
   "resolutions": {
