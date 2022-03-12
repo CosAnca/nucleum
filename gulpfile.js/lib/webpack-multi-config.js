@@ -93,7 +93,7 @@ module.exports = function (env) {
           TASK_CONFIG.javascripts.hot
         ).toString();
 
-        const hotMiddleware = `webpack-hot-middleware/client?${hotMiddlewareParams}`;
+        const hotMiddleware = `@lukeapage/webpack-hot-middleware/client?${hotMiddlewareParams}`;
 
         if (TASK_CONFIG.javascripts.hot.react) {
           entry.push("react-hot-loader/patch");

@@ -50,7 +50,7 @@ function browserSyncTask(cb) {
         stats: "errors-only",
         publicPath: pathToUrl("/", webpackConfig.output.publicPath),
       }),
-      require("webpack-hot-middleware")(compiler),
+      require("@lukeapage/webpack-hot-middleware")(compiler),
     ].concat(server.extraMiddlewares || []);
 
   browserSync.init(TASK_CONFIG.browserSync);
