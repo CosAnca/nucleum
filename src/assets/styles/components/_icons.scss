@@ -25,6 +25,7 @@
 // }
 
 @use "bourbon/core/bourbon";
+@use "sass-mq/mq" as mq;
 
 // Settings
 // ============================================
@@ -46,4 +47,8 @@ $icon-size: 1em; // [1]
 
   display: inline-flex; // [1]
   flex-shrink: 0; // [2]
+
+  @include mq.mq($from: md) {
+    color: red;
+  }
 }

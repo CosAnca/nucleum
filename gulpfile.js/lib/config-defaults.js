@@ -6,7 +6,7 @@ module.exports = {
   javascripts: {
     src: "assets/js",
     dest: "assets/js",
-    extensions: ["js", "jsx"],
+    extensions: ["js", "jsx", "ts", "tsx"],
     hot: {
       reload: true,
       noInfo: false,
@@ -18,6 +18,10 @@ module.exports = {
       // 'test' is derived from TASK_CONFIG.javascripts.extensions
       // 'options' is derived from TASK_CONFIG.javascripts.babel
       loader: "babel-loader",
+      exclude: /node_modules/,
+    },
+    tsLoader: {
+      loader: "ts-loader",
       exclude: /node_modules/,
     },
     babel: {

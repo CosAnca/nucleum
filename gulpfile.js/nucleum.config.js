@@ -24,7 +24,7 @@ module.exports = {
     entry: {
       // files paths are relative to
       // javascripts.dest
-      app: ["./app.js"],
+      app: ["./app.ts"],
     },
   },
 
