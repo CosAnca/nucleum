@@ -5,7 +5,6 @@ Sass is the greatest! Put your Sass here.
 Included Sass libraries:
 
 - [Bourbon](https://bourbon.io)
-- [Adaptable](https://github.com/CosAnca/adaptable)
 
 The Sass output is also passed through [PostCSS](https://github.com/postcss/postcss) to allow you to use any PostCSS plugins you may need.
 

@@ -13,9 +13,9 @@
 
 $aspect-ratios: (
   "1/1": 100%,
-  "4/3": percentage(math.div(3, 4)),
-  "16/9": percentage(math.div(9, 16)),
-  "21/9": percentage(math.div(9, 21)),
+  "4/3": math.percentage(math.div(3, 4)),
+  "16/9": math.percentage(math.div(9, 16)),
+  "21/9": math.percentage(math.div(9, 21)),
 ) !default;
 
 // Base
@@ -23,6 +23,7 @@ $aspect-ratios: (
 
 .o-aspect-ratio {
   --aspect-ratio: auto;
+
   aspect-ratio: var(--aspect-ratio);
 
   @supports not (aspect-ratio: 1 / 1) {

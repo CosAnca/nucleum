@@ -22,6 +22,7 @@
   --grid-columns: #{math.div($grid-columns, 3)};
   --column-gap: #{$grid-column-gap};
   --row-gap: #{$grid-row-gap};
+
   display: grid;
   grid-template-columns: repeat(var(#{--grid-columns}), minmax(0, 1fr));
   column-gap: var(#{--column-gap});
@@ -57,6 +58,7 @@
 // that you can then use with the main `.o-grid__col` class to modify your
 // grid columns size and position.
 
+/* stylelint-disable-next-line scss/at-mixin-pattern */
 @mixin _build-grid-system($breakpoint: null) {
   // Get the total number of columns defined inside
   // _grid-settings file.

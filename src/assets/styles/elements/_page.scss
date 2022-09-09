@@ -32,6 +32,7 @@
 
 body {
   @include tools.font-smoothing; // [1]
+
   min-height: 100%; // [2]
   overflow-x: hidden; // [3]
   overflow-y: scroll; // [4]

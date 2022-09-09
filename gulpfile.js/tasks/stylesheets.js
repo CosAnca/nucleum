@@ -17,7 +17,7 @@ const postcssNormalize = require("postcss-normalize");
 const postcssSVG = require("postcss-svg");
 const purgecss = require("@fullhuman/postcss-purgecss");
 
-function stylesheetsTask() {
+function stylesheetsTask(cb) {
   const isProduction =
     global.production !== undefined ? global.production : false;
 
@@ -82,6 +82,8 @@ function stylesheetsTask() {
       TASK_CONFIG.stylesheets.postcssPlugins || []
     );
   }
+
+  cb();
 
   return gulp
     .src(paths.src)

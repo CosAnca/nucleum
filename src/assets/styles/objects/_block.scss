@@ -20,6 +20,7 @@ $block-spacing-huge: $spacing-12 !default;
 
 .o-block__image {
   --block-image-spacing: #{$block-spacing};
+
   margin-bottom: var(--block-image-spacing, $block-spacing);
 
   // Size variants

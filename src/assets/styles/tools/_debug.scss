@@ -9,7 +9,7 @@
 // Layout debugging
 // ==============================================
 
-@if (config(debug) == true) {
+@if config(debug) == true {
   $debug-color: #f00;
 
   // Warn when trying to use layout items outside of a layout context.
@@ -35,6 +35,7 @@ $visual-baseline-opacity: 0.6;
   $color: rgba($visual-baseline-color, $visual-baseline-opacity),
   $baseline-grid: $visual-baseline
 ) {
+  /* stylelint-disable-next-line scss/dollar-variable-pattern */
   $_grid-baseline: transparent, transparent calc(#{$spacing-base * 6} - 1px),
     $color calc(#{$spacing-base * 6} - 1px), $color $spacing-base * 6;
 
@@ -51,6 +52,7 @@ $visual-baseline-opacity: 0.6;
         rgba($visual-baseline-color, $visual-baseline-opacity),
         $visual-baseline
       );
+
       content: "";
       display: block;
       position: absolute;

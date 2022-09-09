@@ -12,6 +12,7 @@
 // existing matching property declarations
 
 /* stylelint-disable declaration-no-important */
+/* stylelint-disable scss/at-mixin-pattern */
 
 // Settings
 // ==============================================
@@ -54,7 +55,7 @@ $spacing-directions: (
   // If we have a `null` direction, the implication is that we want to use the
   // respective property on "all" sides.
   // This can be used as `.u-m` or `.u-p`.
-  @if ($direction-alias == "null") {
+  @if $direction-alias == "null" {
     .u-#{$property-alias}-#{$size}#{$breakpoint} {
       @content;
     }
@@ -76,7 +77,7 @@ $spacing-directions: (
         $size-number: tools.str-replace($size, "spacing-", "");
         $rem-value: null;
 
-        @if ($value == 0) {
+        @if $value == 0 {
           $rem-value: 0;
         } @else {
           $rem-value: tools.rem($value);
@@ -110,9 +111,9 @@ $spacing-directions: (
     //   .u-mt-auto {} // Applies margin-top: auto;
     //   .u-my-auto {} // Applies margin-right and margin-left auto;
 
-    @if ($property == "margin") {
+    @if $property == "margin" {
       @each $direction-alias, $direction in $spacing-directions {
-        @if ($direction != null) {
+        @if $direction {
           .u-#{$property-alias}#{$direction-alias}-auto#{if($breakpoint != null, $breakpoint, null)} {
             // prettier-ignore
             @if meta.type-of($direction) == map {

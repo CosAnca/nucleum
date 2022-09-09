@@ -17,6 +17,7 @@ $box-padding-huge: $spacing-12 !default;
 
 .o-box {
   --box-padding: #{$box-padding};
+
   display: block; // [1]
   padding: var(--box-padding, $box-padding);
 }

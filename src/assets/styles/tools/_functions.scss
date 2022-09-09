@@ -52,7 +52,7 @@
 //
 // Function to convert a HEX color value to RGB.
 @function to-rgb($value) {
-  @return red($value), green($value), blue($value);
+  @return red($value) green($value) blue($value);
 }
 
 // strip-unit()
@@ -139,6 +139,7 @@
   $index: string.index($string, $search);
 
   @if $index {
+    /* stylelint-disable-next-line scss/operator-no-newline-after */
     @return string.slice($string, 1, $index - 1) + $replace +
       str-replace(
         string.slice($string, $index + string.length($search)),

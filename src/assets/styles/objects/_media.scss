@@ -19,6 +19,7 @@ $media-spacing-huge: $spacing-12 !default;
 
 .o-media__image {
   --media-image-spacing: #{$media-spacing};
+
   margin-right: var(--media-image-spacing);
 }
 

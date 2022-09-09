@@ -21,6 +21,7 @@ $display-values: (
   table-cell
 );
 
+/* stylelint-disable-next-line scss/at-mixin-pattern */
 @mixin _build-display($breakpoint: null) {
   @each $value in $display-values {
     .u-#{if($value == "none", "hide", $value)}#{$breakpoint} {
